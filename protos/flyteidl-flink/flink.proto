@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package flyteidl_flink;
+
+option go_package = "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink";
+
+// Custom Proto for Flink Plugin.
+message FlinkJob {
+  string jarFile = 1;
+  string mainClass = 2;
+  repeated string args = 3;
+  map<string, string> flinkProperties = 4;
+}
