@@ -5,7 +5,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery"
 	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/flytek8s"
 	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/flytek8s/config"
 
@@ -15,45 +14,16 @@ import (
 	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/k8s"
 	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/utils"
 	corev1 "k8s.io/api/core/v1"
-	"k8s.io/client-go/kubernetes/scheme"
 
 	flinkOp "github.com/regadas/flink-on-k8s-operator/api/v1beta1"
 
-	"github.com/lyft/flyteidl/gen/pb-go/flyteidl/core"
 	flink "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
+	"github.com/lyft/flyteidl/gen/pb-go/flyteidl/core"
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	pluginsConfig "github.com/lyft/flyteplugins/go/tasks/config"
 	"github.com/lyft/flytestdlib/logger"
 )
-
-const KindFlinkCluster = "FlinkCluster"
-
-var (
-	flinkTaskType       = "flink"
-	jobManagerUIPort    = int32(8081)
-	taskManagerReplicas = int32(1)
-	jobParallelism      = int32(1)
-	flinkImage          = "flink:1.10.1-scala_2.12"
-	flinkConfigSection  = pluginsConfig.MustRegisterSubSection("flink", &Config{})
-	cacheVolumes        = []corev1.Volume{{Name: "cache-volume"}}
-	cacheVolumeMounts   = []corev1.VolumeMount{{Name: "cache-volume", MountPath: "/cache"}}
-)
-
-// Config ... Flink-specific configs
-type Config struct {
-	DefaultFlinkConfig map[string]string `json:"flink-config-default" pflag:",Key value pairs of default flink configuration that should be applied to every FlinkJob"`
-}
-
-func GetFlinkConfig() *Config {
-	return flinkConfigSection.GetConfig().(*Config)
-}
-
-// This method should be used for unit testing only
-func setFlinkConfig(cfg *Config) error {
-	return flinkConfigSection.SetConfig(cfg)
-}
 
 type flinkResourceHandler struct{}
 
@@ -107,8 +77,8 @@ func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCo
 		},
 		Resources: corev1.ResourceRequirements{
 			Limits: corev1.ResourceList{
-				corev1.ResourceCPU:    resource.MustParse("1"),
-				corev1.ResourceMemory: resource.MustParse("1Gi"),
+				corev1.ResourceCPU:    resource.MustParse("3.5"),
+				corev1.ResourceMemory: resource.MustParse("11Gi"),
 			},
 		},
 		Volumes:      cacheVolumes,
@@ -123,15 +93,10 @@ func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCo
 		VolumeMounts:   cacheVolumeMounts,
 		Resources: corev1.ResourceRequirements{
 			Limits: corev1.ResourceList{
-				corev1.ResourceCPU:    resource.MustParse("1"),
-				corev1.ResourceMemory: resource.MustParse("2Gi"),
+				corev1.ResourceCPU:    resource.MustParse("3.5"),
+				corev1.ResourceMemory: resource.MustParse("11Gi"),
 			},
 		},
-	}
-	// Add Tolerations/NodeSelector to TaskManagers
-	if taskCtx.TaskExecutionMetadata().IsInterruptible() {
-		taskManager.Tolerations = config.GetK8sPluginConfig().InterruptibleTolerations
-		taskManager.NodeSelector = config.GetK8sPluginConfig().InterruptibleNodeSelector
 	}
 
 	job := flinkOp.JobSpec{
@@ -245,20 +210,4 @@ func (r flinkResourceHandler) GetTaskPhase(ctx context.Context, pluginContext k8
 	}
 
 	return pluginsCore.PhaseInfoRunning(pluginsCore.DefaultPhaseVersion, info), nil
-}
-
-func init() {
-	if err := flinkOp.AddToScheme(scheme.Scheme); err != nil {
-		panic(err)
-	}
-
-	pluginmachinery.PluginRegistry().RegisterK8sPlugin(
-		k8s.PluginEntry{
-			ID:                  flinkTaskType,
-			RegisteredTaskTypes: []pluginsCore.TaskType{flinkTaskType},
-			ResourceToWatch:     &flinkOp.FlinkCluster{},
-			Plugin:              flinkResourceHandler{},
-			IsDefault:           false,
-			DefaultForTaskTypes: []pluginsCore.TaskType{flinkTaskType},
-		})
 }
