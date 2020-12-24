@@ -152,6 +152,7 @@ func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCo
 			Labels:      labels,
 		},
 		Spec: flinkOp.FlinkClusterSpec{
+			ServiceAccountName: &serviceAccount,
 			Image: flinkOp.ImageSpec{
 				Name:       flinkImage,
 				PullPolicy: corev1.PullAlways,
