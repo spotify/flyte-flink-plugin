@@ -67,7 +67,8 @@ func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCo
 	}
 	flinkEnvVars["FLYTE_MAX_ATTEMPTS"] = strconv.Itoa(int(taskCtx.TaskExecutionMetadata().GetMaxAttempts()))
 
-	logger.Debugf(ctx, "flinkEnvVars: %#v", flinkEnvVars)
+	logger.Debugf(ctx, "FlinkEnvVars: %#v", flinkEnvVars)
+	logger.Debugf(ctx, "Container %+v", container)
 
 	jobManager := flinkOp.JobManagerSpec{
 		PodAnnotations: annotations,
