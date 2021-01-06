@@ -200,12 +200,25 @@ func (r flinkResourceHandler) GetTaskPhase(ctx context.Context, pluginContext k8
 	}
 
 	occurredAt := time.Now()
-	// FIXME(regadas):💣
-	logger.Infof(ctx, "State %s", app.Status.State)
+
+	logger.Infof(ctx, "cluster_state: %s", app.Status.State)
+
 	switch app.Status.State {
 	case flinkOp.ClusterStateCreating, flinkOp.ClusterStateReconciling, flinkOp.ClusterStateUpdating:
-		return pluginsCore.PhaseInfoQueued(occurredAt, pluginsCore.DefaultPhaseVersion, "job queued"), nil
+		return pluginsCore.PhaseInfoWaitingForResources(occurredAt, pluginsCore.DefaultPhaseVersion, "cluster starting"), nil
 	case flinkOp.ClusterStateRunning:
+		jobStatus := app.Status.Components.Job
+		logger.Infof(ctx, "job_state: %s", jobStatus.State)
+
+		switch jobStatus.State {
+		case flinkOp.JobStateFailed:
+			return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, "job failed", info), nil
+		case flinkOp.JobStateRunning:
+			return pluginsCore.PhaseInfoInitializing(occurredAt, pluginsCore.DefaultPhaseVersion, "job submitted", info), nil
+		case flinkOp.JobStateSucceeded:
+			return pluginsCore.PhaseInfoSuccess(info), nil
+		}
+
 		return pluginsCore.PhaseInfoInitializing(occurredAt, pluginsCore.DefaultPhaseVersion, "job submitted", info), nil
 	case flinkOp.ClusterStateStopped, flinkOp.ClusterStateStopping, flinkOp.ClusterStatePartiallyStopped:
 		return pluginsCore.PhaseInfoSuccess(info), nil
