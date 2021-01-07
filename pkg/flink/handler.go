@@ -108,6 +108,11 @@ func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCo
 		Parallelism:  &jobParallelism,
 		Volumes:      cacheVolumes,
 		VolumeMounts: cacheVolumeMounts,
+		CleanupPolicy: &flinkOp.CleanupPolicy{
+			AfterJobSucceeds:  flinkOp.CleanupActionDeleteCluster,
+			AfterJobFails:     flinkOp.CleanupActionDeleteCluster,
+			AfterJobCancelled: flinkOp.CleanupActionDeleteCluster,
+		},
 		Resources: corev1.ResourceRequirements{
 			Limits: corev1.ResourceList{
 				corev1.ResourceCPU:    resource.MustParse("1"),
