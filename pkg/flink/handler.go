@@ -2,6 +2,7 @@ package flink
 
 import (
 	"context"
+	"fmt"
 	"strconv"
 	"time"
 
@@ -193,15 +194,15 @@ func getEventInfoForFlink(fc *flinkOp.FlinkCluster) (*pluginsCore.TaskInfo, erro
 }
 
 func (r flinkResourceHandler) GetTaskPhase(ctx context.Context, pluginContext k8s.PluginContext, resource k8s.Resource) (pluginsCore.PhaseInfo, error) {
+	occurredAt := time.Now()
 	app := resource.(*flinkOp.FlinkCluster)
 	info, err := getEventInfoForFlink(app)
 	if err != nil {
 		return pluginsCore.PhaseInfoUndefined, err
 	}
 
-	occurredAt := time.Now()
-
 	logger.Infof(ctx, "cluster_state: %s", app.Status.State)
+	logger.Infof(ctx, "cluster_control: %s", app.Status.Control.Message)
 
 	switch app.Status.State {
 	case flinkOp.ClusterStateCreating, flinkOp.ClusterStateReconciling, flinkOp.ClusterStateUpdating:
@@ -212,9 +213,11 @@ func (r flinkResourceHandler) GetTaskPhase(ctx context.Context, pluginContext k8
 
 		switch jobStatus.State {
 		case flinkOp.JobStateFailed:
-			return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, "job failed", info), nil
+			msg := fmt.Sprintf("%s failed", jobStatus.Name)
+			return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, msg, info), nil
 		case flinkOp.JobStateRunning:
-			return pluginsCore.PhaseInfoInitializing(occurredAt, pluginsCore.DefaultPhaseVersion, "job submitted", info), nil
+			msg := fmt.Sprintf("%s running", jobStatus.Name)
+			return pluginsCore.PhaseInfoInitializing(occurredAt, pluginsCore.DefaultPhaseVersion, msg, info), nil
 		case flinkOp.JobStateSucceeded:
 			return pluginsCore.PhaseInfoSuccess(info), nil
 		}
