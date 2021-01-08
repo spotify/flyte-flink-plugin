@@ -3,11 +3,7 @@ package flink
 import (
 	"context"
 	"fmt"
-	"strconv"
 	"time"
-
-	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/flytek8s"
-	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/flytek8s/config"
 
 	"github.com/lyft/flyteplugins/go/tasks/errors"
 	pluginsCore "github.com/lyft/flyteplugins/go/tasks/pluginmachinery/core"
@@ -45,41 +41,14 @@ func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCo
 		return nil, errors.Wrapf(errors.BadTaskSpecification, err, "invalid TaskSpecification [%v], failed to unmarshal", taskTemplate.GetCustom())
 	}
 
-	annotations := utils.UnionMaps(
-		config.GetK8sPluginConfig().DefaultAnnotations,
-		utils.CopyMap(taskCtx.TaskExecutionMetadata().GetAnnotations()),
-	)
-	labels := utils.UnionMaps(
-		config.GetK8sPluginConfig().DefaultLabels,
-		utils.CopyMap(taskCtx.TaskExecutionMetadata().GetLabels()),
-	)
+	annotations := GetDefaultAnnotations(taskCtx)
+	labels := GetDefaultLabels(taskCtx)
 
 	container := taskTemplate.GetContainer()
 	logger.Debugf(ctx, "Container %+v", container)
 
-	envVars := flytek8s.DecorateEnvVars(
-		ctx,
-		flytek8s.ToK8sEnvVar(container.GetEnv()),
-		taskCtx.TaskExecutionMetadata().GetTaskExecutionID(),
-	)
-
-	flinkEnvVars := make(map[string]string)
-	for _, envVar := range envVars {
-		flinkEnvVars[envVar.Name] = envVar.Value
-	}
-
-	flinkEnvVars["FLYTE_MAX_ATTEMPTS"] = strconv.Itoa(int(taskCtx.TaskExecutionMetadata().GetMaxAttempts()))
-	logger.Debugf(ctx, "FlinkEnvVars: %#v", flinkEnvVars)
-
 	// Start with default config values.
-	flinkProperties := make(map[string]string)
-	for k, v := range GetFlinkConfig().DefaultFlinkConfig {
-		flinkProperties[k] = v
-	}
-
-	for k, v := range flinkJob.GetFlinkProperties() {
-		flinkProperties[k] = v
-	}
+	flinkProperties := BuildFlinkProperties(flinkJob)
 
 	jobManager := BuildJobManagerResource(flinkProperties, annotations, labels)
 	taskManager := BuildTaskManagerResource(flinkProperties, annotations, labels)
