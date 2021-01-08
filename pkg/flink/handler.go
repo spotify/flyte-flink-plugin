@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"time"
 
+	logUtils "github.com/lyft/flyteidl/clients/go/coreutils/logs"
 	"github.com/lyft/flyteplugins/go/tasks/errors"
+	"github.com/lyft/flyteplugins/go/tasks/logs"
 	pluginsCore "github.com/lyft/flyteplugins/go/tasks/pluginmachinery/core"
 
 	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/k8s"
@@ -67,7 +69,33 @@ func (flinkResourceHandler) BuildIdentityResource(ctx context.Context, taskCtx p
 	}, nil
 }
 
-func getEventInfoForFlink(fc *flinkOp.FlinkCluster) (*pluginsCore.TaskInfo, error) {
+func flinkTaskLogs(logPlugin logUtils.LogPlugin, flinkCluster *flinkOp.FlinkCluster, via string) ([]*core.TaskLog, error) {
+	var taskLogs []*core.TaskLog
+	jobManagerStatus := flinkCluster.Status.Components.JobManagerDeployment
+	taskManagerStatus := flinkCluster.Status.Components.TaskManagerDeployment
+	jobStatus := flinkCluster.Status.Components.Job
+
+	if jobStatus == nil || jobStatus.Name == "" {
+		return taskLogs, nil
+	}
+
+	jobLog, err := logPlugin.GetTaskLog(jobStatus.Name, flinkCluster.Namespace, "", "", fmt.Sprintf("Job Logs (via %s)", via))
+	if err != nil {
+		return nil, err
+	}
+	jobManagerLog, err := logPlugin.GetTaskLog(jobManagerStatus.Name, flinkCluster.Namespace, "", "", fmt.Sprintf("JobManager Logs (via %s)", via))
+	if err != nil {
+		return nil, err
+	}
+	taskManagerLog, err := logPlugin.GetTaskLog(taskManagerStatus.Name, flinkCluster.Namespace, "", "", fmt.Sprintf("TaskManager Logs (via %s)", via))
+	if err != nil {
+		return nil, err
+	}
+
+	return append(taskLogs, &jobLog, &jobManagerLog, &taskManagerLog), nil
+}
+
+func getEventInfoForFlink(flinkCluster *flinkOp.FlinkCluster) (*pluginsCore.TaskInfo, error) {
 	var taskLogs []*core.TaskLog
 	customInfoMap := make(map[string]string)
 
@@ -76,13 +104,35 @@ func getEventInfoForFlink(fc *flinkOp.FlinkCluster) (*pluginsCore.TaskInfo, erro
 		return nil, err
 	}
 
+	logConfig := logs.GetLogConfig()
+
+	if logConfig.IsKubernetesEnabled {
+		logPlugin := logUtils.NewKubernetesLogPlugin(logConfig.KubernetesURL)
+		tl, err := flinkTaskLogs(logPlugin, flinkCluster, "Kubernetes")
+		if err != nil {
+			return nil, err
+		}
+
+		taskLogs = append(taskLogs, tl...)
+	}
+
+	if logConfig.IsStackDriverEnabled {
+		logPlugin := NewStackdriverLogPlugin(logConfig.GCPProjectName, logConfig.StackdriverLogResourceName)
+		tl, err := flinkTaskLogs(logPlugin, flinkCluster, "Stackdriver")
+		if err != nil {
+			return nil, err
+		}
+
+		taskLogs = append(taskLogs, tl...)
+	}
+
 	return &pluginsCore.TaskInfo{
 		Logs:       taskLogs,
 		CustomInfo: customInfo,
 	}, nil
 }
 
-func (r flinkResourceHandler) GetTaskPhase(ctx context.Context, pluginContext k8s.PluginContext, resource k8s.Resource) (pluginsCore.PhaseInfo, error) {
+func (flinkResourceHandler) GetTaskPhase(ctx context.Context, pluginContext k8s.PluginContext, resource k8s.Resource) (pluginsCore.PhaseInfo, error) {
 	occurredAt := time.Now()
 	app := resource.(*flinkOp.FlinkCluster)
 	info, err := getEventInfoForFlink(app)
