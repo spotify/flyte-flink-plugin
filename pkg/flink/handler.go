@@ -69,7 +69,7 @@ func (flinkResourceHandler) BuildIdentityResource(ctx context.Context, taskCtx p
 	}, nil
 }
 
-func flinkTaskLogs(logPlugin logUtils.LogPlugin, flinkCluster *flinkOp.FlinkCluster, via string) ([]*core.TaskLog, error) {
+func flinkClusterTaskLogs(logPlugin logUtils.LogPlugin, flinkCluster *flinkOp.FlinkCluster, via string) ([]*core.TaskLog, error) {
 	var taskLogs []*core.TaskLog
 	jobManagerStatus := flinkCluster.Status.Components.JobManagerDeployment
 	taskManagerStatus := flinkCluster.Status.Components.TaskManagerDeployment
@@ -95,7 +95,7 @@ func flinkTaskLogs(logPlugin logUtils.LogPlugin, flinkCluster *flinkOp.FlinkClus
 	return append(taskLogs, &jobLog, &jobManagerLog, &taskManagerLog), nil
 }
 
-func getEventInfoForFlink(flinkCluster *flinkOp.FlinkCluster) (*pluginsCore.TaskInfo, error) {
+func flinkClusterTaskInfo(flinkCluster *flinkOp.FlinkCluster) (*pluginsCore.TaskInfo, error) {
 	var taskLogs []*core.TaskLog
 	customInfoMap := make(map[string]string)
 
@@ -108,7 +108,7 @@ func getEventInfoForFlink(flinkCluster *flinkOp.FlinkCluster) (*pluginsCore.Task
 
 	if logConfig.IsKubernetesEnabled {
 		logPlugin := logUtils.NewKubernetesLogPlugin(logConfig.KubernetesURL)
-		tl, err := flinkTaskLogs(logPlugin, flinkCluster, "Kubernetes")
+		tl, err := flinkClusterTaskLogs(logPlugin, flinkCluster, "Kubernetes")
 		if err != nil {
 			return nil, err
 		}
@@ -118,7 +118,7 @@ func getEventInfoForFlink(flinkCluster *flinkOp.FlinkCluster) (*pluginsCore.Task
 
 	if logConfig.IsStackDriverEnabled {
 		logPlugin := NewStackdriverLogPlugin(logConfig.GCPProjectName, logConfig.StackdriverLogResourceName)
-		tl, err := flinkTaskLogs(logPlugin, flinkCluster, "Stackdriver")
+		tl, err := flinkClusterTaskLogs(logPlugin, flinkCluster, "Stackdriver")
 		if err != nil {
 			return nil, err
 		}
@@ -132,7 +132,7 @@ func getEventInfoForFlink(flinkCluster *flinkOp.FlinkCluster) (*pluginsCore.Task
 	}, nil
 }
 
-func flinkJobTaskPhase(ctx context.Context, jobStatus *flinkOp.JobStatus, occurredAt time.Time, info *pluginsCore.TaskInfo) pluginsCore.PhaseInfo {
+func flinkClusterJobPhaseInfo(ctx context.Context, jobStatus *flinkOp.JobStatus, occurredAt time.Time, info *pluginsCore.TaskInfo) pluginsCore.PhaseInfo {
 	logger.Infof(ctx, "job_state: %s", jobStatus.State)
 
 	msg := fmt.Sprintf("%s %s", jobStatus.Name, jobStatus.State)
@@ -153,10 +153,8 @@ func flinkJobTaskPhase(ctx context.Context, jobStatus *flinkOp.JobStatus, occurr
 	}
 }
 
-func (flinkResourceHandler) GetTaskPhase(ctx context.Context, pluginContext k8s.PluginContext, resource k8s.Resource) (pluginsCore.PhaseInfo, error) {
-	occurredAt := time.Now()
-	app := resource.(*flinkOp.FlinkCluster)
-	info, err := getEventInfoForFlink(app)
+func flinkClusterPhaseInfo(ctx context.Context, app *flinkOp.FlinkCluster, occurredAt time.Time) (pluginsCore.PhaseInfo, error) {
+	info, err := flinkClusterTaskInfo(app)
 	if err != nil {
 		return pluginsCore.PhaseInfoUndefined, err
 	}
@@ -169,10 +167,15 @@ func (flinkResourceHandler) GetTaskPhase(ctx context.Context, pluginContext k8s.
 	case flinkOp.ClusterStateCreating, flinkOp.ClusterStateReconciling, flinkOp.ClusterStateUpdating:
 		return pluginsCore.PhaseInfoWaitingForResources(occurredAt, pluginsCore.DefaultPhaseVersion, "cluster starting"), nil
 	case flinkOp.ClusterStateRunning:
-		return flinkJobTaskPhase(ctx, jobStatus, occurredAt, info), nil
+		return flinkClusterJobPhaseInfo(ctx, jobStatus, occurredAt, info), nil
 	case flinkOp.ClusterStateStopped, flinkOp.ClusterStateStopping, flinkOp.ClusterStatePartiallyStopped:
-		return flinkJobTaskPhase(ctx, jobStatus, occurredAt, info), nil
+		return flinkClusterJobPhaseInfo(ctx, jobStatus, occurredAt, info), nil
 	}
 
 	return pluginsCore.PhaseInfoRunning(pluginsCore.DefaultPhaseVersion, info), nil
+}
+
+func (flinkResourceHandler) GetTaskPhase(ctx context.Context, pluginContext k8s.PluginContext, resource k8s.Resource) (pluginsCore.PhaseInfo, error) {
+	app := resource.(*flinkOp.FlinkCluster)
+	return flinkClusterPhaseInfo(ctx, app, time.Now())
 }
