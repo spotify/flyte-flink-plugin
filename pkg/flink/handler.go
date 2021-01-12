@@ -69,7 +69,7 @@ func (flinkResourceHandler) BuildIdentityResource(ctx context.Context, taskCtx p
 	}, nil
 }
 
-func flinkClusterTaskLogs(logPlugin logUtils.LogPlugin, flinkCluster *flinkOp.FlinkCluster, via string) ([]*core.TaskLog, error) {
+func flinkClusterTaskLogs(ctx context.Context, logPlugin logUtils.LogPlugin, flinkCluster *flinkOp.FlinkCluster, via string) ([]*core.TaskLog, error) {
 	var taskLogs []*core.TaskLog
 	jobManagerStatus := flinkCluster.Status.Components.JobManagerDeployment
 	taskManagerStatus := flinkCluster.Status.Components.TaskManagerDeployment
@@ -79,15 +79,18 @@ func flinkClusterTaskLogs(logPlugin logUtils.LogPlugin, flinkCluster *flinkOp.Fl
 		return taskLogs, nil
 	}
 
-	jobLog, err := logPlugin.GetTaskLog(jobStatus.Name, flinkCluster.Namespace, "", "", fmt.Sprintf("Job Logs (via %s)", via))
+	jobLogName := fmt.Sprintf("Job Logs (via %s)", via)
+	jobLog, err := logPlugin.GetTaskLog(jobStatus.Name, flinkCluster.Namespace, "", "", jobLogName)
 	if err != nil {
 		return nil, err
 	}
-	jobManagerLog, err := logPlugin.GetTaskLog(jobManagerStatus.Name, flinkCluster.Namespace, "", "", fmt.Sprintf("JobManager Logs (via %s)", via))
+	jobManagerLogName := fmt.Sprintf("JobManager Logs (via %s)", via)
+	jobManagerLog, err := logPlugin.GetTaskLog(jobManagerStatus.Name, flinkCluster.Namespace, "", "", jobManagerLogName)
 	if err != nil {
 		return nil, err
 	}
-	taskManagerLog, err := logPlugin.GetTaskLog(taskManagerStatus.Name, flinkCluster.Namespace, "", "", fmt.Sprintf("TaskManager Logs (via %s)", via))
+	taskManagerLogName := fmt.Sprintf("TaskManager Logs (via %s)", via)
+	taskManagerLog, err := logPlugin.GetTaskLog(taskManagerStatus.Name, flinkCluster.Namespace, "", "", taskManagerLogName)
 	if err != nil {
 		return nil, err
 	}
@@ -95,7 +98,7 @@ func flinkClusterTaskLogs(logPlugin logUtils.LogPlugin, flinkCluster *flinkOp.Fl
 	return append(taskLogs, &jobLog, &jobManagerLog, &taskManagerLog), nil
 }
 
-func flinkClusterTaskInfo(flinkCluster *flinkOp.FlinkCluster) (*pluginsCore.TaskInfo, error) {
+func flinkClusterTaskInfo(ctx context.Context, flinkCluster *flinkOp.FlinkCluster) (*pluginsCore.TaskInfo, error) {
 	var taskLogs []*core.TaskLog
 	customInfoMap := make(map[string]string)
 
@@ -108,7 +111,7 @@ func flinkClusterTaskInfo(flinkCluster *flinkOp.FlinkCluster) (*pluginsCore.Task
 
 	if logConfig.IsKubernetesEnabled {
 		logPlugin := logUtils.NewKubernetesLogPlugin(logConfig.KubernetesURL)
-		tl, err := flinkClusterTaskLogs(logPlugin, flinkCluster, "Kubernetes")
+		tl, err := flinkClusterTaskLogs(ctx, logPlugin, flinkCluster, "Kubernetes")
 		if err != nil {
 			return nil, err
 		}
@@ -118,7 +121,7 @@ func flinkClusterTaskInfo(flinkCluster *flinkOp.FlinkCluster) (*pluginsCore.Task
 
 	if logConfig.IsStackDriverEnabled {
 		logPlugin := NewStackdriverLogPlugin(logConfig.GCPProjectName, logConfig.StackdriverLogResourceName)
-		tl, err := flinkClusterTaskLogs(logPlugin, flinkCluster, "Stackdriver")
+		tl, err := flinkClusterTaskLogs(ctx, logPlugin, flinkCluster, "Stackdriver")
 		if err != nil {
 			return nil, err
 		}
@@ -154,7 +157,7 @@ func flinkClusterJobPhaseInfo(ctx context.Context, jobStatus *flinkOp.JobStatus,
 }
 
 func flinkClusterPhaseInfo(ctx context.Context, app *flinkOp.FlinkCluster, occurredAt time.Time) (pluginsCore.PhaseInfo, error) {
-	info, err := flinkClusterTaskInfo(app)
+	info, err := flinkClusterTaskInfo(ctx, app)
 	if err != nil {
 		return pluginsCore.PhaseInfoUndefined, err
 	}
