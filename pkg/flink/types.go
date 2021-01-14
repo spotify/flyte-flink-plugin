@@ -9,10 +9,10 @@ import (
 
 type FlinkProperties map[string]string
 
-func BuildFlinkProperties(flinkJob flinkIdl.FlinkJob) FlinkProperties {
+func BuildFlinkProperties(config *Config, flinkJob flinkIdl.FlinkJob) FlinkProperties {
 	// Start with default config values.
 	flinkProperties := make(map[string]string)
-	for k, v := range GetFlinkConfig().DefaultFlinkConfig {
+	for k, v := range config.DefaultFlinkConfig {
 		flinkProperties[k] = v
 	}
 

@@ -13,6 +13,7 @@ require (
 
 	// github.com/lyft/flinkk8soperator v0.5.0
 	github.com/regadas/flink-on-k8s-operator v0.0.0-20201126113113-ee4a54861ce2
+	gotest.tools v2.2.0+incompatible
 	k8s.io/api v0.19.4
 	k8s.io/apimachinery v0.18.3
 	k8s.io/client-go v11.0.1-0.20190918222721-c0e3722d5cf0+incompatible

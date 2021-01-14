@@ -1,6 +1,10 @@
-.PHONE: compile
+.PHONY: compile
 compile: generate-idl
 	go build ./...
+
+.PHONY: test
+test: compile
+	go test ./...
 
 .PHONY: generate-idl
 generate-idl: 

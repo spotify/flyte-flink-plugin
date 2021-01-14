@@ -50,12 +50,13 @@ func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCo
 	logger.Debugf(ctx, "Container %+v", container)
 
 	// Start with default config values.
-	flinkProperties := BuildFlinkProperties(flinkJob)
+	config := GetFlinkConfig()
+	flinkProperties := BuildFlinkProperties(config, flinkJob)
 
 	jobManager := BuildJobManagerResource(flinkProperties, annotations, labels)
 	taskManager := BuildTaskManagerResource(flinkProperties, annotations, labels)
 	job := BuildJobResource(taskManager, flinkProperties, flinkJob)
-	flinkCluster := BuildFlinkClusterResource(flinkProperties, annotations, labels, jobManager, taskManager, job)
+	flinkCluster := BuildFlinkClusterResource(config, flinkProperties, annotations, labels, jobManager, taskManager, job)
 
 	return &flinkCluster, nil
 }

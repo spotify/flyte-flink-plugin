@@ -101,7 +101,7 @@ func BuildJobResource(taskManager flinkOp.TaskManagerSpec, flinkProperties Flink
 	}
 }
 
-func BuildFlinkClusterResource(flinkProperties FlinkProperties, annotations Annotations, labels Labels, jobManager flinkOp.JobManagerSpec, taskManager flinkOp.TaskManagerSpec, job flinkOp.JobSpec) flinkOp.FlinkCluster {
+func BuildFlinkClusterResource(config *Config, flinkProperties FlinkProperties, annotations Annotations, labels Labels, jobManager flinkOp.JobManagerSpec, taskManager flinkOp.TaskManagerSpec, job flinkOp.JobSpec) flinkOp.FlinkCluster {
 	return flinkOp.FlinkCluster{
 		TypeMeta: metav1.TypeMeta{
 			Kind:       KindFlinkCluster,
@@ -112,9 +112,9 @@ func BuildFlinkClusterResource(flinkProperties FlinkProperties, annotations Anno
 			Labels:      labels,
 		},
 		Spec: flinkOp.FlinkClusterSpec{
-			ServiceAccountName: &serviceAccount,
+			ServiceAccountName: &config.ServiceAccount,
 			Image: flinkOp.ImageSpec{
-				Name:       flinkImage,
+				Name:       config.Image,
 				PullPolicy: corev1.PullAlways,
 			},
 			JobManager:      jobManager,
