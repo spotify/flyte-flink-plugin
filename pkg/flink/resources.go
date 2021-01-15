@@ -1,8 +1,6 @@
 package flink
 
 import (
-	"strconv"
-
 	corev1 "k8s.io/api/core/v1"
 
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
@@ -12,14 +10,18 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+var (
+	cacheVolumes      = []corev1.Volume{{Name: "cache-volume"}}
+	cacheVolumeMounts = []corev1.VolumeMount{{Name: "cache-volume", MountPath: "/cache"}}
+)
+
 func BuildJobManagerResource(flinkProperties FlinkProperties, annotations Annotations, labels Labels) flinkOp.JobManagerSpec {
-	jobManagerCores := resource.MustParse(flinkProperties["kubernetes.jobmanager.cores"])
-	jobManagerMemory := resource.MustParse(flinkProperties["kubernetes.jobmanager.memory"])
+	jobManagerCores := flinkProperties.GetResourceQuantity("kubernetes.jobmanager.cores")
+	jobManagerMemory := flinkProperties.GetResourceQuantity("kubernetes.jobmanager.memory")
 
 	return flinkOp.JobManagerSpec{
 		PodAnnotations: annotations,
 		PodLabels:      labels,
-		Ports:          flinkOp.JobManagerPorts{UI: &jobManagerUIPort},
 		Resources: corev1.ResourceRequirements{
 			Limits: corev1.ResourceList{
 				corev1.ResourceCPU:    jobManagerCores,
@@ -32,12 +34,9 @@ func BuildJobManagerResource(flinkProperties FlinkProperties, annotations Annota
 }
 
 func BuildTaskManagerResource(flinkProperties FlinkProperties, annotations Annotations, labels Labels) flinkOp.TaskManagerSpec {
-	taskManagerCores := resource.MustParse(flinkProperties["kubernetes.taskmanager.cores"])
-	taskManagerMemory := resource.MustParse(flinkProperties["kubernetes.taskmanager.memory"])
-	taskManagerReplicas, err := strconv.Atoi(flinkProperties["kubernetes.taskmanager.replicas"])
-	if err != nil {
-		taskManagerReplicas = defaultTaskManagerReplicas
-	}
+	taskManagerCores := flinkProperties.GetResourceQuantity("kubernetes.taskmanager.cores")
+	taskManagerMemory := flinkProperties.GetResourceQuantity("kubernetes.taskmanager.memory")
+	taskManagerReplicas := flinkProperties.GetInt("kubernetes.taskmanager.replicas")
 
 	return flinkOp.TaskManagerSpec{
 		PodAnnotations: annotations,
@@ -55,10 +54,7 @@ func BuildTaskManagerResource(flinkProperties FlinkProperties, annotations Annot
 }
 
 func BuildJobResource(taskManager flinkOp.TaskManagerSpec, flinkProperties FlinkProperties, flinkJob flinkIdl.FlinkJob) flinkOp.JobSpec {
-	taskSlots, err := strconv.Atoi(flinkProperties["taskmanager.numberOfTaskSlots"])
-	if err != nil {
-		taskSlots = 1
-	}
+	taskSlots := flinkProperties.GetInt("taskmanager.numberOfTaskSlots")
 	parallelism := taskManager.Replicas * int32(taskSlots)
 
 	return flinkOp.JobSpec{

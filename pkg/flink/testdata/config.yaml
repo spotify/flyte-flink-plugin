@@ -1,10 +1,10 @@
 plugins:
     flink:
         flink-config-default:
-            - kubernetes.jobmanager.core: 4
+            - kubernetes.jobmanager.cores: 4
             - kubernetes.jobmanager.memory: 4Gi
-            - kubernetes.taskmanager.core: 4
+            - kubernetes.taskmanager.cores: 4
             - kubernetes.taskmanager.memory: 4Gi
-            - kubernetes.taskmanager.replicas: 4Gi
+            - kubernetes.taskmanager.replicas: 4
         image: "flink-image"
         service-account: "flink-service-account"

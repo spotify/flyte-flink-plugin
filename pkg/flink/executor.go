@@ -18,11 +18,11 @@ func init() {
 
 	pluginmachinery.PluginRegistry().RegisterK8sPlugin(
 		k8s.PluginEntry{
-			ID:                  flinkTaskType,
-			RegisteredTaskTypes: []pluginsCore.TaskType{flinkTaskType},
+			ID:                  FlinkTaskType,
+			RegisteredTaskTypes: []pluginsCore.TaskType{FlinkTaskType},
 			ResourceToWatch:     &flinkOp.FlinkCluster{},
 			Plugin:              flinkResourceHandler{},
 			IsDefault:           false,
-			DefaultForTaskTypes: []pluginsCore.TaskType{flinkTaskType},
+			DefaultForTaskTypes: []pluginsCore.TaskType{FlinkTaskType},
 		})
 }
