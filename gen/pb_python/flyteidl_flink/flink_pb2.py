@@ -13,6 +13,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from k8s.io.apimachinery.pkg.api.resource import generated_pb2 as k8s_dot_io_dot_apimachinery_dot_pkg_dot_api_dot_resource_dot_generated__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -20,10 +21,94 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='flyteidl_flink',
   syntax='proto3',
   serialized_options=_b('ZAgithub.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink'),
-  serialized_pb=_b('\n\x1a\x66lyteidl-flink/flink.proto\x12\x0e\x66lyteidl_flink\"\xbc\x01\n\x08\x46linkJob\x12\x0f\n\x07jarFile\x18\x01 \x01(\t\x12\x11\n\tmainClass\x18\x02 \x01(\t\x12\x0c\n\x04\x61rgs\x18\x03 \x03(\t\x12\x46\n\x0f\x66linkProperties\x18\x04 \x03(\x0b\x32-.flyteidl_flink.FlinkJob.FlinkPropertiesEntry\x1a\x36\n\x14\x46linkPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x43ZAgithub.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flinkb\x06proto3')
+  serialized_pb=_b('\n\x1a\x66lyteidl-flink/flink.proto\x12\x0e\x66lyteidl_flink\x1a\x34k8s.io/apimachinery/pkg/api/resource/generated.proto\"\x89\x01\n\nJobManager\x12;\n\x03\x63pu\x18\x01 \x01(\x0b\x32..k8s.io.apimachinery.pkg.api.resource.Quantity\x12>\n\x06memory\x18\x02 \x01(\x0b\x32..k8s.io.apimachinery.pkg.api.resource.Quantity\"\x9c\x01\n\x0bTaskManager\x12;\n\x03\x63pu\x18\x01 \x01(\x0b\x32..k8s.io.apimachinery.pkg.api.resource.Quantity\x12>\n\x06memory\x18\x02 \x01(\x0b\x32..k8s.io.apimachinery.pkg.api.resource.Quantity\x12\x10\n\x08replicas\x18\x03 \x01(\x05\"\x9e\x02\n\x08\x46linkJob\x12\x0f\n\x07jarFile\x18\x01 \x01(\t\x12\x11\n\tmainClass\x18\x02 \x01(\t\x12\x0c\n\x04\x61rgs\x18\x03 \x03(\t\x12\x46\n\x0f\x66linkProperties\x18\x04 \x03(\x0b\x32-.flyteidl_flink.FlinkJob.FlinkPropertiesEntry\x12.\n\njobManager\x18\x05 \x01(\x0b\x32\x1a.flyteidl_flink.JobManager\x12\x30\n\x0btaskManager\x18\x06 \x01(\x0b\x32\x1b.flyteidl_flink.TaskManager\x1a\x36\n\x14\x46linkPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x43ZAgithub.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flinkb\x06proto3')
+  ,
+  dependencies=[k8s_dot_io_dot_apimachinery_dot_pkg_dot_api_dot_resource_dot_generated__pb2.DESCRIPTOR,])
+
+
+
+
+_JOBMANAGER = _descriptor.Descriptor(
+  name='JobManager',
+  full_name='flyteidl_flink.JobManager',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='cpu', full_name='flyteidl_flink.JobManager.cpu', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='memory', full_name='flyteidl_flink.JobManager.memory', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=101,
+  serialized_end=238,
 )
 
 
+_TASKMANAGER = _descriptor.Descriptor(
+  name='TaskManager',
+  full_name='flyteidl_flink.TaskManager',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='cpu', full_name='flyteidl_flink.TaskManager.cpu', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='memory', full_name='flyteidl_flink.TaskManager.memory', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='replicas', full_name='flyteidl_flink.TaskManager.replicas', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=241,
+  serialized_end=397,
+)
 
 
 _FLINKJOB_FLINKPROPERTIESENTRY = _descriptor.Descriptor(
@@ -59,8 +144,8 @@ _FLINKJOB_FLINKPROPERTIESENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=181,
-  serialized_end=235,
+  serialized_start=632,
+  serialized_end=686,
 )
 
 _FLINKJOB = _descriptor.Descriptor(
@@ -98,6 +183,20 @@ _FLINKJOB = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='jobManager', full_name='flyteidl_flink.FlinkJob.jobManager', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='taskManager', full_name='flyteidl_flink.FlinkJob.taskManager', index=5,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -110,14 +209,36 @@ _FLINKJOB = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=47,
-  serialized_end=235,
+  serialized_start=400,
+  serialized_end=686,
 )
 
+_JOBMANAGER.fields_by_name['cpu'].message_type = k8s_dot_io_dot_apimachinery_dot_pkg_dot_api_dot_resource_dot_generated__pb2._QUANTITY
+_JOBMANAGER.fields_by_name['memory'].message_type = k8s_dot_io_dot_apimachinery_dot_pkg_dot_api_dot_resource_dot_generated__pb2._QUANTITY
+_TASKMANAGER.fields_by_name['cpu'].message_type = k8s_dot_io_dot_apimachinery_dot_pkg_dot_api_dot_resource_dot_generated__pb2._QUANTITY
+_TASKMANAGER.fields_by_name['memory'].message_type = k8s_dot_io_dot_apimachinery_dot_pkg_dot_api_dot_resource_dot_generated__pb2._QUANTITY
 _FLINKJOB_FLINKPROPERTIESENTRY.containing_type = _FLINKJOB
 _FLINKJOB.fields_by_name['flinkProperties'].message_type = _FLINKJOB_FLINKPROPERTIESENTRY
+_FLINKJOB.fields_by_name['jobManager'].message_type = _JOBMANAGER
+_FLINKJOB.fields_by_name['taskManager'].message_type = _TASKMANAGER
+DESCRIPTOR.message_types_by_name['JobManager'] = _JOBMANAGER
+DESCRIPTOR.message_types_by_name['TaskManager'] = _TASKMANAGER
 DESCRIPTOR.message_types_by_name['FlinkJob'] = _FLINKJOB
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+JobManager = _reflection.GeneratedProtocolMessageType('JobManager', (_message.Message,), dict(
+  DESCRIPTOR = _JOBMANAGER,
+  __module__ = 'flyteidl_flink.flink_pb2'
+  # @@protoc_insertion_point(class_scope:flyteidl_flink.JobManager)
+  ))
+_sym_db.RegisterMessage(JobManager)
+
+TaskManager = _reflection.GeneratedProtocolMessageType('TaskManager', (_message.Message,), dict(
+  DESCRIPTOR = _TASKMANAGER,
+  __module__ = 'flyteidl_flink.flink_pb2'
+  # @@protoc_insertion_point(class_scope:flyteidl_flink.TaskManager)
+  ))
+_sym_db.RegisterMessage(TaskManager)
 
 FlinkJob = _reflection.GeneratedProtocolMessageType('FlinkJob', (_message.Message,), dict(
 

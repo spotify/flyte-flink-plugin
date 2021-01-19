@@ -1,12 +1,28 @@
 package flink
 
-import pluginsConfig "github.com/lyft/flyteplugins/go/tasks/config"
+import (
+	pluginsConfig "github.com/lyft/flyteplugins/go/tasks/config"
+	"k8s.io/apimachinery/pkg/api/resource"
+)
+
+type JobManagerConfig struct {
+	Cpu    resource.Quantity `json:"cpu" pflag:"number of cores per pod"`
+	Memory resource.Quantity `json:"memory" pflag:"amount of memory per pod"`
+}
+
+type TaskManagerConfig struct {
+	Cpu      resource.Quantity `json:"cpu" pflag:"amout of cpu per pod"`
+	Memory   resource.Quantity `json:"memory" pflag:"amount of memory per pod"`
+	Replicas int               `json:"replicas" pflag:"number of replicas"`
+}
 
 // Config ... Flink-specific configs
 type Config struct {
-	DefaultFlinkConfig map[string]string `json:"flink-config-default" pflag:",Key value pairs of default flink configuration that should be applied to every FlinkJob"`
-	Image              string            `json:"image"`
-	ServiceAccount     string            `json:"service-account"`
+	FlinkProperties map[string]string `json:"flink-properties-default" pflag:",Key value pairs of default flink properties that should be applied to every FlinkJob"`
+	Image           string            `json:"image"`
+	ServiceAccount  string            `json:"service-account"`
+	JobManager      JobManagerConfig  `json:"jobmanager"`
+	TaskManager     TaskManagerConfig `json:"taskmanager"`
 }
 
 var (

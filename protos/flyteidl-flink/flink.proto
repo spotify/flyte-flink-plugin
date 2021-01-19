@@ -4,10 +4,26 @@ package flyteidl_flink;
 
 option go_package = "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink";
 
+import "k8s.io/apimachinery/pkg/api/resource/generated.proto";
+
+message JobManager {
+  k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+  k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+}
+
+message TaskManager {
+  k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+  k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+  int32 replicas = 3;
+}
+
 // Custom Proto for Flink Plugin.
 message FlinkJob {
   string jarFile = 1;
   string mainClass = 2;
   repeated string args = 3;
   map<string, string> flinkProperties = 4;
+
+  JobManager jobManager = 5;
+  TaskManager taskManager = 6;
 }

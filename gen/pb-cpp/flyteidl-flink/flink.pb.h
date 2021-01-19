@@ -34,6 +34,7 @@
 #include <google/protobuf/map_entry.h>
 #include <google/protobuf/map_field_inl.h>
 #include <google/protobuf/unknown_field_set.h>
+#include "k8s.io/apimachinery/pkg/api/resource/generated.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_flyteidl_2dflink_2fflink_2eproto
@@ -44,7 +45,7 @@ struct TableStruct_flyteidl_2dflink_2fflink_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[2]
+  static const ::google::protobuf::internal::ParseTable schema[4]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -58,16 +59,281 @@ extern FlinkJobDefaultTypeInternal _FlinkJob_default_instance_;
 class FlinkJob_FlinkPropertiesEntry_DoNotUse;
 class FlinkJob_FlinkPropertiesEntry_DoNotUseDefaultTypeInternal;
 extern FlinkJob_FlinkPropertiesEntry_DoNotUseDefaultTypeInternal _FlinkJob_FlinkPropertiesEntry_DoNotUse_default_instance_;
+class JobManager;
+class JobManagerDefaultTypeInternal;
+extern JobManagerDefaultTypeInternal _JobManager_default_instance_;
+class TaskManager;
+class TaskManagerDefaultTypeInternal;
+extern TaskManagerDefaultTypeInternal _TaskManager_default_instance_;
 }  // namespace flyteidl_flink
 namespace google {
 namespace protobuf {
 template<> ::flyteidl_flink::FlinkJob* Arena::CreateMaybeMessage<::flyteidl_flink::FlinkJob>(Arena*);
 template<> ::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse* Arena::CreateMaybeMessage<::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse>(Arena*);
+template<> ::flyteidl_flink::JobManager* Arena::CreateMaybeMessage<::flyteidl_flink::JobManager>(Arena*);
+template<> ::flyteidl_flink::TaskManager* Arena::CreateMaybeMessage<::flyteidl_flink::TaskManager>(Arena*);
 }  // namespace protobuf
 }  // namespace google
 namespace flyteidl_flink {
 
 // ===================================================================
+
+class JobManager final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:flyteidl_flink.JobManager) */ {
+ public:
+  JobManager();
+  virtual ~JobManager();
+
+  JobManager(const JobManager& from);
+
+  inline JobManager& operator=(const JobManager& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  JobManager(JobManager&& from) noexcept
+    : JobManager() {
+    *this = ::std::move(from);
+  }
+
+  inline JobManager& operator=(JobManager&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const JobManager& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const JobManager* internal_default_instance() {
+    return reinterpret_cast<const JobManager*>(
+               &_JobManager_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  void Swap(JobManager* other);
+  friend void swap(JobManager& a, JobManager& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline JobManager* New() const final {
+    return CreateMaybeMessage<JobManager>(nullptr);
+  }
+
+  JobManager* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<JobManager>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const JobManager& from);
+  void MergeFrom(const JobManager& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(JobManager* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+  bool has_cpu() const;
+  void clear_cpu();
+  static const int kCpuFieldNumber = 1;
+  const ::k8s::io::apimachinery::pkg::api::resource::Quantity& cpu() const;
+  ::k8s::io::apimachinery::pkg::api::resource::Quantity* release_cpu();
+  ::k8s::io::apimachinery::pkg::api::resource::Quantity* mutable_cpu();
+  void set_allocated_cpu(::k8s::io::apimachinery::pkg::api::resource::Quantity* cpu);
+
+  // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+  bool has_memory() const;
+  void clear_memory();
+  static const int kMemoryFieldNumber = 2;
+  const ::k8s::io::apimachinery::pkg::api::resource::Quantity& memory() const;
+  ::k8s::io::apimachinery::pkg::api::resource::Quantity* release_memory();
+  ::k8s::io::apimachinery::pkg::api::resource::Quantity* mutable_memory();
+  void set_allocated_memory(::k8s::io::apimachinery::pkg::api::resource::Quantity* memory);
+
+  // @@protoc_insertion_point(class_scope:flyteidl_flink.JobManager)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::k8s::io::apimachinery::pkg::api::resource::Quantity* cpu_;
+  ::k8s::io::apimachinery::pkg::api::resource::Quantity* memory_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_flyteidl_2dflink_2fflink_2eproto;
+};
+// -------------------------------------------------------------------
+
+class TaskManager final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:flyteidl_flink.TaskManager) */ {
+ public:
+  TaskManager();
+  virtual ~TaskManager();
+
+  TaskManager(const TaskManager& from);
+
+  inline TaskManager& operator=(const TaskManager& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  TaskManager(TaskManager&& from) noexcept
+    : TaskManager() {
+    *this = ::std::move(from);
+  }
+
+  inline TaskManager& operator=(TaskManager&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const TaskManager& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const TaskManager* internal_default_instance() {
+    return reinterpret_cast<const TaskManager*>(
+               &_TaskManager_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  void Swap(TaskManager* other);
+  friend void swap(TaskManager& a, TaskManager& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline TaskManager* New() const final {
+    return CreateMaybeMessage<TaskManager>(nullptr);
+  }
+
+  TaskManager* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<TaskManager>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const TaskManager& from);
+  void MergeFrom(const TaskManager& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(TaskManager* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+  bool has_cpu() const;
+  void clear_cpu();
+  static const int kCpuFieldNumber = 1;
+  const ::k8s::io::apimachinery::pkg::api::resource::Quantity& cpu() const;
+  ::k8s::io::apimachinery::pkg::api::resource::Quantity* release_cpu();
+  ::k8s::io::apimachinery::pkg::api::resource::Quantity* mutable_cpu();
+  void set_allocated_cpu(::k8s::io::apimachinery::pkg::api::resource::Quantity* cpu);
+
+  // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+  bool has_memory() const;
+  void clear_memory();
+  static const int kMemoryFieldNumber = 2;
+  const ::k8s::io::apimachinery::pkg::api::resource::Quantity& memory() const;
+  ::k8s::io::apimachinery::pkg::api::resource::Quantity* release_memory();
+  ::k8s::io::apimachinery::pkg::api::resource::Quantity* mutable_memory();
+  void set_allocated_memory(::k8s::io::apimachinery::pkg::api::resource::Quantity* memory);
+
+  // int32 replicas = 3;
+  void clear_replicas();
+  static const int kReplicasFieldNumber = 3;
+  ::google::protobuf::int32 replicas() const;
+  void set_replicas(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:flyteidl_flink.TaskManager)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::k8s::io::apimachinery::pkg::api::resource::Quantity* cpu_;
+  ::k8s::io::apimachinery::pkg::api::resource::Quantity* memory_;
+  ::google::protobuf::int32 replicas_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_flyteidl_2dflink_2fflink_2eproto;
+};
+// -------------------------------------------------------------------
 
 class FlinkJob_FlinkPropertiesEntry_DoNotUse : public ::google::protobuf::internal::MapEntry<FlinkJob_FlinkPropertiesEntry_DoNotUse, 
     ::std::string, ::std::string,
@@ -131,7 +397,7 @@ class FlinkJob final :
                &_FlinkJob_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    3;
 
   void Swap(FlinkJob* other);
   friend void swap(FlinkJob& a, FlinkJob& b) {
@@ -248,6 +514,24 @@ class FlinkJob final :
   ::std::string* release_mainclass();
   void set_allocated_mainclass(::std::string* mainclass);
 
+  // .flyteidl_flink.JobManager jobManager = 5;
+  bool has_jobmanager() const;
+  void clear_jobmanager();
+  static const int kJobManagerFieldNumber = 5;
+  const ::flyteidl_flink::JobManager& jobmanager() const;
+  ::flyteidl_flink::JobManager* release_jobmanager();
+  ::flyteidl_flink::JobManager* mutable_jobmanager();
+  void set_allocated_jobmanager(::flyteidl_flink::JobManager* jobmanager);
+
+  // .flyteidl_flink.TaskManager taskManager = 6;
+  bool has_taskmanager() const;
+  void clear_taskmanager();
+  static const int kTaskManagerFieldNumber = 6;
+  const ::flyteidl_flink::TaskManager& taskmanager() const;
+  ::flyteidl_flink::TaskManager* release_taskmanager();
+  ::flyteidl_flink::TaskManager* mutable_taskmanager();
+  void set_allocated_taskmanager(::flyteidl_flink::TaskManager* taskmanager);
+
   // @@protoc_insertion_point(class_scope:flyteidl_flink.FlinkJob)
  private:
   class HasBitSetters;
@@ -262,6 +546,8 @@ class FlinkJob final :
       0 > flinkproperties_;
   ::google::protobuf::internal::ArenaStringPtr jarfile_;
   ::google::protobuf::internal::ArenaStringPtr mainclass_;
+  ::flyteidl_flink::JobManager* jobmanager_;
+  ::flyteidl_flink::TaskManager* taskmanager_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_flyteidl_2dflink_2fflink_2eproto;
 };
@@ -274,6 +560,208 @@ class FlinkJob final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// JobManager
+
+// .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+inline bool JobManager::has_cpu() const {
+  return this != internal_default_instance() && cpu_ != nullptr;
+}
+inline const ::k8s::io::apimachinery::pkg::api::resource::Quantity& JobManager::cpu() const {
+  const ::k8s::io::apimachinery::pkg::api::resource::Quantity* p = cpu_;
+  // @@protoc_insertion_point(field_get:flyteidl_flink.JobManager.cpu)
+  return p != nullptr ? *p : *reinterpret_cast<const ::k8s::io::apimachinery::pkg::api::resource::Quantity*>(
+      &::k8s::io::apimachinery::pkg::api::resource::_Quantity_default_instance_);
+}
+inline ::k8s::io::apimachinery::pkg::api::resource::Quantity* JobManager::release_cpu() {
+  // @@protoc_insertion_point(field_release:flyteidl_flink.JobManager.cpu)
+  
+  ::k8s::io::apimachinery::pkg::api::resource::Quantity* temp = cpu_;
+  cpu_ = nullptr;
+  return temp;
+}
+inline ::k8s::io::apimachinery::pkg::api::resource::Quantity* JobManager::mutable_cpu() {
+  
+  if (cpu_ == nullptr) {
+    auto* p = CreateMaybeMessage<::k8s::io::apimachinery::pkg::api::resource::Quantity>(GetArenaNoVirtual());
+    cpu_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.JobManager.cpu)
+  return cpu_;
+}
+inline void JobManager::set_allocated_cpu(::k8s::io::apimachinery::pkg::api::resource::Quantity* cpu) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::google::protobuf::MessageLite*>(cpu_);
+  }
+  if (cpu) {
+    ::google::protobuf::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      cpu = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, cpu, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  cpu_ = cpu;
+  // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.JobManager.cpu)
+}
+
+// .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+inline bool JobManager::has_memory() const {
+  return this != internal_default_instance() && memory_ != nullptr;
+}
+inline const ::k8s::io::apimachinery::pkg::api::resource::Quantity& JobManager::memory() const {
+  const ::k8s::io::apimachinery::pkg::api::resource::Quantity* p = memory_;
+  // @@protoc_insertion_point(field_get:flyteidl_flink.JobManager.memory)
+  return p != nullptr ? *p : *reinterpret_cast<const ::k8s::io::apimachinery::pkg::api::resource::Quantity*>(
+      &::k8s::io::apimachinery::pkg::api::resource::_Quantity_default_instance_);
+}
+inline ::k8s::io::apimachinery::pkg::api::resource::Quantity* JobManager::release_memory() {
+  // @@protoc_insertion_point(field_release:flyteidl_flink.JobManager.memory)
+  
+  ::k8s::io::apimachinery::pkg::api::resource::Quantity* temp = memory_;
+  memory_ = nullptr;
+  return temp;
+}
+inline ::k8s::io::apimachinery::pkg::api::resource::Quantity* JobManager::mutable_memory() {
+  
+  if (memory_ == nullptr) {
+    auto* p = CreateMaybeMessage<::k8s::io::apimachinery::pkg::api::resource::Quantity>(GetArenaNoVirtual());
+    memory_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.JobManager.memory)
+  return memory_;
+}
+inline void JobManager::set_allocated_memory(::k8s::io::apimachinery::pkg::api::resource::Quantity* memory) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::google::protobuf::MessageLite*>(memory_);
+  }
+  if (memory) {
+    ::google::protobuf::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      memory = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, memory, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  memory_ = memory;
+  // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.JobManager.memory)
+}
+
+// -------------------------------------------------------------------
+
+// TaskManager
+
+// .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+inline bool TaskManager::has_cpu() const {
+  return this != internal_default_instance() && cpu_ != nullptr;
+}
+inline const ::k8s::io::apimachinery::pkg::api::resource::Quantity& TaskManager::cpu() const {
+  const ::k8s::io::apimachinery::pkg::api::resource::Quantity* p = cpu_;
+  // @@protoc_insertion_point(field_get:flyteidl_flink.TaskManager.cpu)
+  return p != nullptr ? *p : *reinterpret_cast<const ::k8s::io::apimachinery::pkg::api::resource::Quantity*>(
+      &::k8s::io::apimachinery::pkg::api::resource::_Quantity_default_instance_);
+}
+inline ::k8s::io::apimachinery::pkg::api::resource::Quantity* TaskManager::release_cpu() {
+  // @@protoc_insertion_point(field_release:flyteidl_flink.TaskManager.cpu)
+  
+  ::k8s::io::apimachinery::pkg::api::resource::Quantity* temp = cpu_;
+  cpu_ = nullptr;
+  return temp;
+}
+inline ::k8s::io::apimachinery::pkg::api::resource::Quantity* TaskManager::mutable_cpu() {
+  
+  if (cpu_ == nullptr) {
+    auto* p = CreateMaybeMessage<::k8s::io::apimachinery::pkg::api::resource::Quantity>(GetArenaNoVirtual());
+    cpu_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.TaskManager.cpu)
+  return cpu_;
+}
+inline void TaskManager::set_allocated_cpu(::k8s::io::apimachinery::pkg::api::resource::Quantity* cpu) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::google::protobuf::MessageLite*>(cpu_);
+  }
+  if (cpu) {
+    ::google::protobuf::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      cpu = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, cpu, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  cpu_ = cpu;
+  // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.TaskManager.cpu)
+}
+
+// .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+inline bool TaskManager::has_memory() const {
+  return this != internal_default_instance() && memory_ != nullptr;
+}
+inline const ::k8s::io::apimachinery::pkg::api::resource::Quantity& TaskManager::memory() const {
+  const ::k8s::io::apimachinery::pkg::api::resource::Quantity* p = memory_;
+  // @@protoc_insertion_point(field_get:flyteidl_flink.TaskManager.memory)
+  return p != nullptr ? *p : *reinterpret_cast<const ::k8s::io::apimachinery::pkg::api::resource::Quantity*>(
+      &::k8s::io::apimachinery::pkg::api::resource::_Quantity_default_instance_);
+}
+inline ::k8s::io::apimachinery::pkg::api::resource::Quantity* TaskManager::release_memory() {
+  // @@protoc_insertion_point(field_release:flyteidl_flink.TaskManager.memory)
+  
+  ::k8s::io::apimachinery::pkg::api::resource::Quantity* temp = memory_;
+  memory_ = nullptr;
+  return temp;
+}
+inline ::k8s::io::apimachinery::pkg::api::resource::Quantity* TaskManager::mutable_memory() {
+  
+  if (memory_ == nullptr) {
+    auto* p = CreateMaybeMessage<::k8s::io::apimachinery::pkg::api::resource::Quantity>(GetArenaNoVirtual());
+    memory_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.TaskManager.memory)
+  return memory_;
+}
+inline void TaskManager::set_allocated_memory(::k8s::io::apimachinery::pkg::api::resource::Quantity* memory) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::google::protobuf::MessageLite*>(memory_);
+  }
+  if (memory) {
+    ::google::protobuf::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      memory = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, memory, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  memory_ = memory;
+  // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.TaskManager.memory)
+}
+
+// int32 replicas = 3;
+inline void TaskManager::clear_replicas() {
+  replicas_ = 0;
+}
+inline ::google::protobuf::int32 TaskManager::replicas() const {
+  // @@protoc_insertion_point(field_get:flyteidl_flink.TaskManager.replicas)
+  return replicas_;
+}
+inline void TaskManager::set_replicas(::google::protobuf::int32 value) {
+  
+  replicas_ = value;
+  // @@protoc_insertion_point(field_set:flyteidl_flink.TaskManager.replicas)
+}
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // FlinkJob
@@ -471,9 +959,115 @@ FlinkJob::mutable_flinkproperties() {
   return flinkproperties_.MutableMap();
 }
 
+// .flyteidl_flink.JobManager jobManager = 5;
+inline bool FlinkJob::has_jobmanager() const {
+  return this != internal_default_instance() && jobmanager_ != nullptr;
+}
+inline void FlinkJob::clear_jobmanager() {
+  if (GetArenaNoVirtual() == nullptr && jobmanager_ != nullptr) {
+    delete jobmanager_;
+  }
+  jobmanager_ = nullptr;
+}
+inline const ::flyteidl_flink::JobManager& FlinkJob::jobmanager() const {
+  const ::flyteidl_flink::JobManager* p = jobmanager_;
+  // @@protoc_insertion_point(field_get:flyteidl_flink.FlinkJob.jobManager)
+  return p != nullptr ? *p : *reinterpret_cast<const ::flyteidl_flink::JobManager*>(
+      &::flyteidl_flink::_JobManager_default_instance_);
+}
+inline ::flyteidl_flink::JobManager* FlinkJob::release_jobmanager() {
+  // @@protoc_insertion_point(field_release:flyteidl_flink.FlinkJob.jobManager)
+  
+  ::flyteidl_flink::JobManager* temp = jobmanager_;
+  jobmanager_ = nullptr;
+  return temp;
+}
+inline ::flyteidl_flink::JobManager* FlinkJob::mutable_jobmanager() {
+  
+  if (jobmanager_ == nullptr) {
+    auto* p = CreateMaybeMessage<::flyteidl_flink::JobManager>(GetArenaNoVirtual());
+    jobmanager_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.FlinkJob.jobManager)
+  return jobmanager_;
+}
+inline void FlinkJob::set_allocated_jobmanager(::flyteidl_flink::JobManager* jobmanager) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete jobmanager_;
+  }
+  if (jobmanager) {
+    ::google::protobuf::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      jobmanager = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, jobmanager, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  jobmanager_ = jobmanager;
+  // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.FlinkJob.jobManager)
+}
+
+// .flyteidl_flink.TaskManager taskManager = 6;
+inline bool FlinkJob::has_taskmanager() const {
+  return this != internal_default_instance() && taskmanager_ != nullptr;
+}
+inline void FlinkJob::clear_taskmanager() {
+  if (GetArenaNoVirtual() == nullptr && taskmanager_ != nullptr) {
+    delete taskmanager_;
+  }
+  taskmanager_ = nullptr;
+}
+inline const ::flyteidl_flink::TaskManager& FlinkJob::taskmanager() const {
+  const ::flyteidl_flink::TaskManager* p = taskmanager_;
+  // @@protoc_insertion_point(field_get:flyteidl_flink.FlinkJob.taskManager)
+  return p != nullptr ? *p : *reinterpret_cast<const ::flyteidl_flink::TaskManager*>(
+      &::flyteidl_flink::_TaskManager_default_instance_);
+}
+inline ::flyteidl_flink::TaskManager* FlinkJob::release_taskmanager() {
+  // @@protoc_insertion_point(field_release:flyteidl_flink.FlinkJob.taskManager)
+  
+  ::flyteidl_flink::TaskManager* temp = taskmanager_;
+  taskmanager_ = nullptr;
+  return temp;
+}
+inline ::flyteidl_flink::TaskManager* FlinkJob::mutable_taskmanager() {
+  
+  if (taskmanager_ == nullptr) {
+    auto* p = CreateMaybeMessage<::flyteidl_flink::TaskManager>(GetArenaNoVirtual());
+    taskmanager_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.FlinkJob.taskManager)
+  return taskmanager_;
+}
+inline void FlinkJob::set_allocated_taskmanager(::flyteidl_flink::TaskManager* taskmanager) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete taskmanager_;
+  }
+  if (taskmanager) {
+    ::google::protobuf::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      taskmanager = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, taskmanager, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  taskmanager_ = taskmanager;
+  // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.FlinkJob.taskManager)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 

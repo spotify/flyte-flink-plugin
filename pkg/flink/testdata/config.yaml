@@ -1,10 +1,17 @@
 plugins:
     flink:
-        flink-config-default:
-            - kubernetes.jobmanager.cores: 4
-            - kubernetes.jobmanager.memory: 4Gi
-            - kubernetes.taskmanager.cores: 4
-            - kubernetes.taskmanager.memory: 4Gi
-            - kubernetes.taskmanager.replicas: 4
         image: "flink-image"
         service-account: "flink-service-account"
+        jobmanager.cpu: 3.5
+        jobmanager.memory: 4Gi
+        taskmanager:
+            cpu: 4
+            memory: 4Gi
+            replicas: 4
+        flink-properties-default:
+            - akka.ask.timeout: "600s"
+            - blob.server.port: "6124"
+            - resourcemanager.taskmanager-timeout: "3600000"
+            - web.timeout: "600000"
+            - heartbeat.timeout: "3600000"
+            - pipeline.object-reuse: "true"

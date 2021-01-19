@@ -8,7 +8,6 @@ import (
 	pluginsCore "github.com/lyft/flyteplugins/go/tasks/pluginmachinery/core"
 	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/flytek8s/config"
 	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/utils"
-	"k8s.io/apimachinery/pkg/api/resource"
 )
 
 type FlinkProperties map[string]string
@@ -16,7 +15,7 @@ type FlinkProperties map[string]string
 func BuildFlinkProperties(config *Config, flinkJob flinkIdl.FlinkJob) FlinkProperties {
 	// Start with default config values.
 	flinkProperties := make(map[string]string)
-	for k, v := range config.DefaultFlinkConfig {
+	for k, v := range config.FlinkProperties {
 		flinkProperties[k] = v
 	}
 
@@ -25,10 +24,6 @@ func BuildFlinkProperties(config *Config, flinkJob flinkIdl.FlinkJob) FlinkPrope
 	}
 
 	return flinkProperties
-}
-
-func (fp FlinkProperties) GetResourceQuantity(key string) resource.Quantity {
-	return resource.MustParse(fp[key])
 }
 
 func (fp FlinkProperties) GetInt(key string) int {

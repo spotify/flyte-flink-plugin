@@ -36,6 +36,177 @@ var (
 // define the regex for a UUID once up-front
 var _flink_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on JobManager with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *JobManager) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetCpu()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return JobManagerValidationError{
+				field:  "Cpu",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetMemory()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return JobManagerValidationError{
+				field:  "Memory",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// JobManagerValidationError is the validation error returned by
+// JobManager.Validate if the designated constraints aren't met.
+type JobManagerValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e JobManagerValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e JobManagerValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e JobManagerValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e JobManagerValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e JobManagerValidationError) ErrorName() string { return "JobManagerValidationError" }
+
+// Error satisfies the builtin error interface
+func (e JobManagerValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sJobManager.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = JobManagerValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = JobManagerValidationError{}
+
+// Validate checks the field values on TaskManager with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *TaskManager) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetCpu()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TaskManagerValidationError{
+				field:  "Cpu",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetMemory()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TaskManagerValidationError{
+				field:  "Memory",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Replicas
+
+	return nil
+}
+
+// TaskManagerValidationError is the validation error returned by
+// TaskManager.Validate if the designated constraints aren't met.
+type TaskManagerValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TaskManagerValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TaskManagerValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TaskManagerValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TaskManagerValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TaskManagerValidationError) ErrorName() string { return "TaskManagerValidationError" }
+
+// Error satisfies the builtin error interface
+func (e TaskManagerValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTaskManager.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TaskManagerValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TaskManagerValidationError{}
+
 // Validate checks the field values on FlinkJob with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
 func (m *FlinkJob) Validate() error {
@@ -48,6 +219,26 @@ func (m *FlinkJob) Validate() error {
 	// no validation rules for MainClass
 
 	// no validation rules for FlinkProperties
+
+	if v, ok := interface{}(m.GetJobManager()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return FlinkJobValidationError{
+				field:  "JobManager",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetTaskManager()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return FlinkJobValidationError{
+				field:  "TaskManager",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	return nil
 }

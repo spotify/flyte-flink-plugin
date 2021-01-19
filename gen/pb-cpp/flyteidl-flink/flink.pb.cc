@@ -17,7 +17,18 @@
 #include <google/protobuf/port_def.inc>
 
 extern PROTOBUF_INTERNAL_EXPORT_flyteidl_2dflink_2fflink_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_FlinkJob_FlinkPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_flyteidl_2dflink_2fflink_2eproto ::google::protobuf::internal::SCCInfo<1> scc_info_JobManager_flyteidl_2dflink_2fflink_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_flyteidl_2dflink_2fflink_2eproto ::google::protobuf::internal::SCCInfo<1> scc_info_TaskManager_flyteidl_2dflink_2fflink_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_k8s_2eio_2fapimachinery_2fpkg_2fapi_2fresource_2fgenerated_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_Quantity_k8s_2eio_2fapimachinery_2fpkg_2fapi_2fresource_2fgenerated_2eproto;
 namespace flyteidl_flink {
+class JobManagerDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<JobManager> _instance;
+} _JobManager_default_instance_;
+class TaskManagerDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<TaskManager> _instance;
+} _TaskManager_default_instance_;
 class FlinkJob_FlinkPropertiesEntry_DoNotUseDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<FlinkJob_FlinkPropertiesEntry_DoNotUse> _instance;
@@ -27,6 +38,36 @@ class FlinkJobDefaultTypeInternal {
   ::google::protobuf::internal::ExplicitlyConstructed<FlinkJob> _instance;
 } _FlinkJob_default_instance_;
 }  // namespace flyteidl_flink
+static void InitDefaultsJobManager_flyteidl_2dflink_2fflink_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::flyteidl_flink::_JobManager_default_instance_;
+    new (ptr) ::flyteidl_flink::JobManager();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::flyteidl_flink::JobManager::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<1> scc_info_JobManager_flyteidl_2dflink_2fflink_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsJobManager_flyteidl_2dflink_2fflink_2eproto}, {
+      &scc_info_Quantity_k8s_2eio_2fapimachinery_2fpkg_2fapi_2fresource_2fgenerated_2eproto.base,}};
+
+static void InitDefaultsTaskManager_flyteidl_2dflink_2fflink_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::flyteidl_flink::_TaskManager_default_instance_;
+    new (ptr) ::flyteidl_flink::TaskManager();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::flyteidl_flink::TaskManager::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<1> scc_info_TaskManager_flyteidl_2dflink_2fflink_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsTaskManager_flyteidl_2dflink_2fflink_2eproto}, {
+      &scc_info_Quantity_k8s_2eio_2fapimachinery_2fpkg_2fapi_2fresource_2fgenerated_2eproto.base,}};
+
 static void InitDefaultsFlinkJob_FlinkPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -51,20 +92,39 @@ static void InitDefaultsFlinkJob_flyteidl_2dflink_2fflink_2eproto() {
   ::flyteidl_flink::FlinkJob::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<1> scc_info_FlinkJob_flyteidl_2dflink_2fflink_2eproto =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsFlinkJob_flyteidl_2dflink_2fflink_2eproto}, {
-      &scc_info_FlinkJob_FlinkPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto.base,}};
+::google::protobuf::internal::SCCInfo<3> scc_info_FlinkJob_flyteidl_2dflink_2fflink_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 3, InitDefaultsFlinkJob_flyteidl_2dflink_2fflink_2eproto}, {
+      &scc_info_FlinkJob_FlinkPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto.base,
+      &scc_info_JobManager_flyteidl_2dflink_2fflink_2eproto.base,
+      &scc_info_TaskManager_flyteidl_2dflink_2fflink_2eproto.base,}};
 
 void InitDefaults_flyteidl_2dflink_2fflink_2eproto() {
+  ::google::protobuf::internal::InitSCC(&scc_info_JobManager_flyteidl_2dflink_2fflink_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_TaskManager_flyteidl_2dflink_2fflink_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_FlinkJob_FlinkPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_FlinkJob_flyteidl_2dflink_2fflink_2eproto.base);
 }
 
-::google::protobuf::Metadata file_level_metadata_flyteidl_2dflink_2fflink_2eproto[2];
+::google::protobuf::Metadata file_level_metadata_flyteidl_2dflink_2fflink_2eproto[4];
 constexpr ::google::protobuf::EnumDescriptor const** file_level_enum_descriptors_flyteidl_2dflink_2fflink_2eproto = nullptr;
 constexpr ::google::protobuf::ServiceDescriptor const** file_level_service_descriptors_flyteidl_2dflink_2fflink_2eproto = nullptr;
 
 const ::google::protobuf::uint32 TableStruct_flyteidl_2dflink_2fflink_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::JobManager, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::JobManager, cpu_),
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::JobManager, memory_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::TaskManager, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::TaskManager, cpu_),
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::TaskManager, memory_),
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::TaskManager, replicas_),
   PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -83,13 +143,19 @@ const ::google::protobuf::uint32 TableStruct_flyteidl_2dflink_2fflink_2eproto::o
   PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob, mainclass_),
   PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob, args_),
   PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob, flinkproperties_),
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob, jobmanager_),
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob, taskmanager_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 7, sizeof(::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse)},
-  { 9, -1, sizeof(::flyteidl_flink::FlinkJob)},
+  { 0, -1, sizeof(::flyteidl_flink::JobManager)},
+  { 7, -1, sizeof(::flyteidl_flink::TaskManager)},
+  { 15, 22, sizeof(::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse)},
+  { 24, -1, sizeof(::flyteidl_flink::FlinkJob)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::google::protobuf::Message*>(&::flyteidl_flink::_JobManager_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::flyteidl_flink::_TaskManager_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::flyteidl_flink::_FlinkJob_FlinkPropertiesEntry_DoNotUse_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::flyteidl_flink::_FlinkJob_default_instance_),
 };
@@ -97,35 +163,826 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
 ::google::protobuf::internal::AssignDescriptorsTable assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto = {
   {}, AddDescriptors_flyteidl_2dflink_2fflink_2eproto, "flyteidl-flink/flink.proto", schemas,
   file_default_instances, TableStruct_flyteidl_2dflink_2fflink_2eproto::offsets,
-  file_level_metadata_flyteidl_2dflink_2fflink_2eproto, 2, file_level_enum_descriptors_flyteidl_2dflink_2fflink_2eproto, file_level_service_descriptors_flyteidl_2dflink_2fflink_2eproto,
+  file_level_metadata_flyteidl_2dflink_2fflink_2eproto, 4, file_level_enum_descriptors_flyteidl_2dflink_2fflink_2eproto, file_level_service_descriptors_flyteidl_2dflink_2fflink_2eproto,
 };
 
 const char descriptor_table_protodef_flyteidl_2dflink_2fflink_2eproto[] =
   "\n\032flyteidl-flink/flink.proto\022\016flyteidl_f"
-  "link\"\274\001\n\010FlinkJob\022\017\n\007jarFile\030\001 \001(\t\022\021\n\tma"
-  "inClass\030\002 \001(\t\022\014\n\004args\030\003 \003(\t\022F\n\017flinkProp"
-  "erties\030\004 \003(\0132-.flyteidl_flink.FlinkJob.F"
-  "linkPropertiesEntry\0326\n\024FlinkPropertiesEn"
-  "try\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001BCZAg"
-  "he.spotify.net/flink/flyte-flink-plugin/"
-  "gen/pb-go/flyteidl-flinkb\006proto3"
+  "link\0324k8s.io/apimachinery/pkg/api/resour"
+  "ce/generated.proto\"\211\001\n\nJobManager\022;\n\003cpu"
+  "\030\001 \001(\0132..k8s.io.apimachinery.pkg.api.res"
+  "ource.Quantity\022>\n\006memory\030\002 \001(\0132..k8s.io."
+  "apimachinery.pkg.api.resource.Quantity\"\234"
+  "\001\n\013TaskManager\022;\n\003cpu\030\001 \001(\0132..k8s.io.api"
+  "machinery.pkg.api.resource.Quantity\022>\n\006m"
+  "emory\030\002 \001(\0132..k8s.io.apimachinery.pkg.ap"
+  "i.resource.Quantity\022\020\n\010replicas\030\003 \001(\005\"\236\002"
+  "\n\010FlinkJob\022\017\n\007jarFile\030\001 \001(\t\022\021\n\tmainClass"
+  "\030\002 \001(\t\022\014\n\004args\030\003 \003(\t\022F\n\017flinkProperties\030"
+  "\004 \003(\0132-.flyteidl_flink.FlinkJob.FlinkPro"
+  "pertiesEntry\022.\n\njobManager\030\005 \001(\0132\032.flyte"
+  "idl_flink.JobManager\0220\n\013taskManager\030\006 \001("
+  "\0132\033.flyteidl_flink.TaskManager\0326\n\024FlinkP"
+  "ropertiesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001"
+  "(\t:\0028\001BCZAgithub.com/spotify/flyte-fl"
+  "ink-plugin/gen/pb-go/flyteidl-flinkb\006pro"
+  "to3"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_flyteidl_2dflink_2fflink_2eproto = {
   false, InitDefaults_flyteidl_2dflink_2fflink_2eproto, 
   descriptor_table_protodef_flyteidl_2dflink_2fflink_2eproto,
-  "flyteidl-flink/flink.proto", &assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto, 312,
+  "flyteidl-flink/flink.proto", &assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto, 763,
 };
 
 void AddDescriptors_flyteidl_2dflink_2fflink_2eproto() {
   static constexpr ::google::protobuf::internal::InitFunc deps[1] =
   {
+    ::AddDescriptors_k8s_2eio_2fapimachinery_2fpkg_2fapi_2fresource_2fgenerated_2eproto,
   };
- ::google::protobuf::internal::AddDescriptors(&descriptor_table_flyteidl_2dflink_2fflink_2eproto, deps, 0);
+ ::google::protobuf::internal::AddDescriptors(&descriptor_table_flyteidl_2dflink_2fflink_2eproto, deps, 1);
 }
 
 // Force running AddDescriptors() at dynamic initialization time.
 static bool dynamic_init_dummy_flyteidl_2dflink_2fflink_2eproto = []() { AddDescriptors_flyteidl_2dflink_2fflink_2eproto(); return true; }();
 namespace flyteidl_flink {
+
+// ===================================================================
+
+void JobManager::InitAsDefaultInstance() {
+  ::flyteidl_flink::_JobManager_default_instance_._instance.get_mutable()->cpu_ = const_cast< ::k8s::io::apimachinery::pkg::api::resource::Quantity*>(
+      ::k8s::io::apimachinery::pkg::api::resource::Quantity::internal_default_instance());
+  ::flyteidl_flink::_JobManager_default_instance_._instance.get_mutable()->memory_ = const_cast< ::k8s::io::apimachinery::pkg::api::resource::Quantity*>(
+      ::k8s::io::apimachinery::pkg::api::resource::Quantity::internal_default_instance());
+}
+class JobManager::HasBitSetters {
+ public:
+  static const ::k8s::io::apimachinery::pkg::api::resource::Quantity& cpu(const JobManager* msg);
+  static const ::k8s::io::apimachinery::pkg::api::resource::Quantity& memory(const JobManager* msg);
+};
+
+const ::k8s::io::apimachinery::pkg::api::resource::Quantity&
+JobManager::HasBitSetters::cpu(const JobManager* msg) {
+  return *msg->cpu_;
+}
+const ::k8s::io::apimachinery::pkg::api::resource::Quantity&
+JobManager::HasBitSetters::memory(const JobManager* msg) {
+  return *msg->memory_;
+}
+void JobManager::clear_cpu() {
+  if (GetArenaNoVirtual() == nullptr && cpu_ != nullptr) {
+    delete cpu_;
+  }
+  cpu_ = nullptr;
+}
+void JobManager::clear_memory() {
+  if (GetArenaNoVirtual() == nullptr && memory_ != nullptr) {
+    delete memory_;
+  }
+  memory_ = nullptr;
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int JobManager::kCpuFieldNumber;
+const int JobManager::kMemoryFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+JobManager::JobManager()
+  : ::google::protobuf::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:flyteidl_flink.JobManager)
+}
+JobManager::JobManager(const JobManager& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_cpu()) {
+    cpu_ = new ::k8s::io::apimachinery::pkg::api::resource::Quantity(*from.cpu_);
+  } else {
+    cpu_ = nullptr;
+  }
+  if (from.has_memory()) {
+    memory_ = new ::k8s::io::apimachinery::pkg::api::resource::Quantity(*from.memory_);
+  } else {
+    memory_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:flyteidl_flink.JobManager)
+}
+
+void JobManager::SharedCtor() {
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_JobManager_flyteidl_2dflink_2fflink_2eproto.base);
+  ::memset(&cpu_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&memory_) -
+      reinterpret_cast<char*>(&cpu_)) + sizeof(memory_));
+}
+
+JobManager::~JobManager() {
+  // @@protoc_insertion_point(destructor:flyteidl_flink.JobManager)
+  SharedDtor();
+}
+
+void JobManager::SharedDtor() {
+  if (this != internal_default_instance()) delete cpu_;
+  if (this != internal_default_instance()) delete memory_;
+}
+
+void JobManager::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const JobManager& JobManager::default_instance() {
+  ::google::protobuf::internal::InitSCC(&::scc_info_JobManager_flyteidl_2dflink_2fflink_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void JobManager::Clear() {
+// @@protoc_insertion_point(message_clear_start:flyteidl_flink.JobManager)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaNoVirtual() == nullptr && cpu_ != nullptr) {
+    delete cpu_;
+  }
+  cpu_ = nullptr;
+  if (GetArenaNoVirtual() == nullptr && memory_ != nullptr) {
+    delete memory_;
+  }
+  memory_ = nullptr;
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* JobManager::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<JobManager*>(object);
+  ::google::protobuf::int32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ptr = ::google::protobuf::io::Parse32(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::k8s::io::apimachinery::pkg::api::resource::Quantity::_InternalParse;
+        object = msg->mutable_cpu();
+        if (size > end - ptr) goto len_delim_till_end;
+        ptr += size;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ctx->ParseExactRange(
+            {parser_till_end, object}, ptr - size, ptr));
+        break;
+      }
+      // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::k8s::io::apimachinery::pkg::api::resource::Quantity::_InternalParse;
+        object = msg->mutable_memory();
+        if (size > end - ptr) goto len_delim_till_end;
+        ptr += size;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ctx->ParseExactRange(
+            {parser_till_end, object}, ptr - size, ptr));
+        break;
+      }
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->EndGroup(tag);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr != nullptr);
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end:
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                               {parser_till_end, object}, size);
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool JobManager::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:flyteidl_flink.JobManager)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_cpu()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_memory()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:flyteidl_flink.JobManager)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:flyteidl_flink.JobManager)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void JobManager::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:flyteidl_flink.JobManager)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+  if (this->has_cpu()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, HasBitSetters::cpu(this), output);
+  }
+
+  // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+  if (this->has_memory()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, HasBitSetters::memory(this), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:flyteidl_flink.JobManager)
+}
+
+::google::protobuf::uint8* JobManager::InternalSerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:flyteidl_flink.JobManager)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+  if (this->has_cpu()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        1, HasBitSetters::cpu(this), target);
+  }
+
+  // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+  if (this->has_memory()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        2, HasBitSetters::memory(this), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:flyteidl_flink.JobManager)
+  return target;
+}
+
+size_t JobManager::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:flyteidl_flink.JobManager)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+  if (this->has_cpu()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *cpu_);
+  }
+
+  // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+  if (this->has_memory()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *memory_);
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void JobManager::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:flyteidl_flink.JobManager)
+  GOOGLE_DCHECK_NE(&from, this);
+  const JobManager* source =
+      ::google::protobuf::DynamicCastToGenerated<JobManager>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:flyteidl_flink.JobManager)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:flyteidl_flink.JobManager)
+    MergeFrom(*source);
+  }
+}
+
+void JobManager::MergeFrom(const JobManager& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:flyteidl_flink.JobManager)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_cpu()) {
+    mutable_cpu()->::k8s::io::apimachinery::pkg::api::resource::Quantity::MergeFrom(from.cpu());
+  }
+  if (from.has_memory()) {
+    mutable_memory()->::k8s::io::apimachinery::pkg::api::resource::Quantity::MergeFrom(from.memory());
+  }
+}
+
+void JobManager::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:flyteidl_flink.JobManager)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void JobManager::CopyFrom(const JobManager& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:flyteidl_flink.JobManager)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool JobManager::IsInitialized() const {
+  return true;
+}
+
+void JobManager::Swap(JobManager* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void JobManager::InternalSwap(JobManager* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(cpu_, other->cpu_);
+  swap(memory_, other->memory_);
+}
+
+::google::protobuf::Metadata JobManager::GetMetadata() const {
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto);
+  return ::file_level_metadata_flyteidl_2dflink_2fflink_2eproto[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
+void TaskManager::InitAsDefaultInstance() {
+  ::flyteidl_flink::_TaskManager_default_instance_._instance.get_mutable()->cpu_ = const_cast< ::k8s::io::apimachinery::pkg::api::resource::Quantity*>(
+      ::k8s::io::apimachinery::pkg::api::resource::Quantity::internal_default_instance());
+  ::flyteidl_flink::_TaskManager_default_instance_._instance.get_mutable()->memory_ = const_cast< ::k8s::io::apimachinery::pkg::api::resource::Quantity*>(
+      ::k8s::io::apimachinery::pkg::api::resource::Quantity::internal_default_instance());
+}
+class TaskManager::HasBitSetters {
+ public:
+  static const ::k8s::io::apimachinery::pkg::api::resource::Quantity& cpu(const TaskManager* msg);
+  static const ::k8s::io::apimachinery::pkg::api::resource::Quantity& memory(const TaskManager* msg);
+};
+
+const ::k8s::io::apimachinery::pkg::api::resource::Quantity&
+TaskManager::HasBitSetters::cpu(const TaskManager* msg) {
+  return *msg->cpu_;
+}
+const ::k8s::io::apimachinery::pkg::api::resource::Quantity&
+TaskManager::HasBitSetters::memory(const TaskManager* msg) {
+  return *msg->memory_;
+}
+void TaskManager::clear_cpu() {
+  if (GetArenaNoVirtual() == nullptr && cpu_ != nullptr) {
+    delete cpu_;
+  }
+  cpu_ = nullptr;
+}
+void TaskManager::clear_memory() {
+  if (GetArenaNoVirtual() == nullptr && memory_ != nullptr) {
+    delete memory_;
+  }
+  memory_ = nullptr;
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int TaskManager::kCpuFieldNumber;
+const int TaskManager::kMemoryFieldNumber;
+const int TaskManager::kReplicasFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+TaskManager::TaskManager()
+  : ::google::protobuf::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:flyteidl_flink.TaskManager)
+}
+TaskManager::TaskManager(const TaskManager& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_cpu()) {
+    cpu_ = new ::k8s::io::apimachinery::pkg::api::resource::Quantity(*from.cpu_);
+  } else {
+    cpu_ = nullptr;
+  }
+  if (from.has_memory()) {
+    memory_ = new ::k8s::io::apimachinery::pkg::api::resource::Quantity(*from.memory_);
+  } else {
+    memory_ = nullptr;
+  }
+  replicas_ = from.replicas_;
+  // @@protoc_insertion_point(copy_constructor:flyteidl_flink.TaskManager)
+}
+
+void TaskManager::SharedCtor() {
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_TaskManager_flyteidl_2dflink_2fflink_2eproto.base);
+  ::memset(&cpu_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&replicas_) -
+      reinterpret_cast<char*>(&cpu_)) + sizeof(replicas_));
+}
+
+TaskManager::~TaskManager() {
+  // @@protoc_insertion_point(destructor:flyteidl_flink.TaskManager)
+  SharedDtor();
+}
+
+void TaskManager::SharedDtor() {
+  if (this != internal_default_instance()) delete cpu_;
+  if (this != internal_default_instance()) delete memory_;
+}
+
+void TaskManager::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const TaskManager& TaskManager::default_instance() {
+  ::google::protobuf::internal::InitSCC(&::scc_info_TaskManager_flyteidl_2dflink_2fflink_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void TaskManager::Clear() {
+// @@protoc_insertion_point(message_clear_start:flyteidl_flink.TaskManager)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaNoVirtual() == nullptr && cpu_ != nullptr) {
+    delete cpu_;
+  }
+  cpu_ = nullptr;
+  if (GetArenaNoVirtual() == nullptr && memory_ != nullptr) {
+    delete memory_;
+  }
+  memory_ = nullptr;
+  replicas_ = 0;
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* TaskManager::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<TaskManager*>(object);
+  ::google::protobuf::int32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ptr = ::google::protobuf::io::Parse32(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::k8s::io::apimachinery::pkg::api::resource::Quantity::_InternalParse;
+        object = msg->mutable_cpu();
+        if (size > end - ptr) goto len_delim_till_end;
+        ptr += size;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ctx->ParseExactRange(
+            {parser_till_end, object}, ptr - size, ptr));
+        break;
+      }
+      // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::k8s::io::apimachinery::pkg::api::resource::Quantity::_InternalParse;
+        object = msg->mutable_memory();
+        if (size > end - ptr) goto len_delim_till_end;
+        ptr += size;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ctx->ParseExactRange(
+            {parser_till_end, object}, ptr - size, ptr));
+        break;
+      }
+      // int32 replicas = 3;
+      case 3: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 24) goto handle_unusual;
+        msg->set_replicas(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->EndGroup(tag);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr != nullptr);
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end:
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                               {parser_till_end, object}, size);
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool TaskManager::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:flyteidl_flink.TaskManager)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_cpu()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_memory()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 replicas = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (24 & 0xFF)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &replicas_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:flyteidl_flink.TaskManager)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:flyteidl_flink.TaskManager)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void TaskManager::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:flyteidl_flink.TaskManager)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+  if (this->has_cpu()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, HasBitSetters::cpu(this), output);
+  }
+
+  // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+  if (this->has_memory()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, HasBitSetters::memory(this), output);
+  }
+
+  // int32 replicas = 3;
+  if (this->replicas() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->replicas(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:flyteidl_flink.TaskManager)
+}
+
+::google::protobuf::uint8* TaskManager::InternalSerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:flyteidl_flink.TaskManager)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+  if (this->has_cpu()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        1, HasBitSetters::cpu(this), target);
+  }
+
+  // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+  if (this->has_memory()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        2, HasBitSetters::memory(this), target);
+  }
+
+  // int32 replicas = 3;
+  if (this->replicas() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->replicas(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:flyteidl_flink.TaskManager)
+  return target;
+}
+
+size_t TaskManager::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:flyteidl_flink.TaskManager)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+  if (this->has_cpu()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *cpu_);
+  }
+
+  // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+  if (this->has_memory()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *memory_);
+  }
+
+  // int32 replicas = 3;
+  if (this->replicas() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->replicas());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void TaskManager::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:flyteidl_flink.TaskManager)
+  GOOGLE_DCHECK_NE(&from, this);
+  const TaskManager* source =
+      ::google::protobuf::DynamicCastToGenerated<TaskManager>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:flyteidl_flink.TaskManager)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:flyteidl_flink.TaskManager)
+    MergeFrom(*source);
+  }
+}
+
+void TaskManager::MergeFrom(const TaskManager& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:flyteidl_flink.TaskManager)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_cpu()) {
+    mutable_cpu()->::k8s::io::apimachinery::pkg::api::resource::Quantity::MergeFrom(from.cpu());
+  }
+  if (from.has_memory()) {
+    mutable_memory()->::k8s::io::apimachinery::pkg::api::resource::Quantity::MergeFrom(from.memory());
+  }
+  if (from.replicas() != 0) {
+    set_replicas(from.replicas());
+  }
+}
+
+void TaskManager::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:flyteidl_flink.TaskManager)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void TaskManager::CopyFrom(const TaskManager& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:flyteidl_flink.TaskManager)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool TaskManager::IsInitialized() const {
+  return true;
+}
+
+void TaskManager::Swap(TaskManager* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void TaskManager::InternalSwap(TaskManager* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(cpu_, other->cpu_);
+  swap(memory_, other->memory_);
+  swap(replicas_, other->replicas_);
+}
+
+::google::protobuf::Metadata TaskManager::GetMetadata() const {
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto);
+  return ::file_level_metadata_flyteidl_2dflink_2fflink_2eproto[kIndexInFileMessages];
+}
+
 
 // ===================================================================
 
@@ -137,7 +994,7 @@ void FlinkJob_FlinkPropertiesEntry_DoNotUse::MergeFrom(const FlinkJob_FlinkPrope
 }
 ::google::protobuf::Metadata FlinkJob_FlinkPropertiesEntry_DoNotUse::GetMetadata() const {
   ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto);
-  return ::file_level_metadata_flyteidl_2dflink_2fflink_2eproto[0];
+  return ::file_level_metadata_flyteidl_2dflink_2fflink_2eproto[2];
 }
 void FlinkJob_FlinkPropertiesEntry_DoNotUse::MergeFrom(
     const ::google::protobuf::Message& other) {
@@ -171,16 +1028,32 @@ bool FlinkJob_FlinkPropertiesEntry_DoNotUse::_ParseMap(const char* begin, const 
 // ===================================================================
 
 void FlinkJob::InitAsDefaultInstance() {
+  ::flyteidl_flink::_FlinkJob_default_instance_._instance.get_mutable()->jobmanager_ = const_cast< ::flyteidl_flink::JobManager*>(
+      ::flyteidl_flink::JobManager::internal_default_instance());
+  ::flyteidl_flink::_FlinkJob_default_instance_._instance.get_mutable()->taskmanager_ = const_cast< ::flyteidl_flink::TaskManager*>(
+      ::flyteidl_flink::TaskManager::internal_default_instance());
 }
 class FlinkJob::HasBitSetters {
  public:
+  static const ::flyteidl_flink::JobManager& jobmanager(const FlinkJob* msg);
+  static const ::flyteidl_flink::TaskManager& taskmanager(const FlinkJob* msg);
 };
 
+const ::flyteidl_flink::JobManager&
+FlinkJob::HasBitSetters::jobmanager(const FlinkJob* msg) {
+  return *msg->jobmanager_;
+}
+const ::flyteidl_flink::TaskManager&
+FlinkJob::HasBitSetters::taskmanager(const FlinkJob* msg) {
+  return *msg->taskmanager_;
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int FlinkJob::kJarFileFieldNumber;
 const int FlinkJob::kMainClassFieldNumber;
 const int FlinkJob::kArgsFieldNumber;
 const int FlinkJob::kFlinkPropertiesFieldNumber;
+const int FlinkJob::kJobManagerFieldNumber;
+const int FlinkJob::kTaskManagerFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 FlinkJob::FlinkJob()
@@ -202,6 +1075,16 @@ FlinkJob::FlinkJob(const FlinkJob& from)
   if (from.mainclass().size() > 0) {
     mainclass_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.mainclass_);
   }
+  if (from.has_jobmanager()) {
+    jobmanager_ = new ::flyteidl_flink::JobManager(*from.jobmanager_);
+  } else {
+    jobmanager_ = nullptr;
+  }
+  if (from.has_taskmanager()) {
+    taskmanager_ = new ::flyteidl_flink::TaskManager(*from.taskmanager_);
+  } else {
+    taskmanager_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:flyteidl_flink.FlinkJob)
 }
 
@@ -210,6 +1093,9 @@ void FlinkJob::SharedCtor() {
       &scc_info_FlinkJob_flyteidl_2dflink_2fflink_2eproto.base);
   jarfile_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   mainclass_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&jobmanager_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&taskmanager_) -
+      reinterpret_cast<char*>(&jobmanager_)) + sizeof(taskmanager_));
 }
 
 FlinkJob::~FlinkJob() {
@@ -220,6 +1106,8 @@ FlinkJob::~FlinkJob() {
 void FlinkJob::SharedDtor() {
   jarfile_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   mainclass_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete jobmanager_;
+  if (this != internal_default_instance()) delete taskmanager_;
 }
 
 void FlinkJob::SetCachedSize(int size) const {
@@ -241,6 +1129,14 @@ void FlinkJob::Clear() {
   flinkproperties_.Clear();
   jarfile_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   mainclass_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() == nullptr && jobmanager_ != nullptr) {
+    delete jobmanager_;
+  }
+  jobmanager_ = nullptr;
+  if (GetArenaNoVirtual() == nullptr && taskmanager_ != nullptr) {
+    delete taskmanager_;
+  }
+  taskmanager_ = nullptr;
   _internal_metadata_.Clear();
 }
 
@@ -325,6 +1221,32 @@ const char* FlinkJob::_InternalParse(const char* begin, const char* end, void* o
           ptr = newend;
           if (ptr >= end) break;
         } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 34 && (ptr += 1));
+        break;
+      }
+      // .flyteidl_flink.JobManager jobManager = 5;
+      case 5: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 42) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::flyteidl_flink::JobManager::_InternalParse;
+        object = msg->mutable_jobmanager();
+        if (size > end - ptr) goto len_delim_till_end;
+        ptr += size;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ctx->ParseExactRange(
+            {parser_till_end, object}, ptr - size, ptr));
+        break;
+      }
+      // .flyteidl_flink.TaskManager taskManager = 6;
+      case 6: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 50) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::flyteidl_flink::TaskManager::_InternalParse;
+        object = msg->mutable_taskmanager();
+        if (size > end - ptr) goto len_delim_till_end;
+        ptr += size;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ctx->ParseExactRange(
+            {parser_till_end, object}, ptr - size, ptr));
         break;
       }
       default: {
@@ -427,6 +1349,28 @@ bool FlinkJob::MergePartialFromCodedStream(
             parser.value().data(), static_cast<int>(parser.value().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
             "flyteidl_flink.FlinkJob.FlinkPropertiesEntry.value"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .flyteidl_flink.JobManager jobManager = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (42 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_jobmanager()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .flyteidl_flink.TaskManager taskManager = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (50 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_taskmanager()));
         } else {
           goto handle_unusual;
         }
@@ -539,6 +1483,18 @@ void FlinkJob::SerializeWithCachedSizes(
     }
   }
 
+  // .flyteidl_flink.JobManager jobManager = 5;
+  if (this->has_jobmanager()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, HasBitSetters::jobmanager(this), output);
+  }
+
+  // .flyteidl_flink.TaskManager taskManager = 6;
+  if (this->has_taskmanager()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      6, HasBitSetters::taskmanager(this), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -633,6 +1589,20 @@ void FlinkJob::SerializeWithCachedSizes(
     }
   }
 
+  // .flyteidl_flink.JobManager jobManager = 5;
+  if (this->has_jobmanager()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        5, HasBitSetters::jobmanager(this), target);
+  }
+
+  // .flyteidl_flink.TaskManager taskManager = 6;
+  if (this->has_taskmanager()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        6, HasBitSetters::taskmanager(this), target);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
@@ -690,6 +1660,20 @@ size_t FlinkJob::ByteSizeLong() const {
         this->mainclass());
   }
 
+  // .flyteidl_flink.JobManager jobManager = 5;
+  if (this->has_jobmanager()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *jobmanager_);
+  }
+
+  // .flyteidl_flink.TaskManager taskManager = 6;
+  if (this->has_taskmanager()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *taskmanager_);
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
@@ -727,6 +1711,12 @@ void FlinkJob::MergeFrom(const FlinkJob& from) {
 
     mainclass_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.mainclass_);
   }
+  if (from.has_jobmanager()) {
+    mutable_jobmanager()->::flyteidl_flink::JobManager::MergeFrom(from.jobmanager());
+  }
+  if (from.has_taskmanager()) {
+    mutable_taskmanager()->::flyteidl_flink::TaskManager::MergeFrom(from.taskmanager());
+  }
 }
 
 void FlinkJob::CopyFrom(const ::google::protobuf::Message& from) {
@@ -760,6 +1750,8 @@ void FlinkJob::InternalSwap(FlinkJob* other) {
     GetArenaNoVirtual());
   mainclass_.Swap(&other->mainclass_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
+  swap(jobmanager_, other->jobmanager_);
+  swap(taskmanager_, other->taskmanager_);
 }
 
 ::google::protobuf::Metadata FlinkJob::GetMetadata() const {
@@ -772,6 +1764,12 @@ void FlinkJob::InternalSwap(FlinkJob* other) {
 }  // namespace flyteidl_flink
 namespace google {
 namespace protobuf {
+template<> PROTOBUF_NOINLINE ::flyteidl_flink::JobManager* Arena::CreateMaybeMessage< ::flyteidl_flink::JobManager >(Arena* arena) {
+  return Arena::CreateInternal< ::flyteidl_flink::JobManager >(arena);
+}
+template<> PROTOBUF_NOINLINE ::flyteidl_flink::TaskManager* Arena::CreateMaybeMessage< ::flyteidl_flink::TaskManager >(Arena* arena) {
+  return Arena::CreateInternal< ::flyteidl_flink::TaskManager >(arena);
+}
 template<> PROTOBUF_NOINLINE ::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse* Arena::CreateMaybeMessage< ::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse >(Arena* arena) {
   return Arena::CreateInternal< ::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse >(arena);
 }

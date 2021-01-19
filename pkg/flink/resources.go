@@ -15,17 +15,23 @@ var (
 	cacheVolumeMounts = []corev1.VolumeMount{{Name: "cache-volume", MountPath: "/cache"}}
 )
 
-func BuildJobManagerResource(flinkProperties FlinkProperties, annotations Annotations, labels Labels) flinkOp.JobManagerSpec {
-	jobManagerCores := flinkProperties.GetResourceQuantity("kubernetes.jobmanager.cores")
-	jobManagerMemory := flinkProperties.GetResourceQuantity("kubernetes.jobmanager.memory")
+func BuildJobManagerSpec(jm *flinkIdl.JobManager, config *JobManagerConfig, annotations Annotations, labels Labels) flinkOp.JobManagerSpec {
+	cpu := config.Cpu
+	if jm.GetCpu() != nil {
+		cpu = *jm.GetCpu()
+	}
+	memory := config.Memory
+	if jm.GetMemory() != nil {
+		memory = *jm.GetMemory()
+	}
 
 	return flinkOp.JobManagerSpec{
 		PodAnnotations: annotations,
 		PodLabels:      labels,
 		Resources: corev1.ResourceRequirements{
 			Limits: corev1.ResourceList{
-				corev1.ResourceCPU:    jobManagerCores,
-				corev1.ResourceMemory: jobManagerMemory,
+				corev1.ResourceCPU:    cpu,
+				corev1.ResourceMemory: memory,
 			},
 		},
 		Volumes:      cacheVolumes,
@@ -33,35 +39,44 @@ func BuildJobManagerResource(flinkProperties FlinkProperties, annotations Annota
 	}
 }
 
-func BuildTaskManagerResource(flinkProperties FlinkProperties, annotations Annotations, labels Labels) flinkOp.TaskManagerSpec {
-	taskManagerCores := flinkProperties.GetResourceQuantity("kubernetes.taskmanager.cores")
-	taskManagerMemory := flinkProperties.GetResourceQuantity("kubernetes.taskmanager.memory")
-	taskManagerReplicas := flinkProperties.GetInt("kubernetes.taskmanager.replicas")
+func BuildTaskManagerSpec(tm *flinkIdl.TaskManager, config *TaskManagerConfig, annotations Annotations, labels Labels) flinkOp.TaskManagerSpec {
+	cpu := config.Cpu
+	if tm.GetCpu() != nil {
+		cpu = *tm.GetCpu()
+	}
+	memory := config.Memory
+	if tm.GetMemory() != nil {
+		memory = *tm.GetMemory()
+	}
+	replicas := int32(config.Replicas)
+	if tm.GetReplicas() > 0 {
+		replicas = tm.GetReplicas()
+	}
 
 	return flinkOp.TaskManagerSpec{
 		PodAnnotations: annotations,
 		PodLabels:      labels,
-		Replicas:       int32(taskManagerReplicas),
+		Replicas:       replicas,
 		Volumes:        cacheVolumes,
 		VolumeMounts:   cacheVolumeMounts,
 		Resources: corev1.ResourceRequirements{
 			Limits: corev1.ResourceList{
-				corev1.ResourceCPU:    taskManagerCores,
-				corev1.ResourceMemory: taskManagerMemory,
+				corev1.ResourceCPU:    cpu,
+				corev1.ResourceMemory: memory,
 			},
 		},
 	}
 }
 
-func BuildJobResource(taskManager flinkOp.TaskManagerSpec, flinkProperties FlinkProperties, flinkJob flinkIdl.FlinkJob) flinkOp.JobSpec {
+func BuildJobSpec(job flinkIdl.FlinkJob, taskManager flinkOp.TaskManagerSpec, flinkProperties FlinkProperties) flinkOp.JobSpec {
 	taskSlots := flinkProperties.GetInt("taskmanager.numberOfTaskSlots")
 	parallelism := taskManager.Replicas * int32(taskSlots)
 
 	return flinkOp.JobSpec{
 
 		JarFile:      "/cache/job.jar",
-		ClassName:    &flinkJob.MainClass,
-		Args:         flinkJob.Args,
+		ClassName:    &job.MainClass,
+		Args:         job.Args,
 		Parallelism:  &parallelism,
 		Volumes:      cacheVolumes,
 		VolumeMounts: cacheVolumeMounts,
@@ -83,7 +98,7 @@ func BuildJobResource(taskManager flinkOp.TaskManagerSpec, flinkProperties Flink
 				Command: []string{"gsutil"},
 				Args: []string{
 					"cp",
-					flinkJob.JarFile,
+					job.JarFile,
 					"/cache/job.jar",
 				},
 				Resources: corev1.ResourceRequirements{
@@ -97,7 +112,7 @@ func BuildJobResource(taskManager flinkOp.TaskManagerSpec, flinkProperties Flink
 	}
 }
 
-func BuildFlinkClusterResource(config *Config, flinkProperties FlinkProperties, annotations Annotations, labels Labels, jobManager flinkOp.JobManagerSpec, taskManager flinkOp.TaskManagerSpec, job flinkOp.JobSpec) flinkOp.FlinkCluster {
+func BuildFlinkClusterSpec(config *Config, jobManager flinkOp.JobManagerSpec, taskManager flinkOp.TaskManagerSpec, job flinkOp.JobSpec, flinkProperties FlinkProperties, annotations Annotations, labels Labels) flinkOp.FlinkCluster {
 	return flinkOp.FlinkCluster{
 		TypeMeta: metav1.TypeMeta{
 			Kind:       KindFlinkCluster,

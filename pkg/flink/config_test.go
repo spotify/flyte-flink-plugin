@@ -4,18 +4,24 @@ import (
 	"context"
 	"testing"
 
-	// pluginsConfig "github.com/lyft/flyteplugins/go/tasks/config"
 	"github.com/lyft/flytestdlib/config"
 	"github.com/lyft/flytestdlib/config/viper"
 	"gotest.tools/assert"
+	"k8s.io/apimachinery/pkg/api/resource"
 )
 
 func TestLoadConfig(t *testing.T) {
-	flinkConfig := GetFlinkConfig()
-	assert.Assert(t, flinkConfig != nil)
+	config := GetFlinkConfig()
+	assert.Assert(t, config != nil)
 
-	assert.Equal(t, flinkConfig.Image, "flink-image")
-	assert.Equal(t, flinkConfig.ServiceAccount, "flink-service-account")
+	assert.Equal(t, config.Image, "flink-image")
+	assert.Equal(t, config.ServiceAccount, "flink-service-account")
+	assert.Equal(t, config.JobManager.Cpu, resource.MustParse("3.5"))
+	assert.Equal(t, config.JobManager.Memory, resource.MustParse("4Gi"))
+	assert.Equal(t, config.TaskManager.Cpu, resource.MustParse("4"))
+	assert.Equal(t, config.TaskManager.Memory, resource.MustParse("4Gi"))
+	assert.Equal(t, config.TaskManager.Replicas, 4)
+	assert.Assert(t, len(config.FlinkProperties) > 0)
 }
 
 func init() {

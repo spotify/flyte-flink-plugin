@@ -37,8 +37,8 @@ func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCo
 		return nil, errors.Errorf(errors.BadTaskSpecification, "nil task specification")
 	}
 
-	flinkJob := flinkIdl.FlinkJob{}
-	err = utils.UnmarshalStruct(taskTemplate.GetCustom(), &flinkJob)
+	job := flinkIdl.FlinkJob{}
+	err = utils.UnmarshalStruct(taskTemplate.GetCustom(), &job)
 	if err != nil {
 		return nil, errors.Wrapf(errors.BadTaskSpecification, err, "invalid TaskSpecification [%v], failed to unmarshal", taskTemplate.GetCustom())
 	}
@@ -51,12 +51,12 @@ func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCo
 
 	// Start with default config values.
 	config := GetFlinkConfig()
-	flinkProperties := BuildFlinkProperties(config, flinkJob)
+	flinkProperties := BuildFlinkProperties(config, job)
 
-	jobManager := BuildJobManagerResource(flinkProperties, annotations, labels)
-	taskManager := BuildTaskManagerResource(flinkProperties, annotations, labels)
-	job := BuildJobResource(taskManager, flinkProperties, flinkJob)
-	flinkCluster := BuildFlinkClusterResource(config, flinkProperties, annotations, labels, jobManager, taskManager, job)
+	jobManagerSpec := BuildJobManagerSpec(job.JobManager, &config.JobManager, annotations, labels)
+	taskManagerSpec := BuildTaskManagerSpec(job.TaskManager, &config.TaskManager, annotations, labels)
+	jobSpec := BuildJobSpec(job, taskManagerSpec, flinkProperties)
+	flinkCluster := BuildFlinkClusterSpec(config, jobManagerSpec, taskManagerSpec, jobSpec, flinkProperties, annotations, labels)
 
 	return &flinkCluster, nil
 }
