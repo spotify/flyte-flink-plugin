@@ -15,3 +15,5 @@ plugins:
             - web.timeout: "600000"
             - heartbeat.timeout: "3600000"
             - pipeline.object-reuse: "true"
+        flink-properties-override:
+            - jobmanager.archive.fs.dir: "flink-job-archive-dir"

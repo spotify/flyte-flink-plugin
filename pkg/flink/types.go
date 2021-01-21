@@ -23,6 +23,10 @@ func BuildFlinkProperties(config *Config, flinkJob flinkIdl.FlinkJob) FlinkPrope
 		flinkProperties[k] = v
 	}
 
+	for k, v := range config.FlinkPropertiesOverride {
+		flinkProperties[k] = v
+	}
+
 	return flinkProperties
 }
 

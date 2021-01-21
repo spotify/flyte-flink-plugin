@@ -22,6 +22,7 @@ func TestLoadConfig(t *testing.T) {
 	assert.Equal(t, config.TaskManager.Memory, resource.MustParse("4Gi"))
 	assert.Equal(t, config.TaskManager.Replicas, 4)
 	assert.Assert(t, len(config.FlinkProperties) > 0)
+	assert.Equal(t, config.FlinkPropertiesOverride["jobmanager.archive.fs.dir"], "flink-job-archive-dir")
 }
 
 func init() {

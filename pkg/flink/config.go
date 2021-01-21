@@ -19,6 +19,7 @@ type TaskManagerConfig struct {
 // Config ... Flink-specific configs
 type Config struct {
 	FlinkProperties map[string]string `json:"flink-properties-default" pflag:",Key value pairs of default flink properties that should be applied to every FlinkJob"`
+	FlinkPropertiesOverride map[string]string `json:"flink-properties-override" pflag:",Key value pairs of flink properties to be overridden in every FlinkJob"`
 	Image           string            `json:"image"`
 	ServiceAccount  string            `json:"service-account"`
 	JobManager      JobManagerConfig  `json:"jobmanager"`
