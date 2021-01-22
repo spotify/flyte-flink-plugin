@@ -43,22 +43,13 @@ func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCo
 		return nil, errors.Wrapf(errors.BadTaskSpecification, err, "invalid TaskSpecification [%v], failed to unmarshal", taskTemplate.GetCustom())
 	}
 
-	annotations := GetDefaultAnnotations(taskCtx)
-	labels := GetDefaultLabels(taskCtx)
-
 	container := taskTemplate.GetContainer()
 	logger.Debugf(ctx, "Container %+v", container)
 
 	// Start with default config values.
 	config := GetFlinkConfig()
-	flinkProperties := BuildFlinkProperties(config, job)
 
-	jobManagerSpec := BuildJobManagerSpec(job.JobManager, &config.JobManager, annotations, labels)
-	taskManagerSpec := BuildTaskManagerSpec(job.TaskManager, &config.TaskManager, annotations, labels)
-	jobSpec := BuildJobSpec(job, taskManagerSpec, flinkProperties)
-	flinkCluster := BuildFlinkClusterSpec(config, jobManagerSpec, taskManagerSpec, jobSpec, flinkProperties, annotations, labels)
-
-	return &flinkCluster, nil
+	return BuildFlinkClusterSpec(taskCtx.TaskExecutionMetadata(), job, config)
 }
 
 func (flinkResourceHandler) BuildIdentityResource(ctx context.Context, taskCtx pluginsCore.TaskExecutionMetadata) (k8s.Resource, error) {

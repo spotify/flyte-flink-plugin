@@ -41,18 +41,18 @@ func (fp FlinkProperties) GetInt(key string) int {
 
 type Annotations map[string]string
 
-func GetDefaultAnnotations(taskCtx pluginsCore.TaskExecutionContext) Annotations {
+func GetDefaultAnnotations(taskCtx pluginsCore.TaskExecutionMetadata) Annotations {
 	return utils.UnionMaps(
 		config.GetK8sPluginConfig().DefaultAnnotations,
-		utils.CopyMap(taskCtx.TaskExecutionMetadata().GetAnnotations()),
+		utils.CopyMap(taskCtx.GetAnnotations()),
 	)
 }
 
 type Labels map[string]string
 
-func GetDefaultLabels(taskCtx pluginsCore.TaskExecutionContext) Labels {
+func GetDefaultLabels(taskCtx pluginsCore.TaskExecutionMetadata) Labels {
 	return utils.UnionMaps(
 		config.GetK8sPluginConfig().DefaultLabels,
-		utils.CopyMap(taskCtx.TaskExecutionMetadata().GetLabels()),
+		utils.CopyMap(taskCtx.GetLabels()),
 	)
 }
