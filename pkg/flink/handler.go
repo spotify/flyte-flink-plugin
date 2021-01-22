@@ -63,8 +63,8 @@ func (flinkResourceHandler) BuildIdentityResource(ctx context.Context, taskCtx p
 
 func flinkClusterTaskLogs(ctx context.Context, logPlugin logUtils.LogPlugin, flinkCluster *flinkOp.FlinkCluster, via string) ([]*core.TaskLog, error) {
 	var taskLogs []*core.TaskLog
-	jobManagerStatus := flinkCluster.Status.Components.JobManagerDeployment
-	taskManagerStatus := flinkCluster.Status.Components.TaskManagerDeployment
+	jobManagerStatus := flinkCluster.Status.Components.JobManagerStatefulSet
+	taskManagerStatus := flinkCluster.Status.Components.TaskManagerStatefulSet
 	jobStatus := flinkCluster.Status.Components.Job
 
 	if jobStatus == nil || jobStatus.Name == "" {

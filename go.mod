@@ -7,12 +7,9 @@ require (
 	github.com/go-logr/zapr v0.3.0 // indirect
 	github.com/golang/protobuf v1.4.3
 	github.com/lyft/flyteidl v0.18.9
-	// github.com/lyft/flyteidl v0.18.11
 	github.com/lyft/flyteplugins v0.5.21
 	github.com/lyft/flytestdlib v0.3.9
-
-	// github.com/lyft/flinkk8soperator v0.5.0
-	github.com/regadas/flink-on-k8s-operator v0.0.0-20201126113113-ee4a54861ce2
+	github.com/regadas/flink-on-k8s-operator v0.0.0-20210122222723-137cfbd2fc8d
 	gotest.tools v2.2.0+incompatible
 	k8s.io/api v0.19.4
 	k8s.io/apimachinery v0.18.3
@@ -20,12 +17,12 @@ require (
 )
 
 replace (
-	k8s.io/api => github.com/lyft/api v0.0.0-20191031200350-b49a72c274e0
+	k8s.io/api => k8s.io/api v0.18.3
 	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.18.3
-	k8s.io/apimachinery => github.com/lyft/apimachinery v0.0.0-20191031200210-047e3ea32d7f
+	k8s.io/apimachinery => k8s.io/apimachinery v0.18.3
 	k8s.io/apiserver => k8s.io/apiserver v0.18.3
 	k8s.io/cli-runtime => k8s.io/cli-runtime v0.18.3
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20191016111102-bec269661e48
+	k8s.io/client-go => k8s.io/client-go v0.18.3
 	k8s.io/cloud-provider => k8s.io/cloud-provider v0.18.3
 	k8s.io/cluster-bootstrap => k8s.io/cluster-bootstrap v0.18.3
 	k8s.io/code-generator => k8s.io/code-generator v0.16.10-beta.0
@@ -43,5 +40,5 @@ replace (
 	k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.18.3
 	k8s.io/sample-cli-plugin => k8s.io/sample-cli-plugin v0.18.3
 	k8s.io/sample-controller => k8s.io/sample-controller v0.18.3
-	sigs.k8s.io/controller-runtime => sigs.k8s.io/controller-runtime v0.5.1
+	sigs.k8s.io/controller-runtime => sigs.k8s.io/controller-runtime v0.6.0
 )
