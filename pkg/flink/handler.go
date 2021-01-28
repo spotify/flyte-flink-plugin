@@ -67,27 +67,28 @@ func flinkClusterTaskLogs(ctx context.Context, logPlugin logUtils.LogPlugin, fli
 	taskManagerStatus := flinkCluster.Status.Components.TaskManagerStatefulSet
 	jobStatus := flinkCluster.Status.Components.Job
 
-	if jobStatus == nil || jobStatus.Name == "" {
-		return taskLogs, nil
+	jobManagerLogName := fmt.Sprintf("JobManager Logs (via %s)", via)
+	jobManagerLog, err := logPlugin.GetTaskLog(jobManagerStatus.Name, flinkCluster.Namespace, "", "", jobManagerLogName)
+	if err != nil {
+		return nil, err
 	}
+	taskLogs = append(taskLogs, &jobManagerLog)
+
+	taskManagerLogName := fmt.Sprintf("TaskManager Logs (via %s)", via)
+	taskManagerLog, err := logPlugin.GetTaskLog(taskManagerStatus.Name, flinkCluster.Namespace, "", "", taskManagerLogName)
+	if err != nil {
+		return nil, err
+	}
+	taskLogs = append(taskLogs, &taskManagerLog)
 
 	jobLogName := fmt.Sprintf("Job Logs (via %s)", via)
 	jobLog, err := logPlugin.GetTaskLog(jobStatus.Name, flinkCluster.Namespace, "", "", jobLogName)
 	if err != nil {
 		return nil, err
 	}
-	jobManagerLogName := fmt.Sprintf("JobManager Logs (via %s)", via)
-	jobManagerLog, err := logPlugin.GetTaskLog(jobManagerStatus.Name, flinkCluster.Namespace, "", "", jobManagerLogName)
-	if err != nil {
-		return nil, err
-	}
-	taskManagerLogName := fmt.Sprintf("TaskManager Logs (via %s)", via)
-	taskManagerLog, err := logPlugin.GetTaskLog(taskManagerStatus.Name, flinkCluster.Namespace, "", "", taskManagerLogName)
-	if err != nil {
-		return nil, err
-	}
+	taskLogs = append(taskLogs, &jobLog)
 
-	return append(taskLogs, &jobLog, &jobManagerLog, &taskManagerLog), nil
+	return taskLogs, nil
 }
 
 func flinkClusterTaskInfo(ctx context.Context, flinkCluster *flinkOp.FlinkCluster) (*pluginsCore.TaskInfo, error) {

@@ -36,16 +36,16 @@ var (
 // define the regex for a UUID once up-front
 var _flink_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
-// Validate checks the field values on JobManager with the rules defined in the
+// Validate checks the field values on Resource with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
-func (m *JobManager) Validate() error {
+func (m *Resource) Validate() error {
 	if m == nil {
 		return nil
 	}
 
 	if v, ok := interface{}(m.GetCpu()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return JobManagerValidationError{
+			return ResourceValidationError{
 				field:  "Cpu",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -55,8 +55,92 @@ func (m *JobManager) Validate() error {
 
 	if v, ok := interface{}(m.GetMemory()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return JobManagerValidationError{
+			return ResourceValidationError{
 				field:  "Memory",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetPersistentVolume()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ResourceValidationError{
+				field:  "PersistentVolume",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// ResourceValidationError is the validation error returned by
+// Resource.Validate if the designated constraints aren't met.
+type ResourceValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ResourceValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ResourceValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ResourceValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ResourceValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ResourceValidationError) ErrorName() string { return "ResourceValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ResourceValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sResource.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ResourceValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ResourceValidationError{}
+
+// Validate checks the field values on JobManager with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *JobManager) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetResource()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return JobManagerValidationError{
+				field:  "Resource",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -128,20 +212,10 @@ func (m *TaskManager) Validate() error {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetCpu()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetResource()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return TaskManagerValidationError{
-				field:  "Cpu",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if v, ok := interface{}(m.GetMemory()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return TaskManagerValidationError{
-				field:  "Memory",
+				field:  "Resource",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -296,3 +370,82 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = FlinkJobValidationError{}
+
+// Validate checks the field values on Resource_PersistentVolume with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *Resource_PersistentVolume) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Type
+
+	if v, ok := interface{}(m.GetSize()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return Resource_PersistentVolumeValidationError{
+				field:  "Size",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// Resource_PersistentVolumeValidationError is the validation error returned by
+// Resource_PersistentVolume.Validate if the designated constraints aren't met.
+type Resource_PersistentVolumeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e Resource_PersistentVolumeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e Resource_PersistentVolumeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e Resource_PersistentVolumeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e Resource_PersistentVolumeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e Resource_PersistentVolumeValidationError) ErrorName() string {
+	return "Resource_PersistentVolumeValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e Resource_PersistentVolumeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sResource_PersistentVolume.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = Resource_PersistentVolumeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = Resource_PersistentVolumeValidationError{}

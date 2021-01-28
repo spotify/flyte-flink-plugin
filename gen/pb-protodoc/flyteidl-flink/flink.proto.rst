@@ -3,30 +3,101 @@
 flink.proto
 ==========================
 
-.. _api_msg_flyteidl_flink.JobManager:
+.. _api_msg_flyteidl_flink.Resource:
 
-flyteidl_flink.JobManager
--------------------------
+flyteidl_flink.Resource
+-----------------------
 
-`[flyteidl_flink.JobManager proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L8>`_
+`[flyteidl_flink.Resource proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L8>`_
 
 
 .. code-block:: json
 
   {
     "cpu": "{...}",
-    "memory": "{...}"
+    "memory": "{...}",
+    "persistentVolume": "{...}"
   }
 
-.. _api_field_flyteidl_flink.JobManager.cpu:
+.. _api_field_flyteidl_flink.Resource.cpu:
 
 cpu
   (:ref:`k8s.io.apimachinery.pkg.api.resource.Quantity <api_msg_k8s.io.apimachinery.pkg.api.resource.Quantity>`) 
   
-.. _api_field_flyteidl_flink.JobManager.memory:
+.. _api_field_flyteidl_flink.Resource.memory:
 
 memory
   (:ref:`k8s.io.apimachinery.pkg.api.resource.Quantity <api_msg_k8s.io.apimachinery.pkg.api.resource.Quantity>`) 
+  
+.. _api_field_flyteidl_flink.Resource.persistentVolume:
+
+persistentVolume
+  (:ref:`flyteidl_flink.Resource.PersistentVolume <api_msg_flyteidl_flink.Resource.PersistentVolume>`) 
+  
+.. _api_msg_flyteidl_flink.Resource.PersistentVolume:
+
+flyteidl_flink.Resource.PersistentVolume
+----------------------------------------
+
+`[flyteidl_flink.Resource.PersistentVolume proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L9>`_
+
+
+.. code-block:: json
+
+  {
+    "type": "...",
+    "size": "{...}"
+  }
+
+.. _api_field_flyteidl_flink.Resource.PersistentVolume.type:
+
+type
+  (:ref:`flyteidl_flink.Resource.PersistentVolume.Type <api_enum_flyteidl_flink.Resource.PersistentVolume.Type>`) 
+  
+.. _api_field_flyteidl_flink.Resource.PersistentVolume.size:
+
+size
+  (:ref:`k8s.io.apimachinery.pkg.api.resource.Quantity <api_msg_k8s.io.apimachinery.pkg.api.resource.Quantity>`) 
+  
+
+.. _api_enum_flyteidl_flink.Resource.PersistentVolume.Type:
+
+Enum flyteidl_flink.Resource.PersistentVolume.Type
+--------------------------------------------------
+
+`[flyteidl_flink.Resource.PersistentVolume.Type proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L10>`_
+
+
+.. _api_enum_value_flyteidl_flink.Resource.PersistentVolume.Type.PD_STANDARD:
+
+PD_STANDARD
+  *(DEFAULT)* ⁣
+  
+.. _api_enum_value_flyteidl_flink.Resource.PersistentVolume.Type.PD_SSD:
+
+PD_SSD
+  ⁣
+  
+
+
+.. _api_msg_flyteidl_flink.JobManager:
+
+flyteidl_flink.JobManager
+-------------------------
+
+`[flyteidl_flink.JobManager proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L24>`_
+
+
+.. code-block:: json
+
+  {
+    "resource": "{...}"
+  }
+
+.. _api_field_flyteidl_flink.JobManager.resource:
+
+resource
+  (:ref:`flyteidl_flink.Resource <api_msg_flyteidl_flink.Resource>`) 
   
 
 
@@ -35,26 +106,20 @@ memory
 flyteidl_flink.TaskManager
 --------------------------
 
-`[flyteidl_flink.TaskManager proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L13>`_
+`[flyteidl_flink.TaskManager proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L28>`_
 
 
 .. code-block:: json
 
   {
-    "cpu": "{...}",
-    "memory": "{...}",
+    "resource": "{...}",
     "replicas": "..."
   }
 
-.. _api_field_flyteidl_flink.TaskManager.cpu:
+.. _api_field_flyteidl_flink.TaskManager.resource:
 
-cpu
-  (:ref:`k8s.io.apimachinery.pkg.api.resource.Quantity <api_msg_k8s.io.apimachinery.pkg.api.resource.Quantity>`) 
-  
-.. _api_field_flyteidl_flink.TaskManager.memory:
-
-memory
-  (:ref:`k8s.io.apimachinery.pkg.api.resource.Quantity <api_msg_k8s.io.apimachinery.pkg.api.resource.Quantity>`) 
+resource
+  (:ref:`flyteidl_flink.Resource <api_msg_flyteidl_flink.Resource>`) 
   
 .. _api_field_flyteidl_flink.TaskManager.replicas:
 
@@ -68,7 +133,7 @@ replicas
 flyteidl_flink.FlinkJob
 -----------------------
 
-`[flyteidl_flink.FlinkJob proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L20>`_
+`[flyteidl_flink.FlinkJob proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L34>`_
 
 Custom Proto for Flink Plugin.
 

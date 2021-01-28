@@ -14,8 +14,8 @@ public final class Flink {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface JobManagerOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:flyteidl_flink.JobManager)
+  public interface ResourceOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:flyteidl_flink.Resource)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -43,20 +43,33 @@ public final class Flink {
      * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;</code>
      */
     k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder getMemoryOrBuilder();
+
+    /**
+     * <code>.flyteidl_flink.Resource.PersistentVolume persistentVolume = 3;</code>
+     */
+    boolean hasPersistentVolume();
+    /**
+     * <code>.flyteidl_flink.Resource.PersistentVolume persistentVolume = 3;</code>
+     */
+    flyteidl_flink.Flink.Resource.PersistentVolume getPersistentVolume();
+    /**
+     * <code>.flyteidl_flink.Resource.PersistentVolume persistentVolume = 3;</code>
+     */
+    flyteidl_flink.Flink.Resource.PersistentVolumeOrBuilder getPersistentVolumeOrBuilder();
   }
   /**
-   * Protobuf type {@code flyteidl_flink.JobManager}
+   * Protobuf type {@code flyteidl_flink.Resource}
    */
-  public  static final class JobManager extends
+  public  static final class Resource extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:flyteidl_flink.JobManager)
-      JobManagerOrBuilder {
+      // @@protoc_insertion_point(message_implements:flyteidl_flink.Resource)
+      ResourceOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use JobManager.newBuilder() to construct.
-    private JobManager(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use Resource.newBuilder() to construct.
+    private Resource(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private JobManager() {
+    private Resource() {
     }
 
     @java.lang.Override
@@ -64,7 +77,7 @@ public final class Flink {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private JobManager(
+    private Resource(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -109,6 +122,19 @@ public final class Flink {
 
               break;
             }
+            case 26: {
+              flyteidl_flink.Flink.Resource.PersistentVolume.Builder subBuilder = null;
+              if (persistentVolume_ != null) {
+                subBuilder = persistentVolume_.toBuilder();
+              }
+              persistentVolume_ = input.readMessage(flyteidl_flink.Flink.Resource.PersistentVolume.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(persistentVolume_);
+                persistentVolume_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -130,15 +156,813 @@ public final class Flink {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobManager_descriptor;
+      return flyteidl_flink.Flink.internal_static_flyteidl_flink_Resource_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobManager_fieldAccessorTable
+      return flyteidl_flink.Flink.internal_static_flyteidl_flink_Resource_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              flyteidl_flink.Flink.JobManager.class, flyteidl_flink.Flink.JobManager.Builder.class);
+              flyteidl_flink.Flink.Resource.class, flyteidl_flink.Flink.Resource.Builder.class);
+    }
+
+    public interface PersistentVolumeOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:flyteidl_flink.Resource.PersistentVolume)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>.flyteidl_flink.Resource.PersistentVolume.Type type = 1;</code>
+       */
+      int getTypeValue();
+      /**
+       * <code>.flyteidl_flink.Resource.PersistentVolume.Type type = 1;</code>
+       */
+      flyteidl_flink.Flink.Resource.PersistentVolume.Type getType();
+
+      /**
+       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;</code>
+       */
+      boolean hasSize();
+      /**
+       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;</code>
+       */
+      k8s.io.apimachinery.pkg.api.resource.Generated.Quantity getSize();
+      /**
+       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;</code>
+       */
+      k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder getSizeOrBuilder();
+    }
+    /**
+     * Protobuf type {@code flyteidl_flink.Resource.PersistentVolume}
+     */
+    public  static final class PersistentVolume extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:flyteidl_flink.Resource.PersistentVolume)
+        PersistentVolumeOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use PersistentVolume.newBuilder() to construct.
+      private PersistentVolume(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private PersistentVolume() {
+        type_ = 0;
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private PersistentVolume(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                int rawValue = input.readEnum();
+
+                type_ = rawValue;
+                break;
+              }
+              case 18: {
+                k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder subBuilder = null;
+                if (size_ != null) {
+                  subBuilder = size_.toBuilder();
+                }
+                size_ = input.readMessage(k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.PARSER, extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(size_);
+                  size_ = subBuilder.buildPartial();
+                }
+
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_Resource_PersistentVolume_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_Resource_PersistentVolume_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                flyteidl_flink.Flink.Resource.PersistentVolume.class, flyteidl_flink.Flink.Resource.PersistentVolume.Builder.class);
+      }
+
+      /**
+       * Protobuf enum {@code flyteidl_flink.Resource.PersistentVolume.Type}
+       */
+      public enum Type
+          implements com.google.protobuf.ProtocolMessageEnum {
+        /**
+         * <code>PD_STANDARD = 0;</code>
+         */
+        PD_STANDARD(0),
+        /**
+         * <code>PD_SSD = 1;</code>
+         */
+        PD_SSD(1),
+        UNRECOGNIZED(-1),
+        ;
+
+        /**
+         * <code>PD_STANDARD = 0;</code>
+         */
+        public static final int PD_STANDARD_VALUE = 0;
+        /**
+         * <code>PD_SSD = 1;</code>
+         */
+        public static final int PD_SSD_VALUE = 1;
+
+
+        public final int getNumber() {
+          if (this == UNRECOGNIZED) {
+            throw new java.lang.IllegalArgumentException(
+                "Can't get the number of an unknown enum value.");
+          }
+          return value;
+        }
+
+        /**
+         * @deprecated Use {@link #forNumber(int)} instead.
+         */
+        @java.lang.Deprecated
+        public static Type valueOf(int value) {
+          return forNumber(value);
+        }
+
+        public static Type forNumber(int value) {
+          switch (value) {
+            case 0: return PD_STANDARD;
+            case 1: return PD_SSD;
+            default: return null;
+          }
+        }
+
+        public static com.google.protobuf.Internal.EnumLiteMap<Type>
+            internalGetValueMap() {
+          return internalValueMap;
+        }
+        private static final com.google.protobuf.Internal.EnumLiteMap<
+            Type> internalValueMap =
+              new com.google.protobuf.Internal.EnumLiteMap<Type>() {
+                public Type findValueByNumber(int number) {
+                  return Type.forNumber(number);
+                }
+              };
+
+        public final com.google.protobuf.Descriptors.EnumValueDescriptor
+            getValueDescriptor() {
+          return getDescriptor().getValues().get(ordinal());
+        }
+        public final com.google.protobuf.Descriptors.EnumDescriptor
+            getDescriptorForType() {
+          return getDescriptor();
+        }
+        public static final com.google.protobuf.Descriptors.EnumDescriptor
+            getDescriptor() {
+          return flyteidl_flink.Flink.Resource.PersistentVolume.getDescriptor().getEnumTypes().get(0);
+        }
+
+        private static final Type[] VALUES = values();
+
+        public static Type valueOf(
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+          if (desc.getType() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "EnumValueDescriptor is not for this type.");
+          }
+          if (desc.getIndex() == -1) {
+            return UNRECOGNIZED;
+          }
+          return VALUES[desc.getIndex()];
+        }
+
+        private final int value;
+
+        private Type(int value) {
+          this.value = value;
+        }
+
+        // @@protoc_insertion_point(enum_scope:flyteidl_flink.Resource.PersistentVolume.Type)
+      }
+
+      public static final int TYPE_FIELD_NUMBER = 1;
+      private int type_;
+      /**
+       * <code>.flyteidl_flink.Resource.PersistentVolume.Type type = 1;</code>
+       */
+      public int getTypeValue() {
+        return type_;
+      }
+      /**
+       * <code>.flyteidl_flink.Resource.PersistentVolume.Type type = 1;</code>
+       */
+      public flyteidl_flink.Flink.Resource.PersistentVolume.Type getType() {
+        @SuppressWarnings("deprecation")
+        flyteidl_flink.Flink.Resource.PersistentVolume.Type result = flyteidl_flink.Flink.Resource.PersistentVolume.Type.valueOf(type_);
+        return result == null ? flyteidl_flink.Flink.Resource.PersistentVolume.Type.UNRECOGNIZED : result;
+      }
+
+      public static final int SIZE_FIELD_NUMBER = 2;
+      private k8s.io.apimachinery.pkg.api.resource.Generated.Quantity size_;
+      /**
+       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;</code>
+       */
+      public boolean hasSize() {
+        return size_ != null;
+      }
+      /**
+       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;</code>
+       */
+      public k8s.io.apimachinery.pkg.api.resource.Generated.Quantity getSize() {
+        return size_ == null ? k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.getDefaultInstance() : size_;
+      }
+      /**
+       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;</code>
+       */
+      public k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder getSizeOrBuilder() {
+        return getSize();
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (type_ != flyteidl_flink.Flink.Resource.PersistentVolume.Type.PD_STANDARD.getNumber()) {
+          output.writeEnum(1, type_);
+        }
+        if (size_ != null) {
+          output.writeMessage(2, getSize());
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (type_ != flyteidl_flink.Flink.Resource.PersistentVolume.Type.PD_STANDARD.getNumber()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeEnumSize(1, type_);
+        }
+        if (size_ != null) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(2, getSize());
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof flyteidl_flink.Flink.Resource.PersistentVolume)) {
+          return super.equals(obj);
+        }
+        flyteidl_flink.Flink.Resource.PersistentVolume other = (flyteidl_flink.Flink.Resource.PersistentVolume) obj;
+
+        if (type_ != other.type_) return false;
+        if (hasSize() != other.hasSize()) return false;
+        if (hasSize()) {
+          if (!getSize()
+              .equals(other.getSize())) return false;
+        }
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + TYPE_FIELD_NUMBER;
+        hash = (53 * hash) + type_;
+        if (hasSize()) {
+          hash = (37 * hash) + SIZE_FIELD_NUMBER;
+          hash = (53 * hash) + getSize().hashCode();
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static flyteidl_flink.Flink.Resource.PersistentVolume parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static flyteidl_flink.Flink.Resource.PersistentVolume parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static flyteidl_flink.Flink.Resource.PersistentVolume parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static flyteidl_flink.Flink.Resource.PersistentVolume parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static flyteidl_flink.Flink.Resource.PersistentVolume parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static flyteidl_flink.Flink.Resource.PersistentVolume parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static flyteidl_flink.Flink.Resource.PersistentVolume parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static flyteidl_flink.Flink.Resource.PersistentVolume parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static flyteidl_flink.Flink.Resource.PersistentVolume parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static flyteidl_flink.Flink.Resource.PersistentVolume parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static flyteidl_flink.Flink.Resource.PersistentVolume parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static flyteidl_flink.Flink.Resource.PersistentVolume parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(flyteidl_flink.Flink.Resource.PersistentVolume prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code flyteidl_flink.Resource.PersistentVolume}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:flyteidl_flink.Resource.PersistentVolume)
+          flyteidl_flink.Flink.Resource.PersistentVolumeOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return flyteidl_flink.Flink.internal_static_flyteidl_flink_Resource_PersistentVolume_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return flyteidl_flink.Flink.internal_static_flyteidl_flink_Resource_PersistentVolume_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  flyteidl_flink.Flink.Resource.PersistentVolume.class, flyteidl_flink.Flink.Resource.PersistentVolume.Builder.class);
+        }
+
+        // Construct using flyteidl_flink.Flink.Resource.PersistentVolume.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          type_ = 0;
+
+          if (sizeBuilder_ == null) {
+            size_ = null;
+          } else {
+            size_ = null;
+            sizeBuilder_ = null;
+          }
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return flyteidl_flink.Flink.internal_static_flyteidl_flink_Resource_PersistentVolume_descriptor;
+        }
+
+        @java.lang.Override
+        public flyteidl_flink.Flink.Resource.PersistentVolume getDefaultInstanceForType() {
+          return flyteidl_flink.Flink.Resource.PersistentVolume.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public flyteidl_flink.Flink.Resource.PersistentVolume build() {
+          flyteidl_flink.Flink.Resource.PersistentVolume result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public flyteidl_flink.Flink.Resource.PersistentVolume buildPartial() {
+          flyteidl_flink.Flink.Resource.PersistentVolume result = new flyteidl_flink.Flink.Resource.PersistentVolume(this);
+          result.type_ = type_;
+          if (sizeBuilder_ == null) {
+            result.size_ = size_;
+          } else {
+            result.size_ = sizeBuilder_.build();
+          }
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof flyteidl_flink.Flink.Resource.PersistentVolume) {
+            return mergeFrom((flyteidl_flink.Flink.Resource.PersistentVolume)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(flyteidl_flink.Flink.Resource.PersistentVolume other) {
+          if (other == flyteidl_flink.Flink.Resource.PersistentVolume.getDefaultInstance()) return this;
+          if (other.type_ != 0) {
+            setTypeValue(other.getTypeValue());
+          }
+          if (other.hasSize()) {
+            mergeSize(other.getSize());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          flyteidl_flink.Flink.Resource.PersistentVolume parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (flyteidl_flink.Flink.Resource.PersistentVolume) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private int type_ = 0;
+        /**
+         * <code>.flyteidl_flink.Resource.PersistentVolume.Type type = 1;</code>
+         */
+        public int getTypeValue() {
+          return type_;
+        }
+        /**
+         * <code>.flyteidl_flink.Resource.PersistentVolume.Type type = 1;</code>
+         */
+        public Builder setTypeValue(int value) {
+          type_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>.flyteidl_flink.Resource.PersistentVolume.Type type = 1;</code>
+         */
+        public flyteidl_flink.Flink.Resource.PersistentVolume.Type getType() {
+          @SuppressWarnings("deprecation")
+          flyteidl_flink.Flink.Resource.PersistentVolume.Type result = flyteidl_flink.Flink.Resource.PersistentVolume.Type.valueOf(type_);
+          return result == null ? flyteidl_flink.Flink.Resource.PersistentVolume.Type.UNRECOGNIZED : result;
+        }
+        /**
+         * <code>.flyteidl_flink.Resource.PersistentVolume.Type type = 1;</code>
+         */
+        public Builder setType(flyteidl_flink.Flink.Resource.PersistentVolume.Type value) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          
+          type_ = value.getNumber();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>.flyteidl_flink.Resource.PersistentVolume.Type type = 1;</code>
+         */
+        public Builder clearType() {
+          
+          type_ = 0;
+          onChanged();
+          return this;
+        }
+
+        private k8s.io.apimachinery.pkg.api.resource.Generated.Quantity size_;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            k8s.io.apimachinery.pkg.api.resource.Generated.Quantity, k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder, k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder> sizeBuilder_;
+        /**
+         * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;</code>
+         */
+        public boolean hasSize() {
+          return sizeBuilder_ != null || size_ != null;
+        }
+        /**
+         * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;</code>
+         */
+        public k8s.io.apimachinery.pkg.api.resource.Generated.Quantity getSize() {
+          if (sizeBuilder_ == null) {
+            return size_ == null ? k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.getDefaultInstance() : size_;
+          } else {
+            return sizeBuilder_.getMessage();
+          }
+        }
+        /**
+         * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;</code>
+         */
+        public Builder setSize(k8s.io.apimachinery.pkg.api.resource.Generated.Quantity value) {
+          if (sizeBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            size_ = value;
+            onChanged();
+          } else {
+            sizeBuilder_.setMessage(value);
+          }
+
+          return this;
+        }
+        /**
+         * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;</code>
+         */
+        public Builder setSize(
+            k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder builderForValue) {
+          if (sizeBuilder_ == null) {
+            size_ = builderForValue.build();
+            onChanged();
+          } else {
+            sizeBuilder_.setMessage(builderForValue.build());
+          }
+
+          return this;
+        }
+        /**
+         * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;</code>
+         */
+        public Builder mergeSize(k8s.io.apimachinery.pkg.api.resource.Generated.Quantity value) {
+          if (sizeBuilder_ == null) {
+            if (size_ != null) {
+              size_ =
+                k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.newBuilder(size_).mergeFrom(value).buildPartial();
+            } else {
+              size_ = value;
+            }
+            onChanged();
+          } else {
+            sizeBuilder_.mergeFrom(value);
+          }
+
+          return this;
+        }
+        /**
+         * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;</code>
+         */
+        public Builder clearSize() {
+          if (sizeBuilder_ == null) {
+            size_ = null;
+            onChanged();
+          } else {
+            size_ = null;
+            sizeBuilder_ = null;
+          }
+
+          return this;
+        }
+        /**
+         * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;</code>
+         */
+        public k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder getSizeBuilder() {
+          
+          onChanged();
+          return getSizeFieldBuilder().getBuilder();
+        }
+        /**
+         * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;</code>
+         */
+        public k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder getSizeOrBuilder() {
+          if (sizeBuilder_ != null) {
+            return sizeBuilder_.getMessageOrBuilder();
+          } else {
+            return size_ == null ?
+                k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.getDefaultInstance() : size_;
+          }
+        }
+        /**
+         * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            k8s.io.apimachinery.pkg.api.resource.Generated.Quantity, k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder, k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder> 
+            getSizeFieldBuilder() {
+          if (sizeBuilder_ == null) {
+            sizeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                k8s.io.apimachinery.pkg.api.resource.Generated.Quantity, k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder, k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder>(
+                    getSize(),
+                    getParentForChildren(),
+                    isClean());
+            size_ = null;
+          }
+          return sizeBuilder_;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:flyteidl_flink.Resource.PersistentVolume)
+      }
+
+      // @@protoc_insertion_point(class_scope:flyteidl_flink.Resource.PersistentVolume)
+      private static final flyteidl_flink.Flink.Resource.PersistentVolume DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new flyteidl_flink.Flink.Resource.PersistentVolume();
+      }
+
+      public static flyteidl_flink.Flink.Resource.PersistentVolume getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<PersistentVolume>
+          PARSER = new com.google.protobuf.AbstractParser<PersistentVolume>() {
+        @java.lang.Override
+        public PersistentVolume parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new PersistentVolume(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<PersistentVolume> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<PersistentVolume> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.Resource.PersistentVolume getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
     }
 
     public static final int CPU_FIELD_NUMBER = 1;
@@ -183,6 +1007,27 @@ public final class Flink {
       return getMemory();
     }
 
+    public static final int PERSISTENTVOLUME_FIELD_NUMBER = 3;
+    private flyteidl_flink.Flink.Resource.PersistentVolume persistentVolume_;
+    /**
+     * <code>.flyteidl_flink.Resource.PersistentVolume persistentVolume = 3;</code>
+     */
+    public boolean hasPersistentVolume() {
+      return persistentVolume_ != null;
+    }
+    /**
+     * <code>.flyteidl_flink.Resource.PersistentVolume persistentVolume = 3;</code>
+     */
+    public flyteidl_flink.Flink.Resource.PersistentVolume getPersistentVolume() {
+      return persistentVolume_ == null ? flyteidl_flink.Flink.Resource.PersistentVolume.getDefaultInstance() : persistentVolume_;
+    }
+    /**
+     * <code>.flyteidl_flink.Resource.PersistentVolume persistentVolume = 3;</code>
+     */
+    public flyteidl_flink.Flink.Resource.PersistentVolumeOrBuilder getPersistentVolumeOrBuilder() {
+      return getPersistentVolume();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -203,6 +1048,9 @@ public final class Flink {
       if (memory_ != null) {
         output.writeMessage(2, getMemory());
       }
+      if (persistentVolume_ != null) {
+        output.writeMessage(3, getPersistentVolume());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -220,6 +1068,10 @@ public final class Flink {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getMemory());
       }
+      if (persistentVolume_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getPersistentVolume());
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -230,10 +1082,10 @@ public final class Flink {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof flyteidl_flink.Flink.JobManager)) {
+      if (!(obj instanceof flyteidl_flink.Flink.Resource)) {
         return super.equals(obj);
       }
-      flyteidl_flink.Flink.JobManager other = (flyteidl_flink.Flink.JobManager) obj;
+      flyteidl_flink.Flink.Resource other = (flyteidl_flink.Flink.Resource) obj;
 
       if (hasCpu() != other.hasCpu()) return false;
       if (hasCpu()) {
@@ -244,6 +1096,11 @@ public final class Flink {
       if (hasMemory()) {
         if (!getMemory()
             .equals(other.getMemory())) return false;
+      }
+      if (hasPersistentVolume() != other.hasPersistentVolume()) return false;
+      if (hasPersistentVolume()) {
+        if (!getPersistentVolume()
+            .equals(other.getPersistentVolume())) return false;
       }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -264,74 +1121,78 @@ public final class Flink {
         hash = (37 * hash) + MEMORY_FIELD_NUMBER;
         hash = (53 * hash) + getMemory().hashCode();
       }
+      if (hasPersistentVolume()) {
+        hash = (37 * hash) + PERSISTENTVOLUME_FIELD_NUMBER;
+        hash = (53 * hash) + getPersistentVolume().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static flyteidl_flink.Flink.JobManager parseFrom(
+    public static flyteidl_flink.Flink.Resource parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static flyteidl_flink.Flink.JobManager parseFrom(
+    public static flyteidl_flink.Flink.Resource parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static flyteidl_flink.Flink.JobManager parseFrom(
+    public static flyteidl_flink.Flink.Resource parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static flyteidl_flink.Flink.JobManager parseFrom(
+    public static flyteidl_flink.Flink.Resource parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static flyteidl_flink.Flink.JobManager parseFrom(byte[] data)
+    public static flyteidl_flink.Flink.Resource parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static flyteidl_flink.Flink.JobManager parseFrom(
+    public static flyteidl_flink.Flink.Resource parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static flyteidl_flink.Flink.JobManager parseFrom(java.io.InputStream input)
+    public static flyteidl_flink.Flink.Resource parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static flyteidl_flink.Flink.JobManager parseFrom(
+    public static flyteidl_flink.Flink.Resource parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static flyteidl_flink.Flink.JobManager parseDelimitedFrom(java.io.InputStream input)
+    public static flyteidl_flink.Flink.Resource parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static flyteidl_flink.Flink.JobManager parseDelimitedFrom(
+    public static flyteidl_flink.Flink.Resource parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static flyteidl_flink.Flink.JobManager parseFrom(
+    public static flyteidl_flink.Flink.Resource parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static flyteidl_flink.Flink.JobManager parseFrom(
+    public static flyteidl_flink.Flink.Resource parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -344,7 +1205,7 @@ public final class Flink {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(flyteidl_flink.Flink.JobManager prototype) {
+    public static Builder newBuilder(flyteidl_flink.Flink.Resource prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -360,26 +1221,26 @@ public final class Flink {
       return builder;
     }
     /**
-     * Protobuf type {@code flyteidl_flink.JobManager}
+     * Protobuf type {@code flyteidl_flink.Resource}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:flyteidl_flink.JobManager)
-        flyteidl_flink.Flink.JobManagerOrBuilder {
+        // @@protoc_insertion_point(builder_implements:flyteidl_flink.Resource)
+        flyteidl_flink.Flink.ResourceOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobManager_descriptor;
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_Resource_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobManager_fieldAccessorTable
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_Resource_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                flyteidl_flink.Flink.JobManager.class, flyteidl_flink.Flink.JobManager.Builder.class);
+                flyteidl_flink.Flink.Resource.class, flyteidl_flink.Flink.Resource.Builder.class);
       }
 
-      // Construct using flyteidl_flink.Flink.JobManager.newBuilder()
+      // Construct using flyteidl_flink.Flink.Resource.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -409,23 +1270,29 @@ public final class Flink {
           memory_ = null;
           memoryBuilder_ = null;
         }
+        if (persistentVolumeBuilder_ == null) {
+          persistentVolume_ = null;
+        } else {
+          persistentVolume_ = null;
+          persistentVolumeBuilder_ = null;
+        }
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobManager_descriptor;
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_Resource_descriptor;
       }
 
       @java.lang.Override
-      public flyteidl_flink.Flink.JobManager getDefaultInstanceForType() {
-        return flyteidl_flink.Flink.JobManager.getDefaultInstance();
+      public flyteidl_flink.Flink.Resource getDefaultInstanceForType() {
+        return flyteidl_flink.Flink.Resource.getDefaultInstance();
       }
 
       @java.lang.Override
-      public flyteidl_flink.Flink.JobManager build() {
-        flyteidl_flink.Flink.JobManager result = buildPartial();
+      public flyteidl_flink.Flink.Resource build() {
+        flyteidl_flink.Flink.Resource result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -433,8 +1300,8 @@ public final class Flink {
       }
 
       @java.lang.Override
-      public flyteidl_flink.Flink.JobManager buildPartial() {
-        flyteidl_flink.Flink.JobManager result = new flyteidl_flink.Flink.JobManager(this);
+      public flyteidl_flink.Flink.Resource buildPartial() {
+        flyteidl_flink.Flink.Resource result = new flyteidl_flink.Flink.Resource(this);
         if (cpuBuilder_ == null) {
           result.cpu_ = cpu_;
         } else {
@@ -444,6 +1311,11 @@ public final class Flink {
           result.memory_ = memory_;
         } else {
           result.memory_ = memoryBuilder_.build();
+        }
+        if (persistentVolumeBuilder_ == null) {
+          result.persistentVolume_ = persistentVolume_;
+        } else {
+          result.persistentVolume_ = persistentVolumeBuilder_.build();
         }
         onBuilt();
         return result;
@@ -483,21 +1355,24 @@ public final class Flink {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof flyteidl_flink.Flink.JobManager) {
-          return mergeFrom((flyteidl_flink.Flink.JobManager)other);
+        if (other instanceof flyteidl_flink.Flink.Resource) {
+          return mergeFrom((flyteidl_flink.Flink.Resource)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(flyteidl_flink.Flink.JobManager other) {
-        if (other == flyteidl_flink.Flink.JobManager.getDefaultInstance()) return this;
+      public Builder mergeFrom(flyteidl_flink.Flink.Resource other) {
+        if (other == flyteidl_flink.Flink.Resource.getDefaultInstance()) return this;
         if (other.hasCpu()) {
           mergeCpu(other.getCpu());
         }
         if (other.hasMemory()) {
           mergeMemory(other.getMemory());
+        }
+        if (other.hasPersistentVolume()) {
+          mergePersistentVolume(other.getPersistentVolume());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -514,11 +1389,11 @@ public final class Flink {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        flyteidl_flink.Flink.JobManager parsedMessage = null;
+        flyteidl_flink.Flink.Resource parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (flyteidl_flink.Flink.JobManager) e.getUnfinishedMessage();
+          parsedMessage = (flyteidl_flink.Flink.Resource) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -761,6 +1636,729 @@ public final class Flink {
         }
         return memoryBuilder_;
       }
+
+      private flyteidl_flink.Flink.Resource.PersistentVolume persistentVolume_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          flyteidl_flink.Flink.Resource.PersistentVolume, flyteidl_flink.Flink.Resource.PersistentVolume.Builder, flyteidl_flink.Flink.Resource.PersistentVolumeOrBuilder> persistentVolumeBuilder_;
+      /**
+       * <code>.flyteidl_flink.Resource.PersistentVolume persistentVolume = 3;</code>
+       */
+      public boolean hasPersistentVolume() {
+        return persistentVolumeBuilder_ != null || persistentVolume_ != null;
+      }
+      /**
+       * <code>.flyteidl_flink.Resource.PersistentVolume persistentVolume = 3;</code>
+       */
+      public flyteidl_flink.Flink.Resource.PersistentVolume getPersistentVolume() {
+        if (persistentVolumeBuilder_ == null) {
+          return persistentVolume_ == null ? flyteidl_flink.Flink.Resource.PersistentVolume.getDefaultInstance() : persistentVolume_;
+        } else {
+          return persistentVolumeBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.flyteidl_flink.Resource.PersistentVolume persistentVolume = 3;</code>
+       */
+      public Builder setPersistentVolume(flyteidl_flink.Flink.Resource.PersistentVolume value) {
+        if (persistentVolumeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          persistentVolume_ = value;
+          onChanged();
+        } else {
+          persistentVolumeBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.Resource.PersistentVolume persistentVolume = 3;</code>
+       */
+      public Builder setPersistentVolume(
+          flyteidl_flink.Flink.Resource.PersistentVolume.Builder builderForValue) {
+        if (persistentVolumeBuilder_ == null) {
+          persistentVolume_ = builderForValue.build();
+          onChanged();
+        } else {
+          persistentVolumeBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.Resource.PersistentVolume persistentVolume = 3;</code>
+       */
+      public Builder mergePersistentVolume(flyteidl_flink.Flink.Resource.PersistentVolume value) {
+        if (persistentVolumeBuilder_ == null) {
+          if (persistentVolume_ != null) {
+            persistentVolume_ =
+              flyteidl_flink.Flink.Resource.PersistentVolume.newBuilder(persistentVolume_).mergeFrom(value).buildPartial();
+          } else {
+            persistentVolume_ = value;
+          }
+          onChanged();
+        } else {
+          persistentVolumeBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.Resource.PersistentVolume persistentVolume = 3;</code>
+       */
+      public Builder clearPersistentVolume() {
+        if (persistentVolumeBuilder_ == null) {
+          persistentVolume_ = null;
+          onChanged();
+        } else {
+          persistentVolume_ = null;
+          persistentVolumeBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.Resource.PersistentVolume persistentVolume = 3;</code>
+       */
+      public flyteidl_flink.Flink.Resource.PersistentVolume.Builder getPersistentVolumeBuilder() {
+        
+        onChanged();
+        return getPersistentVolumeFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.flyteidl_flink.Resource.PersistentVolume persistentVolume = 3;</code>
+       */
+      public flyteidl_flink.Flink.Resource.PersistentVolumeOrBuilder getPersistentVolumeOrBuilder() {
+        if (persistentVolumeBuilder_ != null) {
+          return persistentVolumeBuilder_.getMessageOrBuilder();
+        } else {
+          return persistentVolume_ == null ?
+              flyteidl_flink.Flink.Resource.PersistentVolume.getDefaultInstance() : persistentVolume_;
+        }
+      }
+      /**
+       * <code>.flyteidl_flink.Resource.PersistentVolume persistentVolume = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          flyteidl_flink.Flink.Resource.PersistentVolume, flyteidl_flink.Flink.Resource.PersistentVolume.Builder, flyteidl_flink.Flink.Resource.PersistentVolumeOrBuilder> 
+          getPersistentVolumeFieldBuilder() {
+        if (persistentVolumeBuilder_ == null) {
+          persistentVolumeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              flyteidl_flink.Flink.Resource.PersistentVolume, flyteidl_flink.Flink.Resource.PersistentVolume.Builder, flyteidl_flink.Flink.Resource.PersistentVolumeOrBuilder>(
+                  getPersistentVolume(),
+                  getParentForChildren(),
+                  isClean());
+          persistentVolume_ = null;
+        }
+        return persistentVolumeBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:flyteidl_flink.Resource)
+    }
+
+    // @@protoc_insertion_point(class_scope:flyteidl_flink.Resource)
+    private static final flyteidl_flink.Flink.Resource DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new flyteidl_flink.Flink.Resource();
+    }
+
+    public static flyteidl_flink.Flink.Resource getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Resource>
+        PARSER = new com.google.protobuf.AbstractParser<Resource>() {
+      @java.lang.Override
+      public Resource parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Resource(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Resource> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Resource> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public flyteidl_flink.Flink.Resource getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface JobManagerOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:flyteidl_flink.JobManager)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.flyteidl_flink.Resource resource = 1;</code>
+     */
+    boolean hasResource();
+    /**
+     * <code>.flyteidl_flink.Resource resource = 1;</code>
+     */
+    flyteidl_flink.Flink.Resource getResource();
+    /**
+     * <code>.flyteidl_flink.Resource resource = 1;</code>
+     */
+    flyteidl_flink.Flink.ResourceOrBuilder getResourceOrBuilder();
+  }
+  /**
+   * Protobuf type {@code flyteidl_flink.JobManager}
+   */
+  public  static final class JobManager extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:flyteidl_flink.JobManager)
+      JobManagerOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use JobManager.newBuilder() to construct.
+    private JobManager(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private JobManager() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private JobManager(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              flyteidl_flink.Flink.Resource.Builder subBuilder = null;
+              if (resource_ != null) {
+                subBuilder = resource_.toBuilder();
+              }
+              resource_ = input.readMessage(flyteidl_flink.Flink.Resource.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(resource_);
+                resource_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobManager_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobManager_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              flyteidl_flink.Flink.JobManager.class, flyteidl_flink.Flink.JobManager.Builder.class);
+    }
+
+    public static final int RESOURCE_FIELD_NUMBER = 1;
+    private flyteidl_flink.Flink.Resource resource_;
+    /**
+     * <code>.flyteidl_flink.Resource resource = 1;</code>
+     */
+    public boolean hasResource() {
+      return resource_ != null;
+    }
+    /**
+     * <code>.flyteidl_flink.Resource resource = 1;</code>
+     */
+    public flyteidl_flink.Flink.Resource getResource() {
+      return resource_ == null ? flyteidl_flink.Flink.Resource.getDefaultInstance() : resource_;
+    }
+    /**
+     * <code>.flyteidl_flink.Resource resource = 1;</code>
+     */
+    public flyteidl_flink.Flink.ResourceOrBuilder getResourceOrBuilder() {
+      return getResource();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (resource_ != null) {
+        output.writeMessage(1, getResource());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (resource_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getResource());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof flyteidl_flink.Flink.JobManager)) {
+        return super.equals(obj);
+      }
+      flyteidl_flink.Flink.JobManager other = (flyteidl_flink.Flink.JobManager) obj;
+
+      if (hasResource() != other.hasResource()) return false;
+      if (hasResource()) {
+        if (!getResource()
+            .equals(other.getResource())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasResource()) {
+        hash = (37 * hash) + RESOURCE_FIELD_NUMBER;
+        hash = (53 * hash) + getResource().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static flyteidl_flink.Flink.JobManager parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.JobManager parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JobManager parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.JobManager parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JobManager parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.JobManager parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JobManager parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.JobManager parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JobManager parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.JobManager parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JobManager parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.JobManager parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(flyteidl_flink.Flink.JobManager prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code flyteidl_flink.JobManager}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:flyteidl_flink.JobManager)
+        flyteidl_flink.Flink.JobManagerOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobManager_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobManager_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                flyteidl_flink.Flink.JobManager.class, flyteidl_flink.Flink.JobManager.Builder.class);
+      }
+
+      // Construct using flyteidl_flink.Flink.JobManager.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (resourceBuilder_ == null) {
+          resource_ = null;
+        } else {
+          resource_ = null;
+          resourceBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobManager_descriptor;
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.JobManager getDefaultInstanceForType() {
+        return flyteidl_flink.Flink.JobManager.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.JobManager build() {
+        flyteidl_flink.Flink.JobManager result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.JobManager buildPartial() {
+        flyteidl_flink.Flink.JobManager result = new flyteidl_flink.Flink.JobManager(this);
+        if (resourceBuilder_ == null) {
+          result.resource_ = resource_;
+        } else {
+          result.resource_ = resourceBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof flyteidl_flink.Flink.JobManager) {
+          return mergeFrom((flyteidl_flink.Flink.JobManager)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(flyteidl_flink.Flink.JobManager other) {
+        if (other == flyteidl_flink.Flink.JobManager.getDefaultInstance()) return this;
+        if (other.hasResource()) {
+          mergeResource(other.getResource());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        flyteidl_flink.Flink.JobManager parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (flyteidl_flink.Flink.JobManager) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private flyteidl_flink.Flink.Resource resource_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          flyteidl_flink.Flink.Resource, flyteidl_flink.Flink.Resource.Builder, flyteidl_flink.Flink.ResourceOrBuilder> resourceBuilder_;
+      /**
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
+       */
+      public boolean hasResource() {
+        return resourceBuilder_ != null || resource_ != null;
+      }
+      /**
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
+       */
+      public flyteidl_flink.Flink.Resource getResource() {
+        if (resourceBuilder_ == null) {
+          return resource_ == null ? flyteidl_flink.Flink.Resource.getDefaultInstance() : resource_;
+        } else {
+          return resourceBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
+       */
+      public Builder setResource(flyteidl_flink.Flink.Resource value) {
+        if (resourceBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          resource_ = value;
+          onChanged();
+        } else {
+          resourceBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
+       */
+      public Builder setResource(
+          flyteidl_flink.Flink.Resource.Builder builderForValue) {
+        if (resourceBuilder_ == null) {
+          resource_ = builderForValue.build();
+          onChanged();
+        } else {
+          resourceBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
+       */
+      public Builder mergeResource(flyteidl_flink.Flink.Resource value) {
+        if (resourceBuilder_ == null) {
+          if (resource_ != null) {
+            resource_ =
+              flyteidl_flink.Flink.Resource.newBuilder(resource_).mergeFrom(value).buildPartial();
+          } else {
+            resource_ = value;
+          }
+          onChanged();
+        } else {
+          resourceBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
+       */
+      public Builder clearResource() {
+        if (resourceBuilder_ == null) {
+          resource_ = null;
+          onChanged();
+        } else {
+          resource_ = null;
+          resourceBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
+       */
+      public flyteidl_flink.Flink.Resource.Builder getResourceBuilder() {
+        
+        onChanged();
+        return getResourceFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
+       */
+      public flyteidl_flink.Flink.ResourceOrBuilder getResourceOrBuilder() {
+        if (resourceBuilder_ != null) {
+          return resourceBuilder_.getMessageOrBuilder();
+        } else {
+          return resource_ == null ?
+              flyteidl_flink.Flink.Resource.getDefaultInstance() : resource_;
+        }
+      }
+      /**
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          flyteidl_flink.Flink.Resource, flyteidl_flink.Flink.Resource.Builder, flyteidl_flink.Flink.ResourceOrBuilder> 
+          getResourceFieldBuilder() {
+        if (resourceBuilder_ == null) {
+          resourceBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              flyteidl_flink.Flink.Resource, flyteidl_flink.Flink.Resource.Builder, flyteidl_flink.Flink.ResourceOrBuilder>(
+                  getResource(),
+                  getParentForChildren(),
+                  isClean());
+          resource_ = null;
+        }
+        return resourceBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -819,33 +2417,20 @@ public final class Flink {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;</code>
+     * <code>.flyteidl_flink.Resource resource = 1;</code>
      */
-    boolean hasCpu();
+    boolean hasResource();
     /**
-     * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;</code>
+     * <code>.flyteidl_flink.Resource resource = 1;</code>
      */
-    k8s.io.apimachinery.pkg.api.resource.Generated.Quantity getCpu();
+    flyteidl_flink.Flink.Resource getResource();
     /**
-     * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;</code>
+     * <code>.flyteidl_flink.Resource resource = 1;</code>
      */
-    k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder getCpuOrBuilder();
+    flyteidl_flink.Flink.ResourceOrBuilder getResourceOrBuilder();
 
     /**
-     * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;</code>
-     */
-    boolean hasMemory();
-    /**
-     * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;</code>
-     */
-    k8s.io.apimachinery.pkg.api.resource.Generated.Quantity getMemory();
-    /**
-     * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;</code>
-     */
-    k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder getMemoryOrBuilder();
-
-    /**
-     * <code>int32 replicas = 3;</code>
+     * <code>int32 replicas = 2;</code>
      */
     int getReplicas();
   }
@@ -889,32 +2474,19 @@ public final class Flink {
               done = true;
               break;
             case 10: {
-              k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder subBuilder = null;
-              if (cpu_ != null) {
-                subBuilder = cpu_.toBuilder();
+              flyteidl_flink.Flink.Resource.Builder subBuilder = null;
+              if (resource_ != null) {
+                subBuilder = resource_.toBuilder();
               }
-              cpu_ = input.readMessage(k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.PARSER, extensionRegistry);
+              resource_ = input.readMessage(flyteidl_flink.Flink.Resource.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom(cpu_);
-                cpu_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom(resource_);
+                resource_ = subBuilder.buildPartial();
               }
 
               break;
             }
-            case 18: {
-              k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder subBuilder = null;
-              if (memory_ != null) {
-                subBuilder = memory_.toBuilder();
-              }
-              memory_ = input.readMessage(k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(memory_);
-                memory_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 24: {
+            case 16: {
 
               replicas_ = input.readInt32();
               break;
@@ -951,52 +2523,31 @@ public final class Flink {
               flyteidl_flink.Flink.TaskManager.class, flyteidl_flink.Flink.TaskManager.Builder.class);
     }
 
-    public static final int CPU_FIELD_NUMBER = 1;
-    private k8s.io.apimachinery.pkg.api.resource.Generated.Quantity cpu_;
+    public static final int RESOURCE_FIELD_NUMBER = 1;
+    private flyteidl_flink.Flink.Resource resource_;
     /**
-     * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;</code>
+     * <code>.flyteidl_flink.Resource resource = 1;</code>
      */
-    public boolean hasCpu() {
-      return cpu_ != null;
+    public boolean hasResource() {
+      return resource_ != null;
     }
     /**
-     * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;</code>
+     * <code>.flyteidl_flink.Resource resource = 1;</code>
      */
-    public k8s.io.apimachinery.pkg.api.resource.Generated.Quantity getCpu() {
-      return cpu_ == null ? k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.getDefaultInstance() : cpu_;
+    public flyteidl_flink.Flink.Resource getResource() {
+      return resource_ == null ? flyteidl_flink.Flink.Resource.getDefaultInstance() : resource_;
     }
     /**
-     * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;</code>
+     * <code>.flyteidl_flink.Resource resource = 1;</code>
      */
-    public k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder getCpuOrBuilder() {
-      return getCpu();
-    }
-
-    public static final int MEMORY_FIELD_NUMBER = 2;
-    private k8s.io.apimachinery.pkg.api.resource.Generated.Quantity memory_;
-    /**
-     * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;</code>
-     */
-    public boolean hasMemory() {
-      return memory_ != null;
-    }
-    /**
-     * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;</code>
-     */
-    public k8s.io.apimachinery.pkg.api.resource.Generated.Quantity getMemory() {
-      return memory_ == null ? k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.getDefaultInstance() : memory_;
-    }
-    /**
-     * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;</code>
-     */
-    public k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder getMemoryOrBuilder() {
-      return getMemory();
+    public flyteidl_flink.Flink.ResourceOrBuilder getResourceOrBuilder() {
+      return getResource();
     }
 
-    public static final int REPLICAS_FIELD_NUMBER = 3;
+    public static final int REPLICAS_FIELD_NUMBER = 2;
     private int replicas_;
     /**
-     * <code>int32 replicas = 3;</code>
+     * <code>int32 replicas = 2;</code>
      */
     public int getReplicas() {
       return replicas_;
@@ -1016,14 +2567,11 @@ public final class Flink {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (cpu_ != null) {
-        output.writeMessage(1, getCpu());
-      }
-      if (memory_ != null) {
-        output.writeMessage(2, getMemory());
+      if (resource_ != null) {
+        output.writeMessage(1, getResource());
       }
       if (replicas_ != 0) {
-        output.writeInt32(3, replicas_);
+        output.writeInt32(2, replicas_);
       }
       unknownFields.writeTo(output);
     }
@@ -1034,17 +2582,13 @@ public final class Flink {
       if (size != -1) return size;
 
       size = 0;
-      if (cpu_ != null) {
+      if (resource_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getCpu());
-      }
-      if (memory_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getMemory());
+          .computeMessageSize(1, getResource());
       }
       if (replicas_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, replicas_);
+          .computeInt32Size(2, replicas_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1061,15 +2605,10 @@ public final class Flink {
       }
       flyteidl_flink.Flink.TaskManager other = (flyteidl_flink.Flink.TaskManager) obj;
 
-      if (hasCpu() != other.hasCpu()) return false;
-      if (hasCpu()) {
-        if (!getCpu()
-            .equals(other.getCpu())) return false;
-      }
-      if (hasMemory() != other.hasMemory()) return false;
-      if (hasMemory()) {
-        if (!getMemory()
-            .equals(other.getMemory())) return false;
+      if (hasResource() != other.hasResource()) return false;
+      if (hasResource()) {
+        if (!getResource()
+            .equals(other.getResource())) return false;
       }
       if (getReplicas()
           != other.getReplicas()) return false;
@@ -1084,13 +2623,9 @@ public final class Flink {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasCpu()) {
-        hash = (37 * hash) + CPU_FIELD_NUMBER;
-        hash = (53 * hash) + getCpu().hashCode();
-      }
-      if (hasMemory()) {
-        hash = (37 * hash) + MEMORY_FIELD_NUMBER;
-        hash = (53 * hash) + getMemory().hashCode();
+      if (hasResource()) {
+        hash = (37 * hash) + RESOURCE_FIELD_NUMBER;
+        hash = (53 * hash) + getResource().hashCode();
       }
       hash = (37 * hash) + REPLICAS_FIELD_NUMBER;
       hash = (53 * hash) + getReplicas();
@@ -1227,17 +2762,11 @@ public final class Flink {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        if (cpuBuilder_ == null) {
-          cpu_ = null;
+        if (resourceBuilder_ == null) {
+          resource_ = null;
         } else {
-          cpu_ = null;
-          cpuBuilder_ = null;
-        }
-        if (memoryBuilder_ == null) {
-          memory_ = null;
-        } else {
-          memory_ = null;
-          memoryBuilder_ = null;
+          resource_ = null;
+          resourceBuilder_ = null;
         }
         replicas_ = 0;
 
@@ -1267,15 +2796,10 @@ public final class Flink {
       @java.lang.Override
       public flyteidl_flink.Flink.TaskManager buildPartial() {
         flyteidl_flink.Flink.TaskManager result = new flyteidl_flink.Flink.TaskManager(this);
-        if (cpuBuilder_ == null) {
-          result.cpu_ = cpu_;
+        if (resourceBuilder_ == null) {
+          result.resource_ = resource_;
         } else {
-          result.cpu_ = cpuBuilder_.build();
-        }
-        if (memoryBuilder_ == null) {
-          result.memory_ = memory_;
-        } else {
-          result.memory_ = memoryBuilder_.build();
+          result.resource_ = resourceBuilder_.build();
         }
         result.replicas_ = replicas_;
         onBuilt();
@@ -1326,11 +2850,8 @@ public final class Flink {
 
       public Builder mergeFrom(flyteidl_flink.Flink.TaskManager other) {
         if (other == flyteidl_flink.Flink.TaskManager.getDefaultInstance()) return this;
-        if (other.hasCpu()) {
-          mergeCpu(other.getCpu());
-        }
-        if (other.hasMemory()) {
-          mergeMemory(other.getMemory());
+        if (other.hasResource()) {
+          mergeResource(other.getResource());
         }
         if (other.getReplicas() != 0) {
           setReplicas(other.getReplicas());
@@ -1364,249 +2885,132 @@ public final class Flink {
         return this;
       }
 
-      private k8s.io.apimachinery.pkg.api.resource.Generated.Quantity cpu_;
+      private flyteidl_flink.Flink.Resource resource_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          k8s.io.apimachinery.pkg.api.resource.Generated.Quantity, k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder, k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder> cpuBuilder_;
+          flyteidl_flink.Flink.Resource, flyteidl_flink.Flink.Resource.Builder, flyteidl_flink.Flink.ResourceOrBuilder> resourceBuilder_;
       /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;</code>
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
        */
-      public boolean hasCpu() {
-        return cpuBuilder_ != null || cpu_ != null;
+      public boolean hasResource() {
+        return resourceBuilder_ != null || resource_ != null;
       }
       /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;</code>
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
        */
-      public k8s.io.apimachinery.pkg.api.resource.Generated.Quantity getCpu() {
-        if (cpuBuilder_ == null) {
-          return cpu_ == null ? k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.getDefaultInstance() : cpu_;
+      public flyteidl_flink.Flink.Resource getResource() {
+        if (resourceBuilder_ == null) {
+          return resource_ == null ? flyteidl_flink.Flink.Resource.getDefaultInstance() : resource_;
         } else {
-          return cpuBuilder_.getMessage();
+          return resourceBuilder_.getMessage();
         }
       }
       /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;</code>
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
        */
-      public Builder setCpu(k8s.io.apimachinery.pkg.api.resource.Generated.Quantity value) {
-        if (cpuBuilder_ == null) {
+      public Builder setResource(flyteidl_flink.Flink.Resource value) {
+        if (resourceBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          cpu_ = value;
+          resource_ = value;
           onChanged();
         } else {
-          cpuBuilder_.setMessage(value);
+          resourceBuilder_.setMessage(value);
         }
 
         return this;
       }
       /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;</code>
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
        */
-      public Builder setCpu(
-          k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder builderForValue) {
-        if (cpuBuilder_ == null) {
-          cpu_ = builderForValue.build();
+      public Builder setResource(
+          flyteidl_flink.Flink.Resource.Builder builderForValue) {
+        if (resourceBuilder_ == null) {
+          resource_ = builderForValue.build();
           onChanged();
         } else {
-          cpuBuilder_.setMessage(builderForValue.build());
+          resourceBuilder_.setMessage(builderForValue.build());
         }
 
         return this;
       }
       /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;</code>
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
        */
-      public Builder mergeCpu(k8s.io.apimachinery.pkg.api.resource.Generated.Quantity value) {
-        if (cpuBuilder_ == null) {
-          if (cpu_ != null) {
-            cpu_ =
-              k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.newBuilder(cpu_).mergeFrom(value).buildPartial();
+      public Builder mergeResource(flyteidl_flink.Flink.Resource value) {
+        if (resourceBuilder_ == null) {
+          if (resource_ != null) {
+            resource_ =
+              flyteidl_flink.Flink.Resource.newBuilder(resource_).mergeFrom(value).buildPartial();
           } else {
-            cpu_ = value;
+            resource_ = value;
           }
           onChanged();
         } else {
-          cpuBuilder_.mergeFrom(value);
+          resourceBuilder_.mergeFrom(value);
         }
 
         return this;
       }
       /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;</code>
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
        */
-      public Builder clearCpu() {
-        if (cpuBuilder_ == null) {
-          cpu_ = null;
+      public Builder clearResource() {
+        if (resourceBuilder_ == null) {
+          resource_ = null;
           onChanged();
         } else {
-          cpu_ = null;
-          cpuBuilder_ = null;
+          resource_ = null;
+          resourceBuilder_ = null;
         }
 
         return this;
       }
       /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;</code>
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
        */
-      public k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder getCpuBuilder() {
+      public flyteidl_flink.Flink.Resource.Builder getResourceBuilder() {
         
         onChanged();
-        return getCpuFieldBuilder().getBuilder();
+        return getResourceFieldBuilder().getBuilder();
       }
       /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;</code>
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
        */
-      public k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder getCpuOrBuilder() {
-        if (cpuBuilder_ != null) {
-          return cpuBuilder_.getMessageOrBuilder();
+      public flyteidl_flink.Flink.ResourceOrBuilder getResourceOrBuilder() {
+        if (resourceBuilder_ != null) {
+          return resourceBuilder_.getMessageOrBuilder();
         } else {
-          return cpu_ == null ?
-              k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.getDefaultInstance() : cpu_;
+          return resource_ == null ?
+              flyteidl_flink.Flink.Resource.getDefaultInstance() : resource_;
         }
       }
       /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;</code>
+       * <code>.flyteidl_flink.Resource resource = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          k8s.io.apimachinery.pkg.api.resource.Generated.Quantity, k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder, k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder> 
-          getCpuFieldBuilder() {
-        if (cpuBuilder_ == null) {
-          cpuBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              k8s.io.apimachinery.pkg.api.resource.Generated.Quantity, k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder, k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder>(
-                  getCpu(),
+          flyteidl_flink.Flink.Resource, flyteidl_flink.Flink.Resource.Builder, flyteidl_flink.Flink.ResourceOrBuilder> 
+          getResourceFieldBuilder() {
+        if (resourceBuilder_ == null) {
+          resourceBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              flyteidl_flink.Flink.Resource, flyteidl_flink.Flink.Resource.Builder, flyteidl_flink.Flink.ResourceOrBuilder>(
+                  getResource(),
                   getParentForChildren(),
                   isClean());
-          cpu_ = null;
+          resource_ = null;
         }
-        return cpuBuilder_;
-      }
-
-      private k8s.io.apimachinery.pkg.api.resource.Generated.Quantity memory_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          k8s.io.apimachinery.pkg.api.resource.Generated.Quantity, k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder, k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder> memoryBuilder_;
-      /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;</code>
-       */
-      public boolean hasMemory() {
-        return memoryBuilder_ != null || memory_ != null;
-      }
-      /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;</code>
-       */
-      public k8s.io.apimachinery.pkg.api.resource.Generated.Quantity getMemory() {
-        if (memoryBuilder_ == null) {
-          return memory_ == null ? k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.getDefaultInstance() : memory_;
-        } else {
-          return memoryBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;</code>
-       */
-      public Builder setMemory(k8s.io.apimachinery.pkg.api.resource.Generated.Quantity value) {
-        if (memoryBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          memory_ = value;
-          onChanged();
-        } else {
-          memoryBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;</code>
-       */
-      public Builder setMemory(
-          k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder builderForValue) {
-        if (memoryBuilder_ == null) {
-          memory_ = builderForValue.build();
-          onChanged();
-        } else {
-          memoryBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;</code>
-       */
-      public Builder mergeMemory(k8s.io.apimachinery.pkg.api.resource.Generated.Quantity value) {
-        if (memoryBuilder_ == null) {
-          if (memory_ != null) {
-            memory_ =
-              k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.newBuilder(memory_).mergeFrom(value).buildPartial();
-          } else {
-            memory_ = value;
-          }
-          onChanged();
-        } else {
-          memoryBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;</code>
-       */
-      public Builder clearMemory() {
-        if (memoryBuilder_ == null) {
-          memory_ = null;
-          onChanged();
-        } else {
-          memory_ = null;
-          memoryBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;</code>
-       */
-      public k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder getMemoryBuilder() {
-        
-        onChanged();
-        return getMemoryFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;</code>
-       */
-      public k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder getMemoryOrBuilder() {
-        if (memoryBuilder_ != null) {
-          return memoryBuilder_.getMessageOrBuilder();
-        } else {
-          return memory_ == null ?
-              k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.getDefaultInstance() : memory_;
-        }
-      }
-      /**
-       * <code>.k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          k8s.io.apimachinery.pkg.api.resource.Generated.Quantity, k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder, k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder> 
-          getMemoryFieldBuilder() {
-        if (memoryBuilder_ == null) {
-          memoryBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              k8s.io.apimachinery.pkg.api.resource.Generated.Quantity, k8s.io.apimachinery.pkg.api.resource.Generated.Quantity.Builder, k8s.io.apimachinery.pkg.api.resource.Generated.QuantityOrBuilder>(
-                  getMemory(),
-                  getParentForChildren(),
-                  isClean());
-          memory_ = null;
-        }
-        return memoryBuilder_;
+        return resourceBuilder_;
       }
 
       private int replicas_ ;
       /**
-       * <code>int32 replicas = 3;</code>
+       * <code>int32 replicas = 2;</code>
        */
       public int getReplicas() {
         return replicas_;
       }
       /**
-       * <code>int32 replicas = 3;</code>
+       * <code>int32 replicas = 2;</code>
        */
       public Builder setReplicas(int value) {
         
@@ -1615,7 +3019,7 @@ public final class Flink {
         return this;
       }
       /**
-       * <code>int32 replicas = 3;</code>
+       * <code>int32 replicas = 2;</code>
        */
       public Builder clearReplicas() {
         
@@ -3260,6 +4664,16 @@ public final class Flink {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_flyteidl_flink_Resource_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_flyteidl_flink_Resource_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_flyteidl_flink_Resource_PersistentVolume_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_flyteidl_flink_Resource_PersistentVolume_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_flyteidl_flink_JobManager_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -3290,24 +4704,29 @@ public final class Flink {
     java.lang.String[] descriptorData = {
       "\n\032flyteidl-flink/flink.proto\022\016flyteidl_f" +
       "link\0324k8s.io/apimachinery/pkg/api/resour" +
-      "ce/generated.proto\"\211\001\n\nJobManager\022;\n\003cpu" +
-      "\030\001 \001(\0132..k8s.io.apimachinery.pkg.api.res" +
-      "ource.Quantity\022>\n\006memory\030\002 \001(\0132..k8s.io." +
-      "apimachinery.pkg.api.resource.Quantity\"\234" +
-      "\001\n\013TaskManager\022;\n\003cpu\030\001 \001(\0132..k8s.io.api" +
-      "machinery.pkg.api.resource.Quantity\022>\n\006m" +
-      "emory\030\002 \001(\0132..k8s.io.apimachinery.pkg.ap" +
-      "i.resource.Quantity\022\020\n\010replicas\030\003 \001(\005\"\236\002" +
-      "\n\010FlinkJob\022\017\n\007jarFile\030\001 \001(\t\022\021\n\tmainClass" +
-      "\030\002 \001(\t\022\014\n\004args\030\003 \003(\t\022F\n\017flinkProperties\030" +
-      "\004 \003(\0132-.flyteidl_flink.FlinkJob.FlinkPro" +
-      "pertiesEntry\022.\n\njobManager\030\005 \001(\0132\032.flyte" +
-      "idl_flink.JobManager\0220\n\013taskManager\030\006 \001(" +
-      "\0132\033.flyteidl_flink.TaskManager\0326\n\024FlinkP" +
-      "ropertiesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001" +
-      "(\t:\0028\001BCZAgithub.com/spotify/flyte-fl" +
-      "ink-plugin/gen/pb-go/flyteidl-flinkb\006pro" +
-      "to3"
+      "ce/generated.proto\"\202\003\n\010Resource\022;\n\003cpu\030\001" +
+      " \001(\0132..k8s.io.apimachinery.pkg.api.resou" +
+      "rce.Quantity\022>\n\006memory\030\002 \001(\0132..k8s.io.ap" +
+      "imachinery.pkg.api.resource.Quantity\022C\n\020" +
+      "persistentVolume\030\003 \001(\0132).flyteidl_flink." +
+      "Resource.PersistentVolume\032\263\001\n\020Persistent" +
+      "Volume\022<\n\004type\030\001 \001(\0162..flyteidl_flink.Re" +
+      "source.PersistentVolume.Type\022<\n\004size\030\002 \001" +
+      "(\0132..k8s.io.apimachinery.pkg.api.resourc" +
+      "e.Quantity\"#\n\004Type\022\017\n\013PD_STANDARD\020\000\022\n\n\006P" +
+      "D_SSD\020\001\"8\n\nJobManager\022*\n\010resource\030\001 \001(\0132" +
+      "\030.flyteidl_flink.Resource\"K\n\013TaskManager" +
+      "\022*\n\010resource\030\001 \001(\0132\030.flyteidl_flink.Reso" +
+      "urce\022\020\n\010replicas\030\002 \001(\005\"\236\002\n\010FlinkJob\022\017\n\007j" +
+      "arFile\030\001 \001(\t\022\021\n\tmainClass\030\002 \001(\t\022\014\n\004args\030" +
+      "\003 \003(\t\022F\n\017flinkProperties\030\004 \003(\0132-.flyteid" +
+      "l_flink.FlinkJob.FlinkPropertiesEntry\022.\n" +
+      "\njobManager\030\005 \001(\0132\032.flyteidl_flink.JobMa" +
+      "nager\0220\n\013taskManager\030\006 \001(\0132\033.flyteidl_fl" +
+      "ink.TaskManager\0326\n\024FlinkPropertiesEntry\022" +
+      "\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001BCZAghe.s" +
+      "potify.net/flink/flyte-flink-plugin/gen/" +
+      "pb-go/flyteidl-flinkb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -3322,20 +4741,32 @@ public final class Flink {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           k8s.io.apimachinery.pkg.api.resource.Generated.getDescriptor(),
         }, assigner);
-    internal_static_flyteidl_flink_JobManager_descriptor =
+    internal_static_flyteidl_flink_Resource_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_flyteidl_flink_Resource_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_flyteidl_flink_Resource_descriptor,
+        new java.lang.String[] { "Cpu", "Memory", "PersistentVolume", });
+    internal_static_flyteidl_flink_Resource_PersistentVolume_descriptor =
+      internal_static_flyteidl_flink_Resource_descriptor.getNestedTypes().get(0);
+    internal_static_flyteidl_flink_Resource_PersistentVolume_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_flyteidl_flink_Resource_PersistentVolume_descriptor,
+        new java.lang.String[] { "Type", "Size", });
+    internal_static_flyteidl_flink_JobManager_descriptor =
+      getDescriptor().getMessageTypes().get(1);
     internal_static_flyteidl_flink_JobManager_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_flyteidl_flink_JobManager_descriptor,
-        new java.lang.String[] { "Cpu", "Memory", });
+        new java.lang.String[] { "Resource", });
     internal_static_flyteidl_flink_TaskManager_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_flyteidl_flink_TaskManager_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_flyteidl_flink_TaskManager_descriptor,
-        new java.lang.String[] { "Cpu", "Memory", "Replicas", });
+        new java.lang.String[] { "Resource", "Replicas", });
     internal_static_flyteidl_flink_FlinkJob_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_flyteidl_flink_FlinkJob_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_flyteidl_flink_FlinkJob_descriptor,
