@@ -40,4 +40,5 @@ message FlinkJob {
 
   JobManager jobManager = 5;
   TaskManager taskManager = 6;
+  string serviceAccount = 7;
 }

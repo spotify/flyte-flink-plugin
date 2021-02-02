@@ -809,6 +809,20 @@ class FlinkJob final :
   ::std::string* release_mainclass();
   void set_allocated_mainclass(::std::string* mainclass);
 
+  // string serviceAccount = 7;
+  void clear_serviceaccount();
+  static const int kServiceAccountFieldNumber = 7;
+  const ::std::string& serviceaccount() const;
+  void set_serviceaccount(const ::std::string& value);
+  #if LANG_CXX11
+  void set_serviceaccount(::std::string&& value);
+  #endif
+  void set_serviceaccount(const char* value);
+  void set_serviceaccount(const char* value, size_t size);
+  ::std::string* mutable_serviceaccount();
+  ::std::string* release_serviceaccount();
+  void set_allocated_serviceaccount(::std::string* serviceaccount);
+
   // .flyteidl_flink.JobManager jobManager = 5;
   bool has_jobmanager() const;
   void clear_jobmanager();
@@ -841,6 +855,7 @@ class FlinkJob final :
       0 > flinkproperties_;
   ::google::protobuf::internal::ArenaStringPtr jarfile_;
   ::google::protobuf::internal::ArenaStringPtr mainclass_;
+  ::google::protobuf::internal::ArenaStringPtr serviceaccount_;
   ::flyteidl_flink::JobManager* jobmanager_;
   ::flyteidl_flink::TaskManager* taskmanager_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
@@ -1484,6 +1499,59 @@ inline void FlinkJob::set_allocated_taskmanager(::flyteidl_flink::TaskManager* t
   }
   taskmanager_ = taskmanager;
   // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.FlinkJob.taskManager)
+}
+
+// string serviceAccount = 7;
+inline void FlinkJob::clear_serviceaccount() {
+  serviceaccount_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& FlinkJob::serviceaccount() const {
+  // @@protoc_insertion_point(field_get:flyteidl_flink.FlinkJob.serviceAccount)
+  return serviceaccount_.GetNoArena();
+}
+inline void FlinkJob::set_serviceaccount(const ::std::string& value) {
+  
+  serviceaccount_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:flyteidl_flink.FlinkJob.serviceAccount)
+}
+#if LANG_CXX11
+inline void FlinkJob::set_serviceaccount(::std::string&& value) {
+  
+  serviceaccount_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:flyteidl_flink.FlinkJob.serviceAccount)
+}
+#endif
+inline void FlinkJob::set_serviceaccount(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  serviceaccount_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:flyteidl_flink.FlinkJob.serviceAccount)
+}
+inline void FlinkJob::set_serviceaccount(const char* value, size_t size) {
+  
+  serviceaccount_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:flyteidl_flink.FlinkJob.serviceAccount)
+}
+inline ::std::string* FlinkJob::mutable_serviceaccount() {
+  
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.FlinkJob.serviceAccount)
+  return serviceaccount_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* FlinkJob::release_serviceaccount() {
+  // @@protoc_insertion_point(field_release:flyteidl_flink.FlinkJob.serviceAccount)
+  
+  return serviceaccount_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void FlinkJob::set_allocated_serviceaccount(::std::string* serviceaccount) {
+  if (serviceaccount != nullptr) {
+    
+  } else {
+    
+  }
+  serviceaccount_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), serviceaccount);
+  // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.FlinkJob.serviceAccount)
 }
 
 #ifdef __GNUC__

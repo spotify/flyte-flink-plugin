@@ -28,7 +28,6 @@ func TestBuildFlinkPropertiesFieldLevelOverride(t *testing.T) {
 		FlinkProperties:         map[string]string{"a": "A", "b": "B"},
 		FlinkPropertiesOverride: map[string]string{"b": "BOverride", "c": "C"},
 		Image:                   "",
-		ServiceAccount:          "",
 		JobManager:              JobManagerConfig{},
 		TaskManager:             TaskManagerConfig{},
 	}

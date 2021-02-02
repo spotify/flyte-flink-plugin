@@ -145,7 +145,8 @@ Custom Proto for Flink Plugin.
     "args": [],
     "flinkProperties": "{...}",
     "jobManager": "{...}",
-    "taskManager": "{...}"
+    "taskManager": "{...}",
+    "serviceAccount": "..."
   }
 
 .. _api_field_flyteidl_flink.FlinkJob.jarFile:
@@ -177,5 +178,10 @@ jobManager
 
 taskManager
   (:ref:`flyteidl_flink.TaskManager <api_msg_flyteidl_flink.TaskManager>`) 
+  
+.. _api_field_flyteidl_flink.FlinkJob.serviceAccount:
+
+serviceAccount
+  (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
   
 

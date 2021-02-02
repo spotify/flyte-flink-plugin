@@ -212,7 +212,7 @@ func buildJobSpec(job flinkIdl.FlinkJob, taskManager flinkOp.TaskManagerSpec, fl
 	return spec
 }
 
-func buildFlinkClusterSpec(config *Config, jobManager flinkOp.JobManagerSpec, taskManager flinkOp.TaskManagerSpec, job flinkOp.JobSpec, flinkProperties FlinkProperties, objectMeta *metav1.ObjectMeta) flinkOp.FlinkCluster {
+func buildFlinkClusterSpec(config *Config, job flinkIdl.FlinkJob, jobManager flinkOp.JobManagerSpec, taskManager flinkOp.TaskManagerSpec, jobSpec flinkOp.JobSpec, flinkProperties FlinkProperties, objectMeta *metav1.ObjectMeta) flinkOp.FlinkCluster {
 	return flinkOp.FlinkCluster{
 		ObjectMeta: *objectMeta,
 		TypeMeta: metav1.TypeMeta{
@@ -220,14 +220,14 @@ func buildFlinkClusterSpec(config *Config, jobManager flinkOp.JobManagerSpec, ta
 			APIVersion: flinkOp.GroupVersion.String(),
 		},
 		Spec: flinkOp.FlinkClusterSpec{
-			ServiceAccountName: &config.ServiceAccount,
+			ServiceAccountName: &job.ServiceAccount,
 			Image: flinkOp.ImageSpec{
 				Name:       config.Image,
 				PullPolicy: corev1.PullAlways,
 			},
 			JobManager:      jobManager,
 			TaskManager:     taskManager,
-			Job:             &job,
+			Job:             &jobSpec,
 			FlinkProperties: flinkProperties,
 		},
 	}
@@ -247,7 +247,7 @@ func BuildFlinkClusterSpec(taskCtx pluginsCore.TaskExecutionMetadata, job flinkI
 	jobManagerSpec := buildJobManagerSpec(job.JobManager, &config.JobManager, objectMeta)
 	taskManagerSpec := buildTaskManagerSpec(job.TaskManager, &config.TaskManager, objectMeta)
 	jobSpec := buildJobSpec(job, taskManagerSpec, flinkProperties)
-	flinkCluster := buildFlinkClusterSpec(config, jobManagerSpec, taskManagerSpec, jobSpec, flinkProperties, objectMeta)
+	flinkCluster := buildFlinkClusterSpec(config, job, jobManagerSpec, taskManagerSpec, jobSpec, flinkProperties, objectMeta)
 
 	// fill in defaults
 	flinkCluster.Default()

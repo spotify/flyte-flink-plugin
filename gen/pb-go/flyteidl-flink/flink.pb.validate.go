@@ -314,6 +314,8 @@ func (m *FlinkJob) Validate() error {
 		}
 	}
 
+	// no validation rules for ServiceAccount
+
 	return nil
 }
 

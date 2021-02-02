@@ -3182,6 +3182,16 @@ public final class Flink {
      * <code>.flyteidl_flink.TaskManager taskManager = 6;</code>
      */
     flyteidl_flink.Flink.TaskManagerOrBuilder getTaskManagerOrBuilder();
+
+    /**
+     * <code>string serviceAccount = 7;</code>
+     */
+    java.lang.String getServiceAccount();
+    /**
+     * <code>string serviceAccount = 7;</code>
+     */
+    com.google.protobuf.ByteString
+        getServiceAccountBytes();
   }
   /**
    * <pre>
@@ -3203,6 +3213,7 @@ public final class Flink {
       jarFile_ = "";
       mainClass_ = "";
       args_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      serviceAccount_ = "";
     }
 
     @java.lang.Override
@@ -3287,6 +3298,12 @@ public final class Flink {
                 taskManager_ = subBuilder.buildPartial();
               }
 
+              break;
+            }
+            case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              serviceAccount_ = s;
               break;
             }
             default: {
@@ -3552,6 +3569,40 @@ public final class Flink {
       return getTaskManager();
     }
 
+    public static final int SERVICEACCOUNT_FIELD_NUMBER = 7;
+    private volatile java.lang.Object serviceAccount_;
+    /**
+     * <code>string serviceAccount = 7;</code>
+     */
+    public java.lang.String getServiceAccount() {
+      java.lang.Object ref = serviceAccount_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        serviceAccount_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string serviceAccount = 7;</code>
+     */
+    public com.google.protobuf.ByteString
+        getServiceAccountBytes() {
+      java.lang.Object ref = serviceAccount_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        serviceAccount_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -3586,6 +3637,9 @@ public final class Flink {
       }
       if (taskManager_ != null) {
         output.writeMessage(6, getTaskManager());
+      }
+      if (!getServiceAccountBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, serviceAccount_);
       }
       unknownFields.writeTo(output);
     }
@@ -3628,6 +3682,9 @@ public final class Flink {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(6, getTaskManager());
       }
+      if (!getServiceAccountBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, serviceAccount_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -3661,6 +3718,8 @@ public final class Flink {
         if (!getTaskManager()
             .equals(other.getTaskManager())) return false;
       }
+      if (!getServiceAccount()
+          .equals(other.getServiceAccount())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -3692,6 +3751,8 @@ public final class Flink {
         hash = (37 * hash) + TASKMANAGER_FIELD_NUMBER;
         hash = (53 * hash) + getTaskManager().hashCode();
       }
+      hash = (37 * hash) + SERVICEACCOUNT_FIELD_NUMBER;
+      hash = (53 * hash) + getServiceAccount().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3870,6 +3931,8 @@ public final class Flink {
           taskManager_ = null;
           taskManagerBuilder_ = null;
         }
+        serviceAccount_ = "";
+
         return this;
       }
 
@@ -3917,6 +3980,7 @@ public final class Flink {
         } else {
           result.taskManager_ = taskManagerBuilder_.build();
         }
+        result.serviceAccount_ = serviceAccount_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -3991,6 +4055,10 @@ public final class Flink {
         }
         if (other.hasTaskManager()) {
           mergeTaskManager(other.getTaskManager());
+        }
+        if (!other.getServiceAccount().isEmpty()) {
+          serviceAccount_ = other.serviceAccount_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -4610,6 +4678,75 @@ public final class Flink {
         }
         return taskManagerBuilder_;
       }
+
+      private java.lang.Object serviceAccount_ = "";
+      /**
+       * <code>string serviceAccount = 7;</code>
+       */
+      public java.lang.String getServiceAccount() {
+        java.lang.Object ref = serviceAccount_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          serviceAccount_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string serviceAccount = 7;</code>
+       */
+      public com.google.protobuf.ByteString
+          getServiceAccountBytes() {
+        java.lang.Object ref = serviceAccount_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          serviceAccount_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string serviceAccount = 7;</code>
+       */
+      public Builder setServiceAccount(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        serviceAccount_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string serviceAccount = 7;</code>
+       */
+      public Builder clearServiceAccount() {
+        
+        serviceAccount_ = getDefaultInstance().getServiceAccount();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string serviceAccount = 7;</code>
+       */
+      public Builder setServiceAccountBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        serviceAccount_ = value;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -4717,16 +4854,17 @@ public final class Flink {
       "D_SSD\020\001\"8\n\nJobManager\022*\n\010resource\030\001 \001(\0132" +
       "\030.flyteidl_flink.Resource\"K\n\013TaskManager" +
       "\022*\n\010resource\030\001 \001(\0132\030.flyteidl_flink.Reso" +
-      "urce\022\020\n\010replicas\030\002 \001(\005\"\236\002\n\010FlinkJob\022\017\n\007j" +
+      "urce\022\020\n\010replicas\030\002 \001(\005\"\266\002\n\010FlinkJob\022\017\n\007j" +
       "arFile\030\001 \001(\t\022\021\n\tmainClass\030\002 \001(\t\022\014\n\004args\030" +
       "\003 \003(\t\022F\n\017flinkProperties\030\004 \003(\0132-.flyteid" +
       "l_flink.FlinkJob.FlinkPropertiesEntry\022.\n" +
       "\njobManager\030\005 \001(\0132\032.flyteidl_flink.JobMa" +
       "nager\0220\n\013taskManager\030\006 \001(\0132\033.flyteidl_fl" +
-      "ink.TaskManager\0326\n\024FlinkPropertiesEntry\022" +
-      "\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001BCZAghe.s" +
-      "potify.net/flink/flyte-flink-plugin/gen/" +
-      "pb-go/flyteidl-flinkb\006proto3"
+      "ink.TaskManager\022\026\n\016serviceAccount\030\007 \001(\t\032" +
+      "6\n\024FlinkPropertiesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005" +
+      "value\030\002 \001(\t:\0028\001BCZAgithub.com/spotify" +
+      "/flyte-flink-plugin/gen/pb-go/flyteidl-f" +
+      "linkb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4770,7 +4908,7 @@ public final class Flink {
     internal_static_flyteidl_flink_FlinkJob_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_flyteidl_flink_FlinkJob_descriptor,
-        new java.lang.String[] { "JarFile", "MainClass", "Args", "FlinkProperties", "JobManager", "TaskManager", });
+        new java.lang.String[] { "JarFile", "MainClass", "Args", "FlinkProperties", "JobManager", "TaskManager", "ServiceAccount", });
     internal_static_flyteidl_flink_FlinkJob_FlinkPropertiesEntry_descriptor =
       internal_static_flyteidl_flink_FlinkJob_descriptor.getNestedTypes().get(0);
     internal_static_flyteidl_flink_FlinkJob_FlinkPropertiesEntry_fieldAccessorTable = new
