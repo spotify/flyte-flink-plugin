@@ -202,6 +202,7 @@ const ::google::protobuf::uint32 TableStruct_flyteidl_2dflink_2fflink_2eproto::o
   PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob, jobmanager_),
   PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob, taskmanager_),
   PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob, serviceaccount_),
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob, image_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::flyteidl_flink::Resource_PersistentVolume)},
@@ -243,22 +244,22 @@ const char descriptor_table_protodef_flyteidl_2dflink_2fflink_2eproto[] =
   "D_SSD\020\001\"8\n\nJobManager\022*\n\010resource\030\001 \001(\0132"
   "\030.flyteidl_flink.Resource\"K\n\013TaskManager"
   "\022*\n\010resource\030\001 \001(\0132\030.flyteidl_flink.Reso"
-  "urce\022\020\n\010replicas\030\002 \001(\005\"\266\002\n\010FlinkJob\022\017\n\007j"
+  "urce\022\020\n\010replicas\030\002 \001(\005\"\305\002\n\010FlinkJob\022\017\n\007j"
   "arFile\030\001 \001(\t\022\021\n\tmainClass\030\002 \001(\t\022\014\n\004args\030"
   "\003 \003(\t\022F\n\017flinkProperties\030\004 \003(\0132-.flyteid"
   "l_flink.FlinkJob.FlinkPropertiesEntry\022.\n"
   "\njobManager\030\005 \001(\0132\032.flyteidl_flink.JobMa"
   "nager\0220\n\013taskManager\030\006 \001(\0132\033.flyteidl_fl"
-  "ink.TaskManager\022\026\n\016serviceAccount\030\007 \001(\t\032"
-  "6\n\024FlinkPropertiesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005"
-  "value\030\002 \001(\t:\0028\001BCZAgithub.com/spotify"
-  "/flyte-flink-plugin/gen/pb-go/flyteidl-f"
-  "linkb\006proto3"
+  "ink.TaskManager\022\026\n\016serviceAccount\030\007 \001(\t\022"
+  "\r\n\005image\030\010 \001(\t\0326\n\024FlinkPropertiesEntry\022\013"
+  "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001BCZAghe.sp"
+  "otify.net/flink/flyte-flink-plugin/gen/p"
+  "b-go/flyteidl-flinkb\006proto3"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_flyteidl_2dflink_2fflink_2eproto = {
   false, InitDefaults_flyteidl_2dflink_2fflink_2eproto, 
   descriptor_table_protodef_flyteidl_2dflink_2fflink_2eproto,
-  "flyteidl-flink/flink.proto", &assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto, 1012,
+  "flyteidl-flink/flink.proto", &assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto, 1027,
 };
 
 void AddDescriptors_flyteidl_2dflink_2fflink_2eproto() {
@@ -1760,6 +1761,7 @@ const int FlinkJob::kFlinkPropertiesFieldNumber;
 const int FlinkJob::kJobManagerFieldNumber;
 const int FlinkJob::kTaskManagerFieldNumber;
 const int FlinkJob::kServiceAccountFieldNumber;
+const int FlinkJob::kImageFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 FlinkJob::FlinkJob()
@@ -1785,6 +1787,10 @@ FlinkJob::FlinkJob(const FlinkJob& from)
   if (from.serviceaccount().size() > 0) {
     serviceaccount_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.serviceaccount_);
   }
+  image_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.image().size() > 0) {
+    image_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.image_);
+  }
   if (from.has_jobmanager()) {
     jobmanager_ = new ::flyteidl_flink::JobManager(*from.jobmanager_);
   } else {
@@ -1804,6 +1810,7 @@ void FlinkJob::SharedCtor() {
   jarfile_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   mainclass_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   serviceaccount_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  image_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&jobmanager_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&taskmanager_) -
       reinterpret_cast<char*>(&jobmanager_)) + sizeof(taskmanager_));
@@ -1818,6 +1825,7 @@ void FlinkJob::SharedDtor() {
   jarfile_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   mainclass_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   serviceaccount_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  image_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete jobmanager_;
   if (this != internal_default_instance()) delete taskmanager_;
 }
@@ -1842,6 +1850,7 @@ void FlinkJob::Clear() {
   jarfile_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   mainclass_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   serviceaccount_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  image_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (GetArenaNoVirtual() == nullptr && jobmanager_ != nullptr) {
     delete jobmanager_;
   }
@@ -1969,6 +1978,22 @@ const char* FlinkJob::_InternalParse(const char* begin, const char* end, void* o
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         ctx->extra_parse_data().SetFieldName("flyteidl_flink.FlinkJob.serviceAccount");
         object = msg->mutable_serviceaccount();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      // string image = 8;
+      case 8: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 66) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("flyteidl_flink.FlinkJob.image");
+        object = msg->mutable_image();
         if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
           parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
           goto string_till_end;
@@ -2121,6 +2146,21 @@ bool FlinkJob::MergePartialFromCodedStream(
         break;
       }
 
+      // string image = 8;
+      case 8: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (66 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_image()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->image().data(), static_cast<int>(this->image().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "flyteidl_flink.FlinkJob.image"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -2249,6 +2289,16 @@ void FlinkJob::SerializeWithCachedSizes(
       7, this->serviceaccount(), output);
   }
 
+  // string image = 8;
+  if (this->image().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->image().data(), static_cast<int>(this->image().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "flyteidl_flink.FlinkJob.image");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      8, this->image(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -2368,6 +2418,17 @@ void FlinkJob::SerializeWithCachedSizes(
         7, this->serviceaccount(), target);
   }
 
+  // string image = 8;
+  if (this->image().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->image().data(), static_cast<int>(this->image().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "flyteidl_flink.FlinkJob.image");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        8, this->image(), target);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
@@ -2432,6 +2493,13 @@ size_t FlinkJob::ByteSizeLong() const {
         this->serviceaccount());
   }
 
+  // string image = 8;
+  if (this->image().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->image());
+  }
+
   // .flyteidl_flink.JobManager jobManager = 5;
   if (this->has_jobmanager()) {
     total_size += 1 +
@@ -2487,6 +2555,10 @@ void FlinkJob::MergeFrom(const FlinkJob& from) {
 
     serviceaccount_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.serviceaccount_);
   }
+  if (from.image().size() > 0) {
+
+    image_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.image_);
+  }
   if (from.has_jobmanager()) {
     mutable_jobmanager()->::flyteidl_flink::JobManager::MergeFrom(from.jobmanager());
   }
@@ -2527,6 +2599,8 @@ void FlinkJob::InternalSwap(FlinkJob* other) {
   mainclass_.Swap(&other->mainclass_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   serviceaccount_.Swap(&other->serviceaccount_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  image_.Swap(&other->image_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(jobmanager_, other->jobmanager_);
   swap(taskmanager_, other->taskmanager_);

@@ -213,6 +213,11 @@ func buildJobSpec(job flinkIdl.FlinkJob, taskManager flinkOp.TaskManagerSpec, fl
 }
 
 func buildFlinkClusterSpec(config *Config, job flinkIdl.FlinkJob, jobManager flinkOp.JobManagerSpec, taskManager flinkOp.TaskManagerSpec, jobSpec flinkOp.JobSpec, flinkProperties FlinkProperties, objectMeta *metav1.ObjectMeta) flinkOp.FlinkCluster {
+	image := job.GetImage()
+	if len(image) == 0 {
+		image = config.Image
+	}
+
 	return flinkOp.FlinkCluster{
 		ObjectMeta: *objectMeta,
 		TypeMeta: metav1.TypeMeta{
@@ -222,8 +227,8 @@ func buildFlinkClusterSpec(config *Config, job flinkIdl.FlinkJob, jobManager fli
 		Spec: flinkOp.FlinkClusterSpec{
 			ServiceAccountName: &job.ServiceAccount,
 			Image: flinkOp.ImageSpec{
-				Name:       config.Image,
-				PullPolicy: corev1.PullAlways,
+				Name:       image,
+				PullPolicy: corev1.PullIfNotPresent,
 			},
 			JobManager:      jobManager,
 			TaskManager:     taskManager,

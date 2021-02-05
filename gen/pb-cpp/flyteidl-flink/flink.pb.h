@@ -823,6 +823,20 @@ class FlinkJob final :
   ::std::string* release_serviceaccount();
   void set_allocated_serviceaccount(::std::string* serviceaccount);
 
+  // string image = 8;
+  void clear_image();
+  static const int kImageFieldNumber = 8;
+  const ::std::string& image() const;
+  void set_image(const ::std::string& value);
+  #if LANG_CXX11
+  void set_image(::std::string&& value);
+  #endif
+  void set_image(const char* value);
+  void set_image(const char* value, size_t size);
+  ::std::string* mutable_image();
+  ::std::string* release_image();
+  void set_allocated_image(::std::string* image);
+
   // .flyteidl_flink.JobManager jobManager = 5;
   bool has_jobmanager() const;
   void clear_jobmanager();
@@ -856,6 +870,7 @@ class FlinkJob final :
   ::google::protobuf::internal::ArenaStringPtr jarfile_;
   ::google::protobuf::internal::ArenaStringPtr mainclass_;
   ::google::protobuf::internal::ArenaStringPtr serviceaccount_;
+  ::google::protobuf::internal::ArenaStringPtr image_;
   ::flyteidl_flink::JobManager* jobmanager_;
   ::flyteidl_flink::TaskManager* taskmanager_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
@@ -1552,6 +1567,59 @@ inline void FlinkJob::set_allocated_serviceaccount(::std::string* serviceaccount
   }
   serviceaccount_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), serviceaccount);
   // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.FlinkJob.serviceAccount)
+}
+
+// string image = 8;
+inline void FlinkJob::clear_image() {
+  image_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& FlinkJob::image() const {
+  // @@protoc_insertion_point(field_get:flyteidl_flink.FlinkJob.image)
+  return image_.GetNoArena();
+}
+inline void FlinkJob::set_image(const ::std::string& value) {
+  
+  image_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:flyteidl_flink.FlinkJob.image)
+}
+#if LANG_CXX11
+inline void FlinkJob::set_image(::std::string&& value) {
+  
+  image_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:flyteidl_flink.FlinkJob.image)
+}
+#endif
+inline void FlinkJob::set_image(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  image_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:flyteidl_flink.FlinkJob.image)
+}
+inline void FlinkJob::set_image(const char* value, size_t size) {
+  
+  image_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:flyteidl_flink.FlinkJob.image)
+}
+inline ::std::string* FlinkJob::mutable_image() {
+  
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.FlinkJob.image)
+  return image_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* FlinkJob::release_image() {
+  // @@protoc_insertion_point(field_release:flyteidl_flink.FlinkJob.image)
+  
+  return image_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void FlinkJob::set_allocated_image(::std::string* image) {
+  if (image != nullptr) {
+    
+  } else {
+    
+  }
+  image_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), image);
+  // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.FlinkJob.image)
 }
 
 #ifdef __GNUC__

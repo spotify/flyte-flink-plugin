@@ -106,7 +106,7 @@ resource
 flyteidl_flink.TaskManager
 --------------------------
 
-`[flyteidl_flink.TaskManager proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L28>`_
+`[flyteidl_flink.TaskManager proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L26>`_
 
 
 .. code-block:: json
@@ -133,7 +133,7 @@ replicas
 flyteidl_flink.FlinkJob
 -----------------------
 
-`[flyteidl_flink.FlinkJob proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L34>`_
+`[flyteidl_flink.FlinkJob proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L32>`_
 
 Custom Proto for Flink Plugin.
 
@@ -146,7 +146,8 @@ Custom Proto for Flink Plugin.
     "flinkProperties": "{...}",
     "jobManager": "{...}",
     "taskManager": "{...}",
-    "serviceAccount": "..."
+    "serviceAccount": "...",
+    "image": "..."
   }
 
 .. _api_field_flyteidl_flink.FlinkJob.jarFile:
@@ -182,6 +183,11 @@ taskManager
 .. _api_field_flyteidl_flink.FlinkJob.serviceAccount:
 
 serviceAccount
+  (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
+  
+.. _api_field_flyteidl_flink.FlinkJob.image:
+
+image
   (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
   
 

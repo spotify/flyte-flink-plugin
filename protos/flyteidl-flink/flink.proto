@@ -22,9 +22,7 @@ message Resource {
   PersistentVolume persistentVolume = 3;
 }
 
-message JobManager {
-  Resource resource = 1;
-}
+message JobManager { Resource resource = 1; }
 
 message TaskManager {
   Resource resource = 1;
@@ -41,4 +39,5 @@ message FlinkJob {
   JobManager jobManager = 5;
   TaskManager taskManager = 6;
   string serviceAccount = 7;
+  string image = 8;
 }

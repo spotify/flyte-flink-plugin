@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='flyteidl_flink',
   syntax='proto3',
   serialized_options=_b('ZAgithub.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink'),
-  serialized_pb=_b('\n\x1a\x66lyteidl-flink/flink.proto\x12\x0e\x66lyteidl_flink\x1a\x34k8s.io/apimachinery/pkg/api/resource/generated.proto\"\x82\x03\n\x08Resource\x12;\n\x03\x63pu\x18\x01 \x01(\x0b\x32..k8s.io.apimachinery.pkg.api.resource.Quantity\x12>\n\x06memory\x18\x02 \x01(\x0b\x32..k8s.io.apimachinery.pkg.api.resource.Quantity\x12\x43\n\x10persistentVolume\x18\x03 \x01(\x0b\x32).flyteidl_flink.Resource.PersistentVolume\x1a\xb3\x01\n\x10PersistentVolume\x12<\n\x04type\x18\x01 \x01(\x0e\x32..flyteidl_flink.Resource.PersistentVolume.Type\x12<\n\x04size\x18\x02 \x01(\x0b\x32..k8s.io.apimachinery.pkg.api.resource.Quantity\"#\n\x04Type\x12\x0f\n\x0bPD_STANDARD\x10\x00\x12\n\n\x06PD_SSD\x10\x01\"8\n\nJobManager\x12*\n\x08resource\x18\x01 \x01(\x0b\x32\x18.flyteidl_flink.Resource\"K\n\x0bTaskManager\x12*\n\x08resource\x18\x01 \x01(\x0b\x32\x18.flyteidl_flink.Resource\x12\x10\n\x08replicas\x18\x02 \x01(\x05\"\xb6\x02\n\x08\x46linkJob\x12\x0f\n\x07jarFile\x18\x01 \x01(\t\x12\x11\n\tmainClass\x18\x02 \x01(\t\x12\x0c\n\x04\x61rgs\x18\x03 \x03(\t\x12\x46\n\x0f\x66linkProperties\x18\x04 \x03(\x0b\x32-.flyteidl_flink.FlinkJob.FlinkPropertiesEntry\x12.\n\njobManager\x18\x05 \x01(\x0b\x32\x1a.flyteidl_flink.JobManager\x12\x30\n\x0btaskManager\x18\x06 \x01(\x0b\x32\x1b.flyteidl_flink.TaskManager\x12\x16\n\x0eserviceAccount\x18\x07 \x01(\t\x1a\x36\n\x14\x46linkPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x43ZAgithub.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flinkb\x06proto3')
+  serialized_pb=_b('\n\x1a\x66lyteidl-flink/flink.proto\x12\x0e\x66lyteidl_flink\x1a\x34k8s.io/apimachinery/pkg/api/resource/generated.proto\"\x82\x03\n\x08Resource\x12;\n\x03\x63pu\x18\x01 \x01(\x0b\x32..k8s.io.apimachinery.pkg.api.resource.Quantity\x12>\n\x06memory\x18\x02 \x01(\x0b\x32..k8s.io.apimachinery.pkg.api.resource.Quantity\x12\x43\n\x10persistentVolume\x18\x03 \x01(\x0b\x32).flyteidl_flink.Resource.PersistentVolume\x1a\xb3\x01\n\x10PersistentVolume\x12<\n\x04type\x18\x01 \x01(\x0e\x32..flyteidl_flink.Resource.PersistentVolume.Type\x12<\n\x04size\x18\x02 \x01(\x0b\x32..k8s.io.apimachinery.pkg.api.resource.Quantity\"#\n\x04Type\x12\x0f\n\x0bPD_STANDARD\x10\x00\x12\n\n\x06PD_SSD\x10\x01\"8\n\nJobManager\x12*\n\x08resource\x18\x01 \x01(\x0b\x32\x18.flyteidl_flink.Resource\"K\n\x0bTaskManager\x12*\n\x08resource\x18\x01 \x01(\x0b\x32\x18.flyteidl_flink.Resource\x12\x10\n\x08replicas\x18\x02 \x01(\x05\"\xc5\x02\n\x08\x46linkJob\x12\x0f\n\x07jarFile\x18\x01 \x01(\t\x12\x11\n\tmainClass\x18\x02 \x01(\t\x12\x0c\n\x04\x61rgs\x18\x03 \x03(\t\x12\x46\n\x0f\x66linkProperties\x18\x04 \x03(\x0b\x32-.flyteidl_flink.FlinkJob.FlinkPropertiesEntry\x12.\n\njobManager\x18\x05 \x01(\x0b\x32\x1a.flyteidl_flink.JobManager\x12\x30\n\x0btaskManager\x18\x06 \x01(\x0b\x32\x1b.flyteidl_flink.TaskManager\x12\x16\n\x0eserviceAccount\x18\x07 \x01(\t\x12\r\n\x05image\x18\x08 \x01(\t\x1a\x36\n\x14\x46linkPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x43ZAgithub.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flinkb\x06proto3')
   ,
   dependencies=[k8s_dot_io_dot_apimachinery_dot_pkg_dot_api_dot_resource_dot_generated__pb2.DESCRIPTOR,])
 
@@ -235,8 +235,8 @@ _FLINKJOB_FLINKPROPERTIESENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=881,
-  serialized_end=935,
+  serialized_start=896,
+  serialized_end=950,
 )
 
 _FLINKJOB = _descriptor.Descriptor(
@@ -295,6 +295,13 @@ _FLINKJOB = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='image', full_name='flyteidl_flink.FlinkJob.image', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -308,7 +315,7 @@ _FLINKJOB = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=625,
-  serialized_end=935,
+  serialized_end=950,
 )
 
 _RESOURCE_PERSISTENTVOLUME.fields_by_name['type'].enum_type = _RESOURCE_PERSISTENTVOLUME_TYPE

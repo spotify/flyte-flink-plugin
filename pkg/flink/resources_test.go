@@ -156,3 +156,37 @@ func TestBuildFlinkClusterSpecServiceAccount(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Equal(t, *cluster.Spec.ServiceAccountName, "flink-user-service-account")
 }
+
+func TestBuildFlinkClusterSpecImage(t *testing.T) {
+	job := flinkIdl.FlinkJob{
+		JarFile: "job.jar",
+		FlinkProperties: map[string]string{
+			"taskmanager.numberOfTaskSlots": "1",
+		},
+		Image: "flink-custom-image",
+	}
+	config := GetFlinkConfig()
+
+	tID := &mocks.TaskExecutionID{}
+	tID.OnGetID().Return(flyteIdlCore.TaskExecutionIdentifier{
+		NodeExecutionId: &flyteIdlCore.NodeExecutionIdentifier{
+			ExecutionId: &flyteIdlCore.WorkflowExecutionIdentifier{
+				Name:    "name",
+				Project: "project",
+				Domain:  "domain",
+			},
+		},
+	})
+	tID.OnGetGeneratedName().Return("generated-name")
+
+	taskCtx := &mocks.TaskExecutionMetadata{}
+	taskCtx.OnGetTaskExecutionID().Return(tID)
+	taskCtx.OnGetNamespace().Return("test-namespace")
+	taskCtx.OnGetAnnotations().Return(make(map[string]string))
+	taskCtx.OnGetLabels().Return(make(map[string]string))
+
+	cluster, err := BuildFlinkClusterSpec(taskCtx, job, config)
+
+	assert.NilError(t, err)
+	assert.Equal(t, *&cluster.Spec.Image.Name, "flink-custom-image")
+}
