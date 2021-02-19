@@ -8,7 +8,7 @@ import (
 
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	pluginsCore "github.com/lyft/flyteplugins/go/tasks/pluginmachinery/core"
-	flinkOp "github.com/regadas/flink-on-k8s-operator/api/v1beta1"
+	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
 
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

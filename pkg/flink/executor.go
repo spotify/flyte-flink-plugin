@@ -8,7 +8,7 @@ import (
 	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/k8s"
 	"k8s.io/client-go/kubernetes/scheme"
 
-	flinkOp "github.com/regadas/flink-on-k8s-operator/api/v1beta1"
+	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
 )
 
 func init() {

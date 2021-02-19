@@ -9,7 +9,7 @@ require (
 	github.com/lyft/flyteidl v0.18.9
 	github.com/lyft/flyteplugins v0.5.21
 	github.com/lyft/flytestdlib v0.3.9
-	github.com/regadas/flink-on-k8s-operator v0.0.0-20210122222723-137cfbd2fc8d
+	github.com/spotify/flink-on-k8s-operator v0.0.0-20210205215343-e9cf8c7ef0b0
 	gotest.tools v2.2.0+incompatible
 	k8s.io/api v0.19.4
 	k8s.io/apimachinery v0.18.3

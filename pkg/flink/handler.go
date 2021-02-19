@@ -13,7 +13,7 @@ import (
 	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/k8s"
 	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/utils"
 
-	flinkOp "github.com/regadas/flink-on-k8s-operator/api/v1beta1"
+	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
 
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	"github.com/lyft/flyteidl/gen/pb-go/flyteidl/core"
