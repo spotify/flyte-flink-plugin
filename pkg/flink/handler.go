@@ -30,6 +30,7 @@ func (flinkResourceHandler) GetProperties() pluginsCore.PluginProperties {
 
 // Creates a new Job that will execute the main container as well as any generated types the result from the execution.
 func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCore.TaskExecutionContext) (k8s.Resource, error) {
+
 	taskTemplate, err := taskCtx.TaskReader().Read(ctx)
 	if err != nil {
 		return nil, errors.Errorf(errors.BadTaskSpecification, "unable to fetch task specification [%v]", err.Error())
@@ -43,8 +44,18 @@ func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCo
 		return nil, errors.Wrapf(errors.BadTaskSpecification, err, "invalid TaskSpecification [%v], failed to unmarshal", taskTemplate.GetCustom())
 	}
 
-	container := taskTemplate.GetContainer()
-	logger.Debugf(ctx, "Container %+v", container)
+	taskInput, err := taskCtx.InputReader().Get(ctx)
+	if err != nil {
+		return nil, errors.Errorf(errors.BadTaskSpecification, "unable to fetch task inputs [%v]", err.Error())
+	}
+
+	// add task input literals to flink job args
+	inputs := taskInput.GetLiterals()
+	args, err := literalMapToFlinkJobArgs(inputs)
+	if err != nil {
+		return nil, errors.Errorf(errors.BadTaskSpecification, "not support input arg type [%v]", err.Error())
+	}
+	job.Args = append(job.Args, args...)
 
 	// Start with default config values.
 	config := GetFlinkConfig()
