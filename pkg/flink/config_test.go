@@ -15,6 +15,7 @@ func TestLoadConfig(t *testing.T) {
 	assert.Assert(t, config != nil)
 
 	assert.Equal(t, config.Image, "flink-image")
+	assert.Equal(t, config.ServiceAccount, "flink-service-account")
 	assert.Equal(t, config.JobManager.Cpu, resource.MustParse("3.5"))
 	assert.Equal(t, config.JobManager.Memory, resource.MustParse("4Gi"))
 	assert.Equal(t, config.TaskManager.Cpu, resource.MustParse("4"))

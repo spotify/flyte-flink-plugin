@@ -217,6 +217,10 @@ func buildFlinkClusterSpec(config *Config, job flinkIdl.FlinkJob, jobManager fli
 	if len(image) == 0 {
 		image = config.Image
 	}
+	sa := job.GetServiceAccount()
+	if len(sa) == 0 {
+		sa = config.ServiceAccount
+	}
 
 	return flinkOp.FlinkCluster{
 		ObjectMeta: *objectMeta,
@@ -225,7 +229,7 @@ func buildFlinkClusterSpec(config *Config, job flinkIdl.FlinkJob, jobManager fli
 			APIVersion: flinkOp.GroupVersion.String(),
 		},
 		Spec: flinkOp.FlinkClusterSpec{
-			ServiceAccountName: &job.ServiceAccount,
+			ServiceAccountName: &sa,
 			Image: flinkOp.ImageSpec{
 				Name:       image,
 				PullPolicy: corev1.PullIfNotPresent,

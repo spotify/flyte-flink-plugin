@@ -1,6 +1,7 @@
 plugins:
     flink:
         image: "flink-image"
+        service-account: "flink-service-account"
         jobmanager.cpu: 3.5
         jobmanager.memory: 4Gi
         taskmanager:
