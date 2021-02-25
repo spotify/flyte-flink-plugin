@@ -92,12 +92,14 @@ func flinkClusterTaskLogs(ctx context.Context, logPlugin logUtils.LogPlugin, fli
 	}
 	taskLogs = append(taskLogs, &taskManagerLog)
 
-	jobLogName := fmt.Sprintf("Job Logs (via %s)", via)
-	jobLog, err := logPlugin.GetTaskLog(jobStatus.Name, flinkCluster.Namespace, "", "", jobLogName)
-	if err != nil {
-		return nil, err
+	if jobStatus != nil {
+		jobLogName := fmt.Sprintf("Job Logs (via %s)", via)
+		jobLog, err := logPlugin.GetTaskLog(jobStatus.Name, flinkCluster.Namespace, "", "", jobLogName)
+		if err != nil {
+			return nil, err
+		}
+		taskLogs = append(taskLogs, &jobLog)
 	}
-	taskLogs = append(taskLogs, &jobLog)
 
 	return taskLogs, nil
 }
