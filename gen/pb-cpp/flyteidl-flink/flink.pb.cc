@@ -252,14 +252,14 @@ const char descriptor_table_protodef_flyteidl_2dflink_2fflink_2eproto[] =
   "nager\0220\n\013taskManager\030\006 \001(\0132\033.flyteidl_fl"
   "ink.TaskManager\022\026\n\016serviceAccount\030\007 \001(\t\022"
   "\r\n\005image\030\010 \001(\t\0326\n\024FlinkPropertiesEntry\022\013"
-  "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001BCZAghe.sp"
-  "otify.net/flink/flyte-flink-plugin/gen/p"
-  "b-go/flyteidl-flinkb\006proto3"
+  "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001B@Z>github"
+  ".com/spotify/flyte-flink-plugin/gen/pb-g"
+  "o/flyteidl-flinkb\006proto3"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_flyteidl_2dflink_2fflink_2eproto = {
   false, InitDefaults_flyteidl_2dflink_2fflink_2eproto, 
   descriptor_table_protodef_flyteidl_2dflink_2fflink_2eproto,
-  "flyteidl-flink/flink.proto", &assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto, 1027,
+  "flyteidl-flink/flink.proto", &assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto, 1024,
 };
 
 void AddDescriptors_flyteidl_2dflink_2fflink_2eproto() {

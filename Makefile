@@ -1,9 +1,9 @@
-.PHONY: compile
-compile: generate-idl
+.PHONY: build
+build: generate-idl
 	go build ./...
 
 .PHONY: test
-test: compile
+test: build
 	go test ./...
 
 .PHONY: generate-idl

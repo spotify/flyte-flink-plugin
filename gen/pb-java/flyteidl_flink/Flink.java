@@ -4999,9 +4999,9 @@ public final class Flink {
       "nager\0220\n\013taskManager\030\006 \001(\0132\033.flyteidl_fl" +
       "ink.TaskManager\022\026\n\016serviceAccount\030\007 \001(\t\022" +
       "\r\n\005image\030\010 \001(\t\0326\n\024FlinkPropertiesEntry\022\013" +
-      "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001BCZAghe.sp" +
-      "otify.net/flink/flyte-flink-plugin/gen/p" +
-      "b-go/flyteidl-flinkb\006proto3"
+      "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001B@Z>github" +
+      ".com/spotify/flyte-flink-plugin/gen/pb-g" +
+      "o/flyteidl-flinkb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
