@@ -51,17 +51,12 @@ func GetK8sClient(config ClusterConfig) (core.KubeClient, error) {
 		return nil, err
 	}
 
-	cache, err := cache.New(kubeConf, cache.Options{
-		Mapper: mapper,
-		Resync: &defaultResync,
-	})
+	cache, err := cache.New(kubeConf, cache.Options{Mapper: mapper})
 	if err != nil {
 		return nil, err
 	}
 
-	c, err := client.New(kubeConf, client.Options{
-		Mapper: mapper,
-	})
+	c, err := client.New(kubeConf, client.Options{Mapper: mapper})
 	if err != nil {
 		return nil, err
 	}

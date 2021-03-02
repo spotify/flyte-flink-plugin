@@ -29,8 +29,8 @@ import (
 
 	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
 
-	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	"github.com/lyft/flyteidl/gen/pb-go/flyteidl/core"
+	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/lyft/flytestdlib/logger"
@@ -184,6 +184,7 @@ func flinkClusterPhaseInfo(ctx context.Context, app *flinkOp.FlinkCluster, occur
 
 	jobStatus := app.Status.Components.Job
 
+	msg := fmt.Sprintf("cluster_state: %s", app.Status.State)
 	logger.Infof(ctx, "cluster_state: %s", app.Status.State)
 
 	switch app.Status.State {
@@ -193,9 +194,9 @@ func flinkClusterPhaseInfo(ctx context.Context, app *flinkOp.FlinkCluster, occur
 		return flinkClusterJobPhaseInfo(ctx, jobStatus, occurredAt, info), nil
 	case flinkOp.ClusterStateStopped, flinkOp.ClusterStateStopping, flinkOp.ClusterStatePartiallyStopped:
 		return flinkClusterJobPhaseInfo(ctx, jobStatus, occurredAt, info), nil
+	default:
+		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, msg, info), nil
 	}
-
-	return pluginsCore.PhaseInfoRunning(pluginsCore.DefaultPhaseVersion, info), nil
 }
 
 func (flinkResourceHandler) GetTaskPhase(ctx context.Context, pluginContext k8s.PluginContext, resource k8s.Resource) (pluginsCore.PhaseInfo, error) {
