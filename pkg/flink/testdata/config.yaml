@@ -4,10 +4,14 @@ plugins:
         service-account: "flink-service-account"
         jobmanager.cpu: 3.5
         jobmanager.memory: 4Gi
+        jobmanager.nodeSelector:
+            - gke-nodepool: "nodepool-1"
         taskmanager:
             cpu: 4
             memory: 4Gi
             replicas: 4
+            nodeSelector:
+                - gke-nodepool: "nodepool-2"
         flink-properties-default:
             - akka.ask.timeout: "600s"
             - blob.server.port: "6124"

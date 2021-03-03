@@ -103,6 +103,11 @@ func buildJobManagerSpec(jm *flinkIdl.JobManager, config *JobManagerConfig, obje
 		})
 	}
 
+	nodeSelector := config.NodeSelector
+	if len(nodeSelector) != 0 {
+		spec.NodeSelector = nodeSelector
+	}
+
 	return spec
 }
 
@@ -179,6 +184,11 @@ func buildTaskManagerSpec(tm *flinkIdl.TaskManager, config *TaskManagerConfig, o
 			ReadOnly:  false,
 			MountPath: "/data/flink",
 		})
+	}
+
+	nodeSelector := config.NodeSelector
+	if len(nodeSelector) != 0 {
+		spec.NodeSelector = nodeSelector
 	}
 
 	return spec
