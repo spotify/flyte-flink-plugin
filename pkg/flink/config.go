@@ -20,14 +20,16 @@ import (
 )
 
 type JobManagerConfig struct {
-	Cpu    resource.Quantity `json:"cpu" pflag:"number of cores per pod"`
-	Memory resource.Quantity `json:"memory" pflag:"amount of memory per pod"`
+	Cpu          resource.Quantity `json:"cpu" pflag:"number of cores per pod"`
+	Memory       resource.Quantity `json:"memory" pflag:"amount of memory per pod"`
+	NodeSelector map[string]string `json:"nodeSelector" pflag:"Annotates the JobManager resource with desired nodepool type"`
 }
 
 type TaskManagerConfig struct {
-	Cpu      resource.Quantity `json:"cpu" pflag:"amout of cpu per pod"`
-	Memory   resource.Quantity `json:"memory" pflag:"amount of memory per pod"`
-	Replicas int               `json:"replicas" pflag:"number of replicas"`
+	Cpu          resource.Quantity `json:"cpu" pflag:"amout of cpu per pod"`
+	Memory       resource.Quantity `json:"memory" pflag:"amount of memory per pod"`
+	Replicas     int               `json:"replicas" pflag:"number of replicas"`
+	NodeSelector map[string]string `json:"nodeSelector" pflag:"Annotates the TasManager resource(s) with desired nodepool type"`
 }
 
 // Config ... Flink-specific configs

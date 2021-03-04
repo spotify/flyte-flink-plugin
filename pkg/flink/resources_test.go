@@ -55,6 +55,8 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 
 	assert.NilError(t, err)
 	assert.Equal(t, cluster.Spec.Image.Name, "flink-image")
+	assert.DeepEqual(t, cluster.Spec.JobManager.NodeSelector, map[string]string {"gke-nodepool": "nodepool-1"})
+	assert.DeepEqual(t, cluster.Spec.TaskManager.NodeSelector, map[string]string {"gke-nodepool": "nodepool-2"})
 }
 
 func TestWithPersistentVolume(t *testing.T) {
