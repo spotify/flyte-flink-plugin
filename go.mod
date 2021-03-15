@@ -1,6 +1,6 @@
 module github.com/spotify/flyte-flink-plugin
 
-go 1.15
+go 1.16
 
 require (
 	github.com/go-logr/logr v0.3.0 // indirect
