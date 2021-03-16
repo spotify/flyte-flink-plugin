@@ -50,6 +50,12 @@ func buildJobManagerSpec(jm *flinkIdl.JobManager, config *JobManagerConfig, obje
 		spec.AccessScope = *config.AccessScope
 	}
 
+	if config.Ingress.Enabled {
+		spec.Ingress = &flinkOp.JobManagerIngressSpec{
+			UseTLS: &config.Ingress.UseTLS,
+		}
+	}
+
 	resourceList := make(corev1.ResourceList)
 
 	cpu := config.Cpu

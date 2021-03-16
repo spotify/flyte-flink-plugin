@@ -64,6 +64,9 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 	assert.Equal(t, sidecars[0].Image, "sidecar-image")
 
 	assert.Equal(t, cluster.Spec.JobManager.AccessScope, "External")
+
+	assert.Assert(t, cluster.Spec.JobManager.Ingress != nil)
+	assert.Equal(t, *cluster.Spec.JobManager.Ingress.UseTLS, true)
 }
 
 func TestWithPersistentVolume(t *testing.T) {

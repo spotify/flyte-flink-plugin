@@ -20,12 +20,18 @@ import (
 	"k8s.io/apimachinery/pkg/api/resource"
 )
 
+type IngressConfig struct {
+	Enabled bool `json:"enabled" pflag:"Enable JobManager ingress. default: false"`
+	UseTLS  bool `json:"useTLS" pflag:"TLS use, default: false."`
+}
+
 type JobManagerConfig struct {
 	Cpu          resource.Quantity  `json:"cpu" pflag:"number of cores per pod"`
 	Memory       resource.Quantity  `json:"memory" pflag:"amount of memory per pod"`
 	NodeSelector map[string]string  `json:"nodeSelector" pflag:"Annotates the JobManager resource with desired nodepool type"`
 	Sidecars     []corev1.Container `json:"sidecars" pflag:"Sidecar containers running alongside with the JobManager container in the pod"`
 	AccessScope  *string            `json:"accessScope" pflag:"Access scope of the JobManager service. Cluster (default), VPC, External, NodePort, Headless."`
+	Ingress      IngressConfig      `json:"ingress" pflag:"Provide external access to JobManager UI/API."`
 }
 
 type TaskManagerConfig struct {

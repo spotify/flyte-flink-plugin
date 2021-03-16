@@ -12,6 +12,9 @@ plugins:
               command: ["printenv"]
               args: ["HOSTNAME", "KUBERNETES_PORT"]
         jobManager.accessScope: External
+        jobmanager.ingress:
+            enabled: true
+            useTLS: true
         taskmanager:
             cpu: 4
             memory: 4Gi
