@@ -62,6 +62,8 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 	assert.Assert(t, len(sidecars) == 1)
 	assert.Equal(t, sidecars[0].Name, "sidecar")
 	assert.Equal(t, sidecars[0].Image, "sidecar-image")
+
+	assert.Equal(t, cluster.Spec.JobManager.AccessScope, "External")
 }
 
 func TestWithPersistentVolume(t *testing.T) {

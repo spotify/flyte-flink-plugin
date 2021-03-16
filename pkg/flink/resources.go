@@ -46,6 +46,10 @@ func buildJobManagerSpec(jm *flinkIdl.JobManager, config *JobManagerConfig, obje
 		Sidecars:       config.Sidecars,
 	}
 
+	if config.AccessScope != nil {
+		spec.AccessScope = *config.AccessScope
+	}
+
 	resourceList := make(corev1.ResourceList)
 
 	cpu := config.Cpu

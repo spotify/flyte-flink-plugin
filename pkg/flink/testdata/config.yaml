@@ -11,6 +11,7 @@ plugins:
               image: "sidecar-image"
               command: ["printenv"]
               args: ["HOSTNAME", "KUBERNETES_PORT"]
+        jobManager.accessScope: External
         taskmanager:
             cpu: 4
             memory: 4Gi
