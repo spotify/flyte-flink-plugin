@@ -6,6 +6,11 @@ plugins:
         jobmanager.memory: 4Gi
         jobmanager.nodeSelector:
             - gke-nodepool: "nodepool-1"
+        jobmanager.sidecars:
+            - name: "sidecar"
+              image: "sidecar-image"
+              command: ["printenv"]
+              args: ["HOSTNAME", "KUBERNETES_PORT"]
         taskmanager:
             cpu: 4
             memory: 4Gi

@@ -16,20 +16,23 @@ package flink
 
 import (
 	pluginsConfig "github.com/lyft/flyteplugins/go/tasks/config"
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 )
 
 type JobManagerConfig struct {
-	Cpu          resource.Quantity `json:"cpu" pflag:"number of cores per pod"`
-	Memory       resource.Quantity `json:"memory" pflag:"amount of memory per pod"`
-	NodeSelector map[string]string `json:"nodeSelector" pflag:"Annotates the JobManager resource with desired nodepool type"`
+	Cpu          resource.Quantity  `json:"cpu" pflag:"number of cores per pod"`
+	Memory       resource.Quantity  `json:"memory" pflag:"amount of memory per pod"`
+	NodeSelector map[string]string  `json:"nodeSelector" pflag:"Annotates the JobManager resource with desired nodepool type"`
+	Sidecars     []corev1.Container `json:"sidecars" pflag:"Sidecar containers running alongside with the JobManager container in the pod"`
 }
 
 type TaskManagerConfig struct {
-	Cpu          resource.Quantity `json:"cpu" pflag:"amout of cpu per pod"`
-	Memory       resource.Quantity `json:"memory" pflag:"amount of memory per pod"`
-	Replicas     int               `json:"replicas" pflag:"number of replicas"`
-	NodeSelector map[string]string `json:"nodeSelector" pflag:"Annotates the TasManager resource(s) with desired nodepool type"`
+	Cpu          resource.Quantity  `json:"cpu" pflag:"amout of cpu per pod"`
+	Memory       resource.Quantity  `json:"memory" pflag:"amount of memory per pod"`
+	Replicas     int                `json:"replicas" pflag:"number of replicas"`
+	NodeSelector map[string]string  `json:"nodeSelector" pflag:"Annotates the TasManager resource(s) with desired nodepool type"`
+	Sidecars     []corev1.Container `json:"sidecars" pflag:"Sidecar containers running alongside with the TaskManager container in the pod"`
 }
 
 // Config ... Flink-specific configs
