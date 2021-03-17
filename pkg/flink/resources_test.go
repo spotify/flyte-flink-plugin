@@ -17,9 +17,9 @@ package flink
 import (
 	"testing"
 
-	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	flyteIdlCore "github.com/lyft/flyteidl/gen/pb-go/flyteidl/core"
 	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/core/mocks"
+	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	"gotest.tools/assert"
 	"k8s.io/apimachinery/pkg/api/resource"
 )
@@ -55,8 +55,13 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 
 	assert.NilError(t, err)
 	assert.Equal(t, cluster.Spec.Image.Name, "flink-image")
-	assert.DeepEqual(t, cluster.Spec.JobManager.NodeSelector, map[string]string {"gke-nodepool": "nodepool-1"})
-	assert.DeepEqual(t, cluster.Spec.TaskManager.NodeSelector, map[string]string {"gke-nodepool": "nodepool-2"})
+	assert.DeepEqual(t, cluster.Spec.JobManager.NodeSelector, map[string]string{"gke-nodepool": "nodepool-1"})
+	assert.DeepEqual(t, cluster.Spec.TaskManager.NodeSelector, map[string]string{"gke-nodepool": "nodepool-2"})
+
+	sidecars := cluster.Spec.JobManager.Sidecars
+	assert.Assert(t, len(sidecars) == 1)
+	assert.Equal(t, sidecars[0].Name, "sidecar")
+	assert.Equal(t, sidecars[0].Image, "sidecar-image")
 }
 
 func TestWithPersistentVolume(t *testing.T) {
