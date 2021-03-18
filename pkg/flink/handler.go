@@ -145,7 +145,7 @@ func flinkClusterTaskInfo(ctx context.Context, flinkCluster *flinkOp.FlinkCluste
 	}
 
 	if jmi := flinkCluster.Status.Components.JobManagerIngress; jmi != nil {
-		customInfoMap["jobmanager-urls"] = jmi.URLs
+		customInfoMap["jobmanager-ingress-urls"] = jmi.URLs
 	}
 
 	customInfo, err := utils.MarshalObjToStruct(customInfoMap)
