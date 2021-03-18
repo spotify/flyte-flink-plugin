@@ -29,8 +29,8 @@ import (
 
 	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
 
-	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	"github.com/lyft/flyteidl/gen/pb-go/flyteidl/core"
+	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/lyft/flytestdlib/logger"
@@ -120,12 +120,7 @@ func flinkClusterTaskLogs(ctx context.Context, logPlugin logUtils.LogPlugin, fli
 
 func flinkClusterTaskInfo(ctx context.Context, flinkCluster *flinkOp.FlinkCluster) (*pluginsCore.TaskInfo, error) {
 	var taskLogs []*core.TaskLog
-	customInfoMap := make(map[string]string)
-
-	customInfo, err := utils.MarshalObjToStruct(customInfoMap)
-	if err != nil {
-		return nil, err
-	}
+	customInfoMap := make(map[string]interface{})
 
 	logConfig := logs.GetLogConfig()
 
@@ -147,6 +142,15 @@ func flinkClusterTaskInfo(ctx context.Context, flinkCluster *flinkOp.FlinkCluste
 		}
 
 		taskLogs = append(taskLogs, tl...)
+	}
+
+	if jmi := flinkCluster.Status.Components.JobManagerIngress; jmi != nil {
+		customInfoMap["jobmanager-ingress-urls"] = jmi.URLs
+	}
+
+	customInfo, err := utils.MarshalObjToStruct(customInfoMap)
+	if err != nil {
+		return nil, err
 	}
 
 	return &pluginsCore.TaskInfo{
