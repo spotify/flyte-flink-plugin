@@ -18,8 +18,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/lyft/flytestdlib/config"
-	"github.com/lyft/flytestdlib/config/viper"
+	"github.com/flyteorg/flytestdlib/config"
+	"github.com/flyteorg/flytestdlib/config/viper"
 	"gotest.tools/assert"
 	"k8s.io/apimachinery/pkg/api/resource"
 )
@@ -32,10 +32,10 @@ func TestLoadConfig(t *testing.T) {
 	assert.Equal(t, config.ServiceAccount, "flink-service-account")
 	assert.Equal(t, config.JobManager.Cpu, resource.MustParse("3.5"))
 	assert.Equal(t, config.JobManager.Memory, resource.MustParse("4Gi"))
-	assert.DeepEqual(t, config.JobManager.NodeSelector, map[string]string {"gke-nodepool": "nodepool-1"})
+	assert.DeepEqual(t, config.JobManager.NodeSelector, map[string]string{"gke-nodepool": "nodepool-1"})
 	assert.Equal(t, config.TaskManager.Cpu, resource.MustParse("4"))
 	assert.Equal(t, config.TaskManager.Memory, resource.MustParse("4Gi"))
-	assert.DeepEqual(t, config.TaskManager.NodeSelector, map[string]string {"gke-nodepool": "nodepool-2"})
+	assert.DeepEqual(t, config.TaskManager.NodeSelector, map[string]string{"gke-nodepool": "nodepool-2"})
 	assert.Equal(t, config.TaskManager.Replicas, 4)
 	assert.Assert(t, len(config.FlinkProperties) > 0)
 	assert.Equal(t, config.FlinkPropertiesOverride["jobmanager.archive.fs.dir"], "flink-job-archive-dir")

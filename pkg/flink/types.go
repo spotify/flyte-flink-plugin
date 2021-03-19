@@ -18,10 +18,10 @@ import (
 	"fmt"
 	"strconv"
 
+	pluginsCore "github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/core"
+	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/flytek8s/config"
+	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/utils"
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
-	pluginsCore "github.com/lyft/flyteplugins/go/tasks/pluginmachinery/core"
-	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/flytek8s/config"
-	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/utils"
 )
 
 type FlinkProperties map[string]string

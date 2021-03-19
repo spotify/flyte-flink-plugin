@@ -16,8 +16,9 @@ package flink
 
 import (
 	"fmt"
-	logUtils "github.com/lyft/flyteidl/clients/go/coreutils/logs"
-	"github.com/lyft/flyteidl/gen/pb-go/flyteidl/core"
+
+	"github.com/flyteorg/flyteidl/gen/pb-go/flyteidl/core"
+	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/tasklog"
 )
 
 type stackdriverLogPlugin struct {
@@ -27,21 +28,21 @@ type stackdriverLogPlugin struct {
 	logResource string
 }
 
-func (s *stackdriverLogPlugin) GetTaskLog(podName, namespace, containerName, containerID, logName string) (core.TaskLog, error) {
+func (s *stackdriverLogPlugin) GetTaskLogs(input tasklog.Input) (core.TaskLog, error) {
 	return core.TaskLog{
 		Uri: fmt.Sprintf(
 			"https://console.cloud.google.com/logs/viewer?project=%s&angularJsUrl=%%2Flogs%%2Fviewer%%3Fproject%%3D%s&resource=%s&advancedFilter=resource.labels.pod_name%%3A%s",
 			s.gcpProject,
 			s.gcpProject,
 			s.logResource,
-			podName,
+			input.PodName,
 		),
-		Name:          logName,
+		Name:          input.LogName,
 		MessageFormat: core.TaskLog_JSON,
 	}, nil
 }
 
-func NewStackdriverLogPlugin(gcpProject, logResource string) logUtils.LogPlugin {
+func NewStackdriverLogPlugin(gcpProject, logResource string) tasklog.Plugin {
 	return &stackdriverLogPlugin{
 		gcpProject:  gcpProject,
 		logResource: logResource,

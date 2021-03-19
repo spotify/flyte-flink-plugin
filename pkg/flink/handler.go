@@ -19,21 +19,21 @@ import (
 	"fmt"
 	"time"
 
-	logUtils "github.com/lyft/flyteidl/clients/go/coreutils/logs"
-	"github.com/lyft/flyteplugins/go/tasks/errors"
-	"github.com/lyft/flyteplugins/go/tasks/logs"
-	pluginsCore "github.com/lyft/flyteplugins/go/tasks/pluginmachinery/core"
+	"github.com/flyteorg/flyteplugins/go/tasks/errors"
+	"github.com/flyteorg/flyteplugins/go/tasks/logs"
+	pluginsCore "github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/core"
+	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/tasklog"
 
-	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/k8s"
-	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/utils"
+	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/k8s"
+	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/utils"
 
 	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
 
-	"github.com/lyft/flyteidl/gen/pb-go/flyteidl/core"
+	"github.com/flyteorg/flyteidl/gen/pb-go/flyteidl/core"
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/lyft/flytestdlib/logger"
+	"github.com/flyteorg/flytestdlib/logger"
 )
 
 type flinkResourceHandler struct{}
@@ -125,7 +125,7 @@ func flinkClusterTaskInfo(ctx context.Context, flinkCluster *flinkOp.FlinkCluste
 	logConfig := logs.GetLogConfig()
 
 	if logConfig.IsKubernetesEnabled {
-		logPlugin := logUtils.NewKubernetesLogPlugin(logConfig.KubernetesURL)
+		logPlugin := tasklog.NewKubernetesLogPlugin(logConfig.KubernetesURL)
 		tl, err := flinkClusterTaskLogs(ctx, logPlugin, flinkCluster, "Kubernetes")
 		if err != nil {
 			return nil, err

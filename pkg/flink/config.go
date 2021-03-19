@@ -15,7 +15,7 @@
 package flink
 
 import (
-	pluginsConfig "github.com/lyft/flyteplugins/go/tasks/config"
+	pluginsConfig "github.com/flyteorg/flyteplugins/go/tasks/config"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 )
