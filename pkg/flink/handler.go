@@ -103,7 +103,7 @@ func flinkClusterTaskLogs(ctx context.Context, flinkCluster *flinkOp.FlinkCluste
 		jobManagerLog, err := p.GetTaskLogs(tasklog.Input{
 			PodName:   jobManagerStatus.Name,
 			Namespace: flinkCluster.Namespace,
-			LogName:   "JobManager Logs",
+			LogName:   "(JobManager)",
 		})
 		if err != nil {
 			return nil, err
@@ -113,7 +113,7 @@ func flinkClusterTaskLogs(ctx context.Context, flinkCluster *flinkOp.FlinkCluste
 		taskManagerLog, err := p.GetTaskLogs(tasklog.Input{
 			PodName:   taskManagerStatus.Name,
 			Namespace: flinkCluster.Namespace,
-			LogName:   "TaskManager Logs",
+			LogName:   "(TaskManager)",
 		})
 		if err != nil {
 			return nil, err
@@ -124,7 +124,7 @@ func flinkClusterTaskLogs(ctx context.Context, flinkCluster *flinkOp.FlinkCluste
 			jobLog, err := p.GetTaskLogs(tasklog.Input{
 				PodName:   jobStatus.Name,
 				Namespace: flinkCluster.Namespace,
-				LogName:   "Job Logs",
+				LogName:   "(Job)",
 			})
 			if err != nil {
 				return nil, err
