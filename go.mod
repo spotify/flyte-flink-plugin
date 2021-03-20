@@ -12,6 +12,7 @@ require (
 	k8s.io/api v0.20.2
 	k8s.io/apimachinery v0.20.2
 	k8s.io/client-go v11.0.1-0.20190918222721-c0e3722d5cf0+incompatible
+	sigs.k8s.io/controller-runtime v0.8.2 // indirect
 )
 
 replace (

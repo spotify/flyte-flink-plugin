@@ -16,6 +16,7 @@ package flink
 
 import (
 	pluginsConfig "github.com/flyteorg/flyteplugins/go/tasks/config"
+	"github.com/flyteorg/flyteplugins/go/tasks/logs"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 )
@@ -50,6 +51,7 @@ type Config struct {
 	ServiceAccount          string            `json:"service-account"`
 	JobManager              JobManagerConfig  `json:"jobmanager"`
 	TaskManager             TaskManagerConfig `json:"taskmanager"`
+	LogConfig               logs.LogConfig    `json:"logs"`
 }
 
 var (
