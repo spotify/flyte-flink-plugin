@@ -55,7 +55,20 @@ type Config struct {
 }
 
 var (
-	flinkConfigSection = pluginsConfig.MustRegisterSubSection("flink", &Config{})
+	defaultConfig = &Config{
+		ServiceAccount: "default",
+		JobManager: JobManagerConfig{
+			Cpu:    resource.MustParse("4"),
+			Memory: resource.MustParse("4Gi"),
+		},
+		TaskManager: TaskManagerConfig{
+			Cpu:      resource.MustParse("4"),
+			Memory:   resource.MustParse("4Gi"),
+			Replicas: 1,
+		},
+	}
+
+	flinkConfigSection = pluginsConfig.MustRegisterSubSection("flink", defaultConfig)
 )
 
 func GetFlinkConfig() *Config {

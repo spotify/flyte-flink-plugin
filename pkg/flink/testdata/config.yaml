@@ -3,7 +3,6 @@ plugins:
         image: "flink-image"
         service-account: "flink-service-account"
         jobmanager.cpu: 3.5
-        jobmanager.memory: 4Gi
         jobmanager.nodeSelector:
             - gke-nodepool: "nodepool-1"
         jobmanager.sidecars:
@@ -16,8 +15,6 @@ plugins:
             enabled: true
             useTLS: true
         taskmanager:
-            cpu: 4
-            memory: 4Gi
             replicas: 4
             nodeSelector:
                 - gke-nodepool: "nodepool-2"
