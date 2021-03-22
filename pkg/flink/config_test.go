@@ -28,17 +28,25 @@ func TestLoadConfig(t *testing.T) {
 	config := GetFlinkConfig()
 	assert.Assert(t, config != nil)
 
-	assert.Equal(t, config.Image, "flink-image")
-	assert.Equal(t, config.ServiceAccount, "flink-service-account")
-	assert.Equal(t, config.JobManager.Cpu, resource.MustParse("3.5"))
-	assert.Equal(t, config.JobManager.Memory, resource.MustParse("4Gi"))
-	assert.DeepEqual(t, config.JobManager.NodeSelector, map[string]string {"gke-nodepool": "nodepool-1"})
-	assert.Equal(t, config.TaskManager.Cpu, resource.MustParse("4"))
-	assert.Equal(t, config.TaskManager.Memory, resource.MustParse("4Gi"))
-	assert.DeepEqual(t, config.TaskManager.NodeSelector, map[string]string {"gke-nodepool": "nodepool-2"})
-	assert.Equal(t, config.TaskManager.Replicas, 4)
-	assert.Assert(t, len(config.FlinkProperties) > 0)
-	assert.Equal(t, config.FlinkPropertiesOverride["jobmanager.archive.fs.dir"], "flink-job-archive-dir")
+	t.Run("uses defaults", func(t *testing.T) {
+		assert.Equal(t, config.JobManager.Memory, resource.MustParse("4Gi"))
+		assert.Equal(t, config.TaskManager.Cpu, resource.MustParse("4"))
+		assert.Equal(t, config.TaskManager.Memory, resource.MustParse("4Gi"))
+	})
+
+	t.Run("overrides defaults", func(t *testing.T) {
+		assert.Equal(t, config.TaskManager.Replicas, 4)
+		assert.Equal(t, config.JobManager.Cpu, resource.MustParse("3.5"))
+		assert.Equal(t, config.ServiceAccount, "flink-service-account")
+	})
+
+	t.Run("sets properties with no defaults", func(t *testing.T) {
+		assert.DeepEqual(t, config.JobManager.NodeSelector, map[string]string{"gke-nodepool": "nodepool-1"})
+		assert.DeepEqual(t, config.TaskManager.NodeSelector, map[string]string{"gke-nodepool": "nodepool-2"})
+		assert.Equal(t, config.Image, "flink-image")
+		assert.Assert(t, len(config.FlinkProperties) > 0)
+		assert.Equal(t, config.FlinkPropertiesOverride["jobmanager.archive.fs.dir"], "flink-job-archive-dir")
+	})
 }
 
 func init() {
