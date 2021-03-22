@@ -19,21 +19,22 @@ import (
 	"fmt"
 	"time"
 
-	logUtils "github.com/lyft/flyteidl/clients/go/coreutils/logs"
-	"github.com/lyft/flyteplugins/go/tasks/errors"
-	"github.com/lyft/flyteplugins/go/tasks/logs"
-	pluginsCore "github.com/lyft/flyteplugins/go/tasks/pluginmachinery/core"
+	"github.com/flyteorg/flyteplugins/go/tasks/errors"
+	"github.com/flyteorg/flyteplugins/go/tasks/logs"
+	pluginsCore "github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/core"
+	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/tasklog"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/k8s"
-	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/utils"
+	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/k8s"
+	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/utils"
 
 	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
 
-	"github.com/lyft/flyteidl/gen/pb-go/flyteidl/core"
+	"github.com/flyteorg/flyteidl/gen/pb-go/flyteidl/core"
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/lyft/flytestdlib/logger"
+	"github.com/flyteorg/flytestdlib/logger"
 )
 
 type flinkResourceHandler struct{}
@@ -43,7 +44,7 @@ func (flinkResourceHandler) GetProperties() pluginsCore.PluginProperties {
 }
 
 // Creates a new Job that will execute the main container as well as any generated types the result from the execution.
-func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCore.TaskExecutionContext) (k8s.Resource, error) {
+func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCore.TaskExecutionContext) (client.Object, error) {
 
 	taskTemplate, err := taskCtx.TaskReader().Read(ctx)
 	if err != nil {
@@ -77,7 +78,7 @@ func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCo
 	return BuildFlinkClusterSpec(taskCtx.TaskExecutionMetadata(), job, config)
 }
 
-func (flinkResourceHandler) BuildIdentityResource(ctx context.Context, taskCtx pluginsCore.TaskExecutionMetadata) (k8s.Resource, error) {
+func (flinkResourceHandler) BuildIdentityResource(ctx context.Context, taskCtx pluginsCore.TaskExecutionMetadata) (client.Object, error) {
 	return &flinkOp.FlinkCluster{
 		TypeMeta: metav1.TypeMeta{
 			Kind:       KindFlinkCluster,
@@ -86,33 +87,51 @@ func (flinkResourceHandler) BuildIdentityResource(ctx context.Context, taskCtx p
 	}, nil
 }
 
-func flinkClusterTaskLogs(ctx context.Context, logPlugin logUtils.LogPlugin, flinkCluster *flinkOp.FlinkCluster, via string) ([]*core.TaskLog, error) {
+func flinkClusterTaskLogs(ctx context.Context, flinkCluster *flinkOp.FlinkCluster) ([]*core.TaskLog, error) {
 	var taskLogs []*core.TaskLog
 	jobManagerStatus := flinkCluster.Status.Components.JobManagerStatefulSet
 	taskManagerStatus := flinkCluster.Status.Components.TaskManagerStatefulSet
 	jobStatus := flinkCluster.Status.Components.Job
 
-	jobManagerLogName := fmt.Sprintf("JobManager Logs (via %s)", via)
-	jobManagerLog, err := logPlugin.GetTaskLog(jobManagerStatus.Name, flinkCluster.Namespace, "", "", jobManagerLogName)
+	config := GetFlinkConfig()
+	p, err := logs.InitializeLogPlugins(&config.LogConfig)
 	if err != nil {
 		return nil, err
 	}
-	taskLogs = append(taskLogs, &jobManagerLog)
 
-	taskManagerLogName := fmt.Sprintf("TaskManager Logs (via %s)", via)
-	taskManagerLog, err := logPlugin.GetTaskLog(taskManagerStatus.Name, flinkCluster.Namespace, "", "", taskManagerLogName)
-	if err != nil {
-		return nil, err
-	}
-	taskLogs = append(taskLogs, &taskManagerLog)
-
-	if jobStatus != nil {
-		jobLogName := fmt.Sprintf("Job Logs (via %s)", via)
-		jobLog, err := logPlugin.GetTaskLog(jobStatus.Name, flinkCluster.Namespace, "", "", jobLogName)
+	if p != nil {
+		jobManagerLog, err := p.GetTaskLogs(tasklog.Input{
+			PodName:   jobManagerStatus.Name,
+			Namespace: flinkCluster.Namespace,
+			LogName:   "(JobManager)",
+		})
 		if err != nil {
 			return nil, err
 		}
-		taskLogs = append(taskLogs, &jobLog)
+		taskLogs = append(taskLogs, jobManagerLog.TaskLogs...)
+
+		taskManagerLog, err := p.GetTaskLogs(tasklog.Input{
+			PodName:   taskManagerStatus.Name,
+			Namespace: flinkCluster.Namespace,
+			LogName:   "(TaskManager)",
+		})
+		if err != nil {
+			return nil, err
+		}
+		taskLogs = append(taskLogs, taskManagerLog.TaskLogs...)
+
+		if jobStatus != nil {
+			jobLog, err := p.GetTaskLogs(tasklog.Input{
+				PodName:   jobStatus.Name,
+				Namespace: flinkCluster.Namespace,
+				LogName:   "(Job)",
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			taskLogs = append(taskLogs, jobLog.TaskLogs...)
+		}
 	}
 
 	return taskLogs, nil
@@ -122,27 +141,12 @@ func flinkClusterTaskInfo(ctx context.Context, flinkCluster *flinkOp.FlinkCluste
 	var taskLogs []*core.TaskLog
 	customInfoMap := make(map[string]interface{})
 
-	logConfig := logs.GetLogConfig()
-
-	if logConfig.IsKubernetesEnabled {
-		logPlugin := logUtils.NewKubernetesLogPlugin(logConfig.KubernetesURL)
-		tl, err := flinkClusterTaskLogs(ctx, logPlugin, flinkCluster, "Kubernetes")
-		if err != nil {
-			return nil, err
-		}
-
-		taskLogs = append(taskLogs, tl...)
+	tl, err := flinkClusterTaskLogs(ctx, flinkCluster)
+	if err != nil {
+		return nil, err
 	}
 
-	if logConfig.IsStackDriverEnabled {
-		logPlugin := NewStackdriverLogPlugin(logConfig.GCPProjectName, logConfig.StackdriverLogResourceName)
-		tl, err := flinkClusterTaskLogs(ctx, logPlugin, flinkCluster, "Stackdriver")
-		if err != nil {
-			return nil, err
-		}
-
-		taskLogs = append(taskLogs, tl...)
-	}
+	taskLogs = append(taskLogs, tl...)
 
 	if jmi := flinkCluster.Status.Components.JobManagerIngress; jmi != nil {
 		customInfoMap["jobmanager-ingress-urls"] = jmi.URLs
@@ -202,7 +206,7 @@ func flinkClusterPhaseInfo(ctx context.Context, app *flinkOp.FlinkCluster, occur
 	return pluginsCore.PhaseInfoRunning(pluginsCore.DefaultPhaseVersion, info), nil
 }
 
-func (flinkResourceHandler) GetTaskPhase(ctx context.Context, pluginContext k8s.PluginContext, resource k8s.Resource) (pluginsCore.PhaseInfo, error) {
+func (flinkResourceHandler) GetTaskPhase(ctx context.Context, pluginContext k8s.PluginContext, resource client.Object) (pluginsCore.PhaseInfo, error) {
 	app := resource.(*flinkOp.FlinkCluster)
 	return flinkClusterPhaseInfo(ctx, app, time.Now())
 }
