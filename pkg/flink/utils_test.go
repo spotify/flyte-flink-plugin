@@ -19,8 +19,8 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/lyft/flyteidl/gen/pb-go/flyteidl/core"
-	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/utils"
+	"github.com/flyteorg/flyteidl/gen/pb-go/flyteidl/core"
+	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/utils"
 	"gotest.tools/assert"
 )
 

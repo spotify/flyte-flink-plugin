@@ -17,8 +17,8 @@ package flink
 import (
 	"testing"
 
-	flyteIdlCore "github.com/lyft/flyteidl/gen/pb-go/flyteidl/core"
-	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/core/mocks"
+	flyteIdlCore "github.com/flyteorg/flyteidl/gen/pb-go/flyteidl/core"
+	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/core/mocks"
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	"gotest.tools/assert"
 	"k8s.io/apimachinery/pkg/api/resource"

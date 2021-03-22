@@ -15,11 +15,11 @@
 package flink
 
 import (
-	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery"
+	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery"
 
-	pluginsCore "github.com/lyft/flyteplugins/go/tasks/pluginmachinery/core"
+	pluginsCore "github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/core"
 
-	"github.com/lyft/flyteplugins/go/tasks/pluginmachinery/k8s"
+	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/k8s"
 	"k8s.io/client-go/kubernetes/scheme"
 
 	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"

@@ -18,8 +18,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/lyft/flytestdlib/config"
-	"github.com/lyft/flytestdlib/config/viper"
+	"github.com/flyteorg/flytestdlib/config"
+	"github.com/flyteorg/flytestdlib/config/viper"
 	"gotest.tools/assert"
 	"k8s.io/apimachinery/pkg/api/resource"
 )
