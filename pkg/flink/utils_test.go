@@ -47,7 +47,7 @@ func TestLiteralMapToArgs(t *testing.T) {
 	expected := []string{
 		"--integer=1",
 		"--float=1.010000",
-		"--string=\"foobar\"",
+		"--string=foobar",
 		"--boolean_true",
 		"--collection=1",
 		"--collection=2",

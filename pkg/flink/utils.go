@@ -88,11 +88,11 @@ func primitiveToFlinkJobArg(arg string, primitive *core.Primitive) (string, erro
 
 		return "", nil
 	case *core.Primitive_StringValue:
-		return fmt.Sprintf("--%s=\"%s\"", arg, p.StringValue), nil
+		return fmt.Sprintf("--%s=%s", arg, p.StringValue), nil
 	case *core.Primitive_Datetime:
-		return fmt.Sprintf("--%s=\"%s\"", arg, p.Datetime.String()), nil
+		return fmt.Sprintf("--%s=%s", arg, p.Datetime.String()), nil
 	case *core.Primitive_Duration:
-		return fmt.Sprintf("--%s=\"%s\"", arg, p.Duration.String()), nil
+		return fmt.Sprintf("--%s=%s", arg, p.Duration.String()), nil
 	default:
 		return "", fmt.Errorf("not supported type: %s", p)
 	}
