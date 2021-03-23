@@ -191,3 +191,72 @@ image
   (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
   
 
+
+.. _api_msg_flyteidl_flink.JobExecutionInfo:
+
+flyteidl_flink.JobExecutionInfo
+-------------------------------
+
+`[flyteidl_flink.JobExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L44>`_
+
+
+.. code-block:: json
+
+  {
+    "id": "..."
+  }
+
+.. _api_field_flyteidl_flink.JobExecutionInfo.id:
+
+id
+  (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
+  
+
+
+.. _api_msg_flyteidl_flink.JobManagerExecutionInfo:
+
+flyteidl_flink.JobManagerExecutionInfo
+--------------------------------------
+
+`[flyteidl_flink.JobManagerExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L46>`_
+
+
+.. code-block:: json
+
+  {
+    "ingressURLs": []
+  }
+
+.. _api_field_flyteidl_flink.JobManagerExecutionInfo.ingressURLs:
+
+ingressURLs
+  (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
+  
+
+
+.. _api_msg_flyteidl_flink.FlinkExecutionInfo:
+
+flyteidl_flink.FlinkExecutionInfo
+---------------------------------
+
+`[flyteidl_flink.FlinkExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L48>`_
+
+
+.. code-block:: json
+
+  {
+    "job": "{...}",
+    "jobManager": "{...}"
+  }
+
+.. _api_field_flyteidl_flink.FlinkExecutionInfo.job:
+
+job
+  (:ref:`flyteidl_flink.JobExecutionInfo <api_msg_flyteidl_flink.JobExecutionInfo>`) 
+  
+.. _api_field_flyteidl_flink.FlinkExecutionInfo.jobManager:
+
+jobManager
+  (:ref:`flyteidl_flink.JobManagerExecutionInfo <api_msg_flyteidl_flink.JobManagerExecutionInfo>`) 
+  
+

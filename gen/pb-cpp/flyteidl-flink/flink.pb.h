@@ -46,7 +46,7 @@ struct TableStruct_flyteidl_2dflink_2fflink_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[6]
+  static const ::google::protobuf::internal::ParseTable schema[9]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -54,15 +54,24 @@ struct TableStruct_flyteidl_2dflink_2fflink_2eproto {
 };
 void AddDescriptors_flyteidl_2dflink_2fflink_2eproto();
 namespace flyteidl_flink {
+class FlinkExecutionInfo;
+class FlinkExecutionInfoDefaultTypeInternal;
+extern FlinkExecutionInfoDefaultTypeInternal _FlinkExecutionInfo_default_instance_;
 class FlinkJob;
 class FlinkJobDefaultTypeInternal;
 extern FlinkJobDefaultTypeInternal _FlinkJob_default_instance_;
 class FlinkJob_FlinkPropertiesEntry_DoNotUse;
 class FlinkJob_FlinkPropertiesEntry_DoNotUseDefaultTypeInternal;
 extern FlinkJob_FlinkPropertiesEntry_DoNotUseDefaultTypeInternal _FlinkJob_FlinkPropertiesEntry_DoNotUse_default_instance_;
+class JobExecutionInfo;
+class JobExecutionInfoDefaultTypeInternal;
+extern JobExecutionInfoDefaultTypeInternal _JobExecutionInfo_default_instance_;
 class JobManager;
 class JobManagerDefaultTypeInternal;
 extern JobManagerDefaultTypeInternal _JobManager_default_instance_;
+class JobManagerExecutionInfo;
+class JobManagerExecutionInfoDefaultTypeInternal;
+extern JobManagerExecutionInfoDefaultTypeInternal _JobManagerExecutionInfo_default_instance_;
 class Resource;
 class ResourceDefaultTypeInternal;
 extern ResourceDefaultTypeInternal _Resource_default_instance_;
@@ -75,9 +84,12 @@ extern TaskManagerDefaultTypeInternal _TaskManager_default_instance_;
 }  // namespace flyteidl_flink
 namespace google {
 namespace protobuf {
+template<> ::flyteidl_flink::FlinkExecutionInfo* Arena::CreateMaybeMessage<::flyteidl_flink::FlinkExecutionInfo>(Arena*);
 template<> ::flyteidl_flink::FlinkJob* Arena::CreateMaybeMessage<::flyteidl_flink::FlinkJob>(Arena*);
 template<> ::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse* Arena::CreateMaybeMessage<::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse>(Arena*);
+template<> ::flyteidl_flink::JobExecutionInfo* Arena::CreateMaybeMessage<::flyteidl_flink::JobExecutionInfo>(Arena*);
 template<> ::flyteidl_flink::JobManager* Arena::CreateMaybeMessage<::flyteidl_flink::JobManager>(Arena*);
+template<> ::flyteidl_flink::JobManagerExecutionInfo* Arena::CreateMaybeMessage<::flyteidl_flink::JobManagerExecutionInfo>(Arena*);
 template<> ::flyteidl_flink::Resource* Arena::CreateMaybeMessage<::flyteidl_flink::Resource>(Arena*);
 template<> ::flyteidl_flink::Resource_PersistentVolume* Arena::CreateMaybeMessage<::flyteidl_flink::Resource_PersistentVolume>(Arena*);
 template<> ::flyteidl_flink::TaskManager* Arena::CreateMaybeMessage<::flyteidl_flink::TaskManager>(Arena*);
@@ -876,6 +888,379 @@ class FlinkJob final :
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_flyteidl_2dflink_2fflink_2eproto;
 };
+// -------------------------------------------------------------------
+
+class JobExecutionInfo final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:flyteidl_flink.JobExecutionInfo) */ {
+ public:
+  JobExecutionInfo();
+  virtual ~JobExecutionInfo();
+
+  JobExecutionInfo(const JobExecutionInfo& from);
+
+  inline JobExecutionInfo& operator=(const JobExecutionInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  JobExecutionInfo(JobExecutionInfo&& from) noexcept
+    : JobExecutionInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline JobExecutionInfo& operator=(JobExecutionInfo&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const JobExecutionInfo& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const JobExecutionInfo* internal_default_instance() {
+    return reinterpret_cast<const JobExecutionInfo*>(
+               &_JobExecutionInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  void Swap(JobExecutionInfo* other);
+  friend void swap(JobExecutionInfo& a, JobExecutionInfo& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline JobExecutionInfo* New() const final {
+    return CreateMaybeMessage<JobExecutionInfo>(nullptr);
+  }
+
+  JobExecutionInfo* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<JobExecutionInfo>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const JobExecutionInfo& from);
+  void MergeFrom(const JobExecutionInfo& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(JobExecutionInfo* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string id = 1;
+  void clear_id();
+  static const int kIdFieldNumber = 1;
+  const ::std::string& id() const;
+  void set_id(const ::std::string& value);
+  #if LANG_CXX11
+  void set_id(::std::string&& value);
+  #endif
+  void set_id(const char* value);
+  void set_id(const char* value, size_t size);
+  ::std::string* mutable_id();
+  ::std::string* release_id();
+  void set_allocated_id(::std::string* id);
+
+  // @@protoc_insertion_point(class_scope:flyteidl_flink.JobExecutionInfo)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr id_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_flyteidl_2dflink_2fflink_2eproto;
+};
+// -------------------------------------------------------------------
+
+class JobManagerExecutionInfo final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:flyteidl_flink.JobManagerExecutionInfo) */ {
+ public:
+  JobManagerExecutionInfo();
+  virtual ~JobManagerExecutionInfo();
+
+  JobManagerExecutionInfo(const JobManagerExecutionInfo& from);
+
+  inline JobManagerExecutionInfo& operator=(const JobManagerExecutionInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  JobManagerExecutionInfo(JobManagerExecutionInfo&& from) noexcept
+    : JobManagerExecutionInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline JobManagerExecutionInfo& operator=(JobManagerExecutionInfo&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const JobManagerExecutionInfo& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const JobManagerExecutionInfo* internal_default_instance() {
+    return reinterpret_cast<const JobManagerExecutionInfo*>(
+               &_JobManagerExecutionInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  void Swap(JobManagerExecutionInfo* other);
+  friend void swap(JobManagerExecutionInfo& a, JobManagerExecutionInfo& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline JobManagerExecutionInfo* New() const final {
+    return CreateMaybeMessage<JobManagerExecutionInfo>(nullptr);
+  }
+
+  JobManagerExecutionInfo* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<JobManagerExecutionInfo>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const JobManagerExecutionInfo& from);
+  void MergeFrom(const JobManagerExecutionInfo& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(JobManagerExecutionInfo* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated string ingressURLs = 1;
+  int ingressurls_size() const;
+  void clear_ingressurls();
+  static const int kIngressURLsFieldNumber = 1;
+  const ::std::string& ingressurls(int index) const;
+  ::std::string* mutable_ingressurls(int index);
+  void set_ingressurls(int index, const ::std::string& value);
+  #if LANG_CXX11
+  void set_ingressurls(int index, ::std::string&& value);
+  #endif
+  void set_ingressurls(int index, const char* value);
+  void set_ingressurls(int index, const char* value, size_t size);
+  ::std::string* add_ingressurls();
+  void add_ingressurls(const ::std::string& value);
+  #if LANG_CXX11
+  void add_ingressurls(::std::string&& value);
+  #endif
+  void add_ingressurls(const char* value);
+  void add_ingressurls(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField<::std::string>& ingressurls() const;
+  ::google::protobuf::RepeatedPtrField<::std::string>* mutable_ingressurls();
+
+  // @@protoc_insertion_point(class_scope:flyteidl_flink.JobManagerExecutionInfo)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField<::std::string> ingressurls_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_flyteidl_2dflink_2fflink_2eproto;
+};
+// -------------------------------------------------------------------
+
+class FlinkExecutionInfo final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:flyteidl_flink.FlinkExecutionInfo) */ {
+ public:
+  FlinkExecutionInfo();
+  virtual ~FlinkExecutionInfo();
+
+  FlinkExecutionInfo(const FlinkExecutionInfo& from);
+
+  inline FlinkExecutionInfo& operator=(const FlinkExecutionInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  FlinkExecutionInfo(FlinkExecutionInfo&& from) noexcept
+    : FlinkExecutionInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline FlinkExecutionInfo& operator=(FlinkExecutionInfo&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const FlinkExecutionInfo& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const FlinkExecutionInfo* internal_default_instance() {
+    return reinterpret_cast<const FlinkExecutionInfo*>(
+               &_FlinkExecutionInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  void Swap(FlinkExecutionInfo* other);
+  friend void swap(FlinkExecutionInfo& a, FlinkExecutionInfo& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline FlinkExecutionInfo* New() const final {
+    return CreateMaybeMessage<FlinkExecutionInfo>(nullptr);
+  }
+
+  FlinkExecutionInfo* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<FlinkExecutionInfo>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const FlinkExecutionInfo& from);
+  void MergeFrom(const FlinkExecutionInfo& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(FlinkExecutionInfo* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // .flyteidl_flink.JobExecutionInfo job = 1;
+  bool has_job() const;
+  void clear_job();
+  static const int kJobFieldNumber = 1;
+  const ::flyteidl_flink::JobExecutionInfo& job() const;
+  ::flyteidl_flink::JobExecutionInfo* release_job();
+  ::flyteidl_flink::JobExecutionInfo* mutable_job();
+  void set_allocated_job(::flyteidl_flink::JobExecutionInfo* job);
+
+  // .flyteidl_flink.JobManagerExecutionInfo jobManager = 2;
+  bool has_jobmanager() const;
+  void clear_jobmanager();
+  static const int kJobManagerFieldNumber = 2;
+  const ::flyteidl_flink::JobManagerExecutionInfo& jobmanager() const;
+  ::flyteidl_flink::JobManagerExecutionInfo* release_jobmanager();
+  ::flyteidl_flink::JobManagerExecutionInfo* mutable_jobmanager();
+  void set_allocated_jobmanager(::flyteidl_flink::JobManagerExecutionInfo* jobmanager);
+
+  // @@protoc_insertion_point(class_scope:flyteidl_flink.FlinkExecutionInfo)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::flyteidl_flink::JobExecutionInfo* job_;
+  ::flyteidl_flink::JobManagerExecutionInfo* jobmanager_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_flyteidl_2dflink_2fflink_2eproto;
+};
 // ===================================================================
 
 
@@ -1622,9 +2007,251 @@ inline void FlinkJob::set_allocated_image(::std::string* image) {
   // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.FlinkJob.image)
 }
 
+// -------------------------------------------------------------------
+
+// JobExecutionInfo
+
+// string id = 1;
+inline void JobExecutionInfo::clear_id() {
+  id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& JobExecutionInfo::id() const {
+  // @@protoc_insertion_point(field_get:flyteidl_flink.JobExecutionInfo.id)
+  return id_.GetNoArena();
+}
+inline void JobExecutionInfo::set_id(const ::std::string& value) {
+  
+  id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:flyteidl_flink.JobExecutionInfo.id)
+}
+#if LANG_CXX11
+inline void JobExecutionInfo::set_id(::std::string&& value) {
+  
+  id_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:flyteidl_flink.JobExecutionInfo.id)
+}
+#endif
+inline void JobExecutionInfo::set_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:flyteidl_flink.JobExecutionInfo.id)
+}
+inline void JobExecutionInfo::set_id(const char* value, size_t size) {
+  
+  id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:flyteidl_flink.JobExecutionInfo.id)
+}
+inline ::std::string* JobExecutionInfo::mutable_id() {
+  
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.JobExecutionInfo.id)
+  return id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* JobExecutionInfo::release_id() {
+  // @@protoc_insertion_point(field_release:flyteidl_flink.JobExecutionInfo.id)
+  
+  return id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void JobExecutionInfo::set_allocated_id(::std::string* id) {
+  if (id != nullptr) {
+    
+  } else {
+    
+  }
+  id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), id);
+  // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.JobExecutionInfo.id)
+}
+
+// -------------------------------------------------------------------
+
+// JobManagerExecutionInfo
+
+// repeated string ingressURLs = 1;
+inline int JobManagerExecutionInfo::ingressurls_size() const {
+  return ingressurls_.size();
+}
+inline void JobManagerExecutionInfo::clear_ingressurls() {
+  ingressurls_.Clear();
+}
+inline const ::std::string& JobManagerExecutionInfo::ingressurls(int index) const {
+  // @@protoc_insertion_point(field_get:flyteidl_flink.JobManagerExecutionInfo.ingressURLs)
+  return ingressurls_.Get(index);
+}
+inline ::std::string* JobManagerExecutionInfo::mutable_ingressurls(int index) {
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.JobManagerExecutionInfo.ingressURLs)
+  return ingressurls_.Mutable(index);
+}
+inline void JobManagerExecutionInfo::set_ingressurls(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:flyteidl_flink.JobManagerExecutionInfo.ingressURLs)
+  ingressurls_.Mutable(index)->assign(value);
+}
+#if LANG_CXX11
+inline void JobManagerExecutionInfo::set_ingressurls(int index, ::std::string&& value) {
+  // @@protoc_insertion_point(field_set:flyteidl_flink.JobManagerExecutionInfo.ingressURLs)
+  ingressurls_.Mutable(index)->assign(std::move(value));
+}
+#endif
+inline void JobManagerExecutionInfo::set_ingressurls(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  ingressurls_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:flyteidl_flink.JobManagerExecutionInfo.ingressURLs)
+}
+inline void JobManagerExecutionInfo::set_ingressurls(int index, const char* value, size_t size) {
+  ingressurls_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:flyteidl_flink.JobManagerExecutionInfo.ingressURLs)
+}
+inline ::std::string* JobManagerExecutionInfo::add_ingressurls() {
+  // @@protoc_insertion_point(field_add_mutable:flyteidl_flink.JobManagerExecutionInfo.ingressURLs)
+  return ingressurls_.Add();
+}
+inline void JobManagerExecutionInfo::add_ingressurls(const ::std::string& value) {
+  ingressurls_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:flyteidl_flink.JobManagerExecutionInfo.ingressURLs)
+}
+#if LANG_CXX11
+inline void JobManagerExecutionInfo::add_ingressurls(::std::string&& value) {
+  ingressurls_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:flyteidl_flink.JobManagerExecutionInfo.ingressURLs)
+}
+#endif
+inline void JobManagerExecutionInfo::add_ingressurls(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  ingressurls_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:flyteidl_flink.JobManagerExecutionInfo.ingressURLs)
+}
+inline void JobManagerExecutionInfo::add_ingressurls(const char* value, size_t size) {
+  ingressurls_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:flyteidl_flink.JobManagerExecutionInfo.ingressURLs)
+}
+inline const ::google::protobuf::RepeatedPtrField<::std::string>&
+JobManagerExecutionInfo::ingressurls() const {
+  // @@protoc_insertion_point(field_list:flyteidl_flink.JobManagerExecutionInfo.ingressURLs)
+  return ingressurls_;
+}
+inline ::google::protobuf::RepeatedPtrField<::std::string>*
+JobManagerExecutionInfo::mutable_ingressurls() {
+  // @@protoc_insertion_point(field_mutable_list:flyteidl_flink.JobManagerExecutionInfo.ingressURLs)
+  return &ingressurls_;
+}
+
+// -------------------------------------------------------------------
+
+// FlinkExecutionInfo
+
+// .flyteidl_flink.JobExecutionInfo job = 1;
+inline bool FlinkExecutionInfo::has_job() const {
+  return this != internal_default_instance() && job_ != nullptr;
+}
+inline void FlinkExecutionInfo::clear_job() {
+  if (GetArenaNoVirtual() == nullptr && job_ != nullptr) {
+    delete job_;
+  }
+  job_ = nullptr;
+}
+inline const ::flyteidl_flink::JobExecutionInfo& FlinkExecutionInfo::job() const {
+  const ::flyteidl_flink::JobExecutionInfo* p = job_;
+  // @@protoc_insertion_point(field_get:flyteidl_flink.FlinkExecutionInfo.job)
+  return p != nullptr ? *p : *reinterpret_cast<const ::flyteidl_flink::JobExecutionInfo*>(
+      &::flyteidl_flink::_JobExecutionInfo_default_instance_);
+}
+inline ::flyteidl_flink::JobExecutionInfo* FlinkExecutionInfo::release_job() {
+  // @@protoc_insertion_point(field_release:flyteidl_flink.FlinkExecutionInfo.job)
+  
+  ::flyteidl_flink::JobExecutionInfo* temp = job_;
+  job_ = nullptr;
+  return temp;
+}
+inline ::flyteidl_flink::JobExecutionInfo* FlinkExecutionInfo::mutable_job() {
+  
+  if (job_ == nullptr) {
+    auto* p = CreateMaybeMessage<::flyteidl_flink::JobExecutionInfo>(GetArenaNoVirtual());
+    job_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.FlinkExecutionInfo.job)
+  return job_;
+}
+inline void FlinkExecutionInfo::set_allocated_job(::flyteidl_flink::JobExecutionInfo* job) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete job_;
+  }
+  if (job) {
+    ::google::protobuf::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      job = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, job, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  job_ = job;
+  // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.FlinkExecutionInfo.job)
+}
+
+// .flyteidl_flink.JobManagerExecutionInfo jobManager = 2;
+inline bool FlinkExecutionInfo::has_jobmanager() const {
+  return this != internal_default_instance() && jobmanager_ != nullptr;
+}
+inline void FlinkExecutionInfo::clear_jobmanager() {
+  if (GetArenaNoVirtual() == nullptr && jobmanager_ != nullptr) {
+    delete jobmanager_;
+  }
+  jobmanager_ = nullptr;
+}
+inline const ::flyteidl_flink::JobManagerExecutionInfo& FlinkExecutionInfo::jobmanager() const {
+  const ::flyteidl_flink::JobManagerExecutionInfo* p = jobmanager_;
+  // @@protoc_insertion_point(field_get:flyteidl_flink.FlinkExecutionInfo.jobManager)
+  return p != nullptr ? *p : *reinterpret_cast<const ::flyteidl_flink::JobManagerExecutionInfo*>(
+      &::flyteidl_flink::_JobManagerExecutionInfo_default_instance_);
+}
+inline ::flyteidl_flink::JobManagerExecutionInfo* FlinkExecutionInfo::release_jobmanager() {
+  // @@protoc_insertion_point(field_release:flyteidl_flink.FlinkExecutionInfo.jobManager)
+  
+  ::flyteidl_flink::JobManagerExecutionInfo* temp = jobmanager_;
+  jobmanager_ = nullptr;
+  return temp;
+}
+inline ::flyteidl_flink::JobManagerExecutionInfo* FlinkExecutionInfo::mutable_jobmanager() {
+  
+  if (jobmanager_ == nullptr) {
+    auto* p = CreateMaybeMessage<::flyteidl_flink::JobManagerExecutionInfo>(GetArenaNoVirtual());
+    jobmanager_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.FlinkExecutionInfo.jobManager)
+  return jobmanager_;
+}
+inline void FlinkExecutionInfo::set_allocated_jobmanager(::flyteidl_flink::JobManagerExecutionInfo* jobmanager) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete jobmanager_;
+  }
+  if (jobmanager) {
+    ::google::protobuf::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      jobmanager = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, jobmanager, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  jobmanager_ = jobmanager;
+  // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.FlinkExecutionInfo.jobManager)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

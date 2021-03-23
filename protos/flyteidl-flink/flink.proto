@@ -41,3 +41,12 @@ message FlinkJob {
   string serviceAccount = 7;
   string image = 8;
 }
+
+message JobExecutionInfo { string id = 1; }
+
+message JobManagerExecutionInfo { repeated string ingressURLs = 1; }
+
+message FlinkExecutionInfo {
+  JobExecutionInfo job = 1;
+  JobManagerExecutionInfo jobManager = 2;
+}
