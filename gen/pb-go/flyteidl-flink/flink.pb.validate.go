@@ -375,6 +375,227 @@ var _ interface {
 	ErrorName() string
 } = FlinkJobValidationError{}
 
+// Validate checks the field values on JobExecutionInfo with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *JobExecutionInfo) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	return nil
+}
+
+// JobExecutionInfoValidationError is the validation error returned by
+// JobExecutionInfo.Validate if the designated constraints aren't met.
+type JobExecutionInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e JobExecutionInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e JobExecutionInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e JobExecutionInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e JobExecutionInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e JobExecutionInfoValidationError) ErrorName() string { return "JobExecutionInfoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e JobExecutionInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sJobExecutionInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = JobExecutionInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = JobExecutionInfoValidationError{}
+
+// Validate checks the field values on JobManagerExecutionInfo with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *JobManagerExecutionInfo) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// JobManagerExecutionInfoValidationError is the validation error returned by
+// JobManagerExecutionInfo.Validate if the designated constraints aren't met.
+type JobManagerExecutionInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e JobManagerExecutionInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e JobManagerExecutionInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e JobManagerExecutionInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e JobManagerExecutionInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e JobManagerExecutionInfoValidationError) ErrorName() string {
+	return "JobManagerExecutionInfoValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e JobManagerExecutionInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sJobManagerExecutionInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = JobManagerExecutionInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = JobManagerExecutionInfoValidationError{}
+
+// Validate checks the field values on FlinkExecutionInfo with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FlinkExecutionInfo) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetJob()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return FlinkExecutionInfoValidationError{
+				field:  "Job",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetJobManager()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return FlinkExecutionInfoValidationError{
+				field:  "JobManager",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// FlinkExecutionInfoValidationError is the validation error returned by
+// FlinkExecutionInfo.Validate if the designated constraints aren't met.
+type FlinkExecutionInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FlinkExecutionInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FlinkExecutionInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FlinkExecutionInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FlinkExecutionInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FlinkExecutionInfoValidationError) ErrorName() string {
+	return "FlinkExecutionInfoValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FlinkExecutionInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFlinkExecutionInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FlinkExecutionInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FlinkExecutionInfoValidationError{}
+
 // Validate checks the field values on Resource_PersistentVolume with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.

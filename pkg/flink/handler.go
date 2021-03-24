@@ -35,6 +35,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/flyteorg/flytestdlib/logger"
+	structpb "github.com/golang/protobuf/ptypes/struct"
 )
 
 type flinkResourceHandler struct{}
@@ -139,7 +140,6 @@ func flinkClusterTaskLogs(ctx context.Context, flinkCluster *flinkOp.FlinkCluste
 
 func flinkClusterTaskInfo(ctx context.Context, flinkCluster *flinkOp.FlinkCluster) (*pluginsCore.TaskInfo, error) {
 	var taskLogs []*core.TaskLog
-	customInfoMap := make(map[string]interface{})
 
 	tl, err := flinkClusterTaskLogs(ctx, flinkCluster)
 	if err != nil {
@@ -148,11 +148,21 @@ func flinkClusterTaskInfo(ctx context.Context, flinkCluster *flinkOp.FlinkCluste
 
 	taskLogs = append(taskLogs, tl...)
 
-	if jmi := flinkCluster.Status.Components.JobManagerIngress; jmi != nil {
-		customInfoMap["jobmanager-ingress-urls"] = jmi.URLs
+	info := flinkIdl.FlinkExecutionInfo{}
+	components := flinkCluster.Status.Components
+
+	if jmi := components.JobManagerIngress; jmi != nil {
+		info.JobManager = &flinkIdl.JobManagerExecutionInfo{
+			IngressURLs: jmi.URLs,
+		}
 	}
 
-	customInfo, err := utils.MarshalObjToStruct(customInfoMap)
+	if job := components.Job; job != nil {
+		info.Job = &flinkIdl.JobExecutionInfo{Id: job.ID}
+	}
+
+	customInfo := &structpb.Struct{}
+	err = utils.MarshalStruct(&info, customInfo)
 	if err != nil {
 		return nil, err
 	}

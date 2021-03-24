@@ -4937,6 +4937,1958 @@ public final class Flink {
 
   }
 
+  public interface JobExecutionInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:flyteidl_flink.JobExecutionInfo)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string id = 1;</code>
+     */
+    java.lang.String getId();
+    /**
+     * <code>string id = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+  }
+  /**
+   * Protobuf type {@code flyteidl_flink.JobExecutionInfo}
+   */
+  public  static final class JobExecutionInfo extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:flyteidl_flink.JobExecutionInfo)
+      JobExecutionInfoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use JobExecutionInfo.newBuilder() to construct.
+    private JobExecutionInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private JobExecutionInfo() {
+      id_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private JobExecutionInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobExecutionInfo_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobExecutionInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              flyteidl_flink.Flink.JobExecutionInfo.class, flyteidl_flink.Flink.JobExecutionInfo.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
+    /**
+     * <code>string id = 1;</code>
+     */
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string id = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof flyteidl_flink.Flink.JobExecutionInfo)) {
+        return super.equals(obj);
+      }
+      flyteidl_flink.Flink.JobExecutionInfo other = (flyteidl_flink.Flink.JobExecutionInfo) obj;
+
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static flyteidl_flink.Flink.JobExecutionInfo parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.JobExecutionInfo parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JobExecutionInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.JobExecutionInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JobExecutionInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.JobExecutionInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JobExecutionInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.JobExecutionInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JobExecutionInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.JobExecutionInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JobExecutionInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.JobExecutionInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(flyteidl_flink.Flink.JobExecutionInfo prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code flyteidl_flink.JobExecutionInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:flyteidl_flink.JobExecutionInfo)
+        flyteidl_flink.Flink.JobExecutionInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobExecutionInfo_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobExecutionInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                flyteidl_flink.Flink.JobExecutionInfo.class, flyteidl_flink.Flink.JobExecutionInfo.Builder.class);
+      }
+
+      // Construct using flyteidl_flink.Flink.JobExecutionInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobExecutionInfo_descriptor;
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.JobExecutionInfo getDefaultInstanceForType() {
+        return flyteidl_flink.Flink.JobExecutionInfo.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.JobExecutionInfo build() {
+        flyteidl_flink.Flink.JobExecutionInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.JobExecutionInfo buildPartial() {
+        flyteidl_flink.Flink.JobExecutionInfo result = new flyteidl_flink.Flink.JobExecutionInfo(this);
+        result.id_ = id_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof flyteidl_flink.Flink.JobExecutionInfo) {
+          return mergeFrom((flyteidl_flink.Flink.JobExecutionInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(flyteidl_flink.Flink.JobExecutionInfo other) {
+        if (other == flyteidl_flink.Flink.JobExecutionInfo.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        flyteidl_flink.Flink.JobExecutionInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (flyteidl_flink.Flink.JobExecutionInfo) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object id_ = "";
+      /**
+       * <code>string id = 1;</code>
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:flyteidl_flink.JobExecutionInfo)
+    }
+
+    // @@protoc_insertion_point(class_scope:flyteidl_flink.JobExecutionInfo)
+    private static final flyteidl_flink.Flink.JobExecutionInfo DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new flyteidl_flink.Flink.JobExecutionInfo();
+    }
+
+    public static flyteidl_flink.Flink.JobExecutionInfo getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<JobExecutionInfo>
+        PARSER = new com.google.protobuf.AbstractParser<JobExecutionInfo>() {
+      @java.lang.Override
+      public JobExecutionInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new JobExecutionInfo(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<JobExecutionInfo> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<JobExecutionInfo> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public flyteidl_flink.Flink.JobExecutionInfo getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface JobManagerExecutionInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:flyteidl_flink.JobManagerExecutionInfo)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated string ingressURLs = 1;</code>
+     */
+    java.util.List<java.lang.String>
+        getIngressURLsList();
+    /**
+     * <code>repeated string ingressURLs = 1;</code>
+     */
+    int getIngressURLsCount();
+    /**
+     * <code>repeated string ingressURLs = 1;</code>
+     */
+    java.lang.String getIngressURLs(int index);
+    /**
+     * <code>repeated string ingressURLs = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getIngressURLsBytes(int index);
+  }
+  /**
+   * Protobuf type {@code flyteidl_flink.JobManagerExecutionInfo}
+   */
+  public  static final class JobManagerExecutionInfo extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:flyteidl_flink.JobManagerExecutionInfo)
+      JobManagerExecutionInfoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use JobManagerExecutionInfo.newBuilder() to construct.
+    private JobManagerExecutionInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private JobManagerExecutionInfo() {
+      ingressURLs_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private JobManagerExecutionInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                ingressURLs_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              ingressURLs_.add(s);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          ingressURLs_ = ingressURLs_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobManagerExecutionInfo_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobManagerExecutionInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              flyteidl_flink.Flink.JobManagerExecutionInfo.class, flyteidl_flink.Flink.JobManagerExecutionInfo.Builder.class);
+    }
+
+    public static final int INGRESSURLS_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList ingressURLs_;
+    /**
+     * <code>repeated string ingressURLs = 1;</code>
+     */
+    public com.google.protobuf.ProtocolStringList
+        getIngressURLsList() {
+      return ingressURLs_;
+    }
+    /**
+     * <code>repeated string ingressURLs = 1;</code>
+     */
+    public int getIngressURLsCount() {
+      return ingressURLs_.size();
+    }
+    /**
+     * <code>repeated string ingressURLs = 1;</code>
+     */
+    public java.lang.String getIngressURLs(int index) {
+      return ingressURLs_.get(index);
+    }
+    /**
+     * <code>repeated string ingressURLs = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIngressURLsBytes(int index) {
+      return ingressURLs_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < ingressURLs_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ingressURLs_.getRaw(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < ingressURLs_.size(); i++) {
+          dataSize += computeStringSizeNoTag(ingressURLs_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getIngressURLsList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof flyteidl_flink.Flink.JobManagerExecutionInfo)) {
+        return super.equals(obj);
+      }
+      flyteidl_flink.Flink.JobManagerExecutionInfo other = (flyteidl_flink.Flink.JobManagerExecutionInfo) obj;
+
+      if (!getIngressURLsList()
+          .equals(other.getIngressURLsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getIngressURLsCount() > 0) {
+        hash = (37 * hash) + INGRESSURLS_FIELD_NUMBER;
+        hash = (53 * hash) + getIngressURLsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static flyteidl_flink.Flink.JobManagerExecutionInfo parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.JobManagerExecutionInfo parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JobManagerExecutionInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.JobManagerExecutionInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JobManagerExecutionInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.JobManagerExecutionInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JobManagerExecutionInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.JobManagerExecutionInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JobManagerExecutionInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.JobManagerExecutionInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JobManagerExecutionInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.JobManagerExecutionInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(flyteidl_flink.Flink.JobManagerExecutionInfo prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code flyteidl_flink.JobManagerExecutionInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:flyteidl_flink.JobManagerExecutionInfo)
+        flyteidl_flink.Flink.JobManagerExecutionInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobManagerExecutionInfo_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobManagerExecutionInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                flyteidl_flink.Flink.JobManagerExecutionInfo.class, flyteidl_flink.Flink.JobManagerExecutionInfo.Builder.class);
+      }
+
+      // Construct using flyteidl_flink.Flink.JobManagerExecutionInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        ingressURLs_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JobManagerExecutionInfo_descriptor;
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.JobManagerExecutionInfo getDefaultInstanceForType() {
+        return flyteidl_flink.Flink.JobManagerExecutionInfo.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.JobManagerExecutionInfo build() {
+        flyteidl_flink.Flink.JobManagerExecutionInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.JobManagerExecutionInfo buildPartial() {
+        flyteidl_flink.Flink.JobManagerExecutionInfo result = new flyteidl_flink.Flink.JobManagerExecutionInfo(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          ingressURLs_ = ingressURLs_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.ingressURLs_ = ingressURLs_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof flyteidl_flink.Flink.JobManagerExecutionInfo) {
+          return mergeFrom((flyteidl_flink.Flink.JobManagerExecutionInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(flyteidl_flink.Flink.JobManagerExecutionInfo other) {
+        if (other == flyteidl_flink.Flink.JobManagerExecutionInfo.getDefaultInstance()) return this;
+        if (!other.ingressURLs_.isEmpty()) {
+          if (ingressURLs_.isEmpty()) {
+            ingressURLs_ = other.ingressURLs_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureIngressURLsIsMutable();
+            ingressURLs_.addAll(other.ingressURLs_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        flyteidl_flink.Flink.JobManagerExecutionInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (flyteidl_flink.Flink.JobManagerExecutionInfo) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringList ingressURLs_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureIngressURLsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          ingressURLs_ = new com.google.protobuf.LazyStringArrayList(ingressURLs_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated string ingressURLs = 1;</code>
+       */
+      public com.google.protobuf.ProtocolStringList
+          getIngressURLsList() {
+        return ingressURLs_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string ingressURLs = 1;</code>
+       */
+      public int getIngressURLsCount() {
+        return ingressURLs_.size();
+      }
+      /**
+       * <code>repeated string ingressURLs = 1;</code>
+       */
+      public java.lang.String getIngressURLs(int index) {
+        return ingressURLs_.get(index);
+      }
+      /**
+       * <code>repeated string ingressURLs = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIngressURLsBytes(int index) {
+        return ingressURLs_.getByteString(index);
+      }
+      /**
+       * <code>repeated string ingressURLs = 1;</code>
+       */
+      public Builder setIngressURLs(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureIngressURLsIsMutable();
+        ingressURLs_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string ingressURLs = 1;</code>
+       */
+      public Builder addIngressURLs(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureIngressURLsIsMutable();
+        ingressURLs_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string ingressURLs = 1;</code>
+       */
+      public Builder addAllIngressURLs(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureIngressURLsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, ingressURLs_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string ingressURLs = 1;</code>
+       */
+      public Builder clearIngressURLs() {
+        ingressURLs_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string ingressURLs = 1;</code>
+       */
+      public Builder addIngressURLsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureIngressURLsIsMutable();
+        ingressURLs_.add(value);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:flyteidl_flink.JobManagerExecutionInfo)
+    }
+
+    // @@protoc_insertion_point(class_scope:flyteidl_flink.JobManagerExecutionInfo)
+    private static final flyteidl_flink.Flink.JobManagerExecutionInfo DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new flyteidl_flink.Flink.JobManagerExecutionInfo();
+    }
+
+    public static flyteidl_flink.Flink.JobManagerExecutionInfo getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<JobManagerExecutionInfo>
+        PARSER = new com.google.protobuf.AbstractParser<JobManagerExecutionInfo>() {
+      @java.lang.Override
+      public JobManagerExecutionInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new JobManagerExecutionInfo(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<JobManagerExecutionInfo> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<JobManagerExecutionInfo> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public flyteidl_flink.Flink.JobManagerExecutionInfo getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface FlinkExecutionInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:flyteidl_flink.FlinkExecutionInfo)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.flyteidl_flink.JobExecutionInfo job = 1;</code>
+     */
+    boolean hasJob();
+    /**
+     * <code>.flyteidl_flink.JobExecutionInfo job = 1;</code>
+     */
+    flyteidl_flink.Flink.JobExecutionInfo getJob();
+    /**
+     * <code>.flyteidl_flink.JobExecutionInfo job = 1;</code>
+     */
+    flyteidl_flink.Flink.JobExecutionInfoOrBuilder getJobOrBuilder();
+
+    /**
+     * <code>.flyteidl_flink.JobManagerExecutionInfo jobManager = 2;</code>
+     */
+    boolean hasJobManager();
+    /**
+     * <code>.flyteidl_flink.JobManagerExecutionInfo jobManager = 2;</code>
+     */
+    flyteidl_flink.Flink.JobManagerExecutionInfo getJobManager();
+    /**
+     * <code>.flyteidl_flink.JobManagerExecutionInfo jobManager = 2;</code>
+     */
+    flyteidl_flink.Flink.JobManagerExecutionInfoOrBuilder getJobManagerOrBuilder();
+  }
+  /**
+   * Protobuf type {@code flyteidl_flink.FlinkExecutionInfo}
+   */
+  public  static final class FlinkExecutionInfo extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:flyteidl_flink.FlinkExecutionInfo)
+      FlinkExecutionInfoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use FlinkExecutionInfo.newBuilder() to construct.
+    private FlinkExecutionInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private FlinkExecutionInfo() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private FlinkExecutionInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              flyteidl_flink.Flink.JobExecutionInfo.Builder subBuilder = null;
+              if (job_ != null) {
+                subBuilder = job_.toBuilder();
+              }
+              job_ = input.readMessage(flyteidl_flink.Flink.JobExecutionInfo.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(job_);
+                job_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 18: {
+              flyteidl_flink.Flink.JobManagerExecutionInfo.Builder subBuilder = null;
+              if (jobManager_ != null) {
+                subBuilder = jobManager_.toBuilder();
+              }
+              jobManager_ = input.readMessage(flyteidl_flink.Flink.JobManagerExecutionInfo.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(jobManager_);
+                jobManager_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return flyteidl_flink.Flink.internal_static_flyteidl_flink_FlinkExecutionInfo_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return flyteidl_flink.Flink.internal_static_flyteidl_flink_FlinkExecutionInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              flyteidl_flink.Flink.FlinkExecutionInfo.class, flyteidl_flink.Flink.FlinkExecutionInfo.Builder.class);
+    }
+
+    public static final int JOB_FIELD_NUMBER = 1;
+    private flyteidl_flink.Flink.JobExecutionInfo job_;
+    /**
+     * <code>.flyteidl_flink.JobExecutionInfo job = 1;</code>
+     */
+    public boolean hasJob() {
+      return job_ != null;
+    }
+    /**
+     * <code>.flyteidl_flink.JobExecutionInfo job = 1;</code>
+     */
+    public flyteidl_flink.Flink.JobExecutionInfo getJob() {
+      return job_ == null ? flyteidl_flink.Flink.JobExecutionInfo.getDefaultInstance() : job_;
+    }
+    /**
+     * <code>.flyteidl_flink.JobExecutionInfo job = 1;</code>
+     */
+    public flyteidl_flink.Flink.JobExecutionInfoOrBuilder getJobOrBuilder() {
+      return getJob();
+    }
+
+    public static final int JOBMANAGER_FIELD_NUMBER = 2;
+    private flyteidl_flink.Flink.JobManagerExecutionInfo jobManager_;
+    /**
+     * <code>.flyteidl_flink.JobManagerExecutionInfo jobManager = 2;</code>
+     */
+    public boolean hasJobManager() {
+      return jobManager_ != null;
+    }
+    /**
+     * <code>.flyteidl_flink.JobManagerExecutionInfo jobManager = 2;</code>
+     */
+    public flyteidl_flink.Flink.JobManagerExecutionInfo getJobManager() {
+      return jobManager_ == null ? flyteidl_flink.Flink.JobManagerExecutionInfo.getDefaultInstance() : jobManager_;
+    }
+    /**
+     * <code>.flyteidl_flink.JobManagerExecutionInfo jobManager = 2;</code>
+     */
+    public flyteidl_flink.Flink.JobManagerExecutionInfoOrBuilder getJobManagerOrBuilder() {
+      return getJobManager();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (job_ != null) {
+        output.writeMessage(1, getJob());
+      }
+      if (jobManager_ != null) {
+        output.writeMessage(2, getJobManager());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (job_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getJob());
+      }
+      if (jobManager_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getJobManager());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof flyteidl_flink.Flink.FlinkExecutionInfo)) {
+        return super.equals(obj);
+      }
+      flyteidl_flink.Flink.FlinkExecutionInfo other = (flyteidl_flink.Flink.FlinkExecutionInfo) obj;
+
+      if (hasJob() != other.hasJob()) return false;
+      if (hasJob()) {
+        if (!getJob()
+            .equals(other.getJob())) return false;
+      }
+      if (hasJobManager() != other.hasJobManager()) return false;
+      if (hasJobManager()) {
+        if (!getJobManager()
+            .equals(other.getJobManager())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasJob()) {
+        hash = (37 * hash) + JOB_FIELD_NUMBER;
+        hash = (53 * hash) + getJob().hashCode();
+      }
+      if (hasJobManager()) {
+        hash = (37 * hash) + JOBMANAGER_FIELD_NUMBER;
+        hash = (53 * hash) + getJobManager().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static flyteidl_flink.Flink.FlinkExecutionInfo parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.FlinkExecutionInfo parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.FlinkExecutionInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.FlinkExecutionInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.FlinkExecutionInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.FlinkExecutionInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.FlinkExecutionInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.FlinkExecutionInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.FlinkExecutionInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.FlinkExecutionInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.FlinkExecutionInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.FlinkExecutionInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(flyteidl_flink.Flink.FlinkExecutionInfo prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code flyteidl_flink.FlinkExecutionInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:flyteidl_flink.FlinkExecutionInfo)
+        flyteidl_flink.Flink.FlinkExecutionInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_FlinkExecutionInfo_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_FlinkExecutionInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                flyteidl_flink.Flink.FlinkExecutionInfo.class, flyteidl_flink.Flink.FlinkExecutionInfo.Builder.class);
+      }
+
+      // Construct using flyteidl_flink.Flink.FlinkExecutionInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (jobBuilder_ == null) {
+          job_ = null;
+        } else {
+          job_ = null;
+          jobBuilder_ = null;
+        }
+        if (jobManagerBuilder_ == null) {
+          jobManager_ = null;
+        } else {
+          jobManager_ = null;
+          jobManagerBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_FlinkExecutionInfo_descriptor;
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.FlinkExecutionInfo getDefaultInstanceForType() {
+        return flyteidl_flink.Flink.FlinkExecutionInfo.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.FlinkExecutionInfo build() {
+        flyteidl_flink.Flink.FlinkExecutionInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.FlinkExecutionInfo buildPartial() {
+        flyteidl_flink.Flink.FlinkExecutionInfo result = new flyteidl_flink.Flink.FlinkExecutionInfo(this);
+        if (jobBuilder_ == null) {
+          result.job_ = job_;
+        } else {
+          result.job_ = jobBuilder_.build();
+        }
+        if (jobManagerBuilder_ == null) {
+          result.jobManager_ = jobManager_;
+        } else {
+          result.jobManager_ = jobManagerBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof flyteidl_flink.Flink.FlinkExecutionInfo) {
+          return mergeFrom((flyteidl_flink.Flink.FlinkExecutionInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(flyteidl_flink.Flink.FlinkExecutionInfo other) {
+        if (other == flyteidl_flink.Flink.FlinkExecutionInfo.getDefaultInstance()) return this;
+        if (other.hasJob()) {
+          mergeJob(other.getJob());
+        }
+        if (other.hasJobManager()) {
+          mergeJobManager(other.getJobManager());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        flyteidl_flink.Flink.FlinkExecutionInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (flyteidl_flink.Flink.FlinkExecutionInfo) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private flyteidl_flink.Flink.JobExecutionInfo job_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          flyteidl_flink.Flink.JobExecutionInfo, flyteidl_flink.Flink.JobExecutionInfo.Builder, flyteidl_flink.Flink.JobExecutionInfoOrBuilder> jobBuilder_;
+      /**
+       * <code>.flyteidl_flink.JobExecutionInfo job = 1;</code>
+       */
+      public boolean hasJob() {
+        return jobBuilder_ != null || job_ != null;
+      }
+      /**
+       * <code>.flyteidl_flink.JobExecutionInfo job = 1;</code>
+       */
+      public flyteidl_flink.Flink.JobExecutionInfo getJob() {
+        if (jobBuilder_ == null) {
+          return job_ == null ? flyteidl_flink.Flink.JobExecutionInfo.getDefaultInstance() : job_;
+        } else {
+          return jobBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.flyteidl_flink.JobExecutionInfo job = 1;</code>
+       */
+      public Builder setJob(flyteidl_flink.Flink.JobExecutionInfo value) {
+        if (jobBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          job_ = value;
+          onChanged();
+        } else {
+          jobBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.JobExecutionInfo job = 1;</code>
+       */
+      public Builder setJob(
+          flyteidl_flink.Flink.JobExecutionInfo.Builder builderForValue) {
+        if (jobBuilder_ == null) {
+          job_ = builderForValue.build();
+          onChanged();
+        } else {
+          jobBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.JobExecutionInfo job = 1;</code>
+       */
+      public Builder mergeJob(flyteidl_flink.Flink.JobExecutionInfo value) {
+        if (jobBuilder_ == null) {
+          if (job_ != null) {
+            job_ =
+              flyteidl_flink.Flink.JobExecutionInfo.newBuilder(job_).mergeFrom(value).buildPartial();
+          } else {
+            job_ = value;
+          }
+          onChanged();
+        } else {
+          jobBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.JobExecutionInfo job = 1;</code>
+       */
+      public Builder clearJob() {
+        if (jobBuilder_ == null) {
+          job_ = null;
+          onChanged();
+        } else {
+          job_ = null;
+          jobBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.JobExecutionInfo job = 1;</code>
+       */
+      public flyteidl_flink.Flink.JobExecutionInfo.Builder getJobBuilder() {
+        
+        onChanged();
+        return getJobFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.flyteidl_flink.JobExecutionInfo job = 1;</code>
+       */
+      public flyteidl_flink.Flink.JobExecutionInfoOrBuilder getJobOrBuilder() {
+        if (jobBuilder_ != null) {
+          return jobBuilder_.getMessageOrBuilder();
+        } else {
+          return job_ == null ?
+              flyteidl_flink.Flink.JobExecutionInfo.getDefaultInstance() : job_;
+        }
+      }
+      /**
+       * <code>.flyteidl_flink.JobExecutionInfo job = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          flyteidl_flink.Flink.JobExecutionInfo, flyteidl_flink.Flink.JobExecutionInfo.Builder, flyteidl_flink.Flink.JobExecutionInfoOrBuilder> 
+          getJobFieldBuilder() {
+        if (jobBuilder_ == null) {
+          jobBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              flyteidl_flink.Flink.JobExecutionInfo, flyteidl_flink.Flink.JobExecutionInfo.Builder, flyteidl_flink.Flink.JobExecutionInfoOrBuilder>(
+                  getJob(),
+                  getParentForChildren(),
+                  isClean());
+          job_ = null;
+        }
+        return jobBuilder_;
+      }
+
+      private flyteidl_flink.Flink.JobManagerExecutionInfo jobManager_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          flyteidl_flink.Flink.JobManagerExecutionInfo, flyteidl_flink.Flink.JobManagerExecutionInfo.Builder, flyteidl_flink.Flink.JobManagerExecutionInfoOrBuilder> jobManagerBuilder_;
+      /**
+       * <code>.flyteidl_flink.JobManagerExecutionInfo jobManager = 2;</code>
+       */
+      public boolean hasJobManager() {
+        return jobManagerBuilder_ != null || jobManager_ != null;
+      }
+      /**
+       * <code>.flyteidl_flink.JobManagerExecutionInfo jobManager = 2;</code>
+       */
+      public flyteidl_flink.Flink.JobManagerExecutionInfo getJobManager() {
+        if (jobManagerBuilder_ == null) {
+          return jobManager_ == null ? flyteidl_flink.Flink.JobManagerExecutionInfo.getDefaultInstance() : jobManager_;
+        } else {
+          return jobManagerBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.flyteidl_flink.JobManagerExecutionInfo jobManager = 2;</code>
+       */
+      public Builder setJobManager(flyteidl_flink.Flink.JobManagerExecutionInfo value) {
+        if (jobManagerBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          jobManager_ = value;
+          onChanged();
+        } else {
+          jobManagerBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.JobManagerExecutionInfo jobManager = 2;</code>
+       */
+      public Builder setJobManager(
+          flyteidl_flink.Flink.JobManagerExecutionInfo.Builder builderForValue) {
+        if (jobManagerBuilder_ == null) {
+          jobManager_ = builderForValue.build();
+          onChanged();
+        } else {
+          jobManagerBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.JobManagerExecutionInfo jobManager = 2;</code>
+       */
+      public Builder mergeJobManager(flyteidl_flink.Flink.JobManagerExecutionInfo value) {
+        if (jobManagerBuilder_ == null) {
+          if (jobManager_ != null) {
+            jobManager_ =
+              flyteidl_flink.Flink.JobManagerExecutionInfo.newBuilder(jobManager_).mergeFrom(value).buildPartial();
+          } else {
+            jobManager_ = value;
+          }
+          onChanged();
+        } else {
+          jobManagerBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.JobManagerExecutionInfo jobManager = 2;</code>
+       */
+      public Builder clearJobManager() {
+        if (jobManagerBuilder_ == null) {
+          jobManager_ = null;
+          onChanged();
+        } else {
+          jobManager_ = null;
+          jobManagerBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.JobManagerExecutionInfo jobManager = 2;</code>
+       */
+      public flyteidl_flink.Flink.JobManagerExecutionInfo.Builder getJobManagerBuilder() {
+        
+        onChanged();
+        return getJobManagerFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.flyteidl_flink.JobManagerExecutionInfo jobManager = 2;</code>
+       */
+      public flyteidl_flink.Flink.JobManagerExecutionInfoOrBuilder getJobManagerOrBuilder() {
+        if (jobManagerBuilder_ != null) {
+          return jobManagerBuilder_.getMessageOrBuilder();
+        } else {
+          return jobManager_ == null ?
+              flyteidl_flink.Flink.JobManagerExecutionInfo.getDefaultInstance() : jobManager_;
+        }
+      }
+      /**
+       * <code>.flyteidl_flink.JobManagerExecutionInfo jobManager = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          flyteidl_flink.Flink.JobManagerExecutionInfo, flyteidl_flink.Flink.JobManagerExecutionInfo.Builder, flyteidl_flink.Flink.JobManagerExecutionInfoOrBuilder> 
+          getJobManagerFieldBuilder() {
+        if (jobManagerBuilder_ == null) {
+          jobManagerBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              flyteidl_flink.Flink.JobManagerExecutionInfo, flyteidl_flink.Flink.JobManagerExecutionInfo.Builder, flyteidl_flink.Flink.JobManagerExecutionInfoOrBuilder>(
+                  getJobManager(),
+                  getParentForChildren(),
+                  isClean());
+          jobManager_ = null;
+        }
+        return jobManagerBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:flyteidl_flink.FlinkExecutionInfo)
+    }
+
+    // @@protoc_insertion_point(class_scope:flyteidl_flink.FlinkExecutionInfo)
+    private static final flyteidl_flink.Flink.FlinkExecutionInfo DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new flyteidl_flink.Flink.FlinkExecutionInfo();
+    }
+
+    public static flyteidl_flink.Flink.FlinkExecutionInfo getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<FlinkExecutionInfo>
+        PARSER = new com.google.protobuf.AbstractParser<FlinkExecutionInfo>() {
+      @java.lang.Override
+      public FlinkExecutionInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new FlinkExecutionInfo(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<FlinkExecutionInfo> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FlinkExecutionInfo> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public flyteidl_flink.Flink.FlinkExecutionInfo getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_flyteidl_flink_Resource_descriptor;
   private static final 
@@ -4967,6 +6919,21 @@ public final class Flink {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_flyteidl_flink_FlinkJob_FlinkPropertiesEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_flyteidl_flink_JobExecutionInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_flyteidl_flink_JobExecutionInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_flyteidl_flink_JobManagerExecutionInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_flyteidl_flink_JobManagerExecutionInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_flyteidl_flink_FlinkExecutionInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_flyteidl_flink_FlinkExecutionInfo_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4999,9 +6966,14 @@ public final class Flink {
       "nager\0220\n\013taskManager\030\006 \001(\0132\033.flyteidl_fl" +
       "ink.TaskManager\022\026\n\016serviceAccount\030\007 \001(\t\022" +
       "\r\n\005image\030\010 \001(\t\0326\n\024FlinkPropertiesEntry\022\013" +
-      "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001B@Z>github" +
-      ".com/spotify/flyte-flink-plugin/gen/pb-g" +
-      "o/flyteidl-flinkb\006proto3"
+      "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\036\n\020JobExe" +
+      "cutionInfo\022\n\n\002id\030\001 \001(\t\".\n\027JobManagerExec" +
+      "utionInfo\022\023\n\013ingressURLs\030\001 \003(\t\"\200\001\n\022Flink" +
+      "ExecutionInfo\022-\n\003job\030\001 \001(\0132 .flyteidl_fl" +
+      "ink.JobExecutionInfo\022;\n\njobManager\030\002 \001(\013" +
+      "2\'.flyteidl_flink.JobManagerExecutionInf" +
+      "oB@Z>github.com/spotify/flyte-flink-plug" +
+      "in/gen/pb-go/flyteidl-flinkb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5052,6 +7024,24 @@ public final class Flink {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_flyteidl_flink_FlinkJob_FlinkPropertiesEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
+    internal_static_flyteidl_flink_JobExecutionInfo_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_flyteidl_flink_JobExecutionInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_flyteidl_flink_JobExecutionInfo_descriptor,
+        new java.lang.String[] { "Id", });
+    internal_static_flyteidl_flink_JobManagerExecutionInfo_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_flyteidl_flink_JobManagerExecutionInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_flyteidl_flink_JobManagerExecutionInfo_descriptor,
+        new java.lang.String[] { "IngressURLs", });
+    internal_static_flyteidl_flink_FlinkExecutionInfo_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_flyteidl_flink_FlinkExecutionInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_flyteidl_flink_FlinkExecutionInfo_descriptor,
+        new java.lang.String[] { "Job", "JobManager", });
     k8s.io.apimachinery.pkg.api.resource.Generated.getDescriptor();
   }
 
