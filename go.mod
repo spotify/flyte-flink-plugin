@@ -3,8 +3,8 @@ module github.com/spotify/flyte-flink-plugin
 go 1.16
 
 require (
-	github.com/flyteorg/flyteidl v0.18.24
-	github.com/flyteorg/flyteplugins v0.5.38
+	github.com/flyteorg/flyteidl v0.18.25
+	github.com/flyteorg/flyteplugins v0.5.40
 	github.com/flyteorg/flytestdlib v0.3.15
 	github.com/golang/protobuf v1.4.3
 	github.com/spotify/flink-on-k8s-operator v0.0.4-0.20210319110057-efaf970723b3

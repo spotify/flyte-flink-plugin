@@ -40,8 +40,8 @@ import (
 
 type flinkResourceHandler struct{}
 
-func (flinkResourceHandler) GetProperties() pluginsCore.PluginProperties {
-	return pluginsCore.PluginProperties{}
+func (flinkResourceHandler) GetProperties() k8s.PluginProperties {
+	return k8s.PluginProperties{}
 }
 
 // Creates a new Job that will execute the main container as well as any generated types the result from the execution.
