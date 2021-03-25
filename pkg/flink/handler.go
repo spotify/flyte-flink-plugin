@@ -41,7 +41,10 @@ import (
 type flinkResourceHandler struct{}
 
 func (flinkResourceHandler) GetProperties() k8s.PluginProperties {
-	return k8s.PluginProperties{}
+	config := GetFlinkConfig()
+	return k8s.PluginProperties{
+		GeneratedNameMaxLength: config.GeneratedNameMaxLength,
+	}
 }
 
 // Creates a new Job that will execute the main container as well as any generated types the result from the execution.
