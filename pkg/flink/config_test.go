@@ -38,6 +38,7 @@ func TestLoadConfig(t *testing.T) {
 		assert.Equal(t, config.TaskManager.Replicas, 4)
 		assert.Equal(t, config.JobManager.Cpu, resource.MustParse("3.5"))
 		assert.Equal(t, config.ServiceAccount, "flink-service-account")
+		assert.Equal(t, *config.GeneratedNameMaxLength, 50)
 	})
 
 	t.Run("sets properties with no defaults", func(t *testing.T) {

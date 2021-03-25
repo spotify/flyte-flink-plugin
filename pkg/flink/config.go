@@ -52,10 +52,12 @@ type Config struct {
 	JobManager              JobManagerConfig  `json:"jobmanager"`
 	TaskManager             TaskManagerConfig `json:"taskmanager"`
 	LogConfig               logs.LogConfig    `json:"logs"`
+	GeneratedNameMaxLength  *int              `json:generatedNameMaxLength pflag:"Specifies the length of TaskExecutionID generated name. default: 50"`
 }
 
 var (
-	defaultConfig = &Config{
+	generatedNameMaxLength = 50
+	defaultConfig          = &Config{
 		ServiceAccount: "default",
 		JobManager: JobManagerConfig{
 			Cpu:    resource.MustParse("4"),
@@ -66,6 +68,7 @@ var (
 			Memory:   resource.MustParse("4Gi"),
 			Replicas: 1,
 		},
+		GeneratedNameMaxLength: &generatedNameMaxLength,
 	}
 
 	flinkConfigSection = pluginsConfig.MustRegisterSubSection("flink", defaultConfig)
