@@ -15,6 +15,8 @@
 package flink
 
 import (
+	"context"
+
 	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery"
 
 	pluginsCore "github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/core"
@@ -38,5 +40,19 @@ func init() {
 			Plugin:              flinkResourceHandler{},
 			IsDefault:           false,
 			DefaultForTaskTypes: []pluginsCore.TaskType{FlinkTaskType},
+			CustomKubeClient: func(ctx context.Context) (pluginsCore.KubeClient, error) {
+				remoteConfig := GetFlinkConfig().RemoteClusterConfig
+				if !remoteConfig.Enabled {
+					// use controller-runtime KubeClient
+					return nil, nil
+				}
+
+				kubeConfig, err := KubeClientConfig(remoteConfig.Endpoint, remoteConfig.Auth)
+				if err != nil {
+					return nil, err
+				}
+
+				return k8s.NewDefaultKubeClient(kubeConfig)
+			},
 		})
 }

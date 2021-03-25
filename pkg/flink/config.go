@@ -52,7 +52,8 @@ type Config struct {
 	JobManager              JobManagerConfig  `json:"jobmanager"`
 	TaskManager             TaskManagerConfig `json:"taskmanager"`
 	LogConfig               logs.LogConfig    `json:"logs"`
-	GeneratedNameMaxLength  *int              `json:generatedNameMaxLength pflag:"Specifies the length of TaskExecutionID generated name. default: 50"`
+	GeneratedNameMaxLength  *int              `json:"generatedNameMaxLength" pflag:"Specifies the length of TaskExecutionID generated name. default: 50"`
+	RemoteClusterConfig     ClusterConfig     `json:"remoteClusterConfig" pflag:"Configuration of remote K8s cluster for array jobs"`
 }
 
 var (

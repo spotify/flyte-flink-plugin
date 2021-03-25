@@ -7,6 +7,7 @@ require (
 	github.com/flyteorg/flyteplugins v0.5.40
 	github.com/flyteorg/flytestdlib v0.3.15
 	github.com/golang/protobuf v1.4.3
+	github.com/pkg/errors v0.9.1
 	github.com/spotify/flink-on-k8s-operator v0.0.4-0.20210319110057-efaf970723b3
 	gotest.tools v2.2.0+incompatible
 	k8s.io/api v0.20.2

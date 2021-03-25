@@ -25,28 +25,49 @@ import (
 )
 
 func TestLoadConfig(t *testing.T) {
-	config := GetFlinkConfig()
-	assert.Assert(t, config != nil)
+	flinkConfig := GetFlinkConfig()
+	assert.Assert(t, flinkConfig != nil)
 
 	t.Run("uses defaults", func(t *testing.T) {
-		assert.Equal(t, config.JobManager.Memory, resource.MustParse("4Gi"))
-		assert.Equal(t, config.TaskManager.Cpu, resource.MustParse("4"))
-		assert.Equal(t, config.TaskManager.Memory, resource.MustParse("4Gi"))
+		assert.Equal(t, flinkConfig.JobManager.Memory, resource.MustParse("4Gi"))
+		assert.Equal(t, flinkConfig.TaskManager.Cpu, resource.MustParse("4"))
+		assert.Equal(t, flinkConfig.TaskManager.Memory, resource.MustParse("4Gi"))
+		assert.Equal(t, flinkConfig.RemoteClusterConfig.Enabled, false)
 	})
 
 	t.Run("overrides defaults", func(t *testing.T) {
-		assert.Equal(t, config.TaskManager.Replicas, 4)
-		assert.Equal(t, config.JobManager.Cpu, resource.MustParse("3.5"))
-		assert.Equal(t, config.ServiceAccount, "flink-service-account")
-		assert.Equal(t, *config.GeneratedNameMaxLength, 50)
+		assert.Equal(t, flinkConfig.TaskManager.Replicas, 4)
+		assert.Equal(t, flinkConfig.JobManager.Cpu, resource.MustParse("3.5"))
+		assert.Equal(t, flinkConfig.ServiceAccount, "flink-service-account")
+		assert.Equal(t, *flinkConfig.GeneratedNameMaxLength, 50)
 	})
 
 	t.Run("sets properties with no defaults", func(t *testing.T) {
-		assert.DeepEqual(t, config.JobManager.NodeSelector, map[string]string{"gke-nodepool": "nodepool-1"})
-		assert.DeepEqual(t, config.TaskManager.NodeSelector, map[string]string{"gke-nodepool": "nodepool-2"})
-		assert.Equal(t, config.Image, "flink-image")
-		assert.Assert(t, len(config.FlinkProperties) > 0)
-		assert.Equal(t, config.FlinkPropertiesOverride["jobmanager.archive.fs.dir"], "flink-job-archive-dir")
+		assert.DeepEqual(t, flinkConfig.JobManager.NodeSelector, map[string]string{"gke-nodepool": "nodepool-1"})
+		assert.DeepEqual(t, flinkConfig.TaskManager.NodeSelector, map[string]string{"gke-nodepool": "nodepool-2"})
+		assert.Equal(t, flinkConfig.Image, "flink-image")
+		assert.Assert(t, len(flinkConfig.FlinkProperties) > 0)
+		assert.Equal(t, flinkConfig.FlinkPropertiesOverride["jobmanager.archive.fs.dir"], "flink-job-archive-dir")
+	})
+
+	t.Run("remote cluster", func(t *testing.T) {
+		configAccessor := viper.NewAccessor(config.Options{
+			StrictMode:  true,
+			SearchPaths: []string{"testdata/config_remote_cluster.yaml"},
+		})
+
+		configAccessor.UpdateConfig(context.TODO())
+		remoteFlinkConfig := GetFlinkConfig()
+
+		remoteConfig := ClusterConfig{
+			Enabled:  true,
+			Endpoint: "127.0.0.1",
+			Auth: Auth{
+				TokenPath:  "/path/token",
+				CaCertPath: "/path/cert",
+			},
+		}
+		assert.DeepEqual(t, remoteFlinkConfig.RemoteClusterConfig, remoteConfig)
 	})
 }
 
