@@ -34,6 +34,10 @@ var (
 	cacheVolumeMounts = []corev1.VolumeMount{{Name: "cache-volume", MountPath: "/cache"}}
 )
 
+const (
+	regexFlinkClusterName string = `^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`
+)
+
 func persistentVolumeTypeString(pdType flinkIdl.Resource_PersistentVolume_Type) string {
 	return strings.ReplaceAll(strings.ToLower(pdType.String()), "_", "-")
 }
@@ -284,8 +288,13 @@ func buildFlinkClusterSpec(config *Config, job flinkIdl.FlinkJob, jobManager fli
 func BuildFlinkClusterSpec(taskCtx pluginsCore.TaskExecutionMetadata, job flinkIdl.FlinkJob, config *Config) (*flinkOp.FlinkCluster, error) {
 	annotations := GetDefaultAnnotations(taskCtx)
 	labels := GetDefaultLabels(taskCtx)
+	clusterName := taskCtx.GetTaskExecutionID().GetGeneratedName()
+	if err := validate(clusterName, regexFlinkClusterName); err != nil {
+		return nil, err
+	}
+
 	objectMeta := &metav1.ObjectMeta{
-		Name:        taskCtx.GetTaskExecutionID().GetGeneratedName(),
+		Name:        clusterName,
 		Namespace:   taskCtx.GetNamespace(),
 		Annotations: annotations,
 		Labels:      labels,
