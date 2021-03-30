@@ -30,6 +30,9 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 		FlinkProperties: map[string]string{
 			"taskmanager.numberOfTaskSlots": "1",
 		},
+		FlinkLogProperties: map[string]string{
+			"name": "FlinkJobCluster",
+		},
 	}
 	config := GetFlinkConfig()
 
@@ -67,6 +70,8 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 
 	assert.Assert(t, cluster.Spec.JobManager.Ingress != nil)
 	assert.Equal(t, *cluster.Spec.JobManager.Ingress.UseTLS, true)
+	assert.Assert(t, len(cluster.Spec.LogConfig) == 1)
+	assert.Equal(t, cluster.Spec.LogConfig["name"], "FlinkJobCluster")
 }
 
 func TestWithPersistentVolume(t *testing.T) {
