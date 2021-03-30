@@ -3644,14 +3644,23 @@ public final class Flink {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string jarFile = 1;</code>
+     * <code>repeated string jarFiles = 1;</code>
      */
-    java.lang.String getJarFile();
+    java.util.List<java.lang.String>
+        getJarFilesList();
     /**
-     * <code>string jarFile = 1;</code>
+     * <code>repeated string jarFiles = 1;</code>
+     */
+    int getJarFilesCount();
+    /**
+     * <code>repeated string jarFiles = 1;</code>
+     */
+    java.lang.String getJarFiles(int index);
+    /**
+     * <code>repeated string jarFiles = 1;</code>
      */
     com.google.protobuf.ByteString
-        getJarFileBytes();
+        getJarFilesBytes(int index);
 
     /**
      * <code>string mainClass = 2;</code>
@@ -3779,7 +3788,7 @@ public final class Flink {
       super(builder);
     }
     private FlinkJob() {
-      jarFile_ = "";
+      jarFiles_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       mainClass_ = "";
       args_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       serviceAccount_ = "";
@@ -3812,8 +3821,11 @@ public final class Flink {
               break;
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
-
-              jarFile_ = s;
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                jarFiles_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              jarFiles_.add(s);
               break;
             }
             case 18: {
@@ -3897,6 +3909,9 @@ public final class Flink {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          jarFiles_ = jarFiles_.getUnmodifiableView();
+        }
         if (((mutable_bitField0_ & 0x00000004) != 0)) {
           args_ = args_.getUnmodifiableView();
         }
@@ -3930,38 +3945,33 @@ public final class Flink {
     }
 
     private int bitField0_;
-    public static final int JARFILE_FIELD_NUMBER = 1;
-    private volatile java.lang.Object jarFile_;
+    public static final int JARFILES_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList jarFiles_;
     /**
-     * <code>string jarFile = 1;</code>
+     * <code>repeated string jarFiles = 1;</code>
      */
-    public java.lang.String getJarFile() {
-      java.lang.Object ref = jarFile_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        jarFile_ = s;
-        return s;
-      }
+    public com.google.protobuf.ProtocolStringList
+        getJarFilesList() {
+      return jarFiles_;
     }
     /**
-     * <code>string jarFile = 1;</code>
+     * <code>repeated string jarFiles = 1;</code>
+     */
+    public int getJarFilesCount() {
+      return jarFiles_.size();
+    }
+    /**
+     * <code>repeated string jarFiles = 1;</code>
+     */
+    public java.lang.String getJarFiles(int index) {
+      return jarFiles_.get(index);
+    }
+    /**
+     * <code>repeated string jarFiles = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getJarFileBytes() {
-      java.lang.Object ref = jarFile_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        jarFile_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+        getJarFilesBytes(int index) {
+      return jarFiles_.getByteString(index);
     }
 
     public static final int MAINCLASS_FIELD_NUMBER = 2;
@@ -4227,8 +4237,8 @@ public final class Flink {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getJarFileBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, jarFile_);
+      for (int i = 0; i < jarFiles_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, jarFiles_.getRaw(i));
       }
       if (!getMainClassBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, mainClass_);
@@ -4263,8 +4273,13 @@ public final class Flink {
       if (size != -1) return size;
 
       size = 0;
-      if (!getJarFileBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, jarFile_);
+      {
+        int dataSize = 0;
+        for (int i = 0; i < jarFiles_.size(); i++) {
+          dataSize += computeStringSizeNoTag(jarFiles_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getJarFilesList().size();
       }
       if (!getMainClassBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, mainClass_);
@@ -4316,8 +4331,8 @@ public final class Flink {
       }
       flyteidl_flink.Flink.FlinkJob other = (flyteidl_flink.Flink.FlinkJob) obj;
 
-      if (!getJarFile()
-          .equals(other.getJarFile())) return false;
+      if (!getJarFilesList()
+          .equals(other.getJarFilesList())) return false;
       if (!getMainClass()
           .equals(other.getMainClass())) return false;
       if (!getArgsList()
@@ -4349,8 +4364,10 @@ public final class Flink {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + JARFILE_FIELD_NUMBER;
-      hash = (53 * hash) + getJarFile().hashCode();
+      if (getJarFilesCount() > 0) {
+        hash = (37 * hash) + JARFILES_FIELD_NUMBER;
+        hash = (53 * hash) + getJarFilesList().hashCode();
+      }
       hash = (37 * hash) + MAINCLASS_FIELD_NUMBER;
       hash = (53 * hash) + getMainClass().hashCode();
       if (getArgsCount() > 0) {
@@ -4532,8 +4549,8 @@ public final class Flink {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        jarFile_ = "";
-
+        jarFiles_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
         mainClass_ = "";
 
         args_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -4583,7 +4600,11 @@ public final class Flink {
         flyteidl_flink.Flink.FlinkJob result = new flyteidl_flink.Flink.FlinkJob(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        result.jarFile_ = jarFile_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          jarFiles_ = jarFiles_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.jarFiles_ = jarFiles_;
         result.mainClass_ = mainClass_;
         if (((bitField0_ & 0x00000004) != 0)) {
           args_ = args_.getUnmodifiableView();
@@ -4653,8 +4674,14 @@ public final class Flink {
 
       public Builder mergeFrom(flyteidl_flink.Flink.FlinkJob other) {
         if (other == flyteidl_flink.Flink.FlinkJob.getDefaultInstance()) return this;
-        if (!other.getJarFile().isEmpty()) {
-          jarFile_ = other.jarFile_;
+        if (!other.jarFiles_.isEmpty()) {
+          if (jarFiles_.isEmpty()) {
+            jarFiles_ = other.jarFiles_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureJarFilesIsMutable();
+            jarFiles_.addAll(other.jarFiles_);
+          }
           onChanged();
         }
         if (!other.getMainClass().isEmpty()) {
@@ -4717,71 +4744,96 @@ public final class Flink {
       }
       private int bitField0_;
 
-      private java.lang.Object jarFile_ = "";
-      /**
-       * <code>string jarFile = 1;</code>
-       */
-      public java.lang.String getJarFile() {
-        java.lang.Object ref = jarFile_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          jarFile_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      private com.google.protobuf.LazyStringList jarFiles_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureJarFilesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          jarFiles_ = new com.google.protobuf.LazyStringArrayList(jarFiles_);
+          bitField0_ |= 0x00000001;
+         }
       }
       /**
-       * <code>string jarFile = 1;</code>
+       * <code>repeated string jarFiles = 1;</code>
+       */
+      public com.google.protobuf.ProtocolStringList
+          getJarFilesList() {
+        return jarFiles_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string jarFiles = 1;</code>
+       */
+      public int getJarFilesCount() {
+        return jarFiles_.size();
+      }
+      /**
+       * <code>repeated string jarFiles = 1;</code>
+       */
+      public java.lang.String getJarFiles(int index) {
+        return jarFiles_.get(index);
+      }
+      /**
+       * <code>repeated string jarFiles = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getJarFileBytes() {
-        java.lang.Object ref = jarFile_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          jarFile_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
+          getJarFilesBytes(int index) {
+        return jarFiles_.getByteString(index);
       }
       /**
-       * <code>string jarFile = 1;</code>
+       * <code>repeated string jarFiles = 1;</code>
        */
-      public Builder setJarFile(
+      public Builder setJarFiles(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureJarFilesIsMutable();
+        jarFiles_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string jarFiles = 1;</code>
+       */
+      public Builder addJarFiles(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  
-        jarFile_ = value;
+  ensureJarFilesIsMutable();
+        jarFiles_.add(value);
         onChanged();
         return this;
       }
       /**
-       * <code>string jarFile = 1;</code>
+       * <code>repeated string jarFiles = 1;</code>
        */
-      public Builder clearJarFile() {
-        
-        jarFile_ = getDefaultInstance().getJarFile();
+      public Builder addAllJarFiles(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureJarFilesIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, jarFiles_);
         onChanged();
         return this;
       }
       /**
-       * <code>string jarFile = 1;</code>
+       * <code>repeated string jarFiles = 1;</code>
        */
-      public Builder setJarFileBytes(
+      public Builder clearJarFiles() {
+        jarFiles_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string jarFiles = 1;</code>
+       */
+      public Builder addJarFilesBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        
-        jarFile_ = value;
+        ensureJarFilesIsMutable();
+        jarFiles_.add(value);
         onChanged();
         return this;
       }
@@ -7448,6 +7500,2219 @@ public final class Flink {
 
   }
 
+  public interface ArtifactOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:flyteidl_flink.Artifact)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string name = 1;</code>
+     */
+    java.lang.String getName();
+    /**
+     * <code>string name = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>string location = 2;</code>
+     */
+    java.lang.String getLocation();
+    /**
+     * <code>string location = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getLocationBytes();
+  }
+  /**
+   * Protobuf type {@code flyteidl_flink.Artifact}
+   */
+  public  static final class Artifact extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:flyteidl_flink.Artifact)
+      ArtifactOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Artifact.newBuilder() to construct.
+    private Artifact(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Artifact() {
+      name_ = "";
+      location_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Artifact(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              location_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return flyteidl_flink.Flink.internal_static_flyteidl_flink_Artifact_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return flyteidl_flink.Flink.internal_static_flyteidl_flink_Artifact_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              flyteidl_flink.Flink.Artifact.class, flyteidl_flink.Flink.Artifact.Builder.class);
+    }
+
+    public static final int NAME_FIELD_NUMBER = 1;
+    private volatile java.lang.Object name_;
+    /**
+     * <code>string name = 1;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string name = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int LOCATION_FIELD_NUMBER = 2;
+    private volatile java.lang.Object location_;
+    /**
+     * <code>string location = 2;</code>
+     */
+    public java.lang.String getLocation() {
+      java.lang.Object ref = location_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        location_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string location = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLocationBytes() {
+      java.lang.Object ref = location_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        location_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
+      }
+      if (!getLocationBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, location_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
+      }
+      if (!getLocationBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, location_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof flyteidl_flink.Flink.Artifact)) {
+        return super.equals(obj);
+      }
+      flyteidl_flink.Flink.Artifact other = (flyteidl_flink.Flink.Artifact) obj;
+
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getLocation()
+          .equals(other.getLocation())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + LOCATION_FIELD_NUMBER;
+      hash = (53 * hash) + getLocation().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static flyteidl_flink.Flink.Artifact parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.Artifact parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.Artifact parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.Artifact parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.Artifact parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.Artifact parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.Artifact parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.Artifact parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.Artifact parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.Artifact parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.Artifact parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.Artifact parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(flyteidl_flink.Flink.Artifact prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code flyteidl_flink.Artifact}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:flyteidl_flink.Artifact)
+        flyteidl_flink.Flink.ArtifactOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_Artifact_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_Artifact_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                flyteidl_flink.Flink.Artifact.class, flyteidl_flink.Flink.Artifact.Builder.class);
+      }
+
+      // Construct using flyteidl_flink.Flink.Artifact.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        name_ = "";
+
+        location_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_Artifact_descriptor;
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.Artifact getDefaultInstanceForType() {
+        return flyteidl_flink.Flink.Artifact.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.Artifact build() {
+        flyteidl_flink.Flink.Artifact result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.Artifact buildPartial() {
+        flyteidl_flink.Flink.Artifact result = new flyteidl_flink.Flink.Artifact(this);
+        result.name_ = name_;
+        result.location_ = location_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof flyteidl_flink.Flink.Artifact) {
+          return mergeFrom((flyteidl_flink.Flink.Artifact)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(flyteidl_flink.Flink.Artifact other) {
+        if (other == flyteidl_flink.Flink.Artifact.getDefaultInstance()) return this;
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (!other.getLocation().isEmpty()) {
+          location_ = other.location_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        flyteidl_flink.Flink.Artifact parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (flyteidl_flink.Flink.Artifact) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>string name = 1;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string name = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string name = 1;</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string name = 1;</code>
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string name = 1;</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object location_ = "";
+      /**
+       * <code>string location = 2;</code>
+       */
+      public java.lang.String getLocation() {
+        java.lang.Object ref = location_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          location_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string location = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getLocationBytes() {
+        java.lang.Object ref = location_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          location_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string location = 2;</code>
+       */
+      public Builder setLocation(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        location_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string location = 2;</code>
+       */
+      public Builder clearLocation() {
+        
+        location_ = getDefaultInstance().getLocation();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string location = 2;</code>
+       */
+      public Builder setLocationBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        location_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:flyteidl_flink.Artifact)
+    }
+
+    // @@protoc_insertion_point(class_scope:flyteidl_flink.Artifact)
+    private static final flyteidl_flink.Flink.Artifact DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new flyteidl_flink.Flink.Artifact();
+    }
+
+    public static flyteidl_flink.Flink.Artifact getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Artifact>
+        PARSER = new com.google.protobuf.AbstractParser<Artifact>() {
+      @java.lang.Override
+      public Artifact parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Artifact(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Artifact> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Artifact> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public flyteidl_flink.Flink.Artifact getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface JFlytePayloadOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:flyteidl_flink.JFlytePayload)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string index_file_location = 1;</code>
+     */
+    java.lang.String getIndexFileLocation();
+    /**
+     * <code>string index_file_location = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getIndexFileLocationBytes();
+
+    /**
+     * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+     */
+    java.util.List<flyteidl_flink.Flink.Artifact> 
+        getArtifactsList();
+    /**
+     * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+     */
+    flyteidl_flink.Flink.Artifact getArtifacts(int index);
+    /**
+     * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+     */
+    int getArtifactsCount();
+    /**
+     * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+     */
+    java.util.List<? extends flyteidl_flink.Flink.ArtifactOrBuilder> 
+        getArtifactsOrBuilderList();
+    /**
+     * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+     */
+    flyteidl_flink.Flink.ArtifactOrBuilder getArtifactsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code flyteidl_flink.JFlytePayload}
+   */
+  public  static final class JFlytePayload extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:flyteidl_flink.JFlytePayload)
+      JFlytePayloadOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use JFlytePayload.newBuilder() to construct.
+    private JFlytePayload(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private JFlytePayload() {
+      indexFileLocation_ = "";
+      artifacts_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private JFlytePayload(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              indexFileLocation_ = s;
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                artifacts_ = new java.util.ArrayList<flyteidl_flink.Flink.Artifact>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              artifacts_.add(
+                  input.readMessage(flyteidl_flink.Flink.Artifact.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          artifacts_ = java.util.Collections.unmodifiableList(artifacts_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return flyteidl_flink.Flink.internal_static_flyteidl_flink_JFlytePayload_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return flyteidl_flink.Flink.internal_static_flyteidl_flink_JFlytePayload_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              flyteidl_flink.Flink.JFlytePayload.class, flyteidl_flink.Flink.JFlytePayload.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int INDEX_FILE_LOCATION_FIELD_NUMBER = 1;
+    private volatile java.lang.Object indexFileLocation_;
+    /**
+     * <code>string index_file_location = 1;</code>
+     */
+    public java.lang.String getIndexFileLocation() {
+      java.lang.Object ref = indexFileLocation_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        indexFileLocation_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string index_file_location = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIndexFileLocationBytes() {
+      java.lang.Object ref = indexFileLocation_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        indexFileLocation_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ARTIFACTS_FIELD_NUMBER = 2;
+    private java.util.List<flyteidl_flink.Flink.Artifact> artifacts_;
+    /**
+     * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+     */
+    public java.util.List<flyteidl_flink.Flink.Artifact> getArtifactsList() {
+      return artifacts_;
+    }
+    /**
+     * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+     */
+    public java.util.List<? extends flyteidl_flink.Flink.ArtifactOrBuilder> 
+        getArtifactsOrBuilderList() {
+      return artifacts_;
+    }
+    /**
+     * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+     */
+    public int getArtifactsCount() {
+      return artifacts_.size();
+    }
+    /**
+     * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+     */
+    public flyteidl_flink.Flink.Artifact getArtifacts(int index) {
+      return artifacts_.get(index);
+    }
+    /**
+     * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+     */
+    public flyteidl_flink.Flink.ArtifactOrBuilder getArtifactsOrBuilder(
+        int index) {
+      return artifacts_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIndexFileLocationBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, indexFileLocation_);
+      }
+      for (int i = 0; i < artifacts_.size(); i++) {
+        output.writeMessage(2, artifacts_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIndexFileLocationBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, indexFileLocation_);
+      }
+      for (int i = 0; i < artifacts_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, artifacts_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof flyteidl_flink.Flink.JFlytePayload)) {
+        return super.equals(obj);
+      }
+      flyteidl_flink.Flink.JFlytePayload other = (flyteidl_flink.Flink.JFlytePayload) obj;
+
+      if (!getIndexFileLocation()
+          .equals(other.getIndexFileLocation())) return false;
+      if (!getArtifactsList()
+          .equals(other.getArtifactsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + INDEX_FILE_LOCATION_FIELD_NUMBER;
+      hash = (53 * hash) + getIndexFileLocation().hashCode();
+      if (getArtifactsCount() > 0) {
+        hash = (37 * hash) + ARTIFACTS_FIELD_NUMBER;
+        hash = (53 * hash) + getArtifactsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static flyteidl_flink.Flink.JFlytePayload parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.JFlytePayload parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JFlytePayload parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.JFlytePayload parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JFlytePayload parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.JFlytePayload parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JFlytePayload parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.JFlytePayload parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JFlytePayload parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.JFlytePayload parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JFlytePayload parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.JFlytePayload parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(flyteidl_flink.Flink.JFlytePayload prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code flyteidl_flink.JFlytePayload}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:flyteidl_flink.JFlytePayload)
+        flyteidl_flink.Flink.JFlytePayloadOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JFlytePayload_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JFlytePayload_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                flyteidl_flink.Flink.JFlytePayload.class, flyteidl_flink.Flink.JFlytePayload.Builder.class);
+      }
+
+      // Construct using flyteidl_flink.Flink.JFlytePayload.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getArtifactsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        indexFileLocation_ = "";
+
+        if (artifactsBuilder_ == null) {
+          artifacts_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          artifactsBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JFlytePayload_descriptor;
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.JFlytePayload getDefaultInstanceForType() {
+        return flyteidl_flink.Flink.JFlytePayload.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.JFlytePayload build() {
+        flyteidl_flink.Flink.JFlytePayload result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.JFlytePayload buildPartial() {
+        flyteidl_flink.Flink.JFlytePayload result = new flyteidl_flink.Flink.JFlytePayload(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        result.indexFileLocation_ = indexFileLocation_;
+        if (artifactsBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            artifacts_ = java.util.Collections.unmodifiableList(artifacts_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.artifacts_ = artifacts_;
+        } else {
+          result.artifacts_ = artifactsBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof flyteidl_flink.Flink.JFlytePayload) {
+          return mergeFrom((flyteidl_flink.Flink.JFlytePayload)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(flyteidl_flink.Flink.JFlytePayload other) {
+        if (other == flyteidl_flink.Flink.JFlytePayload.getDefaultInstance()) return this;
+        if (!other.getIndexFileLocation().isEmpty()) {
+          indexFileLocation_ = other.indexFileLocation_;
+          onChanged();
+        }
+        if (artifactsBuilder_ == null) {
+          if (!other.artifacts_.isEmpty()) {
+            if (artifacts_.isEmpty()) {
+              artifacts_ = other.artifacts_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureArtifactsIsMutable();
+              artifacts_.addAll(other.artifacts_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.artifacts_.isEmpty()) {
+            if (artifactsBuilder_.isEmpty()) {
+              artifactsBuilder_.dispose();
+              artifactsBuilder_ = null;
+              artifacts_ = other.artifacts_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              artifactsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getArtifactsFieldBuilder() : null;
+            } else {
+              artifactsBuilder_.addAllMessages(other.artifacts_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        flyteidl_flink.Flink.JFlytePayload parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (flyteidl_flink.Flink.JFlytePayload) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object indexFileLocation_ = "";
+      /**
+       * <code>string index_file_location = 1;</code>
+       */
+      public java.lang.String getIndexFileLocation() {
+        java.lang.Object ref = indexFileLocation_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          indexFileLocation_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string index_file_location = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIndexFileLocationBytes() {
+        java.lang.Object ref = indexFileLocation_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          indexFileLocation_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string index_file_location = 1;</code>
+       */
+      public Builder setIndexFileLocation(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        indexFileLocation_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string index_file_location = 1;</code>
+       */
+      public Builder clearIndexFileLocation() {
+        
+        indexFileLocation_ = getDefaultInstance().getIndexFileLocation();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string index_file_location = 1;</code>
+       */
+      public Builder setIndexFileLocationBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        indexFileLocation_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<flyteidl_flink.Flink.Artifact> artifacts_ =
+        java.util.Collections.emptyList();
+      private void ensureArtifactsIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          artifacts_ = new java.util.ArrayList<flyteidl_flink.Flink.Artifact>(artifacts_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          flyteidl_flink.Flink.Artifact, flyteidl_flink.Flink.Artifact.Builder, flyteidl_flink.Flink.ArtifactOrBuilder> artifactsBuilder_;
+
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public java.util.List<flyteidl_flink.Flink.Artifact> getArtifactsList() {
+        if (artifactsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(artifacts_);
+        } else {
+          return artifactsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public int getArtifactsCount() {
+        if (artifactsBuilder_ == null) {
+          return artifacts_.size();
+        } else {
+          return artifactsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public flyteidl_flink.Flink.Artifact getArtifacts(int index) {
+        if (artifactsBuilder_ == null) {
+          return artifacts_.get(index);
+        } else {
+          return artifactsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public Builder setArtifacts(
+          int index, flyteidl_flink.Flink.Artifact value) {
+        if (artifactsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureArtifactsIsMutable();
+          artifacts_.set(index, value);
+          onChanged();
+        } else {
+          artifactsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public Builder setArtifacts(
+          int index, flyteidl_flink.Flink.Artifact.Builder builderForValue) {
+        if (artifactsBuilder_ == null) {
+          ensureArtifactsIsMutable();
+          artifacts_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          artifactsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public Builder addArtifacts(flyteidl_flink.Flink.Artifact value) {
+        if (artifactsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureArtifactsIsMutable();
+          artifacts_.add(value);
+          onChanged();
+        } else {
+          artifactsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public Builder addArtifacts(
+          int index, flyteidl_flink.Flink.Artifact value) {
+        if (artifactsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureArtifactsIsMutable();
+          artifacts_.add(index, value);
+          onChanged();
+        } else {
+          artifactsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public Builder addArtifacts(
+          flyteidl_flink.Flink.Artifact.Builder builderForValue) {
+        if (artifactsBuilder_ == null) {
+          ensureArtifactsIsMutable();
+          artifacts_.add(builderForValue.build());
+          onChanged();
+        } else {
+          artifactsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public Builder addArtifacts(
+          int index, flyteidl_flink.Flink.Artifact.Builder builderForValue) {
+        if (artifactsBuilder_ == null) {
+          ensureArtifactsIsMutable();
+          artifacts_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          artifactsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public Builder addAllArtifacts(
+          java.lang.Iterable<? extends flyteidl_flink.Flink.Artifact> values) {
+        if (artifactsBuilder_ == null) {
+          ensureArtifactsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, artifacts_);
+          onChanged();
+        } else {
+          artifactsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public Builder clearArtifacts() {
+        if (artifactsBuilder_ == null) {
+          artifacts_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          artifactsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public Builder removeArtifacts(int index) {
+        if (artifactsBuilder_ == null) {
+          ensureArtifactsIsMutable();
+          artifacts_.remove(index);
+          onChanged();
+        } else {
+          artifactsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public flyteidl_flink.Flink.Artifact.Builder getArtifactsBuilder(
+          int index) {
+        return getArtifactsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public flyteidl_flink.Flink.ArtifactOrBuilder getArtifactsOrBuilder(
+          int index) {
+        if (artifactsBuilder_ == null) {
+          return artifacts_.get(index);  } else {
+          return artifactsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public java.util.List<? extends flyteidl_flink.Flink.ArtifactOrBuilder> 
+           getArtifactsOrBuilderList() {
+        if (artifactsBuilder_ != null) {
+          return artifactsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(artifacts_);
+        }
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public flyteidl_flink.Flink.Artifact.Builder addArtifactsBuilder() {
+        return getArtifactsFieldBuilder().addBuilder(
+            flyteidl_flink.Flink.Artifact.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public flyteidl_flink.Flink.Artifact.Builder addArtifactsBuilder(
+          int index) {
+        return getArtifactsFieldBuilder().addBuilder(
+            index, flyteidl_flink.Flink.Artifact.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .flyteidl_flink.Artifact artifacts = 2;</code>
+       */
+      public java.util.List<flyteidl_flink.Flink.Artifact.Builder> 
+           getArtifactsBuilderList() {
+        return getArtifactsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          flyteidl_flink.Flink.Artifact, flyteidl_flink.Flink.Artifact.Builder, flyteidl_flink.Flink.ArtifactOrBuilder> 
+          getArtifactsFieldBuilder() {
+        if (artifactsBuilder_ == null) {
+          artifactsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              flyteidl_flink.Flink.Artifact, flyteidl_flink.Flink.Artifact.Builder, flyteidl_flink.Flink.ArtifactOrBuilder>(
+                  artifacts_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          artifacts_ = null;
+        }
+        return artifactsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:flyteidl_flink.JFlytePayload)
+    }
+
+    // @@protoc_insertion_point(class_scope:flyteidl_flink.JFlytePayload)
+    private static final flyteidl_flink.Flink.JFlytePayload DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new flyteidl_flink.Flink.JFlytePayload();
+    }
+
+    public static flyteidl_flink.Flink.JFlytePayload getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<JFlytePayload>
+        PARSER = new com.google.protobuf.AbstractParser<JFlytePayload>() {
+      @java.lang.Override
+      public JFlytePayload parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new JFlytePayload(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<JFlytePayload> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<JFlytePayload> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public flyteidl_flink.Flink.JFlytePayload getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface JFlyteOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:flyteidl_flink.JFlyte)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.flyteidl_flink.JFlytePayload jflyte = 1;</code>
+     */
+    boolean hasJflyte();
+    /**
+     * <code>.flyteidl_flink.JFlytePayload jflyte = 1;</code>
+     */
+    flyteidl_flink.Flink.JFlytePayload getJflyte();
+    /**
+     * <code>.flyteidl_flink.JFlytePayload jflyte = 1;</code>
+     */
+    flyteidl_flink.Flink.JFlytePayloadOrBuilder getJflyteOrBuilder();
+  }
+  /**
+   * Protobuf type {@code flyteidl_flink.JFlyte}
+   */
+  public  static final class JFlyte extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:flyteidl_flink.JFlyte)
+      JFlyteOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use JFlyte.newBuilder() to construct.
+    private JFlyte(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private JFlyte() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private JFlyte(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              flyteidl_flink.Flink.JFlytePayload.Builder subBuilder = null;
+              if (jflyte_ != null) {
+                subBuilder = jflyte_.toBuilder();
+              }
+              jflyte_ = input.readMessage(flyteidl_flink.Flink.JFlytePayload.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(jflyte_);
+                jflyte_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return flyteidl_flink.Flink.internal_static_flyteidl_flink_JFlyte_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return flyteidl_flink.Flink.internal_static_flyteidl_flink_JFlyte_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              flyteidl_flink.Flink.JFlyte.class, flyteidl_flink.Flink.JFlyte.Builder.class);
+    }
+
+    public static final int JFLYTE_FIELD_NUMBER = 1;
+    private flyteidl_flink.Flink.JFlytePayload jflyte_;
+    /**
+     * <code>.flyteidl_flink.JFlytePayload jflyte = 1;</code>
+     */
+    public boolean hasJflyte() {
+      return jflyte_ != null;
+    }
+    /**
+     * <code>.flyteidl_flink.JFlytePayload jflyte = 1;</code>
+     */
+    public flyteidl_flink.Flink.JFlytePayload getJflyte() {
+      return jflyte_ == null ? flyteidl_flink.Flink.JFlytePayload.getDefaultInstance() : jflyte_;
+    }
+    /**
+     * <code>.flyteidl_flink.JFlytePayload jflyte = 1;</code>
+     */
+    public flyteidl_flink.Flink.JFlytePayloadOrBuilder getJflyteOrBuilder() {
+      return getJflyte();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (jflyte_ != null) {
+        output.writeMessage(1, getJflyte());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (jflyte_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getJflyte());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof flyteidl_flink.Flink.JFlyte)) {
+        return super.equals(obj);
+      }
+      flyteidl_flink.Flink.JFlyte other = (flyteidl_flink.Flink.JFlyte) obj;
+
+      if (hasJflyte() != other.hasJflyte()) return false;
+      if (hasJflyte()) {
+        if (!getJflyte()
+            .equals(other.getJflyte())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasJflyte()) {
+        hash = (37 * hash) + JFLYTE_FIELD_NUMBER;
+        hash = (53 * hash) + getJflyte().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static flyteidl_flink.Flink.JFlyte parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.JFlyte parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JFlyte parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.JFlyte parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JFlyte parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static flyteidl_flink.Flink.JFlyte parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JFlyte parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.JFlyte parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JFlyte parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.JFlyte parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static flyteidl_flink.Flink.JFlyte parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static flyteidl_flink.Flink.JFlyte parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(flyteidl_flink.Flink.JFlyte prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code flyteidl_flink.JFlyte}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:flyteidl_flink.JFlyte)
+        flyteidl_flink.Flink.JFlyteOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JFlyte_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JFlyte_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                flyteidl_flink.Flink.JFlyte.class, flyteidl_flink.Flink.JFlyte.Builder.class);
+      }
+
+      // Construct using flyteidl_flink.Flink.JFlyte.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (jflyteBuilder_ == null) {
+          jflyte_ = null;
+        } else {
+          jflyte_ = null;
+          jflyteBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return flyteidl_flink.Flink.internal_static_flyteidl_flink_JFlyte_descriptor;
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.JFlyte getDefaultInstanceForType() {
+        return flyteidl_flink.Flink.JFlyte.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.JFlyte build() {
+        flyteidl_flink.Flink.JFlyte result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public flyteidl_flink.Flink.JFlyte buildPartial() {
+        flyteidl_flink.Flink.JFlyte result = new flyteidl_flink.Flink.JFlyte(this);
+        if (jflyteBuilder_ == null) {
+          result.jflyte_ = jflyte_;
+        } else {
+          result.jflyte_ = jflyteBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof flyteidl_flink.Flink.JFlyte) {
+          return mergeFrom((flyteidl_flink.Flink.JFlyte)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(flyteidl_flink.Flink.JFlyte other) {
+        if (other == flyteidl_flink.Flink.JFlyte.getDefaultInstance()) return this;
+        if (other.hasJflyte()) {
+          mergeJflyte(other.getJflyte());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        flyteidl_flink.Flink.JFlyte parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (flyteidl_flink.Flink.JFlyte) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private flyteidl_flink.Flink.JFlytePayload jflyte_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          flyteidl_flink.Flink.JFlytePayload, flyteidl_flink.Flink.JFlytePayload.Builder, flyteidl_flink.Flink.JFlytePayloadOrBuilder> jflyteBuilder_;
+      /**
+       * <code>.flyteidl_flink.JFlytePayload jflyte = 1;</code>
+       */
+      public boolean hasJflyte() {
+        return jflyteBuilder_ != null || jflyte_ != null;
+      }
+      /**
+       * <code>.flyteidl_flink.JFlytePayload jflyte = 1;</code>
+       */
+      public flyteidl_flink.Flink.JFlytePayload getJflyte() {
+        if (jflyteBuilder_ == null) {
+          return jflyte_ == null ? flyteidl_flink.Flink.JFlytePayload.getDefaultInstance() : jflyte_;
+        } else {
+          return jflyteBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.flyteidl_flink.JFlytePayload jflyte = 1;</code>
+       */
+      public Builder setJflyte(flyteidl_flink.Flink.JFlytePayload value) {
+        if (jflyteBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          jflyte_ = value;
+          onChanged();
+        } else {
+          jflyteBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.JFlytePayload jflyte = 1;</code>
+       */
+      public Builder setJflyte(
+          flyteidl_flink.Flink.JFlytePayload.Builder builderForValue) {
+        if (jflyteBuilder_ == null) {
+          jflyte_ = builderForValue.build();
+          onChanged();
+        } else {
+          jflyteBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.JFlytePayload jflyte = 1;</code>
+       */
+      public Builder mergeJflyte(flyteidl_flink.Flink.JFlytePayload value) {
+        if (jflyteBuilder_ == null) {
+          if (jflyte_ != null) {
+            jflyte_ =
+              flyteidl_flink.Flink.JFlytePayload.newBuilder(jflyte_).mergeFrom(value).buildPartial();
+          } else {
+            jflyte_ = value;
+          }
+          onChanged();
+        } else {
+          jflyteBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.JFlytePayload jflyte = 1;</code>
+       */
+      public Builder clearJflyte() {
+        if (jflyteBuilder_ == null) {
+          jflyte_ = null;
+          onChanged();
+        } else {
+          jflyte_ = null;
+          jflyteBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.flyteidl_flink.JFlytePayload jflyte = 1;</code>
+       */
+      public flyteidl_flink.Flink.JFlytePayload.Builder getJflyteBuilder() {
+        
+        onChanged();
+        return getJflyteFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.flyteidl_flink.JFlytePayload jflyte = 1;</code>
+       */
+      public flyteidl_flink.Flink.JFlytePayloadOrBuilder getJflyteOrBuilder() {
+        if (jflyteBuilder_ != null) {
+          return jflyteBuilder_.getMessageOrBuilder();
+        } else {
+          return jflyte_ == null ?
+              flyteidl_flink.Flink.JFlytePayload.getDefaultInstance() : jflyte_;
+        }
+      }
+      /**
+       * <code>.flyteidl_flink.JFlytePayload jflyte = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          flyteidl_flink.Flink.JFlytePayload, flyteidl_flink.Flink.JFlytePayload.Builder, flyteidl_flink.Flink.JFlytePayloadOrBuilder> 
+          getJflyteFieldBuilder() {
+        if (jflyteBuilder_ == null) {
+          jflyteBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              flyteidl_flink.Flink.JFlytePayload, flyteidl_flink.Flink.JFlytePayload.Builder, flyteidl_flink.Flink.JFlytePayloadOrBuilder>(
+                  getJflyte(),
+                  getParentForChildren(),
+                  isClean());
+          jflyte_ = null;
+        }
+        return jflyteBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:flyteidl_flink.JFlyte)
+    }
+
+    // @@protoc_insertion_point(class_scope:flyteidl_flink.JFlyte)
+    private static final flyteidl_flink.Flink.JFlyte DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new flyteidl_flink.Flink.JFlyte();
+    }
+
+    public static flyteidl_flink.Flink.JFlyte getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<JFlyte>
+        PARSER = new com.google.protobuf.AbstractParser<JFlyte>() {
+      @java.lang.Override
+      public JFlyte parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new JFlyte(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<JFlyte> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<JFlyte> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public flyteidl_flink.Flink.JFlyte getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_flyteidl_flink_Resource_descriptor;
   private static final 
@@ -7498,6 +9763,21 @@ public final class Flink {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_flyteidl_flink_FlinkExecutionInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_flyteidl_flink_Artifact_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_flyteidl_flink_Artifact_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_flyteidl_flink_JFlytePayload_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_flyteidl_flink_JFlytePayload_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_flyteidl_flink_JFlyte_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_flyteidl_flink_JFlyte_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -7520,22 +9800,26 @@ public final class Flink {
       "STANDARD\020\000\022\n\n\006PD_SSD\020\001\"8\n\nJobManager\022*\n\010" +
       "resource\030\001 \001(\0132\030.flyteidl_flink.Resource" +
       "\"K\n\013TaskManager\022*\n\010resource\030\001 \001(\0132\030.flyt" +
-      "eidl_flink.Resource\022\020\n\010replicas\030\002 \001(\005\"\305\002" +
-      "\n\010FlinkJob\022\017\n\007jarFile\030\001 \001(\t\022\021\n\tmainClass" +
-      "\030\002 \001(\t\022\014\n\004args\030\003 \003(\t\022F\n\017flinkProperties\030" +
-      "\004 \003(\0132-.flyteidl_flink.FlinkJob.FlinkPro" +
-      "pertiesEntry\022.\n\njobManager\030\005 \001(\0132\032.flyte" +
-      "idl_flink.JobManager\0220\n\013taskManager\030\006 \001(" +
-      "\0132\033.flyteidl_flink.TaskManager\022\026\n\016servic" +
-      "eAccount\030\007 \001(\t\022\r\n\005image\030\010 \001(\t\0326\n\024FlinkPr" +
-      "opertiesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(" +
-      "\t:\0028\001\"\036\n\020JobExecutionInfo\022\n\n\002id\030\001 \001(\t\".\n" +
-      "\027JobManagerExecutionInfo\022\023\n\013ingressURLs\030" +
-      "\001 \003(\t\"\200\001\n\022FlinkExecutionInfo\022-\n\003job\030\001 \001(" +
-      "\0132 .flyteidl_flink.JobExecutionInfo\022;\n\nj" +
-      "obManager\030\002 \001(\0132\'.flyteidl_flink.JobMana" +
-      "gerExecutionInfoB\020Z\016flyteidl-flinkb\006prot" +
-      "o3"
+      "eidl_flink.Resource\022\020\n\010replicas\030\002 \001(\005\"\306\002" +
+      "\n\010FlinkJob\022\020\n\010jarFiles\030\001 \003(\t\022\021\n\tmainClas" +
+      "s\030\002 \001(\t\022\014\n\004args\030\003 \003(\t\022F\n\017flinkProperties" +
+      "\030\004 \003(\0132-.flyteidl_flink.FlinkJob.FlinkPr" +
+      "opertiesEntry\022.\n\njobManager\030\005 \001(\0132\032.flyt" +
+      "eidl_flink.JobManager\0220\n\013taskManager\030\006 \001" +
+      "(\0132\033.flyteidl_flink.TaskManager\022\026\n\016servi" +
+      "ceAccount\030\007 \001(\t\022\r\n\005image\030\010 \001(\t\0326\n\024FlinkP" +
+      "ropertiesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001" +
+      "(\t:\0028\001\"\036\n\020JobExecutionInfo\022\n\n\002id\030\001 \001(\t\"." +
+      "\n\027JobManagerExecutionInfo\022\023\n\013ingressURLs" +
+      "\030\001 \003(\t\"\200\001\n\022FlinkExecutionInfo\022-\n\003job\030\001 \001" +
+      "(\0132 .flyteidl_flink.JobExecutionInfo\022;\n\n" +
+      "jobManager\030\002 \001(\0132\'.flyteidl_flink.JobMan" +
+      "agerExecutionInfo\"*\n\010Artifact\022\014\n\004name\030\001 " +
+      "\001(\t\022\020\n\010location\030\002 \001(\t\"Y\n\rJFlytePayload\022\033" +
+      "\n\023index_file_location\030\001 \001(\t\022+\n\tartifacts" +
+      "\030\002 \003(\0132\030.flyteidl_flink.Artifact\"7\n\006JFly" +
+      "te\022-\n\006jflyte\030\001 \001(\0132\035.flyteidl_flink.JFly" +
+      "tePayloadB\020Z\016flyteidl-flinkb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -7584,7 +9868,7 @@ public final class Flink {
     internal_static_flyteidl_flink_FlinkJob_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_flyteidl_flink_FlinkJob_descriptor,
-        new java.lang.String[] { "JarFile", "MainClass", "Args", "FlinkProperties", "JobManager", "TaskManager", "ServiceAccount", "Image", });
+        new java.lang.String[] { "JarFiles", "MainClass", "Args", "FlinkProperties", "JobManager", "TaskManager", "ServiceAccount", "Image", });
     internal_static_flyteidl_flink_FlinkJob_FlinkPropertiesEntry_descriptor =
       internal_static_flyteidl_flink_FlinkJob_descriptor.getNestedTypes().get(0);
     internal_static_flyteidl_flink_FlinkJob_FlinkPropertiesEntry_fieldAccessorTable = new
@@ -7609,6 +9893,24 @@ public final class Flink {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_flyteidl_flink_FlinkExecutionInfo_descriptor,
         new java.lang.String[] { "Job", "JobManager", });
+    internal_static_flyteidl_flink_Artifact_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_flyteidl_flink_Artifact_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_flyteidl_flink_Artifact_descriptor,
+        new java.lang.String[] { "Name", "Location", });
+    internal_static_flyteidl_flink_JFlytePayload_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_flyteidl_flink_JFlytePayload_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_flyteidl_flink_JFlytePayload_descriptor,
+        new java.lang.String[] { "IndexFileLocation", "Artifacts", });
+    internal_static_flyteidl_flink_JFlyte_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_flyteidl_flink_JFlyte_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_flyteidl_flink_JFlyte_descriptor,
+        new java.lang.String[] { "Jflyte", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

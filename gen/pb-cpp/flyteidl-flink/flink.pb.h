@@ -45,7 +45,7 @@ struct TableStruct_flyteidl_2dflink_2fflink_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[10]
+  static const ::google::protobuf::internal::ParseTable schema[13]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -53,6 +53,9 @@ struct TableStruct_flyteidl_2dflink_2fflink_2eproto {
 };
 void AddDescriptors_flyteidl_2dflink_2fflink_2eproto();
 namespace flyteidl_flink {
+class Artifact;
+class ArtifactDefaultTypeInternal;
+extern ArtifactDefaultTypeInternal _Artifact_default_instance_;
 class FlinkExecutionInfo;
 class FlinkExecutionInfoDefaultTypeInternal;
 extern FlinkExecutionInfoDefaultTypeInternal _FlinkExecutionInfo_default_instance_;
@@ -62,6 +65,12 @@ extern FlinkJobDefaultTypeInternal _FlinkJob_default_instance_;
 class FlinkJob_FlinkPropertiesEntry_DoNotUse;
 class FlinkJob_FlinkPropertiesEntry_DoNotUseDefaultTypeInternal;
 extern FlinkJob_FlinkPropertiesEntry_DoNotUseDefaultTypeInternal _FlinkJob_FlinkPropertiesEntry_DoNotUse_default_instance_;
+class JFlyte;
+class JFlyteDefaultTypeInternal;
+extern JFlyteDefaultTypeInternal _JFlyte_default_instance_;
+class JFlytePayload;
+class JFlytePayloadDefaultTypeInternal;
+extern JFlytePayloadDefaultTypeInternal _JFlytePayload_default_instance_;
 class JobExecutionInfo;
 class JobExecutionInfoDefaultTypeInternal;
 extern JobExecutionInfoDefaultTypeInternal _JobExecutionInfo_default_instance_;
@@ -86,9 +95,12 @@ extern TaskManagerDefaultTypeInternal _TaskManager_default_instance_;
 }  // namespace flyteidl_flink
 namespace google {
 namespace protobuf {
+template<> ::flyteidl_flink::Artifact* Arena::CreateMaybeMessage<::flyteidl_flink::Artifact>(Arena*);
 template<> ::flyteidl_flink::FlinkExecutionInfo* Arena::CreateMaybeMessage<::flyteidl_flink::FlinkExecutionInfo>(Arena*);
 template<> ::flyteidl_flink::FlinkJob* Arena::CreateMaybeMessage<::flyteidl_flink::FlinkJob>(Arena*);
 template<> ::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse* Arena::CreateMaybeMessage<::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse>(Arena*);
+template<> ::flyteidl_flink::JFlyte* Arena::CreateMaybeMessage<::flyteidl_flink::JFlyte>(Arena*);
+template<> ::flyteidl_flink::JFlytePayload* Arena::CreateMaybeMessage<::flyteidl_flink::JFlytePayload>(Arena*);
 template<> ::flyteidl_flink::JobExecutionInfo* Arena::CreateMaybeMessage<::flyteidl_flink::JobExecutionInfo>(Arena*);
 template<> ::flyteidl_flink::JobManager* Arena::CreateMaybeMessage<::flyteidl_flink::JobManager>(Arena*);
 template<> ::flyteidl_flink::JobManagerExecutionInfo* Arena::CreateMaybeMessage<::flyteidl_flink::JobManagerExecutionInfo>(Arena*);
@@ -886,6 +898,28 @@ class FlinkJob final :
 
   // accessors -------------------------------------------------------
 
+  // repeated string jarFiles = 1;
+  int jarfiles_size() const;
+  void clear_jarfiles();
+  static const int kJarFilesFieldNumber = 1;
+  const ::std::string& jarfiles(int index) const;
+  ::std::string* mutable_jarfiles(int index);
+  void set_jarfiles(int index, const ::std::string& value);
+  #if LANG_CXX11
+  void set_jarfiles(int index, ::std::string&& value);
+  #endif
+  void set_jarfiles(int index, const char* value);
+  void set_jarfiles(int index, const char* value, size_t size);
+  ::std::string* add_jarfiles();
+  void add_jarfiles(const ::std::string& value);
+  #if LANG_CXX11
+  void add_jarfiles(::std::string&& value);
+  #endif
+  void add_jarfiles(const char* value);
+  void add_jarfiles(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField<::std::string>& jarfiles() const;
+  ::google::protobuf::RepeatedPtrField<::std::string>* mutable_jarfiles();
+
   // repeated string args = 3;
   int args_size() const;
   void clear_args();
@@ -916,20 +950,6 @@ class FlinkJob final :
       flinkproperties() const;
   ::google::protobuf::Map< ::std::string, ::std::string >*
       mutable_flinkproperties();
-
-  // string jarFile = 1;
-  void clear_jarfile();
-  static const int kJarFileFieldNumber = 1;
-  const ::std::string& jarfile() const;
-  void set_jarfile(const ::std::string& value);
-  #if LANG_CXX11
-  void set_jarfile(::std::string&& value);
-  #endif
-  void set_jarfile(const char* value);
-  void set_jarfile(const char* value, size_t size);
-  ::std::string* mutable_jarfile();
-  ::std::string* release_jarfile();
-  void set_allocated_jarfile(::std::string* jarfile);
 
   // string mainClass = 2;
   void clear_mainclass();
@@ -996,6 +1016,7 @@ class FlinkJob final :
   class HasBitSetters;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField<::std::string> jarfiles_;
   ::google::protobuf::RepeatedPtrField<::std::string> args_;
   ::google::protobuf::internal::MapField<
       FlinkJob_FlinkPropertiesEntry_DoNotUse,
@@ -1003,7 +1024,6 @@ class FlinkJob final :
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
       0 > flinkproperties_;
-  ::google::protobuf::internal::ArenaStringPtr jarfile_;
   ::google::protobuf::internal::ArenaStringPtr mainclass_;
   ::google::protobuf::internal::ArenaStringPtr serviceaccount_;
   ::google::protobuf::internal::ArenaStringPtr image_;
@@ -1382,6 +1402,389 @@ class FlinkExecutionInfo final :
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::flyteidl_flink::JobExecutionInfo* job_;
   ::flyteidl_flink::JobManagerExecutionInfo* jobmanager_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_flyteidl_2dflink_2fflink_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Artifact final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:flyteidl_flink.Artifact) */ {
+ public:
+  Artifact();
+  virtual ~Artifact();
+
+  Artifact(const Artifact& from);
+
+  inline Artifact& operator=(const Artifact& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  Artifact(Artifact&& from) noexcept
+    : Artifact() {
+    *this = ::std::move(from);
+  }
+
+  inline Artifact& operator=(Artifact&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const Artifact& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Artifact* internal_default_instance() {
+    return reinterpret_cast<const Artifact*>(
+               &_Artifact_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  void Swap(Artifact* other);
+  friend void swap(Artifact& a, Artifact& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Artifact* New() const final {
+    return CreateMaybeMessage<Artifact>(nullptr);
+  }
+
+  Artifact* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<Artifact>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const Artifact& from);
+  void MergeFrom(const Artifact& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Artifact* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string name = 1;
+  void clear_name();
+  static const int kNameFieldNumber = 1;
+  const ::std::string& name() const;
+  void set_name(const ::std::string& value);
+  #if LANG_CXX11
+  void set_name(::std::string&& value);
+  #endif
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  ::std::string* mutable_name();
+  ::std::string* release_name();
+  void set_allocated_name(::std::string* name);
+
+  // string location = 2;
+  void clear_location();
+  static const int kLocationFieldNumber = 2;
+  const ::std::string& location() const;
+  void set_location(const ::std::string& value);
+  #if LANG_CXX11
+  void set_location(::std::string&& value);
+  #endif
+  void set_location(const char* value);
+  void set_location(const char* value, size_t size);
+  ::std::string* mutable_location();
+  ::std::string* release_location();
+  void set_allocated_location(::std::string* location);
+
+  // @@protoc_insertion_point(class_scope:flyteidl_flink.Artifact)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr name_;
+  ::google::protobuf::internal::ArenaStringPtr location_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_flyteidl_2dflink_2fflink_2eproto;
+};
+// -------------------------------------------------------------------
+
+class JFlytePayload final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:flyteidl_flink.JFlytePayload) */ {
+ public:
+  JFlytePayload();
+  virtual ~JFlytePayload();
+
+  JFlytePayload(const JFlytePayload& from);
+
+  inline JFlytePayload& operator=(const JFlytePayload& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  JFlytePayload(JFlytePayload&& from) noexcept
+    : JFlytePayload() {
+    *this = ::std::move(from);
+  }
+
+  inline JFlytePayload& operator=(JFlytePayload&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const JFlytePayload& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const JFlytePayload* internal_default_instance() {
+    return reinterpret_cast<const JFlytePayload*>(
+               &_JFlytePayload_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  void Swap(JFlytePayload* other);
+  friend void swap(JFlytePayload& a, JFlytePayload& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline JFlytePayload* New() const final {
+    return CreateMaybeMessage<JFlytePayload>(nullptr);
+  }
+
+  JFlytePayload* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<JFlytePayload>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const JFlytePayload& from);
+  void MergeFrom(const JFlytePayload& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(JFlytePayload* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .flyteidl_flink.Artifact artifacts = 2;
+  int artifacts_size() const;
+  void clear_artifacts();
+  static const int kArtifactsFieldNumber = 2;
+  ::flyteidl_flink::Artifact* mutable_artifacts(int index);
+  ::google::protobuf::RepeatedPtrField< ::flyteidl_flink::Artifact >*
+      mutable_artifacts();
+  const ::flyteidl_flink::Artifact& artifacts(int index) const;
+  ::flyteidl_flink::Artifact* add_artifacts();
+  const ::google::protobuf::RepeatedPtrField< ::flyteidl_flink::Artifact >&
+      artifacts() const;
+
+  // string index_file_location = 1;
+  void clear_index_file_location();
+  static const int kIndexFileLocationFieldNumber = 1;
+  const ::std::string& index_file_location() const;
+  void set_index_file_location(const ::std::string& value);
+  #if LANG_CXX11
+  void set_index_file_location(::std::string&& value);
+  #endif
+  void set_index_file_location(const char* value);
+  void set_index_file_location(const char* value, size_t size);
+  ::std::string* mutable_index_file_location();
+  ::std::string* release_index_file_location();
+  void set_allocated_index_file_location(::std::string* index_file_location);
+
+  // @@protoc_insertion_point(class_scope:flyteidl_flink.JFlytePayload)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::flyteidl_flink::Artifact > artifacts_;
+  ::google::protobuf::internal::ArenaStringPtr index_file_location_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_flyteidl_2dflink_2fflink_2eproto;
+};
+// -------------------------------------------------------------------
+
+class JFlyte final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:flyteidl_flink.JFlyte) */ {
+ public:
+  JFlyte();
+  virtual ~JFlyte();
+
+  JFlyte(const JFlyte& from);
+
+  inline JFlyte& operator=(const JFlyte& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  JFlyte(JFlyte&& from) noexcept
+    : JFlyte() {
+    *this = ::std::move(from);
+  }
+
+  inline JFlyte& operator=(JFlyte&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const JFlyte& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const JFlyte* internal_default_instance() {
+    return reinterpret_cast<const JFlyte*>(
+               &_JFlyte_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    12;
+
+  void Swap(JFlyte* other);
+  friend void swap(JFlyte& a, JFlyte& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline JFlyte* New() const final {
+    return CreateMaybeMessage<JFlyte>(nullptr);
+  }
+
+  JFlyte* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<JFlyte>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const JFlyte& from);
+  void MergeFrom(const JFlyte& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(JFlyte* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // .flyteidl_flink.JFlytePayload jflyte = 1;
+  bool has_jflyte() const;
+  void clear_jflyte();
+  static const int kJflyteFieldNumber = 1;
+  const ::flyteidl_flink::JFlytePayload& jflyte() const;
+  ::flyteidl_flink::JFlytePayload* release_jflyte();
+  ::flyteidl_flink::JFlytePayload* mutable_jflyte();
+  void set_allocated_jflyte(::flyteidl_flink::JFlytePayload* jflyte);
+
+  // @@protoc_insertion_point(class_scope:flyteidl_flink.JFlyte)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::flyteidl_flink::JFlytePayload* jflyte_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_flyteidl_2dflink_2fflink_2eproto;
 };
@@ -1805,57 +2208,73 @@ inline void TaskManager::set_replicas(::google::protobuf::int32 value) {
 
 // FlinkJob
 
-// string jarFile = 1;
-inline void FlinkJob::clear_jarfile() {
-  jarfile_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// repeated string jarFiles = 1;
+inline int FlinkJob::jarfiles_size() const {
+  return jarfiles_.size();
 }
-inline const ::std::string& FlinkJob::jarfile() const {
-  // @@protoc_insertion_point(field_get:flyteidl_flink.FlinkJob.jarFile)
-  return jarfile_.GetNoArena();
+inline void FlinkJob::clear_jarfiles() {
+  jarfiles_.Clear();
 }
-inline void FlinkJob::set_jarfile(const ::std::string& value) {
-  
-  jarfile_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:flyteidl_flink.FlinkJob.jarFile)
+inline const ::std::string& FlinkJob::jarfiles(int index) const {
+  // @@protoc_insertion_point(field_get:flyteidl_flink.FlinkJob.jarFiles)
+  return jarfiles_.Get(index);
+}
+inline ::std::string* FlinkJob::mutable_jarfiles(int index) {
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.FlinkJob.jarFiles)
+  return jarfiles_.Mutable(index);
+}
+inline void FlinkJob::set_jarfiles(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:flyteidl_flink.FlinkJob.jarFiles)
+  jarfiles_.Mutable(index)->assign(value);
 }
 #if LANG_CXX11
-inline void FlinkJob::set_jarfile(::std::string&& value) {
-  
-  jarfile_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:flyteidl_flink.FlinkJob.jarFile)
+inline void FlinkJob::set_jarfiles(int index, ::std::string&& value) {
+  // @@protoc_insertion_point(field_set:flyteidl_flink.FlinkJob.jarFiles)
+  jarfiles_.Mutable(index)->assign(std::move(value));
 }
 #endif
-inline void FlinkJob::set_jarfile(const char* value) {
+inline void FlinkJob::set_jarfiles(int index, const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
-  jarfile_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:flyteidl_flink.FlinkJob.jarFile)
+  jarfiles_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:flyteidl_flink.FlinkJob.jarFiles)
 }
-inline void FlinkJob::set_jarfile(const char* value, size_t size) {
-  
-  jarfile_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:flyteidl_flink.FlinkJob.jarFile)
+inline void FlinkJob::set_jarfiles(int index, const char* value, size_t size) {
+  jarfiles_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:flyteidl_flink.FlinkJob.jarFiles)
 }
-inline ::std::string* FlinkJob::mutable_jarfile() {
-  
-  // @@protoc_insertion_point(field_mutable:flyteidl_flink.FlinkJob.jarFile)
-  return jarfile_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string* FlinkJob::add_jarfiles() {
+  // @@protoc_insertion_point(field_add_mutable:flyteidl_flink.FlinkJob.jarFiles)
+  return jarfiles_.Add();
 }
-inline ::std::string* FlinkJob::release_jarfile() {
-  // @@protoc_insertion_point(field_release:flyteidl_flink.FlinkJob.jarFile)
-  
-  return jarfile_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void FlinkJob::add_jarfiles(const ::std::string& value) {
+  jarfiles_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:flyteidl_flink.FlinkJob.jarFiles)
 }
-inline void FlinkJob::set_allocated_jarfile(::std::string* jarfile) {
-  if (jarfile != nullptr) {
-    
-  } else {
-    
-  }
-  jarfile_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), jarfile);
-  // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.FlinkJob.jarFile)
+#if LANG_CXX11
+inline void FlinkJob::add_jarfiles(::std::string&& value) {
+  jarfiles_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:flyteidl_flink.FlinkJob.jarFiles)
+}
+#endif
+inline void FlinkJob::add_jarfiles(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  jarfiles_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:flyteidl_flink.FlinkJob.jarFiles)
+}
+inline void FlinkJob::add_jarfiles(const char* value, size_t size) {
+  jarfiles_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:flyteidl_flink.FlinkJob.jarFiles)
+}
+inline const ::google::protobuf::RepeatedPtrField<::std::string>&
+FlinkJob::jarfiles() const {
+  // @@protoc_insertion_point(field_list:flyteidl_flink.FlinkJob.jarFiles)
+  return jarfiles_;
+}
+inline ::google::protobuf::RepeatedPtrField<::std::string>*
+FlinkJob::mutable_jarfiles() {
+  // @@protoc_insertion_point(field_mutable_list:flyteidl_flink.FlinkJob.jarFiles)
+  return &jarfiles_;
 }
 
 // string mainClass = 2;
@@ -2442,9 +2861,267 @@ inline void FlinkExecutionInfo::set_allocated_jobmanager(::flyteidl_flink::JobMa
   // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.FlinkExecutionInfo.jobManager)
 }
 
+// -------------------------------------------------------------------
+
+// Artifact
+
+// string name = 1;
+inline void Artifact::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& Artifact::name() const {
+  // @@protoc_insertion_point(field_get:flyteidl_flink.Artifact.name)
+  return name_.GetNoArena();
+}
+inline void Artifact::set_name(const ::std::string& value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:flyteidl_flink.Artifact.name)
+}
+#if LANG_CXX11
+inline void Artifact::set_name(::std::string&& value) {
+  
+  name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:flyteidl_flink.Artifact.name)
+}
+#endif
+inline void Artifact::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:flyteidl_flink.Artifact.name)
+}
+inline void Artifact::set_name(const char* value, size_t size) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:flyteidl_flink.Artifact.name)
+}
+inline ::std::string* Artifact::mutable_name() {
+  
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.Artifact.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* Artifact::release_name() {
+  // @@protoc_insertion_point(field_release:flyteidl_flink.Artifact.name)
+  
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void Artifact::set_allocated_name(::std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.Artifact.name)
+}
+
+// string location = 2;
+inline void Artifact::clear_location() {
+  location_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& Artifact::location() const {
+  // @@protoc_insertion_point(field_get:flyteidl_flink.Artifact.location)
+  return location_.GetNoArena();
+}
+inline void Artifact::set_location(const ::std::string& value) {
+  
+  location_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:flyteidl_flink.Artifact.location)
+}
+#if LANG_CXX11
+inline void Artifact::set_location(::std::string&& value) {
+  
+  location_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:flyteidl_flink.Artifact.location)
+}
+#endif
+inline void Artifact::set_location(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  location_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:flyteidl_flink.Artifact.location)
+}
+inline void Artifact::set_location(const char* value, size_t size) {
+  
+  location_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:flyteidl_flink.Artifact.location)
+}
+inline ::std::string* Artifact::mutable_location() {
+  
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.Artifact.location)
+  return location_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* Artifact::release_location() {
+  // @@protoc_insertion_point(field_release:flyteidl_flink.Artifact.location)
+  
+  return location_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void Artifact::set_allocated_location(::std::string* location) {
+  if (location != nullptr) {
+    
+  } else {
+    
+  }
+  location_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), location);
+  // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.Artifact.location)
+}
+
+// -------------------------------------------------------------------
+
+// JFlytePayload
+
+// string index_file_location = 1;
+inline void JFlytePayload::clear_index_file_location() {
+  index_file_location_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& JFlytePayload::index_file_location() const {
+  // @@protoc_insertion_point(field_get:flyteidl_flink.JFlytePayload.index_file_location)
+  return index_file_location_.GetNoArena();
+}
+inline void JFlytePayload::set_index_file_location(const ::std::string& value) {
+  
+  index_file_location_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:flyteidl_flink.JFlytePayload.index_file_location)
+}
+#if LANG_CXX11
+inline void JFlytePayload::set_index_file_location(::std::string&& value) {
+  
+  index_file_location_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:flyteidl_flink.JFlytePayload.index_file_location)
+}
+#endif
+inline void JFlytePayload::set_index_file_location(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  index_file_location_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:flyteidl_flink.JFlytePayload.index_file_location)
+}
+inline void JFlytePayload::set_index_file_location(const char* value, size_t size) {
+  
+  index_file_location_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:flyteidl_flink.JFlytePayload.index_file_location)
+}
+inline ::std::string* JFlytePayload::mutable_index_file_location() {
+  
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.JFlytePayload.index_file_location)
+  return index_file_location_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* JFlytePayload::release_index_file_location() {
+  // @@protoc_insertion_point(field_release:flyteidl_flink.JFlytePayload.index_file_location)
+  
+  return index_file_location_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void JFlytePayload::set_allocated_index_file_location(::std::string* index_file_location) {
+  if (index_file_location != nullptr) {
+    
+  } else {
+    
+  }
+  index_file_location_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), index_file_location);
+  // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.JFlytePayload.index_file_location)
+}
+
+// repeated .flyteidl_flink.Artifact artifacts = 2;
+inline int JFlytePayload::artifacts_size() const {
+  return artifacts_.size();
+}
+inline void JFlytePayload::clear_artifacts() {
+  artifacts_.Clear();
+}
+inline ::flyteidl_flink::Artifact* JFlytePayload::mutable_artifacts(int index) {
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.JFlytePayload.artifacts)
+  return artifacts_.Mutable(index);
+}
+inline ::google::protobuf::RepeatedPtrField< ::flyteidl_flink::Artifact >*
+JFlytePayload::mutable_artifacts() {
+  // @@protoc_insertion_point(field_mutable_list:flyteidl_flink.JFlytePayload.artifacts)
+  return &artifacts_;
+}
+inline const ::flyteidl_flink::Artifact& JFlytePayload::artifacts(int index) const {
+  // @@protoc_insertion_point(field_get:flyteidl_flink.JFlytePayload.artifacts)
+  return artifacts_.Get(index);
+}
+inline ::flyteidl_flink::Artifact* JFlytePayload::add_artifacts() {
+  // @@protoc_insertion_point(field_add:flyteidl_flink.JFlytePayload.artifacts)
+  return artifacts_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::flyteidl_flink::Artifact >&
+JFlytePayload::artifacts() const {
+  // @@protoc_insertion_point(field_list:flyteidl_flink.JFlytePayload.artifacts)
+  return artifacts_;
+}
+
+// -------------------------------------------------------------------
+
+// JFlyte
+
+// .flyteidl_flink.JFlytePayload jflyte = 1;
+inline bool JFlyte::has_jflyte() const {
+  return this != internal_default_instance() && jflyte_ != nullptr;
+}
+inline void JFlyte::clear_jflyte() {
+  if (GetArenaNoVirtual() == nullptr && jflyte_ != nullptr) {
+    delete jflyte_;
+  }
+  jflyte_ = nullptr;
+}
+inline const ::flyteidl_flink::JFlytePayload& JFlyte::jflyte() const {
+  const ::flyteidl_flink::JFlytePayload* p = jflyte_;
+  // @@protoc_insertion_point(field_get:flyteidl_flink.JFlyte.jflyte)
+  return p != nullptr ? *p : *reinterpret_cast<const ::flyteidl_flink::JFlytePayload*>(
+      &::flyteidl_flink::_JFlytePayload_default_instance_);
+}
+inline ::flyteidl_flink::JFlytePayload* JFlyte::release_jflyte() {
+  // @@protoc_insertion_point(field_release:flyteidl_flink.JFlyte.jflyte)
+  
+  ::flyteidl_flink::JFlytePayload* temp = jflyte_;
+  jflyte_ = nullptr;
+  return temp;
+}
+inline ::flyteidl_flink::JFlytePayload* JFlyte::mutable_jflyte() {
+  
+  if (jflyte_ == nullptr) {
+    auto* p = CreateMaybeMessage<::flyteidl_flink::JFlytePayload>(GetArenaNoVirtual());
+    jflyte_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:flyteidl_flink.JFlyte.jflyte)
+  return jflyte_;
+}
+inline void JFlyte::set_allocated_jflyte(::flyteidl_flink::JFlytePayload* jflyte) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete jflyte_;
+  }
+  if (jflyte) {
+    ::google::protobuf::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      jflyte = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, jflyte, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  jflyte_ = jflyte;
+  // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.JFlyte.jflyte)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

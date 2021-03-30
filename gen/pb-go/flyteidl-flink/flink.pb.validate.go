@@ -288,8 +288,6 @@ func (m *FlinkJob) Validate() error {
 		return nil
 	}
 
-	// no validation rules for JarFile
-
 	// no validation rules for MainClass
 
 	// no validation rules for FlinkProperties
@@ -595,6 +593,230 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = FlinkExecutionInfoValidationError{}
+
+// Validate checks the field values on Artifact with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Artifact) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Name
+
+	// no validation rules for Location
+
+	return nil
+}
+
+// ArtifactValidationError is the validation error returned by
+// Artifact.Validate if the designated constraints aren't met.
+type ArtifactValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ArtifactValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ArtifactValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ArtifactValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ArtifactValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ArtifactValidationError) ErrorName() string { return "ArtifactValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ArtifactValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sArtifact.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ArtifactValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ArtifactValidationError{}
+
+// Validate checks the field values on JFlytePayload with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *JFlytePayload) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for IndexFileLocation
+
+	for idx, item := range m.GetArtifacts() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return JFlytePayloadValidationError{
+					field:  fmt.Sprintf("Artifacts[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// JFlytePayloadValidationError is the validation error returned by
+// JFlytePayload.Validate if the designated constraints aren't met.
+type JFlytePayloadValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e JFlytePayloadValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e JFlytePayloadValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e JFlytePayloadValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e JFlytePayloadValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e JFlytePayloadValidationError) ErrorName() string { return "JFlytePayloadValidationError" }
+
+// Error satisfies the builtin error interface
+func (e JFlytePayloadValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sJFlytePayload.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = JFlytePayloadValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = JFlytePayloadValidationError{}
+
+// Validate checks the field values on JFlyte with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *JFlyte) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetJflyte()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return JFlyteValidationError{
+				field:  "Jflyte",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// JFlyteValidationError is the validation error returned by JFlyte.Validate if
+// the designated constraints aren't met.
+type JFlyteValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e JFlyteValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e JFlyteValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e JFlyteValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e JFlyteValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e JFlyteValidationError) ErrorName() string { return "JFlyteValidationError" }
+
+// Error satisfies the builtin error interface
+func (e JFlyteValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sJFlyte.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = JFlyteValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = JFlyteValidationError{}
 
 // Validate checks the field values on Resource_Quantity with the rules defined
 // in the proto definition for this message. If any rules are violated, an
