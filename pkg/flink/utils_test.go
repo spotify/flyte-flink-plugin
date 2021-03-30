@@ -60,25 +60,30 @@ func TestLiteralMapToArgs(t *testing.T) {
 }
 
 func TestFlinkClusterNameRegex(t *testing.T) {
-	inputMap := map[string]bool{
-		"valid-name":                       true,
-		"valid-name.have.periods":          true,
-		"2valid-name.starts.with.a.number": true,
-		"valid-name.ends.with.a.number4":   true,
-		"valid-name.with.multiple-dashes":  true,
-		".invalid-name":                    false,
-		"invalid-name.":                    false,
-		"_invalid-name":                    false,
-		"invalid-name_":                    false,
-		"invalid_name":                     false,
-		"invalid name":                     false,
+	validNames := []string{
+		"valid-name",
+		"valid-name.have.periods",
+		"2valid-name.starts.with.a.number",
+		"valid-name.ends.with.a.number4",
+		"valid-name.with.multiple-dashes",
 	}
-	for input, isValid := range inputMap {
-		err := validate(input, regexFlinkClusterName)
-		if isValid {
-			assert.NilError(t, err)
-		} else {
-			assert.ErrorContains(t, err, "Validation error: ")
-		}
+
+	invalidNames := []string{
+		".invalid-name",
+		"invalid-name.",
+		"_invalid-name",
+		"invalid-name_",
+		"invalid_name",
+		"invalid name",
+	}
+
+	for _, valid := range validNames {
+		err := validate(valid, regexFlinkClusterName)
+		assert.NilError(t, err)
+	}
+
+	for _, invalid := range invalidNames {
+		err := validate(invalid, regexFlinkClusterName)
+		assert.ErrorContains(t, err, "Validation error: ")
 	}
 }
