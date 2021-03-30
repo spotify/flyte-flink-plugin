@@ -16,6 +16,7 @@
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 
+extern PROTOBUF_INTERNAL_EXPORT_flyteidl_2dflink_2fflink_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_FlinkJob_FlinkLogPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_flyteidl_2dflink_2fflink_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_FlinkJob_FlinkPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_flyteidl_2dflink_2fflink_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_JobExecutionInfo_flyteidl_2dflink_2fflink_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_flyteidl_2dflink_2fflink_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_JobManagerExecutionInfo_flyteidl_2dflink_2fflink_2eproto;
@@ -45,6 +46,10 @@ class FlinkJob_FlinkPropertiesEntry_DoNotUseDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<FlinkJob_FlinkPropertiesEntry_DoNotUse> _instance;
 } _FlinkJob_FlinkPropertiesEntry_DoNotUse_default_instance_;
+class FlinkJob_FlinkLogPropertiesEntry_DoNotUseDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<FlinkJob_FlinkLogPropertiesEntry_DoNotUse> _instance;
+} _FlinkJob_FlinkLogPropertiesEntry_DoNotUse_default_instance_;
 class FlinkJobDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<FlinkJob> _instance;
@@ -136,6 +141,19 @@ static void InitDefaultsFlinkJob_FlinkPropertiesEntry_DoNotUse_flyteidl_2dflink_
 ::google::protobuf::internal::SCCInfo<0> scc_info_FlinkJob_FlinkPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsFlinkJob_FlinkPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto}, {}};
 
+static void InitDefaultsFlinkJob_FlinkLogPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::flyteidl_flink::_FlinkJob_FlinkLogPropertiesEntry_DoNotUse_default_instance_;
+    new (ptr) ::flyteidl_flink::FlinkJob_FlinkLogPropertiesEntry_DoNotUse();
+  }
+  ::flyteidl_flink::FlinkJob_FlinkLogPropertiesEntry_DoNotUse::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<0> scc_info_FlinkJob_FlinkLogPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsFlinkJob_FlinkLogPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto}, {}};
+
 static void InitDefaultsFlinkJob_flyteidl_2dflink_2fflink_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -147,11 +165,12 @@ static void InitDefaultsFlinkJob_flyteidl_2dflink_2fflink_2eproto() {
   ::flyteidl_flink::FlinkJob::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<3> scc_info_FlinkJob_flyteidl_2dflink_2fflink_2eproto =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 3, InitDefaultsFlinkJob_flyteidl_2dflink_2fflink_2eproto}, {
+::google::protobuf::internal::SCCInfo<4> scc_info_FlinkJob_flyteidl_2dflink_2fflink_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 4, InitDefaultsFlinkJob_flyteidl_2dflink_2fflink_2eproto}, {
       &scc_info_FlinkJob_FlinkPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto.base,
       &scc_info_JobManager_flyteidl_2dflink_2fflink_2eproto.base,
-      &scc_info_TaskManager_flyteidl_2dflink_2fflink_2eproto.base,}};
+      &scc_info_TaskManager_flyteidl_2dflink_2fflink_2eproto.base,
+      &scc_info_FlinkJob_FlinkLogPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto.base,}};
 
 static void InitDefaultsJobExecutionInfo_flyteidl_2dflink_2fflink_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -203,13 +222,14 @@ void InitDefaults_flyteidl_2dflink_2fflink_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_JobManager_flyteidl_2dflink_2fflink_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_TaskManager_flyteidl_2dflink_2fflink_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_FlinkJob_FlinkPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_FlinkJob_FlinkLogPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_FlinkJob_flyteidl_2dflink_2fflink_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_JobExecutionInfo_flyteidl_2dflink_2fflink_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_JobManagerExecutionInfo_flyteidl_2dflink_2fflink_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_FlinkExecutionInfo_flyteidl_2dflink_2fflink_2eproto.base);
 }
 
-::google::protobuf::Metadata file_level_metadata_flyteidl_2dflink_2fflink_2eproto[9];
+::google::protobuf::Metadata file_level_metadata_flyteidl_2dflink_2fflink_2eproto[10];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors_flyteidl_2dflink_2fflink_2eproto[1];
 constexpr ::google::protobuf::ServiceDescriptor const** file_level_service_descriptors_flyteidl_2dflink_2fflink_2eproto = nullptr;
 
@@ -251,6 +271,15 @@ const ::google::protobuf::uint32 TableStruct_flyteidl_2dflink_2fflink_2eproto::o
   PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse, value_),
   0,
   1,
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob_FlinkLogPropertiesEntry_DoNotUse, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob_FlinkLogPropertiesEntry_DoNotUse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob_FlinkLogPropertiesEntry_DoNotUse, key_),
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob_FlinkLogPropertiesEntry_DoNotUse, value_),
+  0,
+  1,
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -264,6 +293,7 @@ const ::google::protobuf::uint32 TableStruct_flyteidl_2dflink_2fflink_2eproto::o
   PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob, taskmanager_),
   PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob, serviceaccount_),
   PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob, image_),
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkJob, flinklogproperties_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::flyteidl_flink::JobExecutionInfo, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -290,10 +320,11 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SE
   { 15, -1, sizeof(::flyteidl_flink::JobManager)},
   { 21, -1, sizeof(::flyteidl_flink::TaskManager)},
   { 28, 35, sizeof(::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse)},
-  { 37, -1, sizeof(::flyteidl_flink::FlinkJob)},
-  { 50, -1, sizeof(::flyteidl_flink::JobExecutionInfo)},
-  { 56, -1, sizeof(::flyteidl_flink::JobManagerExecutionInfo)},
-  { 62, -1, sizeof(::flyteidl_flink::FlinkExecutionInfo)},
+  { 37, 44, sizeof(::flyteidl_flink::FlinkJob_FlinkLogPropertiesEntry_DoNotUse)},
+  { 46, -1, sizeof(::flyteidl_flink::FlinkJob)},
+  { 60, -1, sizeof(::flyteidl_flink::JobExecutionInfo)},
+  { 66, -1, sizeof(::flyteidl_flink::JobManagerExecutionInfo)},
+  { 72, -1, sizeof(::flyteidl_flink::FlinkExecutionInfo)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -302,6 +333,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::flyteidl_flink::_JobManager_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::flyteidl_flink::_TaskManager_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::flyteidl_flink::_FlinkJob_FlinkPropertiesEntry_DoNotUse_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::flyteidl_flink::_FlinkJob_FlinkLogPropertiesEntry_DoNotUse_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::flyteidl_flink::_FlinkJob_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::flyteidl_flink::_JobExecutionInfo_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::flyteidl_flink::_JobManagerExecutionInfo_default_instance_),
@@ -311,7 +343,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
 ::google::protobuf::internal::AssignDescriptorsTable assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto = {
   {}, AddDescriptors_flyteidl_2dflink_2fflink_2eproto, "flyteidl-flink/flink.proto", schemas,
   file_default_instances, TableStruct_flyteidl_2dflink_2fflink_2eproto::offsets,
-  file_level_metadata_flyteidl_2dflink_2fflink_2eproto, 9, file_level_enum_descriptors_flyteidl_2dflink_2fflink_2eproto, file_level_service_descriptors_flyteidl_2dflink_2fflink_2eproto,
+  file_level_metadata_flyteidl_2dflink_2fflink_2eproto, 10, file_level_enum_descriptors_flyteidl_2dflink_2fflink_2eproto, file_level_service_descriptors_flyteidl_2dflink_2fflink_2eproto,
 };
 
 const char descriptor_table_protodef_flyteidl_2dflink_2fflink_2eproto[] =
@@ -330,27 +362,31 @@ const char descriptor_table_protodef_flyteidl_2dflink_2fflink_2eproto[] =
   "D_SSD\020\001\"8\n\nJobManager\022*\n\010resource\030\001 \001(\0132"
   "\030.flyteidl_flink.Resource\"K\n\013TaskManager"
   "\022*\n\010resource\030\001 \001(\0132\030.flyteidl_flink.Reso"
-  "urce\022\020\n\010replicas\030\002 \001(\005\"\305\002\n\010FlinkJob\022\017\n\007j"
+  "urce\022\020\n\010replicas\030\002 \001(\005\"\316\003\n\010FlinkJob\022\017\n\007j"
   "arFile\030\001 \001(\t\022\021\n\tmainClass\030\002 \001(\t\022\014\n\004args\030"
   "\003 \003(\t\022F\n\017flinkProperties\030\004 \003(\0132-.flyteid"
   "l_flink.FlinkJob.FlinkPropertiesEntry\022.\n"
   "\njobManager\030\005 \001(\0132\032.flyteidl_flink.JobMa"
   "nager\0220\n\013taskManager\030\006 \001(\0132\033.flyteidl_fl"
   "ink.TaskManager\022\026\n\016serviceAccount\030\007 \001(\t\022"
-  "\r\n\005image\030\010 \001(\t\0326\n\024FlinkPropertiesEntry\022\013"
-  "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\036\n\020JobExe"
-  "cutionInfo\022\n\n\002id\030\001 \001(\t\".\n\027JobManagerExec"
-  "utionInfo\022\023\n\013ingressURLs\030\001 \003(\t\"\200\001\n\022Flink"
-  "ExecutionInfo\022-\n\003job\030\001 \001(\0132 .flyteidl_fl"
-  "ink.JobExecutionInfo\022;\n\njobManager\030\002 \001(\013"
-  "2\'.flyteidl_flink.JobManagerExecutionInf"
-  "oB@Z>github.com/spotify/flyte-flink-plug"
-  "in/gen/pb-go/flyteidl-flinkb\006proto3"
+  "\r\n\005image\030\010 \001(\t\022L\n\022flinkLogProperties\030\t \003"
+  "(\01320.flyteidl_flink.FlinkJob.FlinkLogPro"
+  "pertiesEntry\0326\n\024FlinkPropertiesEntry\022\013\n\003"
+  "key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\0329\n\027FlinkLog"
+  "PropertiesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 "
+  "\001(\t:\0028\001\"\036\n\020JobExecutionInfo\022\n\n\002id\030\001 \001(\t\""
+  ".\n\027JobManagerExecutionInfo\022\023\n\013ingressURL"
+  "s\030\001 \003(\t\"\200\001\n\022FlinkExecutionInfo\022-\n\003job\030\001 "
+  "\001(\0132 .flyteidl_flink.JobExecutionInfo\022;\n"
+  "\njobManager\030\002 \001(\0132\'.flyteidl_flink.JobMa"
+  "nagerExecutionInfoB@Z>github.com/spotify"
+  "/flyte-flink-plugin/gen/pb-go/flyteidl-f"
+  "linkb\006proto3"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_flyteidl_2dflink_2fflink_2eproto = {
   false, InitDefaults_flyteidl_2dflink_2fflink_2eproto, 
   descriptor_table_protodef_flyteidl_2dflink_2fflink_2eproto,
-  "flyteidl-flink/flink.proto", &assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto, 1235,
+  "flyteidl-flink/flink.proto", &assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto, 1372,
 };
 
 void AddDescriptors_flyteidl_2dflink_2fflink_2eproto() {
@@ -1824,6 +1860,47 @@ bool FlinkJob_FlinkPropertiesEntry_DoNotUse::_ParseMap(const char* begin, const 
 
 // ===================================================================
 
+FlinkJob_FlinkLogPropertiesEntry_DoNotUse::FlinkJob_FlinkLogPropertiesEntry_DoNotUse() {}
+FlinkJob_FlinkLogPropertiesEntry_DoNotUse::FlinkJob_FlinkLogPropertiesEntry_DoNotUse(::google::protobuf::Arena* arena)
+    : SuperType(arena) {}
+void FlinkJob_FlinkLogPropertiesEntry_DoNotUse::MergeFrom(const FlinkJob_FlinkLogPropertiesEntry_DoNotUse& other) {
+  MergeFromInternal(other);
+}
+::google::protobuf::Metadata FlinkJob_FlinkLogPropertiesEntry_DoNotUse::GetMetadata() const {
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto);
+  return ::file_level_metadata_flyteidl_2dflink_2fflink_2eproto[5];
+}
+void FlinkJob_FlinkLogPropertiesEntry_DoNotUse::MergeFrom(
+    const ::google::protobuf::Message& other) {
+  ::google::protobuf::Message::MergeFrom(other);
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool FlinkJob_FlinkLogPropertiesEntry_DoNotUse::_ParseMap(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx) {
+  using MF = ::google::protobuf::internal::MapField<
+      FlinkJob_FlinkLogPropertiesEntry_DoNotUse, EntryKeyType, EntryValueType,
+      kEntryKeyFieldType, kEntryValueFieldType,
+      kEntryDefaultEnumValue>;
+  auto mf = static_cast<MF*>(object);
+  Parser<MF, ::google::protobuf::Map<EntryKeyType, EntryValueType>> parser(mf);
+#define DO_(x) if (!(x)) return false
+  DO_(parser.ParseMap(begin, end));
+  DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+    parser.key().data(), static_cast<int>(parser.key().length()),
+    ::google::protobuf::internal::WireFormatLite::PARSE,
+    "flyteidl_flink.FlinkJob.FlinkLogPropertiesEntry.key"));
+  DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+    parser.value().data(), static_cast<int>(parser.value().length()),
+    ::google::protobuf::internal::WireFormatLite::PARSE,
+    "flyteidl_flink.FlinkJob.FlinkLogPropertiesEntry.value"));
+#undef DO_
+  return true;
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+
+// ===================================================================
+
 void FlinkJob::InitAsDefaultInstance() {
   ::flyteidl_flink::_FlinkJob_default_instance_._instance.get_mutable()->jobmanager_ = const_cast< ::flyteidl_flink::JobManager*>(
       ::flyteidl_flink::JobManager::internal_default_instance());
@@ -1853,6 +1930,7 @@ const int FlinkJob::kJobManagerFieldNumber;
 const int FlinkJob::kTaskManagerFieldNumber;
 const int FlinkJob::kServiceAccountFieldNumber;
 const int FlinkJob::kImageFieldNumber;
+const int FlinkJob::kFlinkLogPropertiesFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 FlinkJob::FlinkJob()
@@ -1866,6 +1944,7 @@ FlinkJob::FlinkJob(const FlinkJob& from)
       args_(from.args_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   flinkproperties_.MergeFrom(from.flinkproperties_);
+  flinklogproperties_.MergeFrom(from.flinklogproperties_);
   jarfile_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.jarfile().size() > 0) {
     jarfile_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.jarfile_);
@@ -1938,6 +2017,7 @@ void FlinkJob::Clear() {
 
   args_.Clear();
   flinkproperties_.Clear();
+  flinklogproperties_.Clear();
   jarfile_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   mainclass_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   serviceaccount_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -2092,6 +2172,25 @@ const char* FlinkJob::_InternalParse(const char* begin, const char* end, void* o
         GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
         ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
         ptr += size;
+        break;
+      }
+      // map<string, string> flinkLogProperties = 9;
+      case 9: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 74) goto handle_unusual;
+        do {
+          ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+          parser_till_end = ::google::protobuf::internal::SlowMapEntryParser;
+          auto parse_map = ::flyteidl_flink::FlinkJob_FlinkLogPropertiesEntry_DoNotUse::_ParseMap;
+          ctx->extra_parse_data().payload.clear();
+          ctx->extra_parse_data().parse_map = parse_map;
+          object = &msg->flinklogproperties_;
+          if (size > end - ptr) goto len_delim_till_end;
+          auto newend = ptr + size;
+          GOOGLE_PROTOBUF_PARSER_ASSERT(parse_map(ptr, newend, object, ctx));
+          ptr = newend;
+          if (ptr >= end) break;
+        } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 74 && (ptr += 1));
         break;
       }
       default: {
@@ -2252,6 +2351,32 @@ bool FlinkJob::MergePartialFromCodedStream(
         break;
       }
 
+      // map<string, string> flinkLogProperties = 9;
+      case 9: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (74 & 0xFF)) {
+          FlinkJob_FlinkLogPropertiesEntry_DoNotUse::Parser< ::google::protobuf::internal::MapField<
+              FlinkJob_FlinkLogPropertiesEntry_DoNotUse,
+              ::std::string, ::std::string,
+              ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+              ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+              0 >,
+            ::google::protobuf::Map< ::std::string, ::std::string > > parser(&flinklogproperties_);
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, &parser));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            parser.key().data(), static_cast<int>(parser.key().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "flyteidl_flink.FlinkJob.FlinkLogPropertiesEntry.key"));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            parser.value().data(), static_cast<int>(parser.value().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "flyteidl_flink.FlinkJob.FlinkLogPropertiesEntry.value"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -2390,6 +2515,55 @@ void FlinkJob::SerializeWithCachedSizes(
       8, this->image(), output);
   }
 
+  // map<string, string> flinkLogProperties = 9;
+  if (!this->flinklogproperties().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::std::string >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), static_cast<int>(p->first.length()),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "flyteidl_flink.FlinkJob.FlinkLogPropertiesEntry.key");
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->second.data(), static_cast<int>(p->second.length()),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "flyteidl_flink.FlinkJob.FlinkLogPropertiesEntry.value");
+      }
+    };
+
+    if (output->IsSerializationDeterministic() &&
+        this->flinklogproperties().size() > 1) {
+      ::std::unique_ptr<SortItem[]> items(
+          new SortItem[this->flinklogproperties().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::std::string >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+          it = this->flinklogproperties().begin();
+          it != this->flinklogproperties().end(); ++it, ++n) {
+        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
+      ::std::unique_ptr<FlinkJob_FlinkLogPropertiesEntry_DoNotUse> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(flinklogproperties_.NewEntryWrapper(items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(9, *entry, output);
+        Utf8Check::Check(&(*items[static_cast<ptrdiff_t>(i)]));
+      }
+    } else {
+      ::std::unique_ptr<FlinkJob_FlinkLogPropertiesEntry_DoNotUse> entry;
+      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+          it = this->flinklogproperties().begin();
+          it != this->flinklogproperties().end(); ++it) {
+        entry.reset(flinklogproperties_.NewEntryWrapper(it->first, it->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(9, *entry, output);
+        Utf8Check::Check(&(*it));
+      }
+    }
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -2520,6 +2694,55 @@ void FlinkJob::SerializeWithCachedSizes(
         8, this->image(), target);
   }
 
+  // map<string, string> flinkLogProperties = 9;
+  if (!this->flinklogproperties().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::std::string >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), static_cast<int>(p->first.length()),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "flyteidl_flink.FlinkJob.FlinkLogPropertiesEntry.key");
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->second.data(), static_cast<int>(p->second.length()),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "flyteidl_flink.FlinkJob.FlinkLogPropertiesEntry.value");
+      }
+    };
+
+    if (false &&
+        this->flinklogproperties().size() > 1) {
+      ::std::unique_ptr<SortItem[]> items(
+          new SortItem[this->flinklogproperties().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::std::string >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+          it = this->flinklogproperties().begin();
+          it != this->flinklogproperties().end(); ++it, ++n) {
+        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
+      ::std::unique_ptr<FlinkJob_FlinkLogPropertiesEntry_DoNotUse> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(flinklogproperties_.NewEntryWrapper(items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second));
+        target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessageNoVirtualToArray(9, *entry, target);
+        Utf8Check::Check(&(*items[static_cast<ptrdiff_t>(i)]));
+      }
+    } else {
+      ::std::unique_ptr<FlinkJob_FlinkLogPropertiesEntry_DoNotUse> entry;
+      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+          it = this->flinklogproperties().begin();
+          it != this->flinklogproperties().end(); ++it) {
+        entry.reset(flinklogproperties_.NewEntryWrapper(it->first, it->second));
+        target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessageNoVirtualToArray(9, *entry, target);
+        Utf8Check::Check(&(*it));
+      }
+    }
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
@@ -2558,6 +2781,20 @@ size_t FlinkJob::ByteSizeLong() const {
         it = this->flinkproperties().begin();
         it != this->flinkproperties().end(); ++it) {
       entry.reset(flinkproperties_.NewEntryWrapper(it->first, it->second));
+      total_size += ::google::protobuf::internal::WireFormatLite::
+          MessageSizeNoVirtual(*entry);
+    }
+  }
+
+  // map<string, string> flinkLogProperties = 9;
+  total_size += 1 *
+      ::google::protobuf::internal::FromIntSize(this->flinklogproperties_size());
+  {
+    ::std::unique_ptr<FlinkJob_FlinkLogPropertiesEntry_DoNotUse> entry;
+    for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+        it = this->flinklogproperties().begin();
+        it != this->flinklogproperties().end(); ++it) {
+      entry.reset(flinklogproperties_.NewEntryWrapper(it->first, it->second));
       total_size += ::google::protobuf::internal::WireFormatLite::
           MessageSizeNoVirtual(*entry);
     }
@@ -2634,6 +2871,7 @@ void FlinkJob::MergeFrom(const FlinkJob& from) {
 
   args_.MergeFrom(from.args_);
   flinkproperties_.MergeFrom(from.flinkproperties_);
+  flinklogproperties_.MergeFrom(from.flinklogproperties_);
   if (from.jarfile().size() > 0) {
 
     jarfile_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.jarfile_);
@@ -2685,6 +2923,7 @@ void FlinkJob::InternalSwap(FlinkJob* other) {
   _internal_metadata_.Swap(&other->_internal_metadata_);
   args_.InternalSwap(CastToBase(&other->args_));
   flinkproperties_.Swap(&other->flinkproperties_);
+  flinklogproperties_.Swap(&other->flinklogproperties_);
   jarfile_.Swap(&other->jarfile_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   mainclass_.Swap(&other->mainclass_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
@@ -3665,6 +3904,9 @@ template<> PROTOBUF_NOINLINE ::flyteidl_flink::TaskManager* Arena::CreateMaybeMe
 }
 template<> PROTOBUF_NOINLINE ::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse* Arena::CreateMaybeMessage< ::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse >(Arena* arena) {
   return Arena::CreateInternal< ::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::flyteidl_flink::FlinkJob_FlinkLogPropertiesEntry_DoNotUse* Arena::CreateMaybeMessage< ::flyteidl_flink::FlinkJob_FlinkLogPropertiesEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateInternal< ::flyteidl_flink::FlinkJob_FlinkLogPropertiesEntry_DoNotUse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::flyteidl_flink::FlinkJob* Arena::CreateMaybeMessage< ::flyteidl_flink::FlinkJob >(Arena* arena) {
   return Arena::CreateInternal< ::flyteidl_flink::FlinkJob >(arena);

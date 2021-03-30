@@ -3202,6 +3202,40 @@ public final class Flink {
      */
     com.google.protobuf.ByteString
         getImageBytes();
+
+    /**
+     * <code>map&lt;string, string&gt; flinkLogProperties = 9;</code>
+     */
+    int getFlinkLogPropertiesCount();
+    /**
+     * <code>map&lt;string, string&gt; flinkLogProperties = 9;</code>
+     */
+    boolean containsFlinkLogProperties(
+        java.lang.String key);
+    /**
+     * Use {@link #getFlinkLogPropertiesMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.String, java.lang.String>
+    getFlinkLogProperties();
+    /**
+     * <code>map&lt;string, string&gt; flinkLogProperties = 9;</code>
+     */
+    java.util.Map<java.lang.String, java.lang.String>
+    getFlinkLogPropertiesMap();
+    /**
+     * <code>map&lt;string, string&gt; flinkLogProperties = 9;</code>
+     */
+
+    java.lang.String getFlinkLogPropertiesOrDefault(
+        java.lang.String key,
+        java.lang.String defaultValue);
+    /**
+     * <code>map&lt;string, string&gt; flinkLogProperties = 9;</code>
+     */
+
+    java.lang.String getFlinkLogPropertiesOrThrow(
+        java.lang.String key);
   }
   /**
    * <pre>
@@ -3323,6 +3357,19 @@ public final class Flink {
               image_ = s;
               break;
             }
+            case 74: {
+              if (!((mutable_bitField0_ & 0x00000100) != 0)) {
+                flinkLogProperties_ = com.google.protobuf.MapField.newMapField(
+                    FlinkLogPropertiesDefaultEntryHolder.defaultEntry);
+                mutable_bitField0_ |= 0x00000100;
+              }
+              com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+              flinkLogProperties__ = input.readMessage(
+                  FlinkLogPropertiesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+              flinkLogProperties_.getMutableMap().put(
+                  flinkLogProperties__.getKey(), flinkLogProperties__.getValue());
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -3357,6 +3404,8 @@ public final class Flink {
       switch (number) {
         case 4:
           return internalGetFlinkProperties();
+        case 9:
+          return internalGetFlinkLogProperties();
         default:
           throw new RuntimeException(
               "Invalid map field number: " + number);
@@ -3654,6 +3703,82 @@ public final class Flink {
       }
     }
 
+    public static final int FLINKLOGPROPERTIES_FIELD_NUMBER = 9;
+    private static final class FlinkLogPropertiesDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.String, java.lang.String> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.String, java.lang.String>newDefaultInstance(
+                  flyteidl_flink.Flink.internal_static_flyteidl_flink_FlinkJob_FlinkLogPropertiesEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "",
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "");
+    }
+    private com.google.protobuf.MapField<
+        java.lang.String, java.lang.String> flinkLogProperties_;
+    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+    internalGetFlinkLogProperties() {
+      if (flinkLogProperties_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            FlinkLogPropertiesDefaultEntryHolder.defaultEntry);
+      }
+      return flinkLogProperties_;
+    }
+
+    public int getFlinkLogPropertiesCount() {
+      return internalGetFlinkLogProperties().getMap().size();
+    }
+    /**
+     * <code>map&lt;string, string&gt; flinkLogProperties = 9;</code>
+     */
+
+    public boolean containsFlinkLogProperties(
+        java.lang.String key) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      return internalGetFlinkLogProperties().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getFlinkLogPropertiesMap()} instead.
+     */
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.String> getFlinkLogProperties() {
+      return getFlinkLogPropertiesMap();
+    }
+    /**
+     * <code>map&lt;string, string&gt; flinkLogProperties = 9;</code>
+     */
+
+    public java.util.Map<java.lang.String, java.lang.String> getFlinkLogPropertiesMap() {
+      return internalGetFlinkLogProperties().getMap();
+    }
+    /**
+     * <code>map&lt;string, string&gt; flinkLogProperties = 9;</code>
+     */
+
+    public java.lang.String getFlinkLogPropertiesOrDefault(
+        java.lang.String key,
+        java.lang.String defaultValue) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetFlinkLogProperties().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <code>map&lt;string, string&gt; flinkLogProperties = 9;</code>
+     */
+
+    public java.lang.String getFlinkLogPropertiesOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetFlinkLogProperties().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -3695,6 +3820,12 @@ public final class Flink {
       if (!getImageBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 8, image_);
       }
+      com.google.protobuf.GeneratedMessageV3
+        .serializeStringMapTo(
+          output,
+          internalGetFlinkLogProperties(),
+          FlinkLogPropertiesDefaultEntryHolder.defaultEntry,
+          9);
       unknownFields.writeTo(output);
     }
 
@@ -3742,6 +3873,16 @@ public final class Flink {
       if (!getImageBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, image_);
       }
+      for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
+           : internalGetFlinkLogProperties().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+        flinkLogProperties__ = FlinkLogPropertiesDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(9, flinkLogProperties__);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -3779,6 +3920,8 @@ public final class Flink {
           .equals(other.getServiceAccount())) return false;
       if (!getImage()
           .equals(other.getImage())) return false;
+      if (!internalGetFlinkLogProperties().equals(
+          other.internalGetFlinkLogProperties())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -3814,6 +3957,10 @@ public final class Flink {
       hash = (53 * hash) + getServiceAccount().hashCode();
       hash = (37 * hash) + IMAGE_FIELD_NUMBER;
       hash = (53 * hash) + getImage().hashCode();
+      if (!internalGetFlinkLogProperties().getMap().isEmpty()) {
+        hash = (37 * hash) + FLINKLOGPROPERTIES_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetFlinkLogProperties().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3931,6 +4078,8 @@ public final class Flink {
         switch (number) {
           case 4:
             return internalGetFlinkProperties();
+          case 9:
+            return internalGetFlinkLogProperties();
           default:
             throw new RuntimeException(
                 "Invalid map field number: " + number);
@@ -3942,6 +4091,8 @@ public final class Flink {
         switch (number) {
           case 4:
             return internalGetMutableFlinkProperties();
+          case 9:
+            return internalGetMutableFlinkLogProperties();
           default:
             throw new RuntimeException(
                 "Invalid map field number: " + number);
@@ -3996,6 +4147,7 @@ public final class Flink {
 
         image_ = "";
 
+        internalGetMutableFlinkLogProperties().clear();
         return this;
       }
 
@@ -4045,6 +4197,8 @@ public final class Flink {
         }
         result.serviceAccount_ = serviceAccount_;
         result.image_ = image_;
+        result.flinkLogProperties_ = internalGetFlinkLogProperties();
+        result.flinkLogProperties_.makeImmutable();
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4128,6 +4282,8 @@ public final class Flink {
           image_ = other.image_;
           onChanged();
         }
+        internalGetMutableFlinkLogProperties().mergeFrom(
+            other.internalGetFlinkLogProperties());
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -4882,6 +5038,129 @@ public final class Flink {
         
         image_ = value;
         onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.MapField<
+          java.lang.String, java.lang.String> flinkLogProperties_;
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+      internalGetFlinkLogProperties() {
+        if (flinkLogProperties_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              FlinkLogPropertiesDefaultEntryHolder.defaultEntry);
+        }
+        return flinkLogProperties_;
+      }
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+      internalGetMutableFlinkLogProperties() {
+        onChanged();;
+        if (flinkLogProperties_ == null) {
+          flinkLogProperties_ = com.google.protobuf.MapField.newMapField(
+              FlinkLogPropertiesDefaultEntryHolder.defaultEntry);
+        }
+        if (!flinkLogProperties_.isMutable()) {
+          flinkLogProperties_ = flinkLogProperties_.copy();
+        }
+        return flinkLogProperties_;
+      }
+
+      public int getFlinkLogPropertiesCount() {
+        return internalGetFlinkLogProperties().getMap().size();
+      }
+      /**
+       * <code>map&lt;string, string&gt; flinkLogProperties = 9;</code>
+       */
+
+      public boolean containsFlinkLogProperties(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        return internalGetFlinkLogProperties().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getFlinkLogPropertiesMap()} instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String> getFlinkLogProperties() {
+        return getFlinkLogPropertiesMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; flinkLogProperties = 9;</code>
+       */
+
+      public java.util.Map<java.lang.String, java.lang.String> getFlinkLogPropertiesMap() {
+        return internalGetFlinkLogProperties().getMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; flinkLogProperties = 9;</code>
+       */
+
+      public java.lang.String getFlinkLogPropertiesOrDefault(
+          java.lang.String key,
+          java.lang.String defaultValue) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetFlinkLogProperties().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <code>map&lt;string, string&gt; flinkLogProperties = 9;</code>
+       */
+
+      public java.lang.String getFlinkLogPropertiesOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetFlinkLogProperties().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+
+      public Builder clearFlinkLogProperties() {
+        internalGetMutableFlinkLogProperties().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <code>map&lt;string, string&gt; flinkLogProperties = 9;</code>
+       */
+
+      public Builder removeFlinkLogProperties(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        internalGetMutableFlinkLogProperties().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String>
+      getMutableFlinkLogProperties() {
+        return internalGetMutableFlinkLogProperties().getMutableMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; flinkLogProperties = 9;</code>
+       */
+      public Builder putFlinkLogProperties(
+          java.lang.String key,
+          java.lang.String value) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        if (value == null) { throw new java.lang.NullPointerException(); }
+        internalGetMutableFlinkLogProperties().getMutableMap()
+            .put(key, value);
+        return this;
+      }
+      /**
+       * <code>map&lt;string, string&gt; flinkLogProperties = 9;</code>
+       */
+
+      public Builder putAllFlinkLogProperties(
+          java.util.Map<java.lang.String, java.lang.String> values) {
+        internalGetMutableFlinkLogProperties().getMutableMap()
+            .putAll(values);
         return this;
       }
       @java.lang.Override
@@ -6920,6 +7199,11 @@ public final class Flink {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_flyteidl_flink_FlinkJob_FlinkPropertiesEntry_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_flyteidl_flink_FlinkJob_FlinkLogPropertiesEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_flyteidl_flink_FlinkJob_FlinkLogPropertiesEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_flyteidl_flink_JobExecutionInfo_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -6958,22 +7242,26 @@ public final class Flink {
       "D_SSD\020\001\"8\n\nJobManager\022*\n\010resource\030\001 \001(\0132" +
       "\030.flyteidl_flink.Resource\"K\n\013TaskManager" +
       "\022*\n\010resource\030\001 \001(\0132\030.flyteidl_flink.Reso" +
-      "urce\022\020\n\010replicas\030\002 \001(\005\"\305\002\n\010FlinkJob\022\017\n\007j" +
+      "urce\022\020\n\010replicas\030\002 \001(\005\"\316\003\n\010FlinkJob\022\017\n\007j" +
       "arFile\030\001 \001(\t\022\021\n\tmainClass\030\002 \001(\t\022\014\n\004args\030" +
       "\003 \003(\t\022F\n\017flinkProperties\030\004 \003(\0132-.flyteid" +
       "l_flink.FlinkJob.FlinkPropertiesEntry\022.\n" +
       "\njobManager\030\005 \001(\0132\032.flyteidl_flink.JobMa" +
       "nager\0220\n\013taskManager\030\006 \001(\0132\033.flyteidl_fl" +
       "ink.TaskManager\022\026\n\016serviceAccount\030\007 \001(\t\022" +
-      "\r\n\005image\030\010 \001(\t\0326\n\024FlinkPropertiesEntry\022\013" +
-      "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\036\n\020JobExe" +
-      "cutionInfo\022\n\n\002id\030\001 \001(\t\".\n\027JobManagerExec" +
-      "utionInfo\022\023\n\013ingressURLs\030\001 \003(\t\"\200\001\n\022Flink" +
-      "ExecutionInfo\022-\n\003job\030\001 \001(\0132 .flyteidl_fl" +
-      "ink.JobExecutionInfo\022;\n\njobManager\030\002 \001(\013" +
-      "2\'.flyteidl_flink.JobManagerExecutionInf" +
-      "oB@Z>github.com/spotify/flyte-flink-plug" +
-      "in/gen/pb-go/flyteidl-flinkb\006proto3"
+      "\r\n\005image\030\010 \001(\t\022L\n\022flinkLogProperties\030\t \003" +
+      "(\01320.flyteidl_flink.FlinkJob.FlinkLogPro" +
+      "pertiesEntry\0326\n\024FlinkPropertiesEntry\022\013\n\003" +
+      "key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\0329\n\027FlinkLog" +
+      "PropertiesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 " +
+      "\001(\t:\0028\001\"\036\n\020JobExecutionInfo\022\n\n\002id\030\001 \001(\t\"" +
+      ".\n\027JobManagerExecutionInfo\022\023\n\013ingressURL" +
+      "s\030\001 \003(\t\"\200\001\n\022FlinkExecutionInfo\022-\n\003job\030\001 " +
+      "\001(\0132 .flyteidl_flink.JobExecutionInfo\022;\n" +
+      "\njobManager\030\002 \001(\0132\'.flyteidl_flink.JobMa" +
+      "nagerExecutionInfoB@Z>github.com/spotify" +
+      "/flyte-flink-plugin/gen/pb-go/flyteidl-f" +
+      "linkb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -7017,12 +7305,18 @@ public final class Flink {
     internal_static_flyteidl_flink_FlinkJob_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_flyteidl_flink_FlinkJob_descriptor,
-        new java.lang.String[] { "JarFile", "MainClass", "Args", "FlinkProperties", "JobManager", "TaskManager", "ServiceAccount", "Image", });
+        new java.lang.String[] { "JarFile", "MainClass", "Args", "FlinkProperties", "JobManager", "TaskManager", "ServiceAccount", "Image", "FlinkLogProperties", });
     internal_static_flyteidl_flink_FlinkJob_FlinkPropertiesEntry_descriptor =
       internal_static_flyteidl_flink_FlinkJob_descriptor.getNestedTypes().get(0);
     internal_static_flyteidl_flink_FlinkJob_FlinkPropertiesEntry_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_flyteidl_flink_FlinkJob_FlinkPropertiesEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_flyteidl_flink_FlinkJob_FlinkLogPropertiesEntry_descriptor =
+      internal_static_flyteidl_flink_FlinkJob_descriptor.getNestedTypes().get(1);
+    internal_static_flyteidl_flink_FlinkJob_FlinkLogPropertiesEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_flyteidl_flink_FlinkJob_FlinkLogPropertiesEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_flyteidl_flink_JobExecutionInfo_descriptor =
       getDescriptor().getMessageTypes().get(4);

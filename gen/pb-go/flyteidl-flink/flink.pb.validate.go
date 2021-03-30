@@ -318,6 +318,8 @@ func (m *FlinkJob) Validate() error {
 
 	// no validation rules for Image
 
+	// no validation rules for FlinkLogProperties
+
 	return nil
 }
 

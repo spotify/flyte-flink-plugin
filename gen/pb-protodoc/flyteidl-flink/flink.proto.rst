@@ -147,7 +147,8 @@ Custom Proto for Flink Plugin.
     "jobManager": "{...}",
     "taskManager": "{...}",
     "serviceAccount": "...",
-    "image": "..."
+    "image": "...",
+    "flinkLogProperties": "{...}"
   }
 
 .. _api_field_flyteidl_flink.FlinkJob.jarFile:
@@ -190,6 +191,12 @@ serviceAccount
 image
   (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
   
+.. _api_field_flyteidl_flink.FlinkJob.flinkLogProperties:
+
+flinkLogProperties
+  (map<`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_, `string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_>) 
+  
+
 
 
 .. _api_msg_flyteidl_flink.JobExecutionInfo:
@@ -197,7 +204,7 @@ image
 flyteidl_flink.JobExecutionInfo
 -------------------------------
 
-`[flyteidl_flink.JobExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L44>`_
+`[flyteidl_flink.JobExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L45>`_
 
 
 .. code-block:: json
@@ -218,7 +225,7 @@ id
 flyteidl_flink.JobManagerExecutionInfo
 --------------------------------------
 
-`[flyteidl_flink.JobManagerExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L46>`_
+`[flyteidl_flink.JobManagerExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L47>`_
 
 
 .. code-block:: json
@@ -239,7 +246,7 @@ ingressURLs
 flyteidl_flink.FlinkExecutionInfo
 ---------------------------------
 
-`[flyteidl_flink.FlinkExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L48>`_
+`[flyteidl_flink.FlinkExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L49>`_
 
 
 .. code-block:: json
