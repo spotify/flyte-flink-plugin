@@ -40,7 +40,6 @@ message FlinkJob {
   TaskManager taskManager = 6;
   string serviceAccount = 7;
   string image = 8;
-  map<string, string> flinkLogProperties = 9;
 }
 
 message JobExecutionInfo { string id = 1; }
