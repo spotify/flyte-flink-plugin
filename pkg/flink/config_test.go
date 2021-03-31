@@ -50,6 +50,12 @@ func TestLoadConfig(t *testing.T) {
 		assert.Equal(t, flinkConfig.FlinkPropertiesOverride["jobmanager.archive.fs.dir"], "flink-job-archive-dir")
 	})
 
+	t.Run("flink log configs", func(t *testing.T) {
+		assert.Assert(t, len(flinkConfig.FlinkLogConfig) == 9)
+		assert.Equal(t, flinkConfig.FlinkLogConfig["log4j.logger.org.apache.flink"], "INFO")
+		assert.Equal(t, flinkConfig.FlinkLogConfig["log4j.appender.console"], "org.apache.log4j.ConsoleAppender")
+	})
+
 	t.Run("remote cluster", func(t *testing.T) {
 		configAccessor := viper.NewAccessor(config.Options{
 			StrictMode:  true,

@@ -256,7 +256,6 @@ func buildFlinkClusterSpec(
 	jobSpec flinkOp.JobSpec,
 	flinkProperties FlinkProperties,
 	objectMeta *metav1.ObjectMeta,
-	flinkLogProperties FlinkLogProperties,
 ) flinkOp.FlinkCluster {
 
 	image := job.GetImage()
@@ -284,7 +283,7 @@ func buildFlinkClusterSpec(
 			TaskManager:     taskManager,
 			Job:             &jobSpec,
 			FlinkProperties: flinkProperties,
-			LogConfig:       flinkLogProperties,
+			LogConfig:       config.FlinkLogConfig,
 		},
 	}
 }
@@ -299,13 +298,12 @@ func BuildFlinkClusterSpec(taskCtx pluginsCore.TaskExecutionMetadata, job flinkI
 		Labels:      labels,
 	}
 	flinkProperties := BuildFlinkProperties(config, job)
-	flinkLogProperties := BuildFlinkLogProperties(job)
 
 	jobManagerSpec := buildJobManagerSpec(job.JobManager, &config.JobManager, objectMeta)
 	taskManagerSpec := buildTaskManagerSpec(job.TaskManager, &config.TaskManager, objectMeta)
 	jobSpec := buildJobSpec(job, taskManagerSpec, flinkProperties)
 
-	flinkCluster := buildFlinkClusterSpec(config, job, jobManagerSpec, taskManagerSpec, jobSpec, flinkProperties, objectMeta, flinkLogProperties)
+	flinkCluster := buildFlinkClusterSpec(config, job, jobManagerSpec, taskManagerSpec, jobSpec, flinkProperties, objectMeta)
 
 	// fill in defaults
 	flinkCluster.Default()

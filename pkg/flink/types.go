@@ -44,18 +44,6 @@ func BuildFlinkProperties(config *Config, flinkJob flinkIdl.FlinkJob) FlinkPrope
 	return flinkProperties
 }
 
-type FlinkLogProperties map[string]string
-
-func BuildFlinkLogProperties(flinkJob flinkIdl.FlinkJob) FlinkLogProperties {
-	flinkLogProperties := make(map[string]string)
-
-	for k, v := range flinkJob.GetFlinkLogProperties() {
-		flinkLogProperties[k] = v
-	}
-
-	return flinkLogProperties
-}
-
 func (fp FlinkProperties) GetInt(key string) int {
 	value, err := strconv.Atoi(fp[key])
 	if err != nil {

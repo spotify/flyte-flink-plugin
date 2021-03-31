@@ -54,6 +54,7 @@ type Config struct {
 	LogConfig               logs.LogConfig    `json:"logs"`
 	GeneratedNameMaxLength  *int              `json:"generatedNameMaxLength" pflag:"Specifies the length of TaskExecutionID generated name. default: 50"`
 	RemoteClusterConfig     ClusterConfig     `json:"remoteClusterConfig" pflag:"Configuration of remote K8s cluster for array jobs"`
+	FlinkLogConfig          map[string]string `json:"flinkLogConfig" pflag:",Key value pairs of default flink log config properties that should be applied to every FlinkJob"`
 }
 
 var (
