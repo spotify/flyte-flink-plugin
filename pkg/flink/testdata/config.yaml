@@ -1,29 +1,29 @@
 plugins:
     flink:
         image: "flink-image"
-        service-account: "flink-service-account"
-        jobmanager.cpu: 3.5
-        jobmanager.nodeSelector:
+        serviceAccount: "flink-service-account"
+        jobManager.cpu: 3.5
+        jobManager.nodeSelector:
             - gke-nodepool: "nodepool-1"
-        jobmanager.sidecars:
+        jobManager.sidecars:
             - name: "sidecar"
               image: "sidecar-image"
               command: ["printenv"]
               args: ["HOSTNAME", "KUBERNETES_PORT"]
         jobManager.accessScope: External
-        jobmanager.ingress:
+        jobManager.ingress:
             enabled: true
             useTLS: true
-        taskmanager:
+        taskManager:
             replicas: 4
             nodeSelector:
                 - gke-nodepool: "nodepool-2"
-        flink-properties-default:
+        flinkPropertiesDefault:
             - akka.ask.timeout: "600s"
             - blob.server.port: "6124"
             - resourcemanager.taskmanager-timeout: "3600000"
             - web.timeout: "600000"
             - heartbeat.timeout: "3600000"
             - pipeline.object-reuse: "true"
-        flink-properties-override:
+        flinkPropertiesOverride:
             - jobmanager.archive.fs.dir: "flink-job-archive-dir"

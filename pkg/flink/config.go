@@ -45,12 +45,12 @@ type TaskManagerConfig struct {
 
 // Config ... Flink-specific configs
 type Config struct {
-	FlinkProperties         map[string]string `json:"flink-properties-default" pflag:",Key value pairs of default flink properties that should be applied to every FlinkJob"`
-	FlinkPropertiesOverride map[string]string `json:"flink-properties-override" pflag:",Key value pairs of flink properties to be overridden in every FlinkJob"`
+	FlinkProperties         map[string]string `json:"flinkPropertiesDefault" pflag:",Key value pairs of default flink properties that should be applied to every FlinkJob"`
+	FlinkPropertiesOverride map[string]string `json:"flinkPropertiesOverride" pflag:",Key value pairs of flink properties to be overridden in every FlinkJob"`
 	Image                   string            `json:"image"`
-	ServiceAccount          string            `json:"service-account"`
-	JobManager              JobManagerConfig  `json:"jobmanager"`
-	TaskManager             TaskManagerConfig `json:"taskmanager"`
+	ServiceAccount          string            `json:"serviceAccount"`
+	JobManager              JobManagerConfig  `json:"jobManager"`
+	TaskManager             TaskManagerConfig `json:"taskManager"`
 	LogConfig               logs.LogConfig    `json:"logs"`
 	GeneratedNameMaxLength  *int              `json:"generatedNameMaxLength" pflag:"Specifies the length of TaskExecutionID generated name. default: 50"`
 	RemoteClusterConfig     ClusterConfig     `json:"remoteClusterConfig" pflag:"Configuration of remote K8s cluster for array jobs"`
