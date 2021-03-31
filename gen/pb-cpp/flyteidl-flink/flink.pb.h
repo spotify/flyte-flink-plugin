@@ -46,7 +46,7 @@ struct TableStruct_flyteidl_2dflink_2fflink_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[10]
+  static const ::google::protobuf::internal::ParseTable schema[9]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -60,9 +60,6 @@ extern FlinkExecutionInfoDefaultTypeInternal _FlinkExecutionInfo_default_instanc
 class FlinkJob;
 class FlinkJobDefaultTypeInternal;
 extern FlinkJobDefaultTypeInternal _FlinkJob_default_instance_;
-class FlinkJob_FlinkLogPropertiesEntry_DoNotUse;
-class FlinkJob_FlinkLogPropertiesEntry_DoNotUseDefaultTypeInternal;
-extern FlinkJob_FlinkLogPropertiesEntry_DoNotUseDefaultTypeInternal _FlinkJob_FlinkLogPropertiesEntry_DoNotUse_default_instance_;
 class FlinkJob_FlinkPropertiesEntry_DoNotUse;
 class FlinkJob_FlinkPropertiesEntry_DoNotUseDefaultTypeInternal;
 extern FlinkJob_FlinkPropertiesEntry_DoNotUseDefaultTypeInternal _FlinkJob_FlinkPropertiesEntry_DoNotUse_default_instance_;
@@ -89,7 +86,6 @@ namespace google {
 namespace protobuf {
 template<> ::flyteidl_flink::FlinkExecutionInfo* Arena::CreateMaybeMessage<::flyteidl_flink::FlinkExecutionInfo>(Arena*);
 template<> ::flyteidl_flink::FlinkJob* Arena::CreateMaybeMessage<::flyteidl_flink::FlinkJob>(Arena*);
-template<> ::flyteidl_flink::FlinkJob_FlinkLogPropertiesEntry_DoNotUse* Arena::CreateMaybeMessage<::flyteidl_flink::FlinkJob_FlinkLogPropertiesEntry_DoNotUse>(Arena*);
 template<> ::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse* Arena::CreateMaybeMessage<::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse>(Arena*);
 template<> ::flyteidl_flink::JobExecutionInfo* Arena::CreateMaybeMessage<::flyteidl_flink::JobExecutionInfo>(Arena*);
 template<> ::flyteidl_flink::JobManager* Arena::CreateMaybeMessage<::flyteidl_flink::JobManager>(Arena*);
@@ -670,30 +666,6 @@ static bool _ParseMap(const char* begin, const char* end, void* object, ::google
 
 // -------------------------------------------------------------------
 
-class FlinkJob_FlinkLogPropertiesEntry_DoNotUse : public ::google::protobuf::internal::MapEntry<FlinkJob_FlinkLogPropertiesEntry_DoNotUse, 
-    ::std::string, ::std::string,
-    ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-    ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-    0 > {
-public:
-#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-static bool _ParseMap(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
-#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  typedef ::google::protobuf::internal::MapEntry<FlinkJob_FlinkLogPropertiesEntry_DoNotUse, 
-    ::std::string, ::std::string,
-    ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-    ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-    0 > SuperType;
-  FlinkJob_FlinkLogPropertiesEntry_DoNotUse();
-  FlinkJob_FlinkLogPropertiesEntry_DoNotUse(::google::protobuf::Arena* arena);
-  void MergeFrom(const FlinkJob_FlinkLogPropertiesEntry_DoNotUse& other);
-  static const FlinkJob_FlinkLogPropertiesEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const FlinkJob_FlinkLogPropertiesEntry_DoNotUse*>(&_FlinkJob_FlinkLogPropertiesEntry_DoNotUse_default_instance_); }
-  void MergeFrom(const ::google::protobuf::Message& other) final;
-  ::google::protobuf::Metadata GetMetadata() const;
-};
-
-// -------------------------------------------------------------------
-
 class FlinkJob final :
     public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:flyteidl_flink.FlinkJob) */ {
  public:
@@ -732,7 +704,7 @@ class FlinkJob final :
                &_FlinkJob_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    5;
 
   void Swap(FlinkJob* other);
   friend void swap(FlinkJob& a, FlinkJob& b) {
@@ -821,15 +793,6 @@ class FlinkJob final :
   ::google::protobuf::Map< ::std::string, ::std::string >*
       mutable_flinkproperties();
 
-  // map<string, string> flinkLogProperties = 9;
-  int flinklogproperties_size() const;
-  void clear_flinklogproperties();
-  static const int kFlinkLogPropertiesFieldNumber = 9;
-  const ::google::protobuf::Map< ::std::string, ::std::string >&
-      flinklogproperties() const;
-  ::google::protobuf::Map< ::std::string, ::std::string >*
-      mutable_flinklogproperties();
-
   // string jarFile = 1;
   void clear_jarfile();
   static const int kJarFileFieldNumber = 1;
@@ -916,12 +879,6 @@ class FlinkJob final :
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
       0 > flinkproperties_;
-  ::google::protobuf::internal::MapField<
-      FlinkJob_FlinkLogPropertiesEntry_DoNotUse,
-      ::std::string, ::std::string,
-      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      0 > flinklogproperties_;
   ::google::protobuf::internal::ArenaStringPtr jarfile_;
   ::google::protobuf::internal::ArenaStringPtr mainclass_;
   ::google::protobuf::internal::ArenaStringPtr serviceaccount_;
@@ -971,7 +928,7 @@ class JobExecutionInfo final :
                &_JobExecutionInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    6;
 
   void Swap(JobExecutionInfo* other);
   friend void swap(JobExecutionInfo& a, JobExecutionInfo& b) {
@@ -1091,7 +1048,7 @@ class JobManagerExecutionInfo final :
                &_JobManagerExecutionInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    7;
 
   void Swap(JobManagerExecutionInfo* other);
   friend void swap(JobManagerExecutionInfo& a, JobManagerExecutionInfo& b) {
@@ -1219,7 +1176,7 @@ class FlinkExecutionInfo final :
                &_FlinkExecutionInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    8;
 
   void Swap(FlinkExecutionInfo* other);
   friend void swap(FlinkExecutionInfo& a, FlinkExecutionInfo& b) {
@@ -1647,8 +1604,6 @@ inline void TaskManager::set_replicas(::google::protobuf::int32 value) {
 
 // -------------------------------------------------------------------
 
-// -------------------------------------------------------------------
-
 // FlinkJob
 
 // string jarFile = 1;
@@ -2052,24 +2007,6 @@ inline void FlinkJob::set_allocated_image(::std::string* image) {
   // @@protoc_insertion_point(field_set_allocated:flyteidl_flink.FlinkJob.image)
 }
 
-// map<string, string> flinkLogProperties = 9;
-inline int FlinkJob::flinklogproperties_size() const {
-  return flinklogproperties_.size();
-}
-inline void FlinkJob::clear_flinklogproperties() {
-  flinklogproperties_.Clear();
-}
-inline const ::google::protobuf::Map< ::std::string, ::std::string >&
-FlinkJob::flinklogproperties() const {
-  // @@protoc_insertion_point(field_map:flyteidl_flink.FlinkJob.flinkLogProperties)
-  return flinklogproperties_.GetMap();
-}
-inline ::google::protobuf::Map< ::std::string, ::std::string >*
-FlinkJob::mutable_flinklogproperties() {
-  // @@protoc_insertion_point(field_mutable_map:flyteidl_flink.FlinkJob.flinkLogProperties)
-  return flinklogproperties_.MutableMap();
-}
-
 // -------------------------------------------------------------------
 
 // JobExecutionInfo
@@ -2309,8 +2246,6 @@ inline void FlinkExecutionInfo::set_allocated_jobmanager(::flyteidl_flink::JobMa
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
