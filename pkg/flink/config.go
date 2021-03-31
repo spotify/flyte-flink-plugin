@@ -23,6 +23,7 @@ import (
 
 type IngressConfig struct {
 	Enabled bool `json:"enabled" pflag:"Enable JobManager ingress. default: false"`
+	Annotations map[string]string
 	UseTLS  bool `json:"useTLS" pflag:"TLS use, default: false."`
 }
 
