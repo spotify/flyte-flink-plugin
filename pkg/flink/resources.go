@@ -16,6 +16,7 @@ package flink
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 
 	corev1 "k8s.io/api/core/v1"
@@ -30,12 +31,9 @@ import (
 )
 
 var (
-	cacheVolumes      = []corev1.Volume{{Name: "cache-volume"}}
-	cacheVolumeMounts = []corev1.VolumeMount{{Name: "cache-volume", MountPath: "/cache"}}
-)
-
-const (
-	regexFlinkClusterName string = `^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`
+	cacheVolumes           = []corev1.Volume{{Name: "cache-volume"}}
+	cacheVolumeMounts      = []corev1.VolumeMount{{Name: "cache-volume", MountPath: "/cache"}}
+	regexpFlinkClusterName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
 )
 
 func persistentVolumeTypeString(pdType flinkIdl.Resource_PersistentVolume_Type) string {
@@ -289,7 +287,7 @@ func BuildFlinkClusterSpec(taskCtx pluginsCore.TaskExecutionMetadata, job flinkI
 	annotations := GetDefaultAnnotations(taskCtx)
 	labels := GetDefaultLabels(taskCtx)
 	clusterName := taskCtx.GetTaskExecutionID().GetGeneratedName()
-	if err := validate(clusterName, regexFlinkClusterName); err != nil {
+	if err := validate(clusterName, regexpFlinkClusterName); err != nil {
 		return nil, err
 	}
 
