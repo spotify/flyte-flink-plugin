@@ -44,13 +44,16 @@ func BuildFlinkProperties(config *Config, flinkJob flinkIdl.FlinkJob) FlinkPrope
 	return flinkProperties
 }
 
-func (fp FlinkProperties) GetInt(key string) int {
-	value, err := strconv.Atoi(fp[key])
-	if err != nil {
-		panic(fmt.Errorf("cannot parse '%v': %v", fp[key], err))
+func (fp FlinkProperties) GetInt(key string) (int, error) {
+	if value, ok := fp[key]; ok {
+		intValue, err := strconv.Atoi(value)
+		if err != nil {
+			return 0, fmt.Errorf("cannot parse '%v': %v", value, err)
+		}
+		return intValue, nil
 	}
 
-	return value
+	return 0, fmt.Errorf("key %s not found", key)
 }
 
 type Properties map[string]string

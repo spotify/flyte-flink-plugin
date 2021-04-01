@@ -162,7 +162,7 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 	out.ClassName = &taskCtx.Job.MainClass
 	out.Args = taskCtx.Job.Args
 
-	parallelism := taskManagerReplicas * int32(taskManagerTaskSlots)
+	parallelism := taskManagerReplicas * taskManagerTaskSlots
 	out.Parallelism = &parallelism
 
 	out.CleanupPolicy = &flinkOp.CleanupPolicy{
@@ -221,14 +221,17 @@ func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCl
 	cluster.updateJobManagerSpec(taskCtx)
 	cluster.updateTaskManagerSpec(taskCtx)
 
-	taskSlots := int32(FlinkProperties(cluster.Spec.FlinkProperties).GetInt("taskmanager.numberOfTaskSlots"))
-	cluster.updateJobSpec(taskCtx, cluster.Spec.TaskManager.Replicas, taskSlots)
+	taskSlots, err := FlinkProperties(cluster.Spec.FlinkProperties).GetInt("taskmanager.numberOfTaskSlots")
+	if err != nil {
+		return nil, err
+	}
+	cluster.updateJobSpec(taskCtx, cluster.Spec.TaskManager.Replicas, int32(taskSlots))
 
 	// fill in defaults
 	resource := flinkOp.FlinkCluster(cluster)
 	resource.Default()
 
-	err := resource.ValidateCreate()
+	err = resource.ValidateCreate()
 	if err != nil {
 		return nil, err
 	}
