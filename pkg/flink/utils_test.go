@@ -58,3 +58,36 @@ func TestLiteralMapToArgs(t *testing.T) {
 	sort.Strings(expected)
 	assert.Assert(t, reflect.DeepEqual(args, expected))
 }
+
+func TestFlinkClusterNameRegex(t *testing.T) {
+	t.Run("Valid cluster name", func(t *testing.T) {
+		validNames := []string{
+			"valid-name",
+			"valid-name.have.periods",
+			"2valid-name.starts.with.a.number",
+			"valid-name.ends.with.a.number4",
+			"valid-name.with.multiple-dashes",
+		}
+
+		for _, valid := range validNames {
+			err := validate(valid, regexpFlinkClusterName)
+			assert.NilError(t, err)
+		}
+	})
+
+	t.Run("Invalid cluster name", func(t *testing.T) {
+		invalidNames := []string{
+			".invalid-name",
+			"invalid-name.",
+			"_invalid-name",
+			"invalid-name_",
+			"invalid_name",
+			"invalid name",
+		}
+
+		for _, invalid := range invalidNames {
+			err := validate(invalid, regexpFlinkClusterName)
+			assert.ErrorContains(t, err, "Validation error: ")
+		}
+	})
+}

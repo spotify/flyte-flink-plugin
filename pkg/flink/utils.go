@@ -16,9 +16,17 @@ package flink
 
 import (
 	"fmt"
+	"regexp"
 
 	"github.com/flyteorg/flyteidl/gen/pb-go/flyteidl/core"
 )
+
+func validate(value string, r *regexp.Regexp) error {
+	if r.MatchString(value) {
+		return nil
+	}
+	return fmt.Errorf("Validation error: %v doesn't match with the given regex expr: %v", value, r.String())
+}
 
 func literalMapToFlinkJobArgs(literals map[string]*core.Literal) ([]string, error) {
 	args := []string{}
