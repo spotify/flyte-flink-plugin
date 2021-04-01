@@ -38,25 +38,15 @@ import (
 	structpb "github.com/golang/protobuf/ptypes/struct"
 )
 
-type flinkResourceHandler struct{}
-
-func (flinkResourceHandler) GetProperties() k8s.PluginProperties {
-	config := GetFlinkConfig()
-	props := k8s.PluginProperties{
-		GeneratedNameMaxLength: config.GeneratedNameMaxLength,
-	}
-
-	if config.RemoteClusterConfig.Enabled {
-		props.DisableInjectFinalizer = true
-		props.DisableInjectOwnerReferences = true
-	}
-
-	return props
+type FlinkTaskContext struct {
+	Name        string
+	Namespace   string
+	Annotations map[string]string
+	Labels      map[string]string
+	Job         flinkIdl.FlinkJob
 }
 
-// Creates a new Job that will execute the main container as well as any generated types the result from the execution.
-func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCore.TaskExecutionContext) (client.Object, error) {
-
+func NewFlinkTaskContext(ctx context.Context, taskCtx pluginsCore.TaskExecutionContext) (*FlinkTaskContext, error) {
 	taskTemplate, err := taskCtx.TaskReader().Read(ctx)
 	if err != nil {
 		return nil, errors.Errorf(errors.BadTaskSpecification, "unable to fetch task specification [%v]", err.Error())
@@ -83,10 +73,43 @@ func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCo
 	}
 	job.Args = append(job.Args, args...)
 
+	taskMetadata := taskCtx.TaskExecutionMetadata()
+
+	return &FlinkTaskContext{
+		Name:        taskMetadata.GetTaskExecutionID().GetGeneratedName(),
+		Namespace:   taskMetadata.GetNamespace(),
+		Annotations: GetDefaultAnnotations(taskMetadata),
+		Labels:      GetDefaultLabels(taskMetadata),
+		Job:         job,
+	}, nil
+}
+
+type flinkResourceHandler struct{}
+
+func (flinkResourceHandler) GetProperties() k8s.PluginProperties {
+	config := GetFlinkConfig()
+	props := k8s.PluginProperties{
+		GeneratedNameMaxLength: config.GeneratedNameMaxLength,
+	}
+
+	if config.RemoteClusterConfig.Enabled {
+		props.DisableInjectFinalizer = true
+		props.DisableInjectOwnerReferences = true
+	}
+
+	return props
+}
+
+// Creates a new Job that will execute the main container as well as any generated types the result from the execution.
+func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCore.TaskExecutionContext) (client.Object, error) {
 	// Start with default config values.
 	config := GetFlinkConfig()
+	flinkTaskCtx, err := NewFlinkTaskContext(ctx, taskCtx)
+	if err != nil {
+		return nil, err
+	}
 
-	return NewFlinkCluster(config, taskCtx.TaskExecutionMetadata(), job)
+	return NewFlinkCluster(config, *flinkTaskCtx)
 }
 
 func (flinkResourceHandler) BuildIdentityResource(ctx context.Context, taskCtx pluginsCore.TaskExecutionMetadata) (client.Object, error) {
