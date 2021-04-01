@@ -19,6 +19,7 @@ import (
 
 	flyteIdlCore "github.com/flyteorg/flyteidl/gen/pb-go/flyteidl/core"
 	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/core/mocks"
+	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	"gotest.tools/assert"
 	"k8s.io/apimachinery/pkg/api/resource"
@@ -51,7 +52,7 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 	taskCtx.OnGetAnnotations().Return(make(map[string]string))
 	taskCtx.OnGetLabels().Return(make(map[string]string))
 
-	cluster, err := BuildFlinkClusterSpec(taskCtx, job, config)
+	cluster, err := NewFlinkCluster(config, taskCtx, job)
 
 	assert.NilError(t, err)
 	assert.Equal(t, cluster.Spec.Image.Name, "flink-image")
@@ -106,7 +107,7 @@ func TestWithPersistentVolume(t *testing.T) {
 	taskCtx.OnGetAnnotations().Return(make(map[string]string))
 	taskCtx.OnGetLabels().Return(make(map[string]string))
 
-	cluster, err := BuildFlinkClusterSpec(taskCtx, job, config)
+	cluster, err := NewFlinkCluster(config, taskCtx, job)
 
 	assert.NilError(t, err)
 	assert.Equal(t, cluster.Spec.Image.Name, "flink-image")
@@ -144,7 +145,7 @@ func TestBuildFlinkClusterSpecInvalid(t *testing.T) {
 	taskCtx.OnGetAnnotations().Return(make(map[string]string))
 	taskCtx.OnGetLabels().Return(make(map[string]string))
 
-	_, err := BuildFlinkClusterSpec(taskCtx, job, config)
+	_, err := NewFlinkCluster(config, taskCtx, job)
 
 	assert.Error(t, err, "image name is unspecified")
 }
@@ -177,7 +178,7 @@ func TestBuildFlinkClusterSpecServiceAccount(t *testing.T) {
 	taskCtx.OnGetAnnotations().Return(make(map[string]string))
 	taskCtx.OnGetLabels().Return(make(map[string]string))
 
-	cluster, err := BuildFlinkClusterSpec(taskCtx, job, config)
+	cluster, err := NewFlinkCluster(config, taskCtx, job)
 
 	assert.NilError(t, err)
 	assert.Equal(t, *cluster.Spec.ServiceAccountName, "flink-user-service-account")
@@ -211,7 +212,7 @@ func TestBuildFlinkClusterSpecImage(t *testing.T) {
 	taskCtx.OnGetAnnotations().Return(make(map[string]string))
 	taskCtx.OnGetLabels().Return(make(map[string]string))
 
-	cluster, err := BuildFlinkClusterSpec(taskCtx, job, config)
+	cluster, err := NewFlinkCluster(config, taskCtx, job)
 
 	assert.NilError(t, err)
 	assert.Equal(t, cluster.Spec.Image.Name, "flink-custom-image")
@@ -227,9 +228,11 @@ func TestBuildFlinkClusterWithIngress(t *testing.T) {
 	}
 
 	config := GetFlinkConfig()
-	config.JobManager.Ingress = IngressConfig{
-		Enabled:     true,
-		Annotations: map[string]string{"kubernetes.io/ingress.class": "gce-internal"},
+	config.DefaultFlinkCluster.Spec.JobManager.Ingress = &flinkOp.JobManagerIngressSpec{
+		Annotations: map[string]string{
+			"cluster-autoscaler.kubernetes.io/safe-to-evict": "false",
+			"kubernetes.io/ingress.class":                    "gce-internal",
+		},
 	}
 
 	tID := &mocks.TaskExecutionID{}
@@ -250,7 +253,7 @@ func TestBuildFlinkClusterWithIngress(t *testing.T) {
 	taskCtx.OnGetAnnotations().Return(make(map[string]string))
 	taskCtx.OnGetLabels().Return(make(map[string]string))
 
-	cluster, err := BuildFlinkClusterSpec(taskCtx, job, config)
+	cluster, err := NewFlinkCluster(config, taskCtx, job)
 	assert.NilError(t, err)
 
 	assert.Assert(t, cluster.Spec.JobManager.Ingress != nil)
@@ -287,6 +290,6 @@ func TestBuildFlinkClusterSpecInvalidClusterName(t *testing.T) {
 	taskCtx.OnGetAnnotations().Return(make(map[string]string))
 	taskCtx.OnGetLabels().Return(make(map[string]string))
 
-	_, err := BuildFlinkClusterSpec(taskCtx, job, config)
+	_, err := NewFlinkCluster(config, taskCtx, job)
 	assert.ErrorContains(t, err, "Validation error: ")
 }

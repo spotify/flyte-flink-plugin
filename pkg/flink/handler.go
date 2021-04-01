@@ -86,7 +86,7 @@ func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCo
 	// Start with default config values.
 	config := GetFlinkConfig()
 
-	return BuildFlinkClusterSpec(taskCtx.TaskExecutionMetadata(), job, config)
+	return NewFlinkCluster(config, taskCtx.TaskExecutionMetadata(), job)
 }
 
 func (flinkResourceHandler) BuildIdentityResource(ctx context.Context, taskCtx pluginsCore.TaskExecutionMetadata) (client.Object, error) {

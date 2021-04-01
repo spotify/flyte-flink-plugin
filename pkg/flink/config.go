@@ -17,59 +17,48 @@ package flink
 import (
 	pluginsConfig "github.com/flyteorg/flyteplugins/go/tasks/config"
 	"github.com/flyteorg/flyteplugins/go/tasks/logs"
+	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 )
 
-type IngressConfig struct {
-	Enabled bool `json:"enabled" pflag:"Enable JobManager ingress. default: false"`
-	Annotations map[string]string
-	UseTLS  bool `json:"useTLS" pflag:"TLS use, default: false."`
-}
-
-type JobManagerConfig struct {
-	Cpu          resource.Quantity  `json:"cpu" pflag:"number of cores per pod"`
-	Memory       resource.Quantity  `json:"memory" pflag:"amount of memory per pod"`
-	NodeSelector map[string]string  `json:"nodeSelector" pflag:"Annotates the JobManager resource with desired nodepool type"`
-	Sidecars     []corev1.Container `json:"sidecars" pflag:"Sidecar containers running alongside with the JobManager container in the pod"`
-	AccessScope  *string            `json:"accessScope" pflag:"Access scope of the JobManager service. Cluster (default), VPC, External, NodePort, Headless."`
-	Ingress      IngressConfig      `json:"ingress" pflag:"Provide external access to JobManager UI/API."`
-}
-
-type TaskManagerConfig struct {
-	Cpu          resource.Quantity  `json:"cpu" pflag:"amout of cpu per pod"`
-	Memory       resource.Quantity  `json:"memory" pflag:"amount of memory per pod"`
-	Replicas     int                `json:"replicas" pflag:"number of replicas"`
-	NodeSelector map[string]string  `json:"nodeSelector" pflag:"Annotates the TasManager resource(s) with desired nodepool type"`
-	Sidecars     []corev1.Container `json:"sidecars" pflag:"Sidecar containers running alongside with the TaskManager container in the pod"`
-}
+type DefaultFlinkCluster = flinkOp.FlinkCluster
 
 // Config ... Flink-specific configs
 type Config struct {
-	FlinkProperties         map[string]string `json:"flinkPropertiesDefault" pflag:",Key value pairs of default flink properties that should be applied to every FlinkJob"`
-	FlinkPropertiesOverride map[string]string `json:"flinkPropertiesOverride" pflag:",Key value pairs of flink properties to be overridden in every FlinkJob"`
-	Image                   string            `json:"image"`
-	ServiceAccount          string            `json:"serviceAccount"`
-	JobManager              JobManagerConfig  `json:"jobManager"`
-	TaskManager             TaskManagerConfig `json:"taskManager"`
-	LogConfig               logs.LogConfig    `json:"logs"`
-	GeneratedNameMaxLength  *int              `json:"generatedNameMaxLength" pflag:"Specifies the length of TaskExecutionID generated name. default: 50"`
-	RemoteClusterConfig     ClusterConfig     `json:"remoteClusterConfig" pflag:"Configuration of remote K8s cluster for array jobs"`
-	FlinkLogConfig          map[string]string `json:"flinkLogConfig" pflag:",Key value pairs of default flink log config properties that should be applied to every FlinkJob"`
+	DefaultFlinkCluster     DefaultFlinkCluster `json:"defaultFlinkCluster"`
+	FlinkPropertiesOverride map[string]string   `json:"flinkPropertiesOverride" pflag:",Key value pairs of flink properties to be overridden in every FlinkJob"`
+	LogConfig               logs.LogConfig      `json:"logs"`
+	GeneratedNameMaxLength  *int                `json:"generatedNameMaxLength" pflag:"Specifies the length of TaskExecutionID generated name. default: 50"`
+	RemoteClusterConfig     ClusterConfig       `json:"remoteClusterConfig" pflag:"Configuration of remote K8s cluster for array jobs"`
 }
 
 var (
 	generatedNameMaxLength = 50
+	defaultServiceAccount  = "default"
 	defaultConfig          = &Config{
-		ServiceAccount: "default",
-		JobManager: JobManagerConfig{
-			Cpu:    resource.MustParse("4"),
-			Memory: resource.MustParse("4Gi"),
-		},
-		TaskManager: TaskManagerConfig{
-			Cpu:      resource.MustParse("4"),
-			Memory:   resource.MustParse("4Gi"),
-			Replicas: 1,
+		DefaultFlinkCluster: flinkOp.FlinkCluster{
+			Spec: flinkOp.FlinkClusterSpec{
+				ServiceAccountName: &defaultServiceAccount,
+				JobManager: flinkOp.JobManagerSpec{
+					AccessScope: "ClusterIP",
+					Resources: corev1.ResourceRequirements{
+						Limits: map[corev1.ResourceName]resource.Quantity{
+							corev1.ResourceCPU:    resource.MustParse("4"),
+							corev1.ResourceMemory: resource.MustParse("4Gi"),
+						},
+					},
+				},
+				TaskManager: flinkOp.TaskManagerSpec{
+					Replicas: 1,
+					Resources: corev1.ResourceRequirements{
+						Limits: map[corev1.ResourceName]resource.Quantity{
+							corev1.ResourceCPU:    resource.MustParse("4"),
+							corev1.ResourceMemory: resource.MustParse("4Gi"),
+						},
+					},
+				},
+			},
 		},
 		GeneratedNameMaxLength: &generatedNameMaxLength,
 	}

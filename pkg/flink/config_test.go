@@ -21,6 +21,7 @@ import (
 	"github.com/flyteorg/flytestdlib/config"
 	"github.com/flyteorg/flytestdlib/config/viper"
 	"gotest.tools/assert"
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 )
 
@@ -29,31 +30,41 @@ func TestLoadConfig(t *testing.T) {
 	assert.Assert(t, flinkConfig != nil)
 
 	t.Run("uses defaults", func(t *testing.T) {
-		assert.Equal(t, flinkConfig.JobManager.Memory, resource.MustParse("4Gi"))
-		assert.Equal(t, flinkConfig.TaskManager.Cpu, resource.MustParse("4"))
-		assert.Equal(t, flinkConfig.TaskManager.Memory, resource.MustParse("4Gi"))
+		defaultCluster := flinkConfig.DefaultFlinkCluster.Spec
+		jm := defaultCluster.JobManager
+		tm := defaultCluster.TaskManager
+		assert.Equal(t, tm.Resources.Limits[corev1.ResourceCPU], resource.MustParse("4"))
+		assert.Equal(t, jm.Resources.Limits[corev1.ResourceMemory], resource.MustParse("4Gi"))
+		assert.Equal(t, tm.Resources.Limits[corev1.ResourceMemory], resource.MustParse("4Gi"))
 		assert.Equal(t, flinkConfig.RemoteClusterConfig.Enabled, false)
 	})
 
 	t.Run("overrides defaults", func(t *testing.T) {
-		assert.Equal(t, flinkConfig.TaskManager.Replicas, 4)
-		assert.Equal(t, flinkConfig.JobManager.Cpu, resource.MustParse("3.5"))
-		assert.Equal(t, flinkConfig.ServiceAccount, "flink-service-account")
+		defaultCluster := flinkConfig.DefaultFlinkCluster.Spec
+		jm := defaultCluster.JobManager
+		tm := defaultCluster.TaskManager
+		assert.Equal(t, tm.Replicas, int32(4))
+		assert.Equal(t, jm.Resources.Limits[corev1.ResourceCPU], resource.MustParse("3.5"))
+		assert.Equal(t, *flinkConfig.DefaultFlinkCluster.Spec.ServiceAccountName, "flink-service-account")
 		assert.Equal(t, *flinkConfig.GeneratedNameMaxLength, 50)
 	})
 
 	t.Run("sets properties with no defaults", func(t *testing.T) {
-		assert.DeepEqual(t, flinkConfig.JobManager.NodeSelector, map[string]string{"gke-nodepool": "nodepool-1"})
-		assert.DeepEqual(t, flinkConfig.TaskManager.NodeSelector, map[string]string{"gke-nodepool": "nodepool-2"})
-		assert.Equal(t, flinkConfig.Image, "flink-image")
-		assert.Assert(t, len(flinkConfig.FlinkProperties) > 0)
+		defaultCluster := flinkConfig.DefaultFlinkCluster.Spec
+		jm := defaultCluster.JobManager
+		tm := defaultCluster.TaskManager
+		assert.DeepEqual(t, jm.NodeSelector, map[string]string{"gke-nodepool": "nodepool-1"})
+		assert.DeepEqual(t, tm.NodeSelector, map[string]string{"gke-nodepool": "nodepool-2"})
+		assert.Equal(t, defaultCluster.Image.Name, "flink-image")
+		assert.Assert(t, len(defaultCluster.FlinkProperties) > 0)
 		assert.Equal(t, flinkConfig.FlinkPropertiesOverride["jobmanager.archive.fs.dir"], "flink-job-archive-dir")
 	})
 
 	t.Run("flink log configs", func(t *testing.T) {
-		assert.Assert(t, len(flinkConfig.FlinkLogConfig) == 9)
-		assert.Equal(t, flinkConfig.FlinkLogConfig["log4j.logger.org.apache.flink"], "INFO")
-		assert.Equal(t, flinkConfig.FlinkLogConfig["log4j.appender.console"], "org.apache.log4j.ConsoleAppender")
+		flinkLogConfig := flinkConfig.DefaultFlinkCluster.Spec.LogConfig
+		assert.Assert(t, len(flinkLogConfig) == 9)
+		assert.Equal(t, flinkLogConfig["log4j.logger.org.apache.flink"], "INFO")
+		assert.Equal(t, flinkLogConfig["log4j.appender.console"], "org.apache.log4j.ConsoleAppender")
 	})
 
 	t.Run("remote cluster", func(t *testing.T) {

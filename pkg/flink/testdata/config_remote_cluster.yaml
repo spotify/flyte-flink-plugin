@@ -1,35 +1,71 @@
 plugins:
-    flink:
-        image: "flink-image"
-        service-account: "flink-service-account"
-        jobmanager.cpu: 3.5
-        jobmanager.nodeSelector:
+  flink:
+    remoteClusterConfig:
+      endpoint: 127.0.0.1
+      enabled: true
+      auth:
+        tokenPath: /path/token
+        caCertPath: /path/cert
+    flinkPropertiesOverride:
+      - jobmanager.archive.fs.dir: "flink-job-archive-dir"
+    defaultFlinkCluster:
+      spec:
+        serviceAccountName: "flink-service-account"
+        image:
+          name: "flink-image"
+          pullPolicy: Always
+        jobManager:
+          accessScope: External
+          ingress:
+            useTls: true
+          resources:
+            limits:
+              cpu: "3.5"
+          volumes:
+            - name: cache-volume
+              emptyDir: {}
+          volumeMounts:
+            - mountPath: /cache
+              name: cache-volume
+          nodeSelector:
             - gke-nodepool: "nodepool-1"
-        jobmanager.sidecars:
+          sidecars:
             - name: "sidecar"
               image: "sidecar-image"
               command: ["printenv"]
               args: ["HOSTNAME", "KUBERNETES_PORT"]
-        jobManager.accessScope: External
-        jobmanager.ingress:
-            enabled: true
-            useTLS: true
-        taskmanager:
-            replicas: 4
-            nodeSelector:
-                - gke-nodepool: "nodepool-2"
-        flink-properties-default:
-            - akka.ask.timeout: "600s"
-            - blob.server.port: "6124"
-            - resourcemanager.taskmanager-timeout: "3600000"
-            - web.timeout: "600000"
-            - heartbeat.timeout: "3600000"
-            - pipeline.object-reuse: "true"
-        flink-properties-override:
-            - jobmanager.archive.fs.dir: "flink-job-archive-dir"
-        remoteClusterConfig:
-            endpoint: 127.0.0.1
-            enabled: true
-            auth:
-                tokenPath: /path/token
-                caCertPath: /path/cert
+        taskManager:
+          replicas: 4
+          volumes:
+            - name: cache-volume
+              emptyDir: {}
+          volumeMounts:
+            - mountPath: /cache
+              name: cache-volume
+          nodeSelector:
+            - gke-nodepool: "nodepool-2"
+        job:
+          volumes:
+            - name: cache-volume
+              emptyDir: {}
+          volumeMounts:
+            - mountPath: /cache
+              name: cache-volume
+        flinkProperties:
+          - akka.ask.timeout: "600s"
+          - blob.server.port: "6124"
+          - resourcemanager.taskmanager-timeout: "3600000"
+          - web.timeout: "600000"
+          - heartbeat.timeout: "3600000"
+          - pipeline.object-reuse: "true"
+        logConfig:
+          - log4j.rootLogger: "INFO, console, file"
+          - log4j.logger.org.apache.flink: "INFO"
+          - log4j.logger.akka: "INFO"
+          - log4j.logger.org.apache.kafka: "INFO"
+          - log4j.logger.org.apache.hadoop: "INFO"
+          - log4j.logger.org.apache.zookeeper: "INFO"
+          # Log all infos to the console
+          - log4j.appender.console: "org.apache.log4j.ConsoleAppender"
+          - log4j.appender.console.layout: "org.apache.log4j.PatternLayout"
+          - log4j.appender.console.layout.ConversionPattern: "%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %-60c %x - %m%n"

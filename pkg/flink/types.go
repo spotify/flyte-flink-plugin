@@ -29,7 +29,7 @@ type FlinkProperties map[string]string
 func BuildFlinkProperties(config *Config, flinkJob flinkIdl.FlinkJob) FlinkProperties {
 	// Start with default config values.
 	flinkProperties := make(map[string]string)
-	for k, v := range config.FlinkProperties {
+	for k, v := range config.DefaultFlinkCluster.Spec.FlinkProperties {
 		flinkProperties[k] = v
 	}
 
@@ -48,6 +48,29 @@ func (fp FlinkProperties) GetInt(key string) int {
 	value, err := strconv.Atoi(fp[key])
 	if err != nil {
 		panic(fmt.Errorf("cannot parse '%v': %v", fp[key], err))
+	}
+
+	return value
+}
+
+type Properties map[string]string
+
+func MergeProperties(maps ...Properties) Properties {
+	// Start with default config values.
+	props := make(Properties)
+	for _, m := range maps {
+		for k, v := range m {
+			props[k] = v
+		}
+	}
+
+	return props
+}
+
+func (p Properties) GetInt(key string) int {
+	value, err := strconv.Atoi(p[key])
+	if err != nil {
+		panic(fmt.Errorf("cannot parse '%v': %v", p[key], err))
 	}
 
 	return value
