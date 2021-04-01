@@ -22,15 +22,13 @@ import (
 	"k8s.io/apimachinery/pkg/api/resource"
 )
 
-type DefaultFlinkCluster = flinkOp.FlinkCluster
-
 // Config ... Flink-specific configs
 type Config struct {
-	DefaultFlinkCluster     DefaultFlinkCluster `json:"defaultFlinkCluster"`
-	FlinkPropertiesOverride map[string]string   `json:"flinkPropertiesOverride" pflag:",Key value pairs of flink properties to be overridden in every FlinkJob"`
-	LogConfig               logs.LogConfig      `json:"logs"`
-	GeneratedNameMaxLength  *int                `json:"generatedNameMaxLength" pflag:"Specifies the length of TaskExecutionID generated name. default: 50"`
-	RemoteClusterConfig     ClusterConfig       `json:"remoteClusterConfig" pflag:"Configuration of remote K8s cluster for array jobs"`
+	DefaultFlinkCluster     flinkOp.FlinkCluster `json:"defaultFlinkCluster"`
+	FlinkPropertiesOverride map[string]string    `json:"flinkPropertiesOverride" pflag:",Key value pairs of flink properties to be overridden in every FlinkJob"`
+	LogConfig               logs.LogConfig       `json:"logs"`
+	GeneratedNameMaxLength  *int                 `json:"generatedNameMaxLength" pflag:"Specifies the length of TaskExecutionID generated name. default: 50"`
+	RemoteClusterConfig     ClusterConfig        `json:"remoteClusterConfig" pflag:"Configuration of remote K8s cluster for array jobs"`
 }
 
 var (
