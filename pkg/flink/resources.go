@@ -150,10 +150,10 @@ func (fc *FlinkCluster) updateTaskManagerSpec(taskCtx FlinkTaskContext) {
 }
 
 func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerReplicas, taskManagerTaskSlots int32) {
-	out := fc.Spec.Job
-	if out == nil {
-		out = &flinkOp.JobSpec{}
+	if fc.Spec.Job == nil {
+		fc.Spec.Job = &flinkOp.JobSpec{}
 	}
+	out := fc.Spec.Job
 
 	out.PodAnnotations = utils.UnionMaps(taskCtx.Annotations, out.PodAnnotations)
 	out.PodLabels = utils.UnionMaps(taskCtx.Labels, out.PodLabels)
