@@ -29,7 +29,11 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-var regexpFlinkClusterName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
+var (
+	cacheVolume            = corev1.Volume{Name: "cache-volume"}
+	cacheVolumeMount       = corev1.VolumeMount{Name: "cache-volume", MountPath: "/cache"}
+	regexpFlinkClusterName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
+)
 
 type FlinkCluster flinkOp.FlinkCluster
 
@@ -187,6 +191,8 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 		}
 		out.JarFile = "/cache/job.jar"
 		out.InitContainers = append(out.InitContainers, container)
+		out.Volumes = append(out.Volumes, cacheVolume)
+		out.VolumeMounts = append(out.VolumeMounts, cacheVolumeMount)
 	}
 }
 

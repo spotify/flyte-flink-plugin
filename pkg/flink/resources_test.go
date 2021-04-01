@@ -58,6 +58,8 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 	assert.Equal(t, *cluster.Spec.JobManager.Ingress.UseTLS, true)
 
 	assert.Equal(t, cluster.Spec.Job.JarFile, job.JarFile)
+	assert.Equal(t, len(cluster.Spec.Job.Volumes), 1)
+	assert.Equal(t, len(cluster.Spec.Job.VolumeMounts), 1)
 }
 
 func TestWithPersistentVolume(t *testing.T) {

@@ -8,6 +8,12 @@ plugins:
         image:
           name: "flink-image"
           pullPolicy: Always
+        job:
+          volumes:
+            - name: cache-volume
+          volumeMounts:
+            - mountPath: /cache
+              name: cache-volume
         jobManager:
           accessScope: External
           ingress:
