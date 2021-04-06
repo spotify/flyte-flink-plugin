@@ -15,7 +15,6 @@
 package flink
 
 import (
-	"fmt"
 	"regexp"
 	"strings"
 
@@ -33,12 +32,30 @@ var (
 	cacheVolume            = corev1.Volume{Name: "cache-volume"}
 	cacheVolumeMount       = corev1.VolumeMount{Name: "cache-volume", MountPath: "/cache"}
 	regexpFlinkClusterName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
+	jobManagerVolumeClaim  = "pvc-jm"
+	taskManagerVolumeClaim = "pvc-tm"
+	volumeClaimMountPath   = "/flink-tmp"
+	flinkIoTmpDirsProperty = "io.tmp.dirs"
 )
 
 type FlinkCluster flinkOp.FlinkCluster
 
-func persistentVolumeTypeString(pdType flinkIdl.Resource_PersistentVolume_Type) string {
-	return strings.ReplaceAll(strings.ToLower(pdType.String()), "_", "-")
+func getPersistentVolumeClaim(name string, pv *flinkIdl.Resource_PersistentVolume) corev1.PersistentVolumeClaim {
+	storageClass := strings.ReplaceAll(strings.ToLower(pv.GetType().String()), "_", "-")
+	storageSize := pv.GetSize()
+
+	return corev1.PersistentVolumeClaim{
+		ObjectMeta: metav1.ObjectMeta{Name: name},
+		Spec: corev1.PersistentVolumeClaimSpec{
+			AccessModes: []corev1.PersistentVolumeAccessMode{corev1.ReadWriteOnce},
+			Resources: corev1.ResourceRequirements{
+				Requests: corev1.ResourceList{
+					corev1.ResourceStorage: *storageSize,
+				},
+			},
+			StorageClassName: &storageClass,
+		},
+	}
 }
 
 func (fc *FlinkCluster) updateJobManagerSpec(taskCtx FlinkTaskContext) {
@@ -57,41 +74,17 @@ func (fc *FlinkCluster) updateJobManagerSpec(taskCtx FlinkTaskContext) {
 		out.Resources.Limits[corev1.ResourceMemory] = *memory
 	}
 
-	if pd := jm.GetResource().GetPersistentVolume(); pd != nil {
-		storageClass := persistentVolumeTypeString(pd.GetType())
-		storageSize := pd.GetSize()
+	if pv := jm.GetResource().GetPersistentVolume(); pv != nil {
+		claim := getPersistentVolumeClaim(jobManagerVolumeClaim, pv)
 
-		claim := corev1.PersistentVolumeClaim{
-			ObjectMeta: metav1.ObjectMeta{
-				Name: fmt.Sprintf("claim-jm-%s", fc.ObjectMeta.Name),
-			},
-			Spec: corev1.PersistentVolumeClaimSpec{
-				AccessModes: []corev1.PersistentVolumeAccessMode{corev1.ReadWriteOnce},
-				Resources: corev1.ResourceRequirements{
-					Requests: corev1.ResourceList{
-						corev1.ResourceStorage: *storageSize,
-					},
-				},
-				StorageClassName: &storageClass,
-			},
-		}
 		out.VolumeClaimTemplates = []corev1.PersistentVolumeClaim{claim}
-
-		claimVolume := corev1.Volume{
-			Name: fmt.Sprintf("volume-%s", claim.Name),
-			VolumeSource: corev1.VolumeSource{
-				PersistentVolumeClaim: &corev1.PersistentVolumeClaimVolumeSource{
-					ClaimName: claim.Name,
-					ReadOnly:  false,
-				},
-			},
-		}
-		out.Volumes = append(out.Volumes, claimVolume)
 		out.VolumeMounts = append(out.VolumeMounts, corev1.VolumeMount{
-			Name:      claimVolume.Name,
+			Name:      claim.Name,
 			ReadOnly:  false,
-			MountPath: "/data/flink",
+			MountPath: volumeClaimMountPath,
 		})
+
+		fc.Spec.FlinkProperties[flinkIoTmpDirsProperty] = volumeClaimMountPath
 	}
 }
 
@@ -115,41 +108,17 @@ func (fc *FlinkCluster) updateTaskManagerSpec(taskCtx FlinkTaskContext) {
 		out.Replicas = replicas
 	}
 
-	if pd := tm.GetResource().GetPersistentVolume(); pd != nil {
-		storageClass := persistentVolumeTypeString(pd.GetType())
-		storageSize := pd.GetSize()
+	if pv := tm.GetResource().GetPersistentVolume(); pv != nil {
+		claim := getPersistentVolumeClaim(taskManagerVolumeClaim, pv)
 
-		claim := corev1.PersistentVolumeClaim{
-			ObjectMeta: metav1.ObjectMeta{
-				Name: fmt.Sprintf("claim-tm-%s", fc.GetName()),
-			},
-			Spec: corev1.PersistentVolumeClaimSpec{
-				AccessModes: []corev1.PersistentVolumeAccessMode{corev1.ReadWriteOnce},
-				Resources: corev1.ResourceRequirements{
-					Requests: corev1.ResourceList{
-						corev1.ResourceStorage: *storageSize,
-					},
-				},
-				StorageClassName: &storageClass,
-			},
-		}
 		out.VolumeClaimTemplates = []corev1.PersistentVolumeClaim{claim}
-
-		claimVolume := corev1.Volume{
-			Name: fmt.Sprintf("volume-%s", claim.Name),
-			VolumeSource: corev1.VolumeSource{
-				PersistentVolumeClaim: &corev1.PersistentVolumeClaimVolumeSource{
-					ClaimName: claim.Name,
-					ReadOnly:  false,
-				},
-			},
-		}
-		out.Volumes = append(out.Volumes, claimVolume)
 		out.VolumeMounts = append(out.VolumeMounts, corev1.VolumeMount{
-			Name:      claimVolume.Name,
+			Name:      claim.Name,
 			ReadOnly:  false,
-			MountPath: "/data/flink",
+			MountPath: volumeClaimMountPath,
 		})
+
+		fc.Spec.FlinkProperties[flinkIoTmpDirsProperty] = volumeClaimMountPath
 	}
 }
 
