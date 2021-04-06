@@ -17,37 +17,51 @@ package flink
 import (
 	"testing"
 
+	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	"gotest.tools/assert"
 )
 
-func TestBuildFlinkProperties(t *testing.T) {
-	flinkProperties := BuildFlinkProperties(GetFlinkConfig(), flinkIdl.FlinkJob{})
-	assert.Assert(t, len(flinkProperties) > 0)
+func TestMergeProperties(t *testing.T) {
+	properties := MergeProperties(
+		GetFlinkConfig().DefaultFlinkCluster.Spec.FlinkProperties,
+		flinkIdl.FlinkJob{}.FlinkProperties,
+		GetFlinkConfig().FlinkPropertiesOverride,
+	)
+	assert.Assert(t, len(properties) > 0)
 }
 
-func TestBuildFlinkPropertiesFullOverride(t *testing.T) {
+func TestMergePropertiesFullOverride(t *testing.T) {
 	flinkJob := flinkIdl.FlinkJob{
 		FlinkProperties: map[string]string{
 			"akka.ask.timeout": "200s",
 		},
 	}
 
-	flinkProperties := BuildFlinkProperties(GetFlinkConfig(), flinkJob)
-	assert.Equal(t, flinkProperties["akka.ask.timeout"], "200s")
+	properties := MergeProperties(
+		GetFlinkConfig().DefaultFlinkCluster.Spec.FlinkProperties,
+		flinkJob.FlinkProperties,
+		GetFlinkConfig().FlinkPropertiesOverride,
+	)
+	assert.Equal(t, properties["akka.ask.timeout"], "200s")
 }
 
-func TestBuildFlinkPropertiesFieldLevelOverride(t *testing.T) {
+func TestMergePropertiesFieldLevelOverride(t *testing.T) {
 	config := Config{
-		FlinkProperties:         map[string]string{"a": "A", "b": "B"},
+		DefaultFlinkCluster: flinkOp.FlinkCluster{
+			Spec: flinkOp.FlinkClusterSpec{
+				FlinkProperties: map[string]string{"a": "A", "b": "B"},
+			},
+		},
 		FlinkPropertiesOverride: map[string]string{"b": "BOverride", "c": "C"},
-		Image:                   "",
-		JobManager:              JobManagerConfig{},
-		TaskManager:             TaskManagerConfig{},
 	}
 
-	flinkProperties := BuildFlinkProperties(&config, flinkIdl.FlinkJob{})
-	assert.Equal(t, flinkProperties["a"], "A")
-	assert.Equal(t, flinkProperties["b"], "BOverride")
-	assert.Equal(t, flinkProperties["c"], "C")
+	properties := MergeProperties(
+		config.DefaultFlinkCluster.Spec.FlinkProperties,
+		flinkIdl.FlinkJob{}.FlinkProperties,
+		config.FlinkPropertiesOverride,
+	)
+	assert.Equal(t, properties["a"], "A")
+	assert.Equal(t, properties["b"], "BOverride")
+	assert.Equal(t, properties["c"], "C")
 }

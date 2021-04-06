@@ -17,8 +17,7 @@ package flink
 import (
 	"testing"
 
-	flyteIdlCore "github.com/flyteorg/flyteidl/gen/pb-go/flyteidl/core"
-	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/core/mocks"
+	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	"gotest.tools/assert"
 	"k8s.io/apimachinery/pkg/api/resource"
@@ -33,25 +32,15 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 	}
 	config := GetFlinkConfig()
 
-	tID := &mocks.TaskExecutionID{}
-	tID.OnGetID().Return(flyteIdlCore.TaskExecutionIdentifier{
-		NodeExecutionId: &flyteIdlCore.NodeExecutionIdentifier{
-			ExecutionId: &flyteIdlCore.WorkflowExecutionIdentifier{
-				Name:    "name",
-				Project: "project",
-				Domain:  "domain",
-			},
-		},
-	})
-	tID.OnGetGeneratedName().Return("generated-name")
+	flinkCtx := FlinkTaskContext{
+		Name:        "generated-name",
+		Namespace:   "test-namespace",
+		Annotations: make(map[string]string),
+		Labels:      make(map[string]string),
+		Job:         job,
+	}
 
-	taskCtx := &mocks.TaskExecutionMetadata{}
-	taskCtx.OnGetTaskExecutionID().Return(tID)
-	taskCtx.OnGetNamespace().Return("test-namespace")
-	taskCtx.OnGetAnnotations().Return(make(map[string]string))
-	taskCtx.OnGetLabels().Return(make(map[string]string))
-
-	cluster, err := BuildFlinkClusterSpec(taskCtx, job, config)
+	cluster, err := NewFlinkCluster(config, flinkCtx)
 
 	assert.NilError(t, err)
 	assert.Equal(t, cluster.Spec.Image.Name, "flink-image")
@@ -67,6 +56,10 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 
 	assert.Assert(t, cluster.Spec.JobManager.Ingress != nil)
 	assert.Equal(t, *cluster.Spec.JobManager.Ingress.UseTLS, true)
+
+	assert.Equal(t, cluster.Spec.Job.JarFile, job.JarFile)
+	assert.Equal(t, len(cluster.Spec.Job.Volumes), 1)
+	assert.Equal(t, len(cluster.Spec.Job.VolumeMounts), 1)
 }
 
 func TestWithPersistentVolume(t *testing.T) {
@@ -88,25 +81,15 @@ func TestWithPersistentVolume(t *testing.T) {
 	}
 	config := GetFlinkConfig()
 
-	tID := &mocks.TaskExecutionID{}
-	tID.OnGetID().Return(flyteIdlCore.TaskExecutionIdentifier{
-		NodeExecutionId: &flyteIdlCore.NodeExecutionIdentifier{
-			ExecutionId: &flyteIdlCore.WorkflowExecutionIdentifier{
-				Name:    "name",
-				Project: "project",
-				Domain:  "domain",
-			},
-		},
-	})
-	tID.OnGetGeneratedName().Return("generated-name")
+	flinkCtx := FlinkTaskContext{
+		Name:        "generated-name",
+		Namespace:   "test-namespace",
+		Annotations: make(map[string]string),
+		Labels:      make(map[string]string),
+		Job:         job,
+	}
 
-	taskCtx := &mocks.TaskExecutionMetadata{}
-	taskCtx.OnGetTaskExecutionID().Return(tID)
-	taskCtx.OnGetNamespace().Return("test-namespace")
-	taskCtx.OnGetAnnotations().Return(make(map[string]string))
-	taskCtx.OnGetLabels().Return(make(map[string]string))
-
-	cluster, err := BuildFlinkClusterSpec(taskCtx, job, config)
+	cluster, err := NewFlinkCluster(config, flinkCtx)
 
 	assert.NilError(t, err)
 	assert.Equal(t, cluster.Spec.Image.Name, "flink-image")
@@ -126,26 +109,15 @@ func TestBuildFlinkClusterSpecInvalid(t *testing.T) {
 	// Use empty config
 	config := &Config{}
 
-	tID := &mocks.TaskExecutionID{}
-	tID.OnGetID().Return(flyteIdlCore.TaskExecutionIdentifier{
-		NodeExecutionId: &flyteIdlCore.NodeExecutionIdentifier{
-			ExecutionId: &flyteIdlCore.WorkflowExecutionIdentifier{
-				Name:    "name",
-				Project: "project",
-				Domain:  "domain",
-			},
-		},
-	})
-	tID.OnGetGeneratedName().Return("generated-name")
+	flinkCtx := FlinkTaskContext{
+		Name:        "generated-name",
+		Namespace:   "test-namespace",
+		Annotations: make(map[string]string),
+		Labels:      make(map[string]string),
+		Job:         job,
+	}
 
-	taskCtx := &mocks.TaskExecutionMetadata{}
-	taskCtx.OnGetTaskExecutionID().Return(tID)
-	taskCtx.OnGetNamespace().Return("test-namespace")
-	taskCtx.OnGetAnnotations().Return(make(map[string]string))
-	taskCtx.OnGetLabels().Return(make(map[string]string))
-
-	_, err := BuildFlinkClusterSpec(taskCtx, job, config)
-
+	_, err := NewFlinkCluster(config, flinkCtx)
 	assert.Error(t, err, "image name is unspecified")
 }
 
@@ -159,25 +131,15 @@ func TestBuildFlinkClusterSpecServiceAccount(t *testing.T) {
 	}
 	config := GetFlinkConfig()
 
-	tID := &mocks.TaskExecutionID{}
-	tID.OnGetID().Return(flyteIdlCore.TaskExecutionIdentifier{
-		NodeExecutionId: &flyteIdlCore.NodeExecutionIdentifier{
-			ExecutionId: &flyteIdlCore.WorkflowExecutionIdentifier{
-				Name:    "name",
-				Project: "project",
-				Domain:  "domain",
-			},
-		},
-	})
-	tID.OnGetGeneratedName().Return("generated-name")
+	flinkCtx := FlinkTaskContext{
+		Name:        "generated-name",
+		Namespace:   "test-namespace",
+		Annotations: make(map[string]string),
+		Labels:      make(map[string]string),
+		Job:         job,
+	}
 
-	taskCtx := &mocks.TaskExecutionMetadata{}
-	taskCtx.OnGetTaskExecutionID().Return(tID)
-	taskCtx.OnGetNamespace().Return("test-namespace")
-	taskCtx.OnGetAnnotations().Return(make(map[string]string))
-	taskCtx.OnGetLabels().Return(make(map[string]string))
-
-	cluster, err := BuildFlinkClusterSpec(taskCtx, job, config)
+	cluster, err := NewFlinkCluster(config, flinkCtx)
 
 	assert.NilError(t, err)
 	assert.Equal(t, *cluster.Spec.ServiceAccountName, "flink-user-service-account")
@@ -193,25 +155,15 @@ func TestBuildFlinkClusterSpecImage(t *testing.T) {
 	}
 	config := GetFlinkConfig()
 
-	tID := &mocks.TaskExecutionID{}
-	tID.OnGetID().Return(flyteIdlCore.TaskExecutionIdentifier{
-		NodeExecutionId: &flyteIdlCore.NodeExecutionIdentifier{
-			ExecutionId: &flyteIdlCore.WorkflowExecutionIdentifier{
-				Name:    "name",
-				Project: "project",
-				Domain:  "domain",
-			},
-		},
-	})
-	tID.OnGetGeneratedName().Return("generated-name")
+	flinkCtx := FlinkTaskContext{
+		Name:        "generated-name",
+		Namespace:   "test-namespace",
+		Annotations: make(map[string]string),
+		Labels:      make(map[string]string),
+		Job:         job,
+	}
 
-	taskCtx := &mocks.TaskExecutionMetadata{}
-	taskCtx.OnGetTaskExecutionID().Return(tID)
-	taskCtx.OnGetNamespace().Return("test-namespace")
-	taskCtx.OnGetAnnotations().Return(make(map[string]string))
-	taskCtx.OnGetLabels().Return(make(map[string]string))
-
-	cluster, err := BuildFlinkClusterSpec(taskCtx, job, config)
+	cluster, err := NewFlinkCluster(config, flinkCtx)
 
 	assert.NilError(t, err)
 	assert.Equal(t, cluster.Spec.Image.Name, "flink-custom-image")
@@ -227,30 +179,22 @@ func TestBuildFlinkClusterWithIngress(t *testing.T) {
 	}
 
 	config := GetFlinkConfig()
-	config.JobManager.Ingress = IngressConfig{
-		Enabled:     true,
-		Annotations: map[string]string{"kubernetes.io/ingress.class": "gce-internal"},
+	config.DefaultFlinkCluster.Spec.JobManager.Ingress = &flinkOp.JobManagerIngressSpec{
+		Annotations: map[string]string{
+			"cluster-autoscaler.kubernetes.io/safe-to-evict": "false",
+			"kubernetes.io/ingress.class":                    "gce-internal",
+		},
 	}
 
-	tID := &mocks.TaskExecutionID{}
-	tID.OnGetID().Return(flyteIdlCore.TaskExecutionIdentifier{
-		NodeExecutionId: &flyteIdlCore.NodeExecutionIdentifier{
-			ExecutionId: &flyteIdlCore.WorkflowExecutionIdentifier{
-				Name:    "name",
-				Project: "project",
-				Domain:  "domain",
-			},
-		},
-	})
-	tID.OnGetGeneratedName().Return("generated-name")
+	flinkCtx := FlinkTaskContext{
+		Name:        "generated-name",
+		Namespace:   "test-namespace",
+		Annotations: make(map[string]string),
+		Labels:      make(map[string]string),
+		Job:         job,
+	}
 
-	taskCtx := &mocks.TaskExecutionMetadata{}
-	taskCtx.OnGetTaskExecutionID().Return(tID)
-	taskCtx.OnGetNamespace().Return("test-namespace")
-	taskCtx.OnGetAnnotations().Return(make(map[string]string))
-	taskCtx.OnGetLabels().Return(make(map[string]string))
-
-	cluster, err := BuildFlinkClusterSpec(taskCtx, job, config)
+	cluster, err := NewFlinkCluster(config, flinkCtx)
 	assert.NilError(t, err)
 
 	assert.Assert(t, cluster.Spec.JobManager.Ingress != nil)
@@ -269,24 +213,14 @@ func TestBuildFlinkClusterSpecInvalidClusterName(t *testing.T) {
 	}
 	config := GetFlinkConfig()
 
-	tID := &mocks.TaskExecutionID{}
-	tID.OnGetID().Return(flyteIdlCore.TaskExecutionIdentifier{
-		NodeExecutionId: &flyteIdlCore.NodeExecutionIdentifier{
-			ExecutionId: &flyteIdlCore.WorkflowExecutionIdentifier{
-				Name:    "name",
-				Project: "project",
-				Domain:  "domain",
-			},
-		},
-	})
-	// invalid name, starts with a `.`
-	tID.OnGetGeneratedName().Return(".cluster-name")
-	taskCtx := &mocks.TaskExecutionMetadata{}
-	taskCtx.OnGetTaskExecutionID().Return(tID)
-	taskCtx.OnGetNamespace().Return("test-namespace")
-	taskCtx.OnGetAnnotations().Return(make(map[string]string))
-	taskCtx.OnGetLabels().Return(make(map[string]string))
+	flinkCtx := FlinkTaskContext{
+		Name:        ".generated-name",
+		Namespace:   "test-namespace",
+		Annotations: make(map[string]string),
+		Labels:      make(map[string]string),
+		Job:         job,
+	}
 
-	_, err := BuildFlinkClusterSpec(taskCtx, job, config)
+	_, err := NewFlinkCluster(config, flinkCtx)
 	assert.ErrorContains(t, err, "Validation error: ")
 }

@@ -21,7 +21,6 @@ import (
 
 	corev1 "k8s.io/api/core/v1"
 
-	pluginsCore "github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/core"
 	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/utils"
 	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
@@ -31,55 +30,32 @@ import (
 )
 
 var (
-	cacheVolumes           = []corev1.Volume{{Name: "cache-volume"}}
-	cacheVolumeMounts      = []corev1.VolumeMount{{Name: "cache-volume", MountPath: "/cache"}}
+	cacheVolume            = corev1.Volume{Name: "cache-volume"}
+	cacheVolumeMount       = corev1.VolumeMount{Name: "cache-volume", MountPath: "/cache"}
 	regexpFlinkClusterName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
 )
+
+type FlinkCluster flinkOp.FlinkCluster
 
 func persistentVolumeTypeString(pdType flinkIdl.Resource_PersistentVolume_Type) string {
 	return strings.ReplaceAll(strings.ToLower(pdType.String()), "_", "-")
 }
 
-func buildJobManagerSpec(jm *flinkIdl.JobManager, config *JobManagerConfig, objectMeta *metav1.ObjectMeta) flinkOp.JobManagerSpec {
-	spec := flinkOp.JobManagerSpec{
-		PodAnnotations: objectMeta.Annotations,
-		PodLabels:      objectMeta.Labels,
-		Volumes:        cacheVolumes,
-		VolumeMounts:   cacheVolumeMounts,
-		Sidecars:       config.Sidecars,
+func (fc *FlinkCluster) updateJobManagerSpec(taskCtx FlinkTaskContext) {
+	out := &fc.Spec.JobManager
+
+	out.PodAnnotations = utils.UnionMaps(taskCtx.Annotations, out.PodAnnotations)
+	out.PodLabels = utils.UnionMaps(taskCtx.Labels, out.PodLabels)
+
+	jm := taskCtx.Job.JobManager
+
+	if cpu := jm.GetResource().GetCpu(); cpu != nil && !cpu.IsZero() {
+		out.Resources.Limits[corev1.ResourceCPU] = *cpu
 	}
 
-	if config.AccessScope != nil {
-		spec.AccessScope = *config.AccessScope
+	if memory := jm.GetResource().GetMemory(); memory != nil && !memory.IsZero() {
+		out.Resources.Limits[corev1.ResourceMemory] = *memory
 	}
-
-	if config.Ingress.Enabled {
-		annotations := utils.UnionMaps(objectMeta.Annotations, config.Ingress.Annotations)
-		spec.Ingress = &flinkOp.JobManagerIngressSpec{
-			Annotations: annotations,
-			UseTLS:      &config.Ingress.UseTLS,
-		}
-	}
-
-	resourceList := make(corev1.ResourceList)
-
-	cpu := config.Cpu
-	if jm.GetResource().GetCpu() != nil {
-		cpu = *jm.GetResource().GetCpu()
-	}
-	if !cpu.IsZero() {
-		resourceList[corev1.ResourceCPU] = cpu
-	}
-
-	memory := config.Memory
-	if jm.GetResource().GetMemory() != nil {
-		memory = *jm.GetResource().GetMemory()
-	}
-	if !memory.IsZero() {
-		resourceList[corev1.ResourceMemory] = memory
-	}
-
-	spec.Resources.Limits = resourceList
 
 	if pd := jm.GetResource().GetPersistentVolume(); pd != nil {
 		storageClass := persistentVolumeTypeString(pd.GetType())
@@ -87,7 +63,7 @@ func buildJobManagerSpec(jm *flinkIdl.JobManager, config *JobManagerConfig, obje
 
 		claim := corev1.PersistentVolumeClaim{
 			ObjectMeta: metav1.ObjectMeta{
-				Name: fmt.Sprintf("claim-jm-%s", objectMeta.Name),
+				Name: fmt.Sprintf("claim-jm-%s", fc.ObjectMeta.Name),
 			},
 			Spec: corev1.PersistentVolumeClaimSpec{
 				AccessModes: []corev1.PersistentVolumeAccessMode{corev1.ReadWriteOnce},
@@ -99,7 +75,7 @@ func buildJobManagerSpec(jm *flinkIdl.JobManager, config *JobManagerConfig, obje
 				StorageClassName: &storageClass,
 			},
 		}
-		spec.VolumeClaimTemplates = []corev1.PersistentVolumeClaim{claim}
+		out.VolumeClaimTemplates = []corev1.PersistentVolumeClaim{claim}
 
 		claimVolume := corev1.Volume{
 			Name: fmt.Sprintf("volume-%s", claim.Name),
@@ -110,59 +86,33 @@ func buildJobManagerSpec(jm *flinkIdl.JobManager, config *JobManagerConfig, obje
 				},
 			},
 		}
-		spec.Volumes = append(spec.Volumes, claimVolume)
-
-		spec.VolumeMounts = append(spec.VolumeMounts, corev1.VolumeMount{
+		out.Volumes = append(out.Volumes, claimVolume)
+		out.VolumeMounts = append(out.VolumeMounts, corev1.VolumeMount{
 			Name:      claimVolume.Name,
 			ReadOnly:  false,
 			MountPath: "/data/flink",
 		})
 	}
-
-	nodeSelector := config.NodeSelector
-	if len(nodeSelector) != 0 {
-		spec.NodeSelector = nodeSelector
-	}
-
-	return spec
 }
 
-func buildTaskManagerSpec(tm *flinkIdl.TaskManager, config *TaskManagerConfig, objectMeta *metav1.ObjectMeta) flinkOp.TaskManagerSpec {
-	spec := flinkOp.TaskManagerSpec{
-		PodAnnotations: objectMeta.Annotations,
-		PodLabels:      objectMeta.Labels,
-		Volumes:        cacheVolumes,
-		VolumeMounts:   cacheVolumeMounts,
-		Sidecars:       config.Sidecars,
+func (fc *FlinkCluster) updateTaskManagerSpec(taskCtx FlinkTaskContext) {
+	out := &fc.Spec.TaskManager
+
+	out.PodAnnotations = utils.UnionMaps(taskCtx.Annotations, out.PodAnnotations)
+	out.PodLabels = utils.UnionMaps(taskCtx.Labels, out.PodLabels)
+
+	tm := taskCtx.Job.TaskManager
+
+	if cpu := tm.GetResource().GetCpu(); cpu != nil && !cpu.IsZero() {
+		out.Resources.Limits[corev1.ResourceCPU] = *cpu
 	}
 
-	resourceList := make(corev1.ResourceList)
-
-	cpu := config.Cpu
-	if tm.GetResource().GetCpu() != nil {
-		cpu = *tm.GetResource().GetCpu()
-	}
-	if !cpu.IsZero() {
-		resourceList[corev1.ResourceCPU] = cpu
+	if memory := tm.GetResource().GetMemory(); memory != nil && !memory.IsZero() {
+		out.Resources.Limits[corev1.ResourceMemory] = *memory
 	}
 
-	memory := config.Memory
-	if tm.GetResource().GetMemory() != nil {
-		memory = *tm.GetResource().GetMemory()
-	}
-	if !memory.IsZero() {
-		resourceList[corev1.ResourceMemory] = memory
-	}
-
-	spec.Resources.Limits = resourceList
-
-	replicas := int32(config.Replicas)
-	if tm.GetReplicas() > 0 {
-		replicas = tm.GetReplicas()
-	}
-
-	if replicas > 0 {
-		spec.Replicas = replicas
+	if replicas := tm.GetReplicas(); replicas > 0 {
+		out.Replicas = replicas
 	}
 
 	if pd := tm.GetResource().GetPersistentVolume(); pd != nil {
@@ -171,7 +121,7 @@ func buildTaskManagerSpec(tm *flinkIdl.TaskManager, config *TaskManagerConfig, o
 
 		claim := corev1.PersistentVolumeClaim{
 			ObjectMeta: metav1.ObjectMeta{
-				Name: fmt.Sprintf("claim-tm-%s", objectMeta.Name),
+				Name: fmt.Sprintf("claim-tm-%s", fc.GetName()),
 			},
 			Spec: corev1.PersistentVolumeClaimSpec{
 				AccessModes: []corev1.PersistentVolumeAccessMode{corev1.ReadWriteOnce},
@@ -183,7 +133,7 @@ func buildTaskManagerSpec(tm *flinkIdl.TaskManager, config *TaskManagerConfig, o
 				StorageClassName: &storageClass,
 			},
 		}
-		spec.VolumeClaimTemplates = []corev1.PersistentVolumeClaim{claim}
+		out.VolumeClaimTemplates = []corev1.PersistentVolumeClaim{claim}
 
 		claimVolume := corev1.Volume{
 			Name: fmt.Sprintf("volume-%s", claim.Name),
@@ -194,134 +144,103 @@ func buildTaskManagerSpec(tm *flinkIdl.TaskManager, config *TaskManagerConfig, o
 				},
 			},
 		}
-		spec.Volumes = append(spec.Volumes, claimVolume)
-
-		spec.VolumeMounts = append(spec.VolumeMounts, corev1.VolumeMount{
+		out.Volumes = append(out.Volumes, claimVolume)
+		out.VolumeMounts = append(out.VolumeMounts, corev1.VolumeMount{
 			Name:      claimVolume.Name,
 			ReadOnly:  false,
 			MountPath: "/data/flink",
 		})
 	}
-
-	nodeSelector := config.NodeSelector
-	if len(nodeSelector) != 0 {
-		spec.NodeSelector = nodeSelector
-	}
-
-	return spec
 }
 
-func buildJobSpec(job flinkIdl.FlinkJob, taskManager flinkOp.TaskManagerSpec, flinkProperties FlinkProperties) flinkOp.JobSpec {
-	taskSlots := flinkProperties.GetInt("taskmanager.numberOfTaskSlots")
-	parallelism := taskManager.Replicas * int32(taskSlots)
+func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerReplicas, taskManagerTaskSlots int32) {
+	if fc.Spec.Job == nil {
+		fc.Spec.Job = &flinkOp.JobSpec{}
+	}
+	out := fc.Spec.Job
 
-	//TODO(regadas): add job resources to the config
-	resourceList := corev1.ResourceList{
-		corev1.ResourceCPU:    resource.MustParse("1"),
-		corev1.ResourceMemory: resource.MustParse("1Gi"),
+	out.PodAnnotations = utils.UnionMaps(taskCtx.Annotations, out.PodAnnotations)
+	out.PodLabels = utils.UnionMaps(taskCtx.Labels, out.PodLabels)
+
+	out.JarFile = taskCtx.Job.JarFile
+	out.ClassName = &taskCtx.Job.MainClass
+	out.Args = taskCtx.Job.Args
+
+	parallelism := taskManagerReplicas * taskManagerTaskSlots
+	out.Parallelism = &parallelism
+
+	out.CleanupPolicy = &flinkOp.CleanupPolicy{
+		AfterJobSucceeds:  flinkOp.CleanupActionDeleteCluster,
+		AfterJobFails:     flinkOp.CleanupActionDeleteCluster,
+		AfterJobCancelled: flinkOp.CleanupActionDeleteCluster,
 	}
 
-	spec := flinkOp.JobSpec{
-		JarFile:      job.JarFile,
-		ClassName:    &job.MainClass,
-		Args:         job.Args,
-		Parallelism:  &parallelism,
-		Volumes:      cacheVolumes,
-		VolumeMounts: cacheVolumeMounts,
-		CleanupPolicy: &flinkOp.CleanupPolicy{
-			AfterJobSucceeds:  flinkOp.CleanupActionDeleteCluster,
-			AfterJobFails:     flinkOp.CleanupActionDeleteCluster,
-			AfterJobCancelled: flinkOp.CleanupActionDeleteCluster,
-		},
-		Resources:      corev1.ResourceRequirements{Limits: resourceList},
-		InitContainers: []corev1.Container{},
-	}
-
-	if strings.HasPrefix(job.JarFile, "gs://") {
+	if strings.HasPrefix(out.JarFile, "gs://") {
+		//TODO(regadas): add job resources to the config
+		resourceList := corev1.ResourceList{
+			corev1.ResourceCPU:    resource.MustParse("1"),
+			corev1.ResourceMemory: resource.MustParse("1Gi"),
+		}
 		//FIXME(regadas): this strategy will likely change
 		container := corev1.Container{
 			Name:      "gcs-downloader",
 			Image:     "google/cloud-sdk",
 			Command:   []string{"gsutil"},
-			Args:      []string{"cp", job.JarFile, "/cache/job.jar"},
+			Args:      []string{"cp", out.JarFile, "/cache/job.jar"},
 			Resources: corev1.ResourceRequirements{Limits: resourceList},
 		}
-		spec.JarFile = "/cache/job.jar"
-		spec.InitContainers = append(spec.InitContainers, container)
-	}
-
-	return spec
-}
-
-func buildFlinkClusterSpec(
-	config *Config,
-	job flinkIdl.FlinkJob,
-	jobManager flinkOp.JobManagerSpec,
-	taskManager flinkOp.TaskManagerSpec,
-	jobSpec flinkOp.JobSpec,
-	flinkProperties FlinkProperties,
-	objectMeta *metav1.ObjectMeta,
-) flinkOp.FlinkCluster {
-
-	image := job.GetImage()
-	if len(image) == 0 {
-		image = config.Image
-	}
-	sa := job.GetServiceAccount()
-	if len(sa) == 0 {
-		sa = config.ServiceAccount
-	}
-
-	return flinkOp.FlinkCluster{
-		ObjectMeta: *objectMeta,
-		TypeMeta: metav1.TypeMeta{
-			Kind:       KindFlinkCluster,
-			APIVersion: flinkOp.GroupVersion.String(),
-		},
-		Spec: flinkOp.FlinkClusterSpec{
-			ServiceAccountName: &sa,
-			Image: flinkOp.ImageSpec{
-				Name:       image,
-				PullPolicy: corev1.PullIfNotPresent,
-			},
-			JobManager:      jobManager,
-			TaskManager:     taskManager,
-			Job:             &jobSpec,
-			FlinkProperties: flinkProperties,
-			LogConfig:       config.FlinkLogConfig,
-		},
+		out.JarFile = "/cache/job.jar"
+		out.InitContainers = append(out.InitContainers, container)
+		out.Volumes = append(out.Volumes, cacheVolume)
+		out.VolumeMounts = append(out.VolumeMounts, cacheVolumeMount)
 	}
 }
 
-func BuildFlinkClusterSpec(taskCtx pluginsCore.TaskExecutionMetadata, job flinkIdl.FlinkJob, config *Config) (*flinkOp.FlinkCluster, error) {
-	annotations := GetDefaultAnnotations(taskCtx)
-	labels := GetDefaultLabels(taskCtx)
-	clusterName := taskCtx.GetTaskExecutionID().GetGeneratedName()
-	if err := validate(clusterName, regexpFlinkClusterName); err != nil {
+func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCluster, error) {
+	cluster := FlinkCluster(*config.DefaultFlinkCluster.DeepCopy())
+
+	if err := validate(taskCtx.Name, regexpFlinkClusterName); err != nil {
 		return nil, err
 	}
 
-	objectMeta := &metav1.ObjectMeta{
-		Name:        clusterName,
-		Namespace:   taskCtx.GetNamespace(),
-		Annotations: annotations,
-		Labels:      labels,
+	cluster.ObjectMeta = metav1.ObjectMeta{
+		Name:        taskCtx.Name,
+		Namespace:   taskCtx.Namespace,
+		Annotations: taskCtx.Annotations,
+		Labels:      taskCtx.Labels,
 	}
-	flinkProperties := BuildFlinkProperties(config, job)
+	cluster.TypeMeta = metav1.TypeMeta{
+		Kind:       KindFlinkCluster,
+		APIVersion: flinkOp.GroupVersion.String(),
+	}
 
-	jobManagerSpec := buildJobManagerSpec(job.JobManager, &config.JobManager, objectMeta)
-	taskManagerSpec := buildTaskManagerSpec(job.TaskManager, &config.TaskManager, objectMeta)
-	jobSpec := buildJobSpec(job, taskManagerSpec, flinkProperties)
+	cluster.Spec.FlinkProperties = BuildFlinkProperties(config, taskCtx.Job)
 
-	flinkCluster := buildFlinkClusterSpec(config, job, jobManagerSpec, taskManagerSpec, jobSpec, flinkProperties, objectMeta)
+	if image := taskCtx.Job.GetImage(); len(image) != 0 {
+		cluster.Spec.Image.Name = image
+	}
+
+	if sa := taskCtx.Job.GetServiceAccount(); len(sa) != 0 {
+		cluster.Spec.ServiceAccountName = &sa
+	}
+
+	cluster.updateJobManagerSpec(taskCtx)
+	cluster.updateTaskManagerSpec(taskCtx)
+
+	taskSlots, err := FlinkProperties(cluster.Spec.FlinkProperties).GetInt("taskmanager.numberOfTaskSlots")
+	if err != nil {
+		return nil, err
+	}
+	cluster.updateJobSpec(taskCtx, cluster.Spec.TaskManager.Replicas, int32(taskSlots))
 
 	// fill in defaults
-	flinkCluster.Default()
+	resource := flinkOp.FlinkCluster(cluster)
+	resource.Default()
 
-	err := flinkCluster.ValidateCreate()
+	err = resource.ValidateCreate()
 	if err != nil {
 		return nil, err
 	}
 
-	return &flinkCluster, nil
+	return &resource, nil
 }
