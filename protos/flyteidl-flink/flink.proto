@@ -2,11 +2,11 @@ syntax = "proto3";
 
 package flyteidl_flink;
 
-option go_package = "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink";
-
-import "k8s.io/apimachinery/pkg/api/resource/generated.proto";
+option go_package = "flyteidl-flink";
 
 message Resource {
+  message Quantity { string string = 1; }
+
   message PersistentVolume {
     enum Type {
       PD_STANDARD = 0;
@@ -14,11 +14,11 @@ message Resource {
     }
 
     Type type = 1;
-    k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;
+    Quantity size = 2;
   }
 
-  k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
-  k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+  Quantity cpu = 1;
+  Quantity memory = 2;
   PersistentVolume persistentVolume = 3;
 }
 

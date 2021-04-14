@@ -42,7 +42,11 @@ type FlinkCluster flinkOp.FlinkCluster
 
 func getPersistentVolumeClaim(name string, pv *flinkIdl.Resource_PersistentVolume) corev1.PersistentVolumeClaim {
 	storageClass := strings.ReplaceAll(strings.ToLower(pv.GetType().String()), "_", "-")
-	storageSize := pv.GetSize()
+	if pv.GetSize() == nil {
+		return corev1.PersistentVolumeClaim{}
+	}
+
+	storageSize := resource.MustParse(pv.GetSize().GetString_())
 
 	return corev1.PersistentVolumeClaim{
 		ObjectMeta: metav1.ObjectMeta{Name: name},
@@ -50,7 +54,7 @@ func getPersistentVolumeClaim(name string, pv *flinkIdl.Resource_PersistentVolum
 			AccessModes: []corev1.PersistentVolumeAccessMode{corev1.ReadWriteOnce},
 			Resources: corev1.ResourceRequirements{
 				Requests: corev1.ResourceList{
-					corev1.ResourceStorage: *storageSize,
+					corev1.ResourceStorage: storageSize,
 				},
 			},
 			StorageClassName: &storageClass,
@@ -66,12 +70,16 @@ func (fc *FlinkCluster) updateJobManagerSpec(taskCtx FlinkTaskContext) {
 
 	jm := taskCtx.Job.JobManager
 
-	if cpu := jm.GetResource().GetCpu(); cpu != nil && !cpu.IsZero() {
-		out.Resources.Limits[corev1.ResourceCPU] = *cpu
+	if cpu := jm.GetResource().GetCpu(); cpu != nil {
+		if quantity := resource.MustParse(cpu.GetString_()); !quantity.IsZero() {
+			out.Resources.Limits[corev1.ResourceCPU] = resource.MustParse(cpu.GetString_())
+		}
 	}
 
-	if memory := jm.GetResource().GetMemory(); memory != nil && !memory.IsZero() {
-		out.Resources.Limits[corev1.ResourceMemory] = *memory
+	if memory := jm.GetResource().GetMemory(); memory != nil {
+		if quantity := resource.MustParse(memory.GetString_()); !quantity.IsZero() {
+			out.Resources.Limits[corev1.ResourceMemory] = quantity
+		}
 	}
 
 	if pv := jm.GetResource().GetPersistentVolume(); pv != nil {
@@ -96,12 +104,16 @@ func (fc *FlinkCluster) updateTaskManagerSpec(taskCtx FlinkTaskContext) {
 
 	tm := taskCtx.Job.TaskManager
 
-	if cpu := tm.GetResource().GetCpu(); cpu != nil && !cpu.IsZero() {
-		out.Resources.Limits[corev1.ResourceCPU] = *cpu
+	if cpu := tm.GetResource().GetCpu(); cpu != nil {
+		if quantity := resource.MustParse(cpu.GetString_()); !quantity.IsZero() {
+			out.Resources.Limits[corev1.ResourceCPU] = resource.MustParse(cpu.GetString_())
+		}
 	}
 
-	if memory := tm.GetResource().GetMemory(); memory != nil && !memory.IsZero() {
-		out.Resources.Limits[corev1.ResourceMemory] = *memory
+	if memory := tm.GetResource().GetMemory(); memory != nil {
+		if quantity := resource.MustParse(memory.GetString_()); !quantity.IsZero() {
+			out.Resources.Limits[corev1.ResourceMemory] = quantity
+		}
 	}
 
 	if replicas := tm.GetReplicas(); replicas > 0 {

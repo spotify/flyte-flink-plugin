@@ -19,12 +19,16 @@
 extern PROTOBUF_INTERNAL_EXPORT_flyteidl_2dflink_2fflink_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_FlinkJob_FlinkPropertiesEntry_DoNotUse_flyteidl_2dflink_2fflink_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_flyteidl_2dflink_2fflink_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_JobExecutionInfo_flyteidl_2dflink_2fflink_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_flyteidl_2dflink_2fflink_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_JobManagerExecutionInfo_flyteidl_2dflink_2fflink_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_flyteidl_2dflink_2fflink_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_Resource_Quantity_flyteidl_2dflink_2fflink_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_flyteidl_2dflink_2fflink_2eproto ::google::protobuf::internal::SCCInfo<1> scc_info_JobManager_flyteidl_2dflink_2fflink_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_flyteidl_2dflink_2fflink_2eproto ::google::protobuf::internal::SCCInfo<1> scc_info_Resource_PersistentVolume_flyteidl_2dflink_2fflink_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_flyteidl_2dflink_2fflink_2eproto ::google::protobuf::internal::SCCInfo<1> scc_info_TaskManager_flyteidl_2dflink_2fflink_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_flyteidl_2dflink_2fflink_2eproto ::google::protobuf::internal::SCCInfo<2> scc_info_Resource_flyteidl_2dflink_2fflink_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_k8s_2eio_2fapimachinery_2fpkg_2fapi_2fresource_2fgenerated_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_Quantity_k8s_2eio_2fapimachinery_2fpkg_2fapi_2fresource_2fgenerated_2eproto;
 namespace flyteidl_flink {
+class Resource_QuantityDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<Resource_Quantity> _instance;
+} _Resource_Quantity_default_instance_;
 class Resource_PersistentVolumeDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<Resource_PersistentVolume> _instance;
@@ -62,6 +66,20 @@ class FlinkExecutionInfoDefaultTypeInternal {
   ::google::protobuf::internal::ExplicitlyConstructed<FlinkExecutionInfo> _instance;
 } _FlinkExecutionInfo_default_instance_;
 }  // namespace flyteidl_flink
+static void InitDefaultsResource_Quantity_flyteidl_2dflink_2fflink_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::flyteidl_flink::_Resource_Quantity_default_instance_;
+    new (ptr) ::flyteidl_flink::Resource_Quantity();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::flyteidl_flink::Resource_Quantity::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<0> scc_info_Resource_Quantity_flyteidl_2dflink_2fflink_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsResource_Quantity_flyteidl_2dflink_2fflink_2eproto}, {}};
+
 static void InitDefaultsResource_PersistentVolume_flyteidl_2dflink_2fflink_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -75,7 +93,7 @@ static void InitDefaultsResource_PersistentVolume_flyteidl_2dflink_2fflink_2epro
 
 ::google::protobuf::internal::SCCInfo<1> scc_info_Resource_PersistentVolume_flyteidl_2dflink_2fflink_2eproto =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsResource_PersistentVolume_flyteidl_2dflink_2fflink_2eproto}, {
-      &scc_info_Quantity_k8s_2eio_2fapimachinery_2fpkg_2fapi_2fresource_2fgenerated_2eproto.base,}};
+      &scc_info_Resource_Quantity_flyteidl_2dflink_2fflink_2eproto.base,}};
 
 static void InitDefaultsResource_flyteidl_2dflink_2fflink_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -90,7 +108,7 @@ static void InitDefaultsResource_flyteidl_2dflink_2fflink_2eproto() {
 
 ::google::protobuf::internal::SCCInfo<2> scc_info_Resource_flyteidl_2dflink_2fflink_2eproto =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsResource_flyteidl_2dflink_2fflink_2eproto}, {
-      &scc_info_Quantity_k8s_2eio_2fapimachinery_2fpkg_2fapi_2fresource_2fgenerated_2eproto.base,
+      &scc_info_Resource_Quantity_flyteidl_2dflink_2fflink_2eproto.base,
       &scc_info_Resource_PersistentVolume_flyteidl_2dflink_2fflink_2eproto.base,}};
 
 static void InitDefaultsJobManager_flyteidl_2dflink_2fflink_2eproto() {
@@ -198,6 +216,7 @@ static void InitDefaultsFlinkExecutionInfo_flyteidl_2dflink_2fflink_2eproto() {
       &scc_info_JobManagerExecutionInfo_flyteidl_2dflink_2fflink_2eproto.base,}};
 
 void InitDefaults_flyteidl_2dflink_2fflink_2eproto() {
+  ::google::protobuf::internal::InitSCC(&scc_info_Resource_Quantity_flyteidl_2dflink_2fflink_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_Resource_PersistentVolume_flyteidl_2dflink_2fflink_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_Resource_flyteidl_2dflink_2fflink_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_JobManager_flyteidl_2dflink_2fflink_2eproto.base);
@@ -209,11 +228,17 @@ void InitDefaults_flyteidl_2dflink_2fflink_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_FlinkExecutionInfo_flyteidl_2dflink_2fflink_2eproto.base);
 }
 
-::google::protobuf::Metadata file_level_metadata_flyteidl_2dflink_2fflink_2eproto[9];
+::google::protobuf::Metadata file_level_metadata_flyteidl_2dflink_2fflink_2eproto[10];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors_flyteidl_2dflink_2fflink_2eproto[1];
 constexpr ::google::protobuf::ServiceDescriptor const** file_level_service_descriptors_flyteidl_2dflink_2fflink_2eproto = nullptr;
 
 const ::google::protobuf::uint32 TableStruct_flyteidl_2dflink_2fflink_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::Resource_Quantity, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::flyteidl_flink::Resource_Quantity, string_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::flyteidl_flink::Resource_PersistentVolume, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -285,18 +310,20 @@ const ::google::protobuf::uint32 TableStruct_flyteidl_2dflink_2fflink_2eproto::o
   PROTOBUF_FIELD_OFFSET(::flyteidl_flink::FlinkExecutionInfo, jobmanager_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::flyteidl_flink::Resource_PersistentVolume)},
-  { 7, -1, sizeof(::flyteidl_flink::Resource)},
-  { 15, -1, sizeof(::flyteidl_flink::JobManager)},
-  { 21, -1, sizeof(::flyteidl_flink::TaskManager)},
-  { 28, 35, sizeof(::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse)},
-  { 37, -1, sizeof(::flyteidl_flink::FlinkJob)},
-  { 50, -1, sizeof(::flyteidl_flink::JobExecutionInfo)},
-  { 56, -1, sizeof(::flyteidl_flink::JobManagerExecutionInfo)},
-  { 62, -1, sizeof(::flyteidl_flink::FlinkExecutionInfo)},
+  { 0, -1, sizeof(::flyteidl_flink::Resource_Quantity)},
+  { 6, -1, sizeof(::flyteidl_flink::Resource_PersistentVolume)},
+  { 13, -1, sizeof(::flyteidl_flink::Resource)},
+  { 21, -1, sizeof(::flyteidl_flink::JobManager)},
+  { 27, -1, sizeof(::flyteidl_flink::TaskManager)},
+  { 34, 41, sizeof(::flyteidl_flink::FlinkJob_FlinkPropertiesEntry_DoNotUse)},
+  { 43, -1, sizeof(::flyteidl_flink::FlinkJob)},
+  { 56, -1, sizeof(::flyteidl_flink::JobExecutionInfo)},
+  { 62, -1, sizeof(::flyteidl_flink::JobManagerExecutionInfo)},
+  { 68, -1, sizeof(::flyteidl_flink::FlinkExecutionInfo)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::google::protobuf::Message*>(&::flyteidl_flink::_Resource_Quantity_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::flyteidl_flink::_Resource_PersistentVolume_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::flyteidl_flink::_Resource_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::flyteidl_flink::_JobManager_default_instance_),
@@ -311,54 +338,51 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
 ::google::protobuf::internal::AssignDescriptorsTable assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto = {
   {}, AddDescriptors_flyteidl_2dflink_2fflink_2eproto, "flyteidl-flink/flink.proto", schemas,
   file_default_instances, TableStruct_flyteidl_2dflink_2fflink_2eproto::offsets,
-  file_level_metadata_flyteidl_2dflink_2fflink_2eproto, 9, file_level_enum_descriptors_flyteidl_2dflink_2fflink_2eproto, file_level_service_descriptors_flyteidl_2dflink_2fflink_2eproto,
+  file_level_metadata_flyteidl_2dflink_2fflink_2eproto, 10, file_level_enum_descriptors_flyteidl_2dflink_2fflink_2eproto, file_level_service_descriptors_flyteidl_2dflink_2fflink_2eproto,
 };
 
 const char descriptor_table_protodef_flyteidl_2dflink_2fflink_2eproto[] =
   "\n\032flyteidl-flink/flink.proto\022\016flyteidl_f"
-  "link\0324k8s.io/apimachinery/pkg/api/resour"
-  "ce/generated.proto\"\202\003\n\010Resource\022;\n\003cpu\030\001"
-  " \001(\0132..k8s.io.apimachinery.pkg.api.resou"
-  "rce.Quantity\022>\n\006memory\030\002 \001(\0132..k8s.io.ap"
-  "imachinery.pkg.api.resource.Quantity\022C\n\020"
+  "link\"\367\002\n\010Resource\022.\n\003cpu\030\001 \001(\0132!.flyteid"
+  "l_flink.Resource.Quantity\0221\n\006memory\030\002 \001("
+  "\0132!.flyteidl_flink.Resource.Quantity\022C\n\020"
   "persistentVolume\030\003 \001(\0132).flyteidl_flink."
-  "Resource.PersistentVolume\032\263\001\n\020Persistent"
-  "Volume\022<\n\004type\030\001 \001(\0162..flyteidl_flink.Re"
-  "source.PersistentVolume.Type\022<\n\004size\030\002 \001"
-  "(\0132..k8s.io.apimachinery.pkg.api.resourc"
-  "e.Quantity\"#\n\004Type\022\017\n\013PD_STANDARD\020\000\022\n\n\006P"
-  "D_SSD\020\001\"8\n\nJobManager\022*\n\010resource\030\001 \001(\0132"
-  "\030.flyteidl_flink.Resource\"K\n\013TaskManager"
-  "\022*\n\010resource\030\001 \001(\0132\030.flyteidl_flink.Reso"
-  "urce\022\020\n\010replicas\030\002 \001(\005\"\305\002\n\010FlinkJob\022\017\n\007j"
-  "arFile\030\001 \001(\t\022\021\n\tmainClass\030\002 \001(\t\022\014\n\004args\030"
-  "\003 \003(\t\022F\n\017flinkProperties\030\004 \003(\0132-.flyteid"
-  "l_flink.FlinkJob.FlinkPropertiesEntry\022.\n"
-  "\njobManager\030\005 \001(\0132\032.flyteidl_flink.JobMa"
-  "nager\0220\n\013taskManager\030\006 \001(\0132\033.flyteidl_fl"
-  "ink.TaskManager\022\026\n\016serviceAccount\030\007 \001(\t\022"
-  "\r\n\005image\030\010 \001(\t\0326\n\024FlinkPropertiesEntry\022\013"
-  "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\036\n\020JobExe"
-  "cutionInfo\022\n\n\002id\030\001 \001(\t\".\n\027JobManagerExec"
-  "utionInfo\022\023\n\013ingressURLs\030\001 \003(\t\"\200\001\n\022Flink"
-  "ExecutionInfo\022-\n\003job\030\001 \001(\0132 .flyteidl_fl"
-  "ink.JobExecutionInfo\022;\n\njobManager\030\002 \001(\013"
-  "2\'.flyteidl_flink.JobManagerExecutionInf"
-  "oB@Z>github.com/spotify/flyte-flink-plug"
-  "in/gen/pb-go/flyteidl-flinkb\006proto3"
+  "Resource.PersistentVolume\032\032\n\010Quantity\022\016\n"
+  "\006string\030\001 \001(\t\032\246\001\n\020PersistentVolume\022<\n\004ty"
+  "pe\030\001 \001(\0162..flyteidl_flink.Resource.Persi"
+  "stentVolume.Type\022/\n\004size\030\002 \001(\0132!.flyteid"
+  "l_flink.Resource.Quantity\"#\n\004Type\022\017\n\013PD_"
+  "STANDARD\020\000\022\n\n\006PD_SSD\020\001\"8\n\nJobManager\022*\n\010"
+  "resource\030\001 \001(\0132\030.flyteidl_flink.Resource"
+  "\"K\n\013TaskManager\022*\n\010resource\030\001 \001(\0132\030.flyt"
+  "eidl_flink.Resource\022\020\n\010replicas\030\002 \001(\005\"\305\002"
+  "\n\010FlinkJob\022\017\n\007jarFile\030\001 \001(\t\022\021\n\tmainClass"
+  "\030\002 \001(\t\022\014\n\004args\030\003 \003(\t\022F\n\017flinkProperties\030"
+  "\004 \003(\0132-.flyteidl_flink.FlinkJob.FlinkPro"
+  "pertiesEntry\022.\n\njobManager\030\005 \001(\0132\032.flyte"
+  "idl_flink.JobManager\0220\n\013taskManager\030\006 \001("
+  "\0132\033.flyteidl_flink.TaskManager\022\026\n\016servic"
+  "eAccount\030\007 \001(\t\022\r\n\005image\030\010 \001(\t\0326\n\024FlinkPr"
+  "opertiesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001("
+  "\t:\0028\001\"\036\n\020JobExecutionInfo\022\n\n\002id\030\001 \001(\t\".\n"
+  "\027JobManagerExecutionInfo\022\023\n\013ingressURLs\030"
+  "\001 \003(\t\"\200\001\n\022FlinkExecutionInfo\022-\n\003job\030\001 \001("
+  "\0132 .flyteidl_flink.JobExecutionInfo\022;\n\nj"
+  "obManager\030\002 \001(\0132\'.flyteidl_flink.JobMana"
+  "gerExecutionInfoB\020Z\016flyteidl-flinkb\006prot"
+  "o3"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_flyteidl_2dflink_2fflink_2eproto = {
   false, InitDefaults_flyteidl_2dflink_2fflink_2eproto, 
   descriptor_table_protodef_flyteidl_2dflink_2fflink_2eproto,
-  "flyteidl-flink/flink.proto", &assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto, 1235,
+  "flyteidl-flink/flink.proto", &assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto, 1122,
 };
 
 void AddDescriptors_flyteidl_2dflink_2fflink_2eproto() {
   static constexpr ::google::protobuf::internal::InitFunc deps[1] =
   {
-    ::AddDescriptors_k8s_2eio_2fapimachinery_2fpkg_2fapi_2fresource_2fgenerated_2eproto,
   };
- ::google::protobuf::internal::AddDescriptors(&descriptor_table_flyteidl_2dflink_2fflink_2eproto, deps, 1);
+ ::google::protobuf::internal::AddDescriptors(&descriptor_table_flyteidl_2dflink_2fflink_2eproto, deps, 0);
 }
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -388,24 +412,315 @@ const int Resource_PersistentVolume::Type_ARRAYSIZE;
 
 // ===================================================================
 
+void Resource_Quantity::InitAsDefaultInstance() {
+}
+class Resource_Quantity::HasBitSetters {
+ public:
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int Resource_Quantity::kStringFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+Resource_Quantity::Resource_Quantity()
+  : ::google::protobuf::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:flyteidl_flink.Resource.Quantity)
+}
+Resource_Quantity::Resource_Quantity(const Resource_Quantity& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  string_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.string().size() > 0) {
+    string_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.string_);
+  }
+  // @@protoc_insertion_point(copy_constructor:flyteidl_flink.Resource.Quantity)
+}
+
+void Resource_Quantity::SharedCtor() {
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_Resource_Quantity_flyteidl_2dflink_2fflink_2eproto.base);
+  string_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+Resource_Quantity::~Resource_Quantity() {
+  // @@protoc_insertion_point(destructor:flyteidl_flink.Resource.Quantity)
+  SharedDtor();
+}
+
+void Resource_Quantity::SharedDtor() {
+  string_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void Resource_Quantity::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const Resource_Quantity& Resource_Quantity::default_instance() {
+  ::google::protobuf::internal::InitSCC(&::scc_info_Resource_Quantity_flyteidl_2dflink_2fflink_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void Resource_Quantity::Clear() {
+// @@protoc_insertion_point(message_clear_start:flyteidl_flink.Resource.Quantity)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  string_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* Resource_Quantity::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<Resource_Quantity*>(object);
+  ::google::protobuf::int32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ptr = ::google::protobuf::io::Parse32(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // string string = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("flyteidl_flink.Resource.Quantity.string");
+        object = msg->mutable_string();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->EndGroup(tag);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr != nullptr);
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+string_till_end:
+  static_cast<::std::string*>(object)->clear();
+  static_cast<::std::string*>(object)->reserve(size);
+  goto len_delim_till_end;
+len_delim_till_end:
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                               {parser_till_end, object}, size);
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool Resource_Quantity::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:flyteidl_flink.Resource.Quantity)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // string string = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_string()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->string().data(), static_cast<int>(this->string().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "flyteidl_flink.Resource.Quantity.string"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:flyteidl_flink.Resource.Quantity)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:flyteidl_flink.Resource.Quantity)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void Resource_Quantity::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:flyteidl_flink.Resource.Quantity)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string string = 1;
+  if (this->string().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->string().data(), static_cast<int>(this->string().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "flyteidl_flink.Resource.Quantity.string");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->string(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:flyteidl_flink.Resource.Quantity)
+}
+
+::google::protobuf::uint8* Resource_Quantity::InternalSerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:flyteidl_flink.Resource.Quantity)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string string = 1;
+  if (this->string().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->string().data(), static_cast<int>(this->string().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "flyteidl_flink.Resource.Quantity.string");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->string(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:flyteidl_flink.Resource.Quantity)
+  return target;
+}
+
+size_t Resource_Quantity::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:flyteidl_flink.Resource.Quantity)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string string = 1;
+  if (this->string().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->string());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void Resource_Quantity::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:flyteidl_flink.Resource.Quantity)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Resource_Quantity* source =
+      ::google::protobuf::DynamicCastToGenerated<Resource_Quantity>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:flyteidl_flink.Resource.Quantity)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:flyteidl_flink.Resource.Quantity)
+    MergeFrom(*source);
+  }
+}
+
+void Resource_Quantity::MergeFrom(const Resource_Quantity& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:flyteidl_flink.Resource.Quantity)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.string().size() > 0) {
+
+    string_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.string_);
+  }
+}
+
+void Resource_Quantity::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:flyteidl_flink.Resource.Quantity)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Resource_Quantity::CopyFrom(const Resource_Quantity& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:flyteidl_flink.Resource.Quantity)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Resource_Quantity::IsInitialized() const {
+  return true;
+}
+
+void Resource_Quantity::Swap(Resource_Quantity* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void Resource_Quantity::InternalSwap(Resource_Quantity* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  string_.Swap(&other->string_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::google::protobuf::Metadata Resource_Quantity::GetMetadata() const {
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto);
+  return ::file_level_metadata_flyteidl_2dflink_2fflink_2eproto[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
 void Resource_PersistentVolume::InitAsDefaultInstance() {
-  ::flyteidl_flink::_Resource_PersistentVolume_default_instance_._instance.get_mutable()->size_ = const_cast< ::k8s::io::apimachinery::pkg::api::resource::Quantity*>(
-      ::k8s::io::apimachinery::pkg::api::resource::Quantity::internal_default_instance());
+  ::flyteidl_flink::_Resource_PersistentVolume_default_instance_._instance.get_mutable()->size_ = const_cast< ::flyteidl_flink::Resource_Quantity*>(
+      ::flyteidl_flink::Resource_Quantity::internal_default_instance());
 }
 class Resource_PersistentVolume::HasBitSetters {
  public:
-  static const ::k8s::io::apimachinery::pkg::api::resource::Quantity& size(const Resource_PersistentVolume* msg);
+  static const ::flyteidl_flink::Resource_Quantity& size(const Resource_PersistentVolume* msg);
 };
 
-const ::k8s::io::apimachinery::pkg::api::resource::Quantity&
+const ::flyteidl_flink::Resource_Quantity&
 Resource_PersistentVolume::HasBitSetters::size(const Resource_PersistentVolume* msg) {
   return *msg->size_;
-}
-void Resource_PersistentVolume::clear_size() {
-  if (GetArenaNoVirtual() == nullptr && size_ != nullptr) {
-    delete size_;
-  }
-  size_ = nullptr;
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Resource_PersistentVolume::kTypeFieldNumber;
@@ -422,7 +737,7 @@ Resource_PersistentVolume::Resource_PersistentVolume(const Resource_PersistentVo
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_size()) {
-    size_ = new ::k8s::io::apimachinery::pkg::api::resource::Quantity(*from.size_);
+    size_ = new ::flyteidl_flink::Resource_Quantity(*from.size_);
   } else {
     size_ = nullptr;
   }
@@ -491,12 +806,12 @@ const char* Resource_PersistentVolume::_InternalParse(const char* begin, const c
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // .k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;
+      // .flyteidl_flink.Resource.Quantity size = 2;
       case 2: {
         if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        parser_till_end = ::k8s::io::apimachinery::pkg::api::resource::Quantity::_InternalParse;
+        parser_till_end = ::flyteidl_flink::Resource_Quantity::_InternalParse;
         object = msg->mutable_size();
         if (size > end - ptr) goto len_delim_till_end;
         ptr += size;
@@ -548,7 +863,7 @@ bool Resource_PersistentVolume::MergePartialFromCodedStream(
         break;
       }
 
-      // .k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;
+      // .flyteidl_flink.Resource.Quantity size = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
@@ -592,7 +907,7 @@ void Resource_PersistentVolume::SerializeWithCachedSizes(
       1, this->type(), output);
   }
 
-  // .k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;
+  // .flyteidl_flink.Resource.Quantity size = 2;
   if (this->has_size()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, HasBitSetters::size(this), output);
@@ -617,7 +932,7 @@ void Resource_PersistentVolume::SerializeWithCachedSizes(
       1, this->type(), target);
   }
 
-  // .k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;
+  // .flyteidl_flink.Resource.Quantity size = 2;
   if (this->has_size()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
@@ -645,7 +960,7 @@ size_t Resource_PersistentVolume::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .k8s.io.apimachinery.pkg.api.resource.Quantity size = 2;
+  // .flyteidl_flink.Resource.Quantity size = 2;
   if (this->has_size()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSize(
@@ -686,7 +1001,7 @@ void Resource_PersistentVolume::MergeFrom(const Resource_PersistentVolume& from)
   (void) cached_has_bits;
 
   if (from.has_size()) {
-    mutable_size()->::k8s::io::apimachinery::pkg::api::resource::Quantity::MergeFrom(from.size());
+    mutable_size()->::flyteidl_flink::Resource_Quantity::MergeFrom(from.size());
   }
   if (from.type() != 0) {
     set_type(from.type());
@@ -731,43 +1046,31 @@ void Resource_PersistentVolume::InternalSwap(Resource_PersistentVolume* other) {
 // ===================================================================
 
 void Resource::InitAsDefaultInstance() {
-  ::flyteidl_flink::_Resource_default_instance_._instance.get_mutable()->cpu_ = const_cast< ::k8s::io::apimachinery::pkg::api::resource::Quantity*>(
-      ::k8s::io::apimachinery::pkg::api::resource::Quantity::internal_default_instance());
-  ::flyteidl_flink::_Resource_default_instance_._instance.get_mutable()->memory_ = const_cast< ::k8s::io::apimachinery::pkg::api::resource::Quantity*>(
-      ::k8s::io::apimachinery::pkg::api::resource::Quantity::internal_default_instance());
+  ::flyteidl_flink::_Resource_default_instance_._instance.get_mutable()->cpu_ = const_cast< ::flyteidl_flink::Resource_Quantity*>(
+      ::flyteidl_flink::Resource_Quantity::internal_default_instance());
+  ::flyteidl_flink::_Resource_default_instance_._instance.get_mutable()->memory_ = const_cast< ::flyteidl_flink::Resource_Quantity*>(
+      ::flyteidl_flink::Resource_Quantity::internal_default_instance());
   ::flyteidl_flink::_Resource_default_instance_._instance.get_mutable()->persistentvolume_ = const_cast< ::flyteidl_flink::Resource_PersistentVolume*>(
       ::flyteidl_flink::Resource_PersistentVolume::internal_default_instance());
 }
 class Resource::HasBitSetters {
  public:
-  static const ::k8s::io::apimachinery::pkg::api::resource::Quantity& cpu(const Resource* msg);
-  static const ::k8s::io::apimachinery::pkg::api::resource::Quantity& memory(const Resource* msg);
+  static const ::flyteidl_flink::Resource_Quantity& cpu(const Resource* msg);
+  static const ::flyteidl_flink::Resource_Quantity& memory(const Resource* msg);
   static const ::flyteidl_flink::Resource_PersistentVolume& persistentvolume(const Resource* msg);
 };
 
-const ::k8s::io::apimachinery::pkg::api::resource::Quantity&
+const ::flyteidl_flink::Resource_Quantity&
 Resource::HasBitSetters::cpu(const Resource* msg) {
   return *msg->cpu_;
 }
-const ::k8s::io::apimachinery::pkg::api::resource::Quantity&
+const ::flyteidl_flink::Resource_Quantity&
 Resource::HasBitSetters::memory(const Resource* msg) {
   return *msg->memory_;
 }
 const ::flyteidl_flink::Resource_PersistentVolume&
 Resource::HasBitSetters::persistentvolume(const Resource* msg) {
   return *msg->persistentvolume_;
-}
-void Resource::clear_cpu() {
-  if (GetArenaNoVirtual() == nullptr && cpu_ != nullptr) {
-    delete cpu_;
-  }
-  cpu_ = nullptr;
-}
-void Resource::clear_memory() {
-  if (GetArenaNoVirtual() == nullptr && memory_ != nullptr) {
-    delete memory_;
-  }
-  memory_ = nullptr;
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Resource::kCpuFieldNumber;
@@ -785,12 +1088,12 @@ Resource::Resource(const Resource& from)
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_cpu()) {
-    cpu_ = new ::k8s::io::apimachinery::pkg::api::resource::Quantity(*from.cpu_);
+    cpu_ = new ::flyteidl_flink::Resource_Quantity(*from.cpu_);
   } else {
     cpu_ = nullptr;
   }
   if (from.has_memory()) {
-    memory_ = new ::k8s::io::apimachinery::pkg::api::resource::Quantity(*from.memory_);
+    memory_ = new ::flyteidl_flink::Resource_Quantity(*from.memory_);
   } else {
     memory_ = nullptr;
   }
@@ -864,12 +1167,12 @@ const char* Resource::_InternalParse(const char* begin, const char* end, void* o
     ptr = ::google::protobuf::io::Parse32(ptr, &tag);
     GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
     switch (tag >> 3) {
-      // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+      // .flyteidl_flink.Resource.Quantity cpu = 1;
       case 1: {
         if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        parser_till_end = ::k8s::io::apimachinery::pkg::api::resource::Quantity::_InternalParse;
+        parser_till_end = ::flyteidl_flink::Resource_Quantity::_InternalParse;
         object = msg->mutable_cpu();
         if (size > end - ptr) goto len_delim_till_end;
         ptr += size;
@@ -877,12 +1180,12 @@ const char* Resource::_InternalParse(const char* begin, const char* end, void* o
             {parser_till_end, object}, ptr - size, ptr));
         break;
       }
-      // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+      // .flyteidl_flink.Resource.Quantity memory = 2;
       case 2: {
         if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        parser_till_end = ::k8s::io::apimachinery::pkg::api::resource::Quantity::_InternalParse;
+        parser_till_end = ::flyteidl_flink::Resource_Quantity::_InternalParse;
         object = msg->mutable_memory();
         if (size > end - ptr) goto len_delim_till_end;
         ptr += size;
@@ -933,7 +1236,7 @@ bool Resource::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+      // .flyteidl_flink.Resource.Quantity cpu = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
@@ -944,7 +1247,7 @@ bool Resource::MergePartialFromCodedStream(
         break;
       }
 
-      // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+      // .flyteidl_flink.Resource.Quantity memory = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
@@ -993,13 +1296,13 @@ void Resource::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+  // .flyteidl_flink.Resource.Quantity cpu = 1;
   if (this->has_cpu()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, HasBitSetters::cpu(this), output);
   }
 
-  // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+  // .flyteidl_flink.Resource.Quantity memory = 2;
   if (this->has_memory()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, HasBitSetters::memory(this), output);
@@ -1024,14 +1327,14 @@ void Resource::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+  // .flyteidl_flink.Resource.Quantity cpu = 1;
   if (this->has_cpu()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
         1, HasBitSetters::cpu(this), target);
   }
 
-  // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+  // .flyteidl_flink.Resource.Quantity memory = 2;
   if (this->has_memory()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
@@ -1066,14 +1369,14 @@ size_t Resource::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+  // .flyteidl_flink.Resource.Quantity cpu = 1;
   if (this->has_cpu()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSize(
         *cpu_);
   }
 
-  // .k8s.io.apimachinery.pkg.api.resource.Quantity memory = 2;
+  // .flyteidl_flink.Resource.Quantity memory = 2;
   if (this->has_memory()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSize(
@@ -1115,10 +1418,10 @@ void Resource::MergeFrom(const Resource& from) {
   (void) cached_has_bits;
 
   if (from.has_cpu()) {
-    mutable_cpu()->::k8s::io::apimachinery::pkg::api::resource::Quantity::MergeFrom(from.cpu());
+    mutable_cpu()->::flyteidl_flink::Resource_Quantity::MergeFrom(from.cpu());
   }
   if (from.has_memory()) {
-    mutable_memory()->::k8s::io::apimachinery::pkg::api::resource::Quantity::MergeFrom(from.memory());
+    mutable_memory()->::flyteidl_flink::Resource_Quantity::MergeFrom(from.memory());
   }
   if (from.has_persistentvolume()) {
     mutable_persistentvolume()->::flyteidl_flink::Resource_PersistentVolume::MergeFrom(from.persistentvolume());
@@ -1791,7 +2094,7 @@ void FlinkJob_FlinkPropertiesEntry_DoNotUse::MergeFrom(const FlinkJob_FlinkPrope
 }
 ::google::protobuf::Metadata FlinkJob_FlinkPropertiesEntry_DoNotUse::GetMetadata() const {
   ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_flyteidl_2dflink_2fflink_2eproto);
-  return ::file_level_metadata_flyteidl_2dflink_2fflink_2eproto[4];
+  return ::file_level_metadata_flyteidl_2dflink_2fflink_2eproto[5];
 }
 void FlinkJob_FlinkPropertiesEntry_DoNotUse::MergeFrom(
     const ::google::protobuf::Message& other) {
@@ -3651,6 +3954,9 @@ void FlinkExecutionInfo::InternalSwap(FlinkExecutionInfo* other) {
 }  // namespace flyteidl_flink
 namespace google {
 namespace protobuf {
+template<> PROTOBUF_NOINLINE ::flyteidl_flink::Resource_Quantity* Arena::CreateMaybeMessage< ::flyteidl_flink::Resource_Quantity >(Arena* arena) {
+  return Arena::CreateInternal< ::flyteidl_flink::Resource_Quantity >(arena);
+}
 template<> PROTOBUF_NOINLINE ::flyteidl_flink::Resource_PersistentVolume* Arena::CreateMaybeMessage< ::flyteidl_flink::Resource_PersistentVolume >(Arena* arena) {
   return Arena::CreateInternal< ::flyteidl_flink::Resource_PersistentVolume >(arena);
 }
