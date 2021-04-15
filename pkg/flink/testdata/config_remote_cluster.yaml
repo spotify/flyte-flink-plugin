@@ -11,6 +11,7 @@ plugins:
     defaultFlinkCluster:
       spec:
         serviceAccountName: "flink-service-account"
+        flinkVersion: "v1.12"
         image:
           name: "flink-image"
           pullPolicy: Always
