@@ -182,6 +182,11 @@ public final class Flink {
           getStringBytes();
     }
     /**
+     * <pre>
+     * Value must be a valid k8s quantity. See
+     * https://github.com/kubernetes/apimachinery/blob/master/pkg/api/resource/quantity.go#L30-L80
+     * </pre>
+     *
      * Protobuf type {@code flyteidl_flink.Resource.Quantity}
      */
     public  static final class Quantity extends
@@ -448,6 +453,11 @@ public final class Flink {
         return builder;
       }
       /**
+       * <pre>
+       * Value must be a valid k8s quantity. See
+       * https://github.com/kubernetes/apimachinery/blob/master/pkg/api/resource/quantity.go#L30-L80
+       * </pre>
+       *
        * Protobuf type {@code flyteidl_flink.Resource.Quantity}
        */
       public static final class Builder extends

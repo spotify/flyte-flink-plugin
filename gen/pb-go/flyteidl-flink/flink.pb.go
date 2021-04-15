@@ -100,6 +100,8 @@ func (m *Resource) GetPersistentVolume() *Resource_PersistentVolume {
 	return nil
 }
 
+// Value must be a valid k8s quantity. See
+// https://github.com/kubernetes/apimachinery/blob/master/pkg/api/resource/quantity.go#L30-L80
 type Resource_Quantity struct {
 	String_              string   `protobuf:"bytes,1,opt,name=string,proto3" json:"string,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
