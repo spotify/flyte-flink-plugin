@@ -5,6 +5,8 @@ package flyteidl_flink;
 option go_package = "flyteidl-flink";
 
 message Resource {
+  // Value must be a valid k8s quantity. See
+  // https://github.com/kubernetes/apimachinery/blob/master/pkg/api/resource/quantity.go#L30-L80
   message Quantity { string string = 1; }
 
   message PersistentVolume {
