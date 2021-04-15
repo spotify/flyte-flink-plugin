@@ -156,8 +156,6 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 		AfterJobFails:     flinkOp.CleanupActionDeleteCluster,
 		AfterJobCancelled: flinkOp.CleanupActionDeleteCluster,
 	}
-	out.Volumes = append(out.Volumes, cacheVolume)
-	out.VolumeMounts = append(out.VolumeMounts, cacheVolumeMount)
 
 	urls := make([]string, len(artifacts))
 	useGcs := true
