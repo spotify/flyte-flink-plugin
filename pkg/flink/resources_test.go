@@ -17,7 +17,7 @@ package flink
 import (
 	"testing"
 
-	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
+	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta2"
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	"gotest.tools/assert"
 )
@@ -117,7 +117,7 @@ func TestBuildFlinkClusterSpecInvalid(t *testing.T) {
 	}
 
 	_, err := NewFlinkCluster(config, flinkCtx)
-	assert.Error(t, err, "image name is unspecified")
+	assert.Error(t, err, "Malformed version: ")
 }
 
 func TestBuildFlinkClusterSpecServiceAccount(t *testing.T) {

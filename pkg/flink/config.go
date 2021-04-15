@@ -17,7 +17,7 @@ package flink
 import (
 	pluginsConfig "github.com/flyteorg/flyteplugins/go/tasks/config"
 	"github.com/flyteorg/flyteplugins/go/tasks/logs"
-	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
+	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta2"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 )
