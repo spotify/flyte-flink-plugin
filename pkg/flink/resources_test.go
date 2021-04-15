@@ -20,7 +20,6 @@ import (
 	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	"gotest.tools/assert"
-	"k8s.io/apimachinery/pkg/api/resource"
 )
 
 func TestBuildFlinkClusterSpecValid(t *testing.T) {
@@ -63,7 +62,6 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 }
 
 func TestWithPersistentVolume(t *testing.T) {
-	size := resource.MustParse("100Gi")
 	job := flinkIdl.FlinkJob{
 		JarFile: "job.jar",
 		FlinkProperties: map[string]string{
@@ -73,7 +71,7 @@ func TestWithPersistentVolume(t *testing.T) {
 			Resource: &flinkIdl.Resource{
 				PersistentVolume: &flinkIdl.Resource_PersistentVolume{
 					Type: flinkIdl.Resource_PersistentVolume_PD_SSD,
-					Size: &size,
+					Size: &flinkIdl.Resource_Quantity{String_: "100Gi"},
 				},
 			},
 			Replicas: 1,

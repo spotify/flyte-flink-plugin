@@ -8,7 +8,7 @@ flink.proto
 flyteidl_flink.Resource
 -----------------------
 
-`[flyteidl_flink.Resource proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L8>`_
+`[flyteidl_flink.Resource proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L6>`_
 
 
 .. code-block:: json
@@ -22,18 +22,39 @@ flyteidl_flink.Resource
 .. _api_field_flyteidl_flink.Resource.cpu:
 
 cpu
-  (:ref:`k8s.io.apimachinery.pkg.api.resource.Quantity <api_msg_k8s.io.apimachinery.pkg.api.resource.Quantity>`) 
+  (:ref:`flyteidl_flink.Resource.Quantity <api_msg_flyteidl_flink.Resource.Quantity>`) 
   
 .. _api_field_flyteidl_flink.Resource.memory:
 
 memory
-  (:ref:`k8s.io.apimachinery.pkg.api.resource.Quantity <api_msg_k8s.io.apimachinery.pkg.api.resource.Quantity>`) 
+  (:ref:`flyteidl_flink.Resource.Quantity <api_msg_flyteidl_flink.Resource.Quantity>`) 
   
 .. _api_field_flyteidl_flink.Resource.persistentVolume:
 
 persistentVolume
   (:ref:`flyteidl_flink.Resource.PersistentVolume <api_msg_flyteidl_flink.Resource.PersistentVolume>`) 
   
+.. _api_msg_flyteidl_flink.Resource.Quantity:
+
+flyteidl_flink.Resource.Quantity
+--------------------------------
+
+`[flyteidl_flink.Resource.Quantity proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L7>`_
+
+
+.. code-block:: json
+
+  {
+    "string": "..."
+  }
+
+.. _api_field_flyteidl_flink.Resource.Quantity.string:
+
+string
+  (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
+  
+
+
 .. _api_msg_flyteidl_flink.Resource.PersistentVolume:
 
 flyteidl_flink.Resource.PersistentVolume
@@ -57,7 +78,7 @@ type
 .. _api_field_flyteidl_flink.Resource.PersistentVolume.size:
 
 size
-  (:ref:`k8s.io.apimachinery.pkg.api.resource.Quantity <api_msg_k8s.io.apimachinery.pkg.api.resource.Quantity>`) 
+  (:ref:`flyteidl_flink.Resource.Quantity <api_msg_flyteidl_flink.Resource.Quantity>`) 
   
 
 .. _api_enum_flyteidl_flink.Resource.PersistentVolume.Type:
