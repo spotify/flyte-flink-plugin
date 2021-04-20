@@ -62,11 +62,17 @@ func getPersistentVolumeClaim(name string, pv *flinkIdl.Resource_PersistentVolum
 	}
 }
 
+func derivePodLabelsFromFlinkTask(taskCtx FlinkTaskContext) map[string]string {
+	return map[string]string{
+		"flink-task-name": taskCtx.Name,
+	}
+}
+
 func (fc *FlinkCluster) updateJobManagerSpec(taskCtx FlinkTaskContext) {
 	out := &fc.Spec.JobManager
 
 	out.PodAnnotations = utils.UnionMaps(taskCtx.Annotations, out.PodAnnotations)
-	out.PodLabels = utils.UnionMaps(taskCtx.Labels, out.PodLabels)
+	out.PodLabels = utils.UnionMaps(taskCtx.Labels, out.PodLabels, derivePodLabelsFromFlinkTask(taskCtx))
 
 	jm := taskCtx.Job.JobManager
 
@@ -100,7 +106,7 @@ func (fc *FlinkCluster) updateTaskManagerSpec(taskCtx FlinkTaskContext) {
 	out := &fc.Spec.TaskManager
 
 	out.PodAnnotations = utils.UnionMaps(taskCtx.Annotations, out.PodAnnotations)
-	out.PodLabels = utils.UnionMaps(taskCtx.Labels, out.PodLabels)
+	out.PodLabels = utils.UnionMaps(taskCtx.Labels, out.PodLabels, derivePodLabelsFromFlinkTask(taskCtx))
 
 	tm := taskCtx.Job.TaskManager
 
@@ -141,7 +147,7 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 	out := fc.Spec.Job
 
 	out.PodAnnotations = utils.UnionMaps(taskCtx.Annotations, out.PodAnnotations)
-	out.PodLabels = utils.UnionMaps(taskCtx.Labels, out.PodLabels)
+	out.PodLabels = utils.UnionMaps(taskCtx.Labels, out.PodLabels, derivePodLabelsFromFlinkTask(taskCtx))
 
 	out.JarFile = taskCtx.Job.JarFile
 	out.ClassName = &taskCtx.Job.MainClass

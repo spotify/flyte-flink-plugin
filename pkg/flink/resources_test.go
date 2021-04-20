@@ -61,6 +61,34 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 	assert.Equal(t, len(cluster.Spec.Job.VolumeMounts), 1)
 }
 
+func TestJobAndTaskManagerSpecLabels(t *testing.T) {
+	job := flinkIdl.FlinkJob{
+		JarFile: "job.jar",
+		FlinkProperties: map[string]string{
+			"taskmanager.numberOfTaskSlots": "1",
+		},
+	}
+	config := GetFlinkConfig()
+
+	flinkCtx := FlinkTaskContext{
+		Name:        "generated-name",
+		Namespace:   "test-namespace",
+		Annotations: make(map[string]string),
+		Labels:      make(map[string]string),
+		Job:         job,
+	}
+
+	cluster, err := NewFlinkCluster(config, flinkCtx)
+
+	assert.NilError(t, err)
+	expectedPodLabels := map[string]string{
+		"flink-task-name": "generated-name",
+	}
+	assert.DeepEqual(t, cluster.Spec.JobManager.PodLabels, expectedPodLabels)
+	assert.DeepEqual(t, cluster.Spec.TaskManager.PodLabels, expectedPodLabels)
+	assert.DeepEqual(t, cluster.Spec.Job.PodLabels, expectedPodLabels)
+}
+
 func TestWithPersistentVolume(t *testing.T) {
 	job := flinkIdl.FlinkJob{
 		JarFile: "job.jar",
