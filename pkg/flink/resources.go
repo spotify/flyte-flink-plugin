@@ -201,6 +201,8 @@ func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCl
 		cluster.Spec.Image.Name = image
 	}
 
+	cluster.Spec.FlinkVersion = config.DefaultFlinkCluster.Spec.FlinkVersion
+
 	if sa := taskCtx.Job.GetServiceAccount(); len(sa) != 0 {
 		cluster.Spec.ServiceAccountName = &sa
 	}

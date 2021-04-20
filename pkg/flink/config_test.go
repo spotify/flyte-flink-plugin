@@ -56,6 +56,7 @@ func TestLoadConfig(t *testing.T) {
 		assert.DeepEqual(t, jm.NodeSelector, map[string]string{"gke-nodepool": "nodepool-1"})
 		assert.DeepEqual(t, tm.NodeSelector, map[string]string{"gke-nodepool": "nodepool-2"})
 		assert.Equal(t, defaultCluster.Image.Name, "flink-image")
+		assert.Equal(t, defaultCluster.FlinkVersion, "v1.12")
 		assert.Assert(t, len(defaultCluster.FlinkProperties) > 0)
 		assert.Equal(t, flinkConfig.FlinkPropertiesOverride["jobmanager.archive.fs.dir"], "flink-job-archive-dir")
 	})
