@@ -239,15 +239,15 @@ func TestUnmarshalArtifactsJFlyte(t *testing.T) {
 				IndexFileLocation: "gs://bucket/index-file.json",
 				Artifacts: []*flinkIdl.Artifact{
 					{
-						Location: "gs://bucket",
+						Location: "gs://bucket/artifact0.jar",
 						Name:     "artifact0.jar",
 					},
 					{
-						Location: "gs://bucket",
+						Location: "gs://bucket/artifact1.jar",
 						Name:     "artifact1.jar",
 					},
 					{
-						Location: "gs://bucket",
+						Location: "gs://bucket/artifact2.jar",
 						Name:     "artifact2.jar",
 					},
 				},

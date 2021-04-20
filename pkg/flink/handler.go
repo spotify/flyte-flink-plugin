@@ -145,7 +145,7 @@ func unmarshalJFlyteArtifacts(custom *structpb.Struct) ([]*url.URL, error) {
 	urls := make([]*url.URL, len(jflyte.Jflyte.Artifacts))
 
 	for i, a := range jflyte.Jflyte.Artifacts {
-		u, err := url.Parse(fmt.Sprintf("%s/%s", a.Location, a.Name))
+		u, err := url.Parse(a.Location)
 		if err != nil {
 			return nil, errors.Wrapf(errors.BadTaskSpecification, err, "Could not parse artifact url from [%v]", a)
 		}
