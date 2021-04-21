@@ -15,16 +15,26 @@
 package flink
 
 import (
+	"net/url"
+	"reflect"
 	"testing"
 
+	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/utils"
 	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
+	"google.golang.org/protobuf/types/known/structpb"
 	"gotest.tools/assert"
 )
 
+func artifacts() []*url.URL {
+	u0, _ := url.Parse("gs://scio-playground-flyte-workflow-storage/flytekit-staging/spotify-data-schemas-1.0-SNAPSHOT-47cyvcgeM3BdQTFlmMJahw==.jar")
+	u1, _ := url.Parse("gs://scio-playground-flyte-workflow-storage/flytekit-staging/util-2.1.6-901thgh-BVW1Qi36rJi37Q==.jar")
+	u2, _ := url.Parse("gs://scio-playground-flyte-workflow-storage/flytekit-staging/scala-collection-compat_2.12-2.4.0-Evmys1Zf4G1bEJNG3qIw9A==.jar")
+	return []*url.URL{u0, u1, u2}
+}
+
 func TestBuildFlinkClusterSpecValid(t *testing.T) {
 	job := flinkIdl.FlinkJob{
-		JarFile: "job.jar",
 		FlinkProperties: map[string]string{
 			"taskmanager.numberOfTaskSlots": "1",
 		},
@@ -39,7 +49,7 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 		Job:         job,
 	}
 
-	cluster, err := NewFlinkCluster(config, flinkCtx)
+	cluster, err := NewFlinkCluster(config, flinkCtx, artifacts())
 
 	assert.NilError(t, err)
 	assert.Equal(t, cluster.Spec.Image.Name, "flink-image")
@@ -56,14 +66,12 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 	assert.Assert(t, cluster.Spec.JobManager.Ingress != nil)
 	assert.Equal(t, *cluster.Spec.JobManager.Ingress.UseTLS, true)
 
-	assert.Equal(t, cluster.Spec.Job.JarFile, job.JarFile)
 	assert.Equal(t, len(cluster.Spec.Job.Volumes), 1)
 	assert.Equal(t, len(cluster.Spec.Job.VolumeMounts), 1)
 }
 
 func TestWithPersistentVolume(t *testing.T) {
 	job := flinkIdl.FlinkJob{
-		JarFile: "job.jar",
 		FlinkProperties: map[string]string{
 			"taskmanager.numberOfTaskSlots": "1",
 		},
@@ -87,7 +95,7 @@ func TestWithPersistentVolume(t *testing.T) {
 		Job:         job,
 	}
 
-	cluster, err := NewFlinkCluster(config, flinkCtx)
+	cluster, err := NewFlinkCluster(config, flinkCtx, artifacts())
 
 	assert.NilError(t, err)
 	assert.Equal(t, cluster.Spec.Image.Name, "flink-image")
@@ -116,13 +124,12 @@ func TestBuildFlinkClusterSpecInvalid(t *testing.T) {
 		Job:         job,
 	}
 
-	_, err := NewFlinkCluster(config, flinkCtx)
+	_, err := NewFlinkCluster(config, flinkCtx, artifacts())
 	assert.Error(t, err, "image name is unspecified")
 }
 
 func TestBuildFlinkClusterSpecServiceAccount(t *testing.T) {
 	job := flinkIdl.FlinkJob{
-		JarFile: "job.jar",
 		FlinkProperties: map[string]string{
 			"taskmanager.numberOfTaskSlots": "1",
 		},
@@ -138,7 +145,7 @@ func TestBuildFlinkClusterSpecServiceAccount(t *testing.T) {
 		Job:         job,
 	}
 
-	cluster, err := NewFlinkCluster(config, flinkCtx)
+	cluster, err := NewFlinkCluster(config, flinkCtx, artifacts())
 
 	assert.NilError(t, err)
 	assert.Equal(t, *cluster.Spec.ServiceAccountName, "flink-user-service-account")
@@ -146,7 +153,7 @@ func TestBuildFlinkClusterSpecServiceAccount(t *testing.T) {
 
 func TestBuildFlinkClusterSpecImage(t *testing.T) {
 	job := flinkIdl.FlinkJob{
-		JarFile: "job.jar",
+		JarFiles: []string{},
 		FlinkProperties: map[string]string{
 			"taskmanager.numberOfTaskSlots": "1",
 		},
@@ -162,7 +169,7 @@ func TestBuildFlinkClusterSpecImage(t *testing.T) {
 		Job:         job,
 	}
 
-	cluster, err := NewFlinkCluster(config, flinkCtx)
+	cluster, err := NewFlinkCluster(config, flinkCtx, artifacts())
 
 	assert.NilError(t, err)
 	assert.Equal(t, cluster.Spec.Image.Name, "flink-custom-image")
@@ -170,7 +177,7 @@ func TestBuildFlinkClusterSpecImage(t *testing.T) {
 
 func TestBuildFlinkClusterWithIngress(t *testing.T) {
 	job := flinkIdl.FlinkJob{
-		JarFile: "job.jar",
+		JarFiles: []string{"gs://scio-playground-flyte-workflow-storage/flytekit-staging/job.jar"},
 		FlinkProperties: map[string]string{
 			"taskmanager.numberOfTaskSlots": "1",
 		},
@@ -193,7 +200,7 @@ func TestBuildFlinkClusterWithIngress(t *testing.T) {
 		Job:         job,
 	}
 
-	cluster, err := NewFlinkCluster(config, flinkCtx)
+	cluster, err := NewFlinkCluster(config, flinkCtx, artifacts())
 	assert.NilError(t, err)
 
 	assert.Assert(t, cluster.Spec.JobManager.Ingress != nil)
@@ -205,7 +212,7 @@ func TestBuildFlinkClusterWithIngress(t *testing.T) {
 
 func TestBuildFlinkClusterSpecInvalidClusterName(t *testing.T) {
 	job := flinkIdl.FlinkJob{
-		JarFile: "job.jar",
+		JarFiles: []string{"job.jar"},
 		FlinkProperties: map[string]string{
 			"taskmanager.numberOfTaskSlots": "1",
 		},
@@ -220,6 +227,101 @@ func TestBuildFlinkClusterSpecInvalidClusterName(t *testing.T) {
 		Job:         job,
 	}
 
-	_, err := NewFlinkCluster(config, flinkCtx)
+	_, err := NewFlinkCluster(config, flinkCtx, artifacts())
 	assert.ErrorContains(t, err, "Validation error: ")
+}
+
+func TestUnmarshalArtifactsJFlyte(t *testing.T) {
+
+	jflyte :=
+		flinkIdl.JFlyte{
+			Jflyte: &flinkIdl.JFlytePayload{
+				IndexFileLocation: "gs://bucket/index-file.json",
+				Artifacts: []*flinkIdl.Artifact{
+					{
+						Location: "gs://bucket/artifact0.jar",
+						Name:     "artifact0.jar",
+					},
+					{
+						Location: "gs://bucket/artifact1.jar",
+						Name:     "artifact1.jar",
+					},
+					{
+						Location: "gs://bucket/artifact2.jar",
+						Name:     "artifact2.jar",
+					},
+				},
+			},
+		}
+
+	protoMess, _ := utils.MarshalObjToStruct(jflyte)
+
+	u0, _ := url.Parse("gs://bucket/artifact0.jar")
+	u1, _ := url.Parse("gs://bucket/artifact1.jar")
+	u2, _ := url.Parse("gs://bucket/artifact2.jar")
+	expected := []*url.URL{u0, u1, u2}
+
+	artifacts, _ := unmarshalArtifacts(&flinkIdl.FlinkJob{}, protoMess)
+
+	assert.Assert(t, reflect.DeepEqual(artifacts, expected))
+}
+
+func TestUnmarshalArtifactsJob(t *testing.T) {
+
+	job := flinkIdl.FlinkJob{
+		JarFiles: []string{
+			"gs://bucket/artifact0.jar",
+			"gs://bucket/artifact1.jar",
+			"gs://bucket/artifact2.jar",
+		},
+	}
+
+	u0, _ := url.Parse("gs://bucket/artifact0.jar")
+	u1, _ := url.Parse("gs://bucket/artifact1.jar")
+	u2, _ := url.Parse("gs://bucket/artifact2.jar")
+	expected := []*url.URL{u0, u1, u2}
+
+	artifacts, _ := unmarshalArtifacts(&job, &structpb.Struct{})
+
+	assert.Assert(t, reflect.DeepEqual(artifacts, expected))
+}
+
+func TestBuildFlinkClusterSpecJobCommand(t *testing.T) {
+	job := flinkIdl.FlinkJob{
+		JarFiles: []string{},
+		FlinkProperties: map[string]string{
+			"taskmanager.numberOfTaskSlots": "1",
+		},
+	}
+	config := GetFlinkConfig()
+
+	flinkCtx := FlinkTaskContext{
+		Name:        "generated-name",
+		Namespace:   "test-namespace",
+		Annotations: make(map[string]string),
+		Labels:      make(map[string]string),
+		Job:         job,
+	}
+
+	cluster, err := NewFlinkCluster(config, flinkCtx, artifacts())
+
+	assert.NilError(t, err)
+	assert.Equal(t, len(cluster.Spec.Job.InitContainers), 1)
+
+	initCont := cluster.Spec.Job.InitContainers[0]
+
+	assert.Assert(t, reflect.DeepEqual(initCont.Command, []string{"/bin/sh", "-c"}))
+
+	args := []string{
+		"mkdir /tmp/artifacts/lib",
+		"gsutil cp" +
+			" gs://scio-playground-flyte-workflow-storage/flytekit-staging/spotify-data-schemas-1.0-SNAPSHOT-47cyvcgeM3BdQTFlmMJahw==.jar" +
+			" gs://scio-playground-flyte-workflow-storage/flytekit-staging/util-2.1.6-901thgh-BVW1Qi36rJi37Q==.jar" +
+			" gs://scio-playground-flyte-workflow-storage/flytekit-staging/scala-collection-compat_2.12-2.4.0-Evmys1Zf4G1bEJNG3qIw9A==.jar" +
+			" /tmp/artifacts/lib",
+		"$(cd /tmp/artifacts && zip -r job.jar .)",
+		"cp /tmp/job.jar /cache/job.jar",
+	}
+
+	assert.Assert(t, reflect.DeepEqual(initCont.Args, args))
 }

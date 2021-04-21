@@ -163,7 +163,7 @@ Custom Proto for Flink Plugin.
 .. code-block:: json
 
   {
-    "jarFile": "...",
+    "jarFiles": [],
     "mainClass": "...",
     "args": [],
     "flinkProperties": "{...}",
@@ -173,9 +173,9 @@ Custom Proto for Flink Plugin.
     "image": "..."
   }
 
-.. _api_field_flyteidl_flink.FlinkJob.jarFile:
+.. _api_field_flyteidl_flink.FlinkJob.jarFiles:
 
-jarFile
+jarFiles
   (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
   
 .. _api_field_flyteidl_flink.FlinkJob.mainClass:
@@ -281,5 +281,80 @@ job
 
 jobManager
   (:ref:`flyteidl_flink.JobManagerExecutionInfo <api_msg_flyteidl_flink.JobManagerExecutionInfo>`) 
+  
+
+
+.. _api_msg_flyteidl_flink.Artifact:
+
+flyteidl_flink.Artifact
+-----------------------
+
+`[flyteidl_flink.Artifact proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L55>`_
+
+
+.. code-block:: json
+
+  {
+    "name": "...",
+    "location": "..."
+  }
+
+.. _api_field_flyteidl_flink.Artifact.name:
+
+name
+  (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
+  
+.. _api_field_flyteidl_flink.Artifact.location:
+
+location
+  (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
+  
+
+
+.. _api_msg_flyteidl_flink.JFlytePayload:
+
+flyteidl_flink.JFlytePayload
+----------------------------
+
+`[flyteidl_flink.JFlytePayload proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L60>`_
+
+
+.. code-block:: json
+
+  {
+    "index_file_location": "...",
+    "artifacts": []
+  }
+
+.. _api_field_flyteidl_flink.JFlytePayload.index_file_location:
+
+index_file_location
+  (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
+  
+.. _api_field_flyteidl_flink.JFlytePayload.artifacts:
+
+artifacts
+  (:ref:`flyteidl_flink.Artifact <api_msg_flyteidl_flink.Artifact>`) 
+  
+
+
+.. _api_msg_flyteidl_flink.JFlyte:
+
+flyteidl_flink.JFlyte
+---------------------
+
+`[flyteidl_flink.JFlyte proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L65>`_
+
+
+.. code-block:: json
+
+  {
+    "jflyte": "{...}"
+  }
+
+.. _api_field_flyteidl_flink.JFlyte.jflyte:
+
+jflyte
+  (:ref:`flyteidl_flink.JFlytePayload <api_msg_flyteidl_flink.JFlytePayload>`) 
   
 

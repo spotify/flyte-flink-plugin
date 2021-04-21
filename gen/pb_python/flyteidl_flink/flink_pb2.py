@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='flyteidl_flink',
   syntax='proto3',
   serialized_options=_b('Z\016flyteidl-flink'),
-  serialized_pb=_b('\n\x1a\x66lyteidl-flink/flink.proto\x12\x0e\x66lyteidl_flink\"\xf7\x02\n\x08Resource\x12.\n\x03\x63pu\x18\x01 \x01(\x0b\x32!.flyteidl_flink.Resource.Quantity\x12\x31\n\x06memory\x18\x02 \x01(\x0b\x32!.flyteidl_flink.Resource.Quantity\x12\x43\n\x10persistentVolume\x18\x03 \x01(\x0b\x32).flyteidl_flink.Resource.PersistentVolume\x1a\x1a\n\x08Quantity\x12\x0e\n\x06string\x18\x01 \x01(\t\x1a\xa6\x01\n\x10PersistentVolume\x12<\n\x04type\x18\x01 \x01(\x0e\x32..flyteidl_flink.Resource.PersistentVolume.Type\x12/\n\x04size\x18\x02 \x01(\x0b\x32!.flyteidl_flink.Resource.Quantity\"#\n\x04Type\x12\x0f\n\x0bPD_STANDARD\x10\x00\x12\n\n\x06PD_SSD\x10\x01\"8\n\nJobManager\x12*\n\x08resource\x18\x01 \x01(\x0b\x32\x18.flyteidl_flink.Resource\"K\n\x0bTaskManager\x12*\n\x08resource\x18\x01 \x01(\x0b\x32\x18.flyteidl_flink.Resource\x12\x10\n\x08replicas\x18\x02 \x01(\x05\"\xc5\x02\n\x08\x46linkJob\x12\x0f\n\x07jarFile\x18\x01 \x01(\t\x12\x11\n\tmainClass\x18\x02 \x01(\t\x12\x0c\n\x04\x61rgs\x18\x03 \x03(\t\x12\x46\n\x0f\x66linkProperties\x18\x04 \x03(\x0b\x32-.flyteidl_flink.FlinkJob.FlinkPropertiesEntry\x12.\n\njobManager\x18\x05 \x01(\x0b\x32\x1a.flyteidl_flink.JobManager\x12\x30\n\x0btaskManager\x18\x06 \x01(\x0b\x32\x1b.flyteidl_flink.TaskManager\x12\x16\n\x0eserviceAccount\x18\x07 \x01(\t\x12\r\n\x05image\x18\x08 \x01(\t\x1a\x36\n\x14\x46linkPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x1e\n\x10JobExecutionInfo\x12\n\n\x02id\x18\x01 \x01(\t\".\n\x17JobManagerExecutionInfo\x12\x13\n\x0bingressURLs\x18\x01 \x03(\t\"\x80\x01\n\x12\x46linkExecutionInfo\x12-\n\x03job\x18\x01 \x01(\x0b\x32 .flyteidl_flink.JobExecutionInfo\x12;\n\njobManager\x18\x02 \x01(\x0b\x32\'.flyteidl_flink.JobManagerExecutionInfoB\x10Z\x0e\x66lyteidl-flinkb\x06proto3')
+  serialized_pb=_b('\n\x1a\x66lyteidl-flink/flink.proto\x12\x0e\x66lyteidl_flink\"\xf7\x02\n\x08Resource\x12.\n\x03\x63pu\x18\x01 \x01(\x0b\x32!.flyteidl_flink.Resource.Quantity\x12\x31\n\x06memory\x18\x02 \x01(\x0b\x32!.flyteidl_flink.Resource.Quantity\x12\x43\n\x10persistentVolume\x18\x03 \x01(\x0b\x32).flyteidl_flink.Resource.PersistentVolume\x1a\x1a\n\x08Quantity\x12\x0e\n\x06string\x18\x01 \x01(\t\x1a\xa6\x01\n\x10PersistentVolume\x12<\n\x04type\x18\x01 \x01(\x0e\x32..flyteidl_flink.Resource.PersistentVolume.Type\x12/\n\x04size\x18\x02 \x01(\x0b\x32!.flyteidl_flink.Resource.Quantity\"#\n\x04Type\x12\x0f\n\x0bPD_STANDARD\x10\x00\x12\n\n\x06PD_SSD\x10\x01\"8\n\nJobManager\x12*\n\x08resource\x18\x01 \x01(\x0b\x32\x18.flyteidl_flink.Resource\"K\n\x0bTaskManager\x12*\n\x08resource\x18\x01 \x01(\x0b\x32\x18.flyteidl_flink.Resource\x12\x10\n\x08replicas\x18\x02 \x01(\x05\"\xc6\x02\n\x08\x46linkJob\x12\x10\n\x08jarFiles\x18\x01 \x03(\t\x12\x11\n\tmainClass\x18\x02 \x01(\t\x12\x0c\n\x04\x61rgs\x18\x03 \x03(\t\x12\x46\n\x0f\x66linkProperties\x18\x04 \x03(\x0b\x32-.flyteidl_flink.FlinkJob.FlinkPropertiesEntry\x12.\n\njobManager\x18\x05 \x01(\x0b\x32\x1a.flyteidl_flink.JobManager\x12\x30\n\x0btaskManager\x18\x06 \x01(\x0b\x32\x1b.flyteidl_flink.TaskManager\x12\x16\n\x0eserviceAccount\x18\x07 \x01(\t\x12\r\n\x05image\x18\x08 \x01(\t\x1a\x36\n\x14\x46linkPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x1e\n\x10JobExecutionInfo\x12\n\n\x02id\x18\x01 \x01(\t\".\n\x17JobManagerExecutionInfo\x12\x13\n\x0bingressURLs\x18\x01 \x03(\t\"\x80\x01\n\x12\x46linkExecutionInfo\x12-\n\x03job\x18\x01 \x01(\x0b\x32 .flyteidl_flink.JobExecutionInfo\x12;\n\njobManager\x18\x02 \x01(\x0b\x32\'.flyteidl_flink.JobManagerExecutionInfo\"*\n\x08\x41rtifact\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08location\x18\x02 \x01(\t\"Y\n\rJFlytePayload\x12\x1b\n\x13index_file_location\x18\x01 \x01(\t\x12+\n\tartifacts\x18\x02 \x03(\x0b\x32\x18.flyteidl_flink.Artifact\"7\n\x06JFlyte\x12-\n\x06jflyte\x18\x01 \x01(\x0b\x32\x1d.flyteidl_flink.JFlytePayloadB\x10Z\x0e\x66lyteidl-flinkb\x06proto3')
 )
 
 
@@ -263,8 +263,8 @@ _FLINKJOB_FLINKPROPERTIESENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=831,
-  serialized_end=885,
+  serialized_start=832,
+  serialized_end=886,
 )
 
 _FLINKJOB = _descriptor.Descriptor(
@@ -275,9 +275,9 @@ _FLINKJOB = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='jarFile', full_name='flyteidl_flink.FlinkJob.jarFile', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='jarFiles', full_name='flyteidl_flink.FlinkJob.jarFiles', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -343,7 +343,7 @@ _FLINKJOB = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=560,
-  serialized_end=885,
+  serialized_end=886,
 )
 
 
@@ -373,8 +373,8 @@ _JOBEXECUTIONINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=887,
-  serialized_end=917,
+  serialized_start=888,
+  serialized_end=918,
 )
 
 
@@ -404,8 +404,8 @@ _JOBMANAGEREXECUTIONINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=919,
-  serialized_end=965,
+  serialized_start=920,
+  serialized_end=966,
 )
 
 
@@ -442,8 +442,115 @@ _FLINKEXECUTIONINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=968,
-  serialized_end=1096,
+  serialized_start=969,
+  serialized_end=1097,
+)
+
+
+_ARTIFACT = _descriptor.Descriptor(
+  name='Artifact',
+  full_name='flyteidl_flink.Artifact',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='flyteidl_flink.Artifact.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='location', full_name='flyteidl_flink.Artifact.location', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1099,
+  serialized_end=1141,
+)
+
+
+_JFLYTEPAYLOAD = _descriptor.Descriptor(
+  name='JFlytePayload',
+  full_name='flyteidl_flink.JFlytePayload',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='index_file_location', full_name='flyteidl_flink.JFlytePayload.index_file_location', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='artifacts', full_name='flyteidl_flink.JFlytePayload.artifacts', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1143,
+  serialized_end=1232,
+)
+
+
+_JFLYTE = _descriptor.Descriptor(
+  name='JFlyte',
+  full_name='flyteidl_flink.JFlyte',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='jflyte', full_name='flyteidl_flink.JFlyte.jflyte', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1234,
+  serialized_end=1289,
 )
 
 _RESOURCE_QUANTITY.containing_type = _RESOURCE
@@ -462,6 +569,8 @@ _FLINKJOB.fields_by_name['jobManager'].message_type = _JOBMANAGER
 _FLINKJOB.fields_by_name['taskManager'].message_type = _TASKMANAGER
 _FLINKEXECUTIONINFO.fields_by_name['job'].message_type = _JOBEXECUTIONINFO
 _FLINKEXECUTIONINFO.fields_by_name['jobManager'].message_type = _JOBMANAGEREXECUTIONINFO
+_JFLYTEPAYLOAD.fields_by_name['artifacts'].message_type = _ARTIFACT
+_JFLYTE.fields_by_name['jflyte'].message_type = _JFLYTEPAYLOAD
 DESCRIPTOR.message_types_by_name['Resource'] = _RESOURCE
 DESCRIPTOR.message_types_by_name['JobManager'] = _JOBMANAGER
 DESCRIPTOR.message_types_by_name['TaskManager'] = _TASKMANAGER
@@ -469,6 +578,9 @@ DESCRIPTOR.message_types_by_name['FlinkJob'] = _FLINKJOB
 DESCRIPTOR.message_types_by_name['JobExecutionInfo'] = _JOBEXECUTIONINFO
 DESCRIPTOR.message_types_by_name['JobManagerExecutionInfo'] = _JOBMANAGEREXECUTIONINFO
 DESCRIPTOR.message_types_by_name['FlinkExecutionInfo'] = _FLINKEXECUTIONINFO
+DESCRIPTOR.message_types_by_name['Artifact'] = _ARTIFACT
+DESCRIPTOR.message_types_by_name['JFlytePayload'] = _JFLYTEPAYLOAD
+DESCRIPTOR.message_types_by_name['JFlyte'] = _JFLYTE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Resource = _reflection.GeneratedProtocolMessageType('Resource', (_message.Message,), dict(
@@ -543,6 +655,27 @@ FlinkExecutionInfo = _reflection.GeneratedProtocolMessageType('FlinkExecutionInf
   # @@protoc_insertion_point(class_scope:flyteidl_flink.FlinkExecutionInfo)
   ))
 _sym_db.RegisterMessage(FlinkExecutionInfo)
+
+Artifact = _reflection.GeneratedProtocolMessageType('Artifact', (_message.Message,), dict(
+  DESCRIPTOR = _ARTIFACT,
+  __module__ = 'flyteidl_flink.flink_pb2'
+  # @@protoc_insertion_point(class_scope:flyteidl_flink.Artifact)
+  ))
+_sym_db.RegisterMessage(Artifact)
+
+JFlytePayload = _reflection.GeneratedProtocolMessageType('JFlytePayload', (_message.Message,), dict(
+  DESCRIPTOR = _JFLYTEPAYLOAD,
+  __module__ = 'flyteidl_flink.flink_pb2'
+  # @@protoc_insertion_point(class_scope:flyteidl_flink.JFlytePayload)
+  ))
+_sym_db.RegisterMessage(JFlytePayload)
+
+JFlyte = _reflection.GeneratedProtocolMessageType('JFlyte', (_message.Message,), dict(
+  DESCRIPTOR = _JFLYTE,
+  __module__ = 'flyteidl_flink.flink_pb2'
+  # @@protoc_insertion_point(class_scope:flyteidl_flink.JFlyte)
+  ))
+_sym_db.RegisterMessage(JFlyte)
 
 
 DESCRIPTOR._options = None

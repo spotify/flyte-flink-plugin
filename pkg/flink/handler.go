@@ -17,6 +17,7 @@ package flink
 import (
 	"context"
 	"fmt"
+	"net/url"
 	"time"
 
 	"github.com/flyteorg/flyteplugins/go/tasks/errors"
@@ -44,6 +45,7 @@ type FlinkTaskContext struct {
 	Annotations map[string]string
 	Labels      map[string]string
 	Job         flinkIdl.FlinkJob
+	Custom      *structpb.Struct
 }
 
 func NewFlinkTaskContext(ctx context.Context, taskCtx pluginsCore.TaskExecutionContext) (*FlinkTaskContext, error) {
@@ -81,6 +83,7 @@ func NewFlinkTaskContext(ctx context.Context, taskCtx pluginsCore.TaskExecutionC
 		Annotations: GetDefaultAnnotations(taskMetadata),
 		Labels:      GetDefaultLabels(taskMetadata),
 		Job:         job,
+		Custom:      taskTemplate.Custom,
 	}, nil
 }
 
@@ -109,7 +112,12 @@ func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCo
 		return nil, err
 	}
 
-	return NewFlinkCluster(config, *flinkTaskCtx)
+	artifacts, err := unmarshalArtifacts(&flinkTaskCtx.Job, flinkTaskCtx.Custom)
+	if err != nil {
+		return nil, errors.Wrapf(errors.BadTaskSpecification, err, "invalid artifacts list [%v], failed to unmarshal", flinkTaskCtx.Custom)
+	}
+
+	return NewFlinkCluster(config, *flinkTaskCtx, artifacts)
 }
 
 func (flinkResourceHandler) BuildIdentityResource(ctx context.Context, taskCtx pluginsCore.TaskExecutionMetadata) (client.Object, error) {
@@ -119,6 +127,60 @@ func (flinkResourceHandler) BuildIdentityResource(ctx context.Context, taskCtx p
 			APIVersion: flinkOp.GroupVersion.String(),
 		},
 	}, nil
+}
+
+func unmarshalJFlyteArtifacts(custom *structpb.Struct) ([]*url.URL, error) {
+	jflyte := flinkIdl.JFlyte{}
+
+	// The payload is optional
+	if custom.GetFields()["jflyte"] == nil {
+		return []*url.URL{}, nil
+	}
+
+	err := utils.UnmarshalStruct(custom, &jflyte)
+	if err != nil {
+		return nil, err
+	}
+
+	urls := make([]*url.URL, len(jflyte.Jflyte.Artifacts))
+
+	for i, a := range jflyte.Jflyte.Artifacts {
+		u, err := url.Parse(a.Location)
+		if err != nil {
+			return nil, errors.Wrapf(errors.BadTaskSpecification, err, "Could not parse artifact url from [%v]", a)
+		}
+		urls[i] = u
+	}
+
+	return urls, nil
+}
+
+func unmarshalJobArtifacts(job *flinkIdl.FlinkJob) ([]*url.URL, error) {
+	urls := make([]*url.URL, len(job.JarFiles))
+
+	for i, j := range job.JarFiles {
+		u, err := url.Parse(j)
+		if err != nil {
+			return nil, errors.Wrapf(errors.BadTaskSpecification, err, "Could not parse artifact url from [%v]", j)
+		}
+		urls[i] = u
+	}
+
+	return urls, nil
+}
+
+func unmarshalArtifacts(job *flinkIdl.FlinkJob, custom *structpb.Struct) ([]*url.URL, error) {
+	jflyteArtifacts, err := unmarshalJFlyteArtifacts(custom)
+	if err != nil {
+		return nil, err
+	}
+
+	jobArtifacts, errJob := unmarshalJobArtifacts(job)
+	if errJob != nil {
+		return nil, errJob
+	}
+
+	return append(jflyteArtifacts, jobArtifacts...), nil
 }
 
 func flinkClusterTaskLogs(ctx context.Context, flinkCluster *flinkOp.FlinkCluster) ([]*core.TaskLog, error) {

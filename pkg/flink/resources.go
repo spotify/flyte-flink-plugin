@@ -15,6 +15,8 @@
 package flink
 
 import (
+	"fmt"
+	"net/url"
 	"regexp"
 	"strings"
 
@@ -134,7 +136,7 @@ func (fc *FlinkCluster) updateTaskManagerSpec(taskCtx FlinkTaskContext) {
 	}
 }
 
-func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerReplicas, taskManagerTaskSlots int32) {
+func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerReplicas, taskManagerTaskSlots int32, artifacts []*url.URL) {
 	if fc.Spec.Job == nil {
 		fc.Spec.Job = &flinkOp.JobSpec{}
 	}
@@ -143,7 +145,6 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 	out.PodAnnotations = utils.UnionMaps(taskCtx.Annotations, out.PodAnnotations)
 	out.PodLabels = utils.UnionMaps(taskCtx.Labels, out.PodLabels)
 
-	out.JarFile = taskCtx.Job.JarFile
 	out.ClassName = &taskCtx.Job.MainClass
 	out.Args = taskCtx.Job.Args
 
@@ -155,29 +156,50 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 		AfterJobFails:     flinkOp.CleanupActionDeleteCluster,
 		AfterJobCancelled: flinkOp.CleanupActionDeleteCluster,
 	}
+	out.Volumes = append(out.Volumes, cacheVolume)
+	out.VolumeMounts = append(out.VolumeMounts, cacheVolumeMount)
 
-	if strings.HasPrefix(out.JarFile, "gs://") {
+	urls := make([]string, len(artifacts))
+	useGcs := true
+	for i, s := range artifacts {
+		urls[i] = s.String()
+		if useGcs && s.Scheme != "gs" {
+			useGcs = false
+		}
+	}
+
+	// XXX(julient) I don't like that this would just silently fail if the condition is not satisfied
+	if useGcs && len(artifacts) > 0 {
 		//TODO(regadas): add job resources to the config
 		resourceList := corev1.ResourceList{
 			corev1.ResourceCPU:    resource.MustParse("1"),
 			corev1.ResourceMemory: resource.MustParse("1Gi"),
 		}
+
+		commands := []string{"/bin/sh", "-c"}
+		tmp := "/tmp/artifacts"
+		cache := "/cache/job.jar"
+		args := []string{
+			fmt.Sprintf("mkdir %s/lib", tmp),
+			fmt.Sprintf("gsutil cp %s %s/lib", strings.Join(urls[:], " "), tmp),
+			fmt.Sprintf("$(cd %s && zip -r job.jar .)", tmp),
+			fmt.Sprintf("cp /tmp/job.jar %s", cache),
+		}
+
 		//FIXME(regadas): this strategy will likely change
 		container := corev1.Container{
 			Name:      "gcs-downloader",
 			Image:     "google/cloud-sdk",
-			Command:   []string{"gsutil"},
-			Args:      []string{"cp", out.JarFile, "/cache/job.jar"},
+			Command:   commands,
+			Args:      args,
 			Resources: corev1.ResourceRequirements{Limits: resourceList},
 		}
-		out.JarFile = "/cache/job.jar"
+		out.JarFile = cache
 		out.InitContainers = append(out.InitContainers, container)
-		out.Volumes = append(out.Volumes, cacheVolume)
-		out.VolumeMounts = append(out.VolumeMounts, cacheVolumeMount)
 	}
 }
 
-func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCluster, error) {
+func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext, artifacts []*url.URL) (*flinkOp.FlinkCluster, error) {
 	cluster := FlinkCluster(*config.DefaultFlinkCluster.DeepCopy())
 
 	if err := validate(taskCtx.Name, regexpFlinkClusterName); err != nil {
@@ -212,7 +234,7 @@ func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCl
 	if err != nil {
 		return nil, err
 	}
-	cluster.updateJobSpec(taskCtx, cluster.Spec.TaskManager.Replicas, int32(taskSlots))
+	cluster.updateJobSpec(taskCtx, cluster.Spec.TaskManager.Replicas, int32(taskSlots), artifacts)
 
 	// fill in defaults
 	resource := flinkOp.FlinkCluster(cluster)
