@@ -222,7 +222,7 @@ func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext, artifacts []*url.
 		APIVersion: flinkOp.GroupVersion.String(),
 	}
 
-	cluster.Spec.FlinkProperties = BuildFlinkProperties(config, taskCtx.Job)
+	cluster.Spec.FlinkProperties = MergeProperties(taskCtx.Job.FlinkProperties, config.FlinkPropertiesOverride)
 
 	if image := taskCtx.Job.GetImage(); len(image) != 0 {
 		cluster.Spec.Image.Name = image
@@ -235,7 +235,7 @@ func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext, artifacts []*url.
 	cluster.updateJobManagerSpec(taskCtx)
 	cluster.updateTaskManagerSpec(taskCtx)
 
-	taskSlots, err := FlinkProperties(cluster.Spec.FlinkProperties).GetInt("taskmanager.numberOfTaskSlots")
+	taskSlots, err := Properties(cluster.Spec.FlinkProperties).GetInt("taskmanager.numberOfTaskSlots")
 	if err != nil {
 		return nil, err
 	}
