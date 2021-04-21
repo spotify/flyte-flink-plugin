@@ -24,6 +24,7 @@ import (
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	"google.golang.org/protobuf/types/known/structpb"
 	"gotest.tools/assert"
+	corev1 "k8s.io/api/core/v1"
 )
 
 func artifacts() []*url.URL {
@@ -66,8 +67,20 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 	assert.Assert(t, cluster.Spec.JobManager.Ingress != nil)
 	assert.Equal(t, *cluster.Spec.JobManager.Ingress.UseTLS, true)
 
-	assert.Equal(t, len(cluster.Spec.Job.Volumes), 1)
-	assert.Equal(t, len(cluster.Spec.Job.VolumeMounts), 1)
+	assert.Equal(t, len(cluster.Spec.Job.Volumes), 2)
+	// first one is set through config
+	assert.Equal(t, cluster.Spec.Job.Volumes[0], corev1.Volume{Name: "cache-volume"})
+	assert.Equal(t, cluster.Spec.Job.Volumes[1], corev1.Volume{Name: "generated-name-jars"})
+	assert.Equal(t, len(cluster.Spec.Job.VolumeMounts), 2)
+	// first one is set through config
+	assert.Equal(t, cluster.Spec.Job.VolumeMounts[0], corev1.VolumeMount{
+		Name:      "cache-volume",
+		MountPath: "/cache",
+	})
+	assert.Equal(t, cluster.Spec.Job.VolumeMounts[1], corev1.VolumeMount{
+		Name:      "generated-name-jars",
+		MountPath: "/jars",
+	})
 }
 
 func TestWithPersistentVolume(t *testing.T) {
@@ -320,7 +333,7 @@ func TestBuildFlinkClusterSpecJobCommand(t *testing.T) {
 			" gs://scio-playground-flyte-workflow-storage/flytekit-staging/scala-collection-compat_2.12-2.4.0-Evmys1Zf4G1bEJNG3qIw9A==.jar" +
 			" /tmp/artifacts/lib",
 		"$(cd /tmp/artifacts && zip -r job.jar .)",
-		"cp /tmp/job.jar /cache/job.jar",
+		"cp /tmp/job.jar /jars/job.jar",
 	}
 
 	assert.Assert(t, reflect.DeepEqual(initCont.Args, args))
