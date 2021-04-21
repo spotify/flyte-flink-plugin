@@ -15,46 +15,12 @@
 package flink
 
 import (
-	"fmt"
 	"strconv"
 
 	pluginsCore "github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/core"
 	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/flytek8s/config"
 	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/utils"
-	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 )
-
-type FlinkProperties map[string]string
-
-func BuildFlinkProperties(config *Config, flinkJob flinkIdl.FlinkJob) FlinkProperties {
-	// Start with default config values.
-	flinkProperties := make(map[string]string)
-	for k, v := range config.DefaultFlinkCluster.Spec.FlinkProperties {
-		flinkProperties[k] = v
-	}
-
-	for k, v := range flinkJob.GetFlinkProperties() {
-		flinkProperties[k] = v
-	}
-
-	for k, v := range config.FlinkPropertiesOverride {
-		flinkProperties[k] = v
-	}
-
-	return flinkProperties
-}
-
-func (fp FlinkProperties) GetInt(key string) (int, error) {
-	if value, ok := fp[key]; ok {
-		intValue, err := strconv.Atoi(value)
-		if err != nil {
-			return 0, fmt.Errorf("cannot parse '%v': %v", value, err)
-		}
-		return intValue, nil
-	}
-
-	return 0, fmt.Errorf("key %s not found", key)
-}
 
 type Properties map[string]string
 
@@ -70,13 +36,13 @@ func MergeProperties(maps ...Properties) Properties {
 	return props
 }
 
-func (p Properties) GetInt(key string) int {
+func (p Properties) GetInt(key string) (int, error) {
 	value, err := strconv.Atoi(p[key])
 	if err != nil {
-		panic(fmt.Errorf("cannot parse '%v': %v", p[key], err))
+		return 0, err
 	}
 
-	return value
+	return value, nil
 }
 
 type Annotations map[string]string
