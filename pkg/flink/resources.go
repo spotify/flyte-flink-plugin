@@ -31,8 +31,6 @@ import (
 )
 
 var (
-	cacheVolume            = corev1.Volume{Name: "cache-volume"}
-	cacheVolumeMount       = corev1.VolumeMount{Name: "cache-volume", MountPath: "/cache"}
 	regexpFlinkClusterName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
 	jobManagerVolumeClaim  = "pvc-jm"
 	taskManagerVolumeClaim = "pvc-tm"
@@ -156,8 +154,6 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 		AfterJobFails:     flinkOp.CleanupActionDeleteCluster,
 		AfterJobCancelled: flinkOp.CleanupActionDeleteCluster,
 	}
-	out.Volumes = append(out.Volumes, cacheVolume)
-	out.VolumeMounts = append(out.VolumeMounts, cacheVolumeMount)
 
 	urls := make([]string, len(artifacts))
 	useGcs := true
@@ -178,12 +174,12 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 
 		commands := []string{"/bin/sh", "-c"}
 		tmp := "/tmp/artifacts"
-		cache := "/cache/job.jar"
+		jar := "/jars/job.jar"
 		args := []string{
 			fmt.Sprintf("mkdir %s/lib", tmp),
 			fmt.Sprintf("gsutil cp %s %s/lib", strings.Join(urls[:], " "), tmp),
 			fmt.Sprintf("$(cd %s && zip -r job.jar .)", tmp),
-			fmt.Sprintf("cp /tmp/job.jar %s", cache),
+			fmt.Sprintf("cp /tmp/job.jar %s", jar),
 		}
 
 		//FIXME(regadas): this strategy will likely change
@@ -194,8 +190,12 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 			Args:      args,
 			Resources: corev1.ResourceRequirements{Limits: resourceList},
 		}
-		out.JarFile = cache
+		out.JarFile = jar
 		out.InitContainers = append(out.InitContainers, container)
+
+		volumeName := fmt.Sprintf("%s-jars", taskCtx.Name)
+		out.Volumes = append(out.Volumes, corev1.Volume{Name: volumeName})
+		out.VolumeMounts = append(out.VolumeMounts, corev1.VolumeMount{Name: volumeName, MountPath: "/jars"})
 	}
 }
 
