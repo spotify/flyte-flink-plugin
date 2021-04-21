@@ -17,6 +17,7 @@ package flink
 import (
 	"fmt"
 	"net/url"
+	"path"
 	"regexp"
 	"strings"
 
@@ -30,12 +31,16 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-var (
-	regexpFlinkClusterName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
+const (
 	jobManagerVolumeClaim  = "pvc-jm"
 	taskManagerVolumeClaim = "pvc-tm"
 	volumeClaimMountPath   = "/flink-tmp"
 	flinkIoTmpDirsProperty = "io.tmp.dirs"
+	jarsVolumePath         = "/jars"
+)
+
+var (
+	regexpFlinkClusterName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
 )
 
 type FlinkCluster flinkOp.FlinkCluster
@@ -174,12 +179,12 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 
 		commands := []string{"/bin/sh", "-c"}
 		tmp := "/tmp/artifacts"
-		jar := "/jars/job.jar"
+		jarPath := path.Join(jarsVolumePath, "job.jar")
 		args := []string{
 			fmt.Sprintf("mkdir %s/lib", tmp),
 			fmt.Sprintf("gsutil cp %s %s/lib", strings.Join(urls[:], " "), tmp),
 			fmt.Sprintf("$(cd %s && zip -r job.jar .)", tmp),
-			fmt.Sprintf("cp /tmp/job.jar %s", jar),
+			fmt.Sprintf("cp /tmp/job.jar %s", jarPath),
 		}
 
 		//FIXME(regadas): this strategy will likely change
@@ -190,12 +195,12 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 			Args:      args,
 			Resources: corev1.ResourceRequirements{Limits: resourceList},
 		}
-		out.JarFile = jar
+		out.JarFile = jarPath
 		out.InitContainers = append(out.InitContainers, container)
 
 		volumeName := fmt.Sprintf("%s-jars", taskCtx.Name)
 		out.Volumes = append(out.Volumes, corev1.Volume{Name: volumeName})
-		out.VolumeMounts = append(out.VolumeMounts, corev1.VolumeMount{Name: volumeName, MountPath: "/jars"})
+		out.VolumeMounts = append(out.VolumeMounts, corev1.VolumeMount{Name: volumeName, MountPath: jarsVolumePath})
 	}
 }
 
