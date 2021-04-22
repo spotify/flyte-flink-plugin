@@ -222,7 +222,12 @@ func (m *TaskManager) Validate() error {
 		}
 	}
 
-	// no validation rules for Replicas
+	if m.GetReplicas() <= 0 {
+		return TaskManagerValidationError{
+			field:  "Replicas",
+			reason: "value must be greater than 0",
+		}
+	}
 
 	return nil
 }
@@ -369,7 +374,25 @@ func (m *FlinkJob) Validate() error {
 		return nil
 	}
 
-	// no validation rules for MainClass
+	for idx, item := range m.GetJarFiles() {
+		_, _ = idx, item
+
+		if _, err := url.Parse(item); err != nil {
+			return FlinkJobValidationError{
+				field:  fmt.Sprintf("JarFiles[%v]", idx),
+				reason: "value must be a valid URI",
+				cause:  err,
+			}
+		}
+
+	}
+
+	if utf8.RuneCountInString(m.GetMainClass()) < 1 {
+		return FlinkJobValidationError{
+			field:  "MainClass",
+			reason: "value length must be at least 1 runes",
+		}
+	}
 
 	// no validation rules for FlinkProperties
 
@@ -693,7 +716,12 @@ func (m *Resource_Quantity) Validate() error {
 		return nil
 	}
 
-	// no validation rules for String_
+	if !_Resource_Quantity_String__Pattern.MatchString(m.GetString_()) {
+		return Resource_QuantityValidationError{
+			field:  "String_",
+			reason: "value does not match regex pattern \"^([+-]?[0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$\"",
+		}
+	}
 
 	return nil
 }
@@ -754,6 +782,8 @@ var _ interface {
 	ErrorName() string
 } = Resource_QuantityValidationError{}
 
+var _Resource_Quantity_String__Pattern = regexp.MustCompile("^([+-]?[0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$")
+
 // Validate checks the field values on Resource_PersistentVolume with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -762,7 +792,12 @@ func (m *Resource_PersistentVolume) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Type
+	if _, ok := Resource_PersistentVolume_Type_name[int32(m.GetType())]; !ok {
+		return Resource_PersistentVolumeValidationError{
+			field:  "Type",
+			reason: "value must be one of the defined enum values",
+		}
+	}
 
 	if v, ok := interface{}(m.GetSize()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
@@ -843,7 +878,13 @@ func (m *JFlyte_Artifact) Validate() error {
 
 	// no validation rules for Name
 
-	// no validation rules for Location
+	if _, err := url.Parse(m.GetLocation()); err != nil {
+		return JFlyte_ArtifactValidationError{
+			field:  "Location",
+			reason: "value must be a valid URI",
+			cause:  err,
+		}
+	}
 
 	return nil
 }

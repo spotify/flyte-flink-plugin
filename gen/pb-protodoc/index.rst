@@ -7,3 +7,5 @@ pb-protodoc
 	:name: pb-protodoctoc
 
 	flyteidl-flink/index
+	google/index
+	validate/index

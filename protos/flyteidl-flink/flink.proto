@@ -4,10 +4,16 @@ package flyteidl_flink;
 
 option go_package = "flyteidl-flink";
 
+import "validate/validate.proto";
+
 message Resource {
   // Value must be a valid k8s quantity. See
   // https://github.com/kubernetes/apimachinery/blob/master/pkg/api/resource/quantity.go#L30-L80
-  message Quantity { string string = 1; }
+  message Quantity {
+    string string = 1 [ (validate.rules).string = {
+      pattern : "^([+-]?[0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$"
+    } ];
+  }
 
   message PersistentVolume {
     enum Type {
@@ -15,7 +21,7 @@ message Resource {
       PD_SSD = 1;
     }
 
-    Type type = 1;
+    Type type = 1 [ (validate.rules).enum.defined_only = true ];
     Quantity size = 2;
   }
 
@@ -28,13 +34,13 @@ message JobManager { Resource resource = 1; }
 
 message TaskManager {
   Resource resource = 1;
-  int32 replicas = 2;
+  int32 replicas = 2 [ (validate.rules).int32.gt = 0 ];
 }
 
 message JFlyte {
   message Artifact {
     string name = 1;
-    string location = 2;
+    string location = 2 [ (validate.rules).string.uri_ref = true ];
   }
 
   string index_file_location = 1;
@@ -43,8 +49,11 @@ message JFlyte {
 
 // Custom Proto for Flink Plugin.
 message FlinkJob {
-  repeated string jarFiles = 1;
-  string mainClass = 2;
+  repeated string jarFiles = 1 [
+    (validate.rules).repeated .unique = true,
+    (validate.rules).repeated .items.string.uri_ref = true
+  ];
+  string mainClass = 2 [ (validate.rules).string.min_len = 1 ];
   repeated string args = 3;
   map<string, string> flinkProperties = 4;
 
