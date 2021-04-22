@@ -16,7 +16,6 @@ package flink
 
 import (
 	"fmt"
-	"net/url"
 	"path"
 	"regexp"
 	"strings"
@@ -139,7 +138,7 @@ func (fc *FlinkCluster) updateTaskManagerSpec(taskCtx FlinkTaskContext) {
 	}
 }
 
-func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerReplicas, taskManagerTaskSlots int32, artifacts []*url.URL) {
+func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerReplicas, taskManagerTaskSlots int32) {
 	if fc.Spec.Job == nil {
 		fc.Spec.Job = &flinkOp.JobSpec{}
 	}
@@ -160,17 +159,23 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 		AfterJobCancelled: flinkOp.CleanupActionDeleteCluster,
 	}
 
-	urls := make([]string, len(artifacts))
+	urls := make([]string, len(taskCtx.Job.GetJarFiles())+len(taskCtx.Job.GetJflyte().GetArtifacts()))
 	useGcs := true
-	for i, s := range artifacts {
-		urls[i] = s.String()
-		if useGcs && s.Scheme != "gs" {
+	for i, s := range taskCtx.Job.GetJarFiles() {
+		urls[i] = s
+		if useGcs && !strings.HasPrefix(s, "gs") {
+			useGcs = false
+		}
+	}
+	for i, a := range taskCtx.Job.GetJflyte().GetArtifacts() {
+		urls[i] = a.Location
+		if useGcs && !strings.HasPrefix(a.Location, "gs") {
 			useGcs = false
 		}
 	}
 
 	// XXX(julient) I don't like that this would just silently fail if the condition is not satisfied
-	if useGcs && len(artifacts) > 0 {
+	if useGcs && len(urls) > 0 {
 		//TODO(regadas): add job resources to the config
 		resourceList := corev1.ResourceList{
 			corev1.ResourceCPU:    resource.MustParse("1"),
@@ -204,7 +209,7 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 	}
 }
 
-func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext, artifacts []*url.URL) (*flinkOp.FlinkCluster, error) {
+func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCluster, error) {
 	cluster := FlinkCluster(*config.DefaultFlinkCluster.DeepCopy())
 
 	if err := validate(taskCtx.Name, regexpFlinkClusterName); err != nil {
@@ -243,7 +248,7 @@ func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext, artifacts []*url.
 	if err != nil {
 		return nil, err
 	}
-	cluster.updateJobSpec(taskCtx, cluster.Spec.TaskManager.Replicas, int32(taskSlots), artifacts)
+	cluster.updateJobSpec(taskCtx, cluster.Spec.TaskManager.Replicas, int32(taskSlots))
 
 	// fill in defaults
 	resource := flinkOp.FlinkCluster(cluster)
