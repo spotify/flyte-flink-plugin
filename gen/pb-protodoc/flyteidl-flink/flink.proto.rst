@@ -8,7 +8,7 @@ flink.proto
 flyteidl_flink.Resource
 -----------------------
 
-`[flyteidl_flink.Resource proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L6>`_
+`[flyteidl_flink.Resource proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L8>`_
 
 
 .. code-block:: json
@@ -39,7 +39,7 @@ persistentVolume
 flyteidl_flink.Resource.Quantity
 --------------------------------
 
-`[flyteidl_flink.Resource.Quantity proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L9>`_
+`[flyteidl_flink.Resource.Quantity proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L11>`_
 
 Value must be a valid k8s quantity. See
 https://github.com/kubernetes/apimachinery/blob/master/pkg/api/resource/quantity.go#L30-L80
@@ -62,7 +62,7 @@ string
 flyteidl_flink.Resource.PersistentVolume
 ----------------------------------------
 
-`[flyteidl_flink.Resource.PersistentVolume proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L11>`_
+`[flyteidl_flink.Resource.PersistentVolume proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L17>`_
 
 
 .. code-block:: json
@@ -88,7 +88,7 @@ size
 Enum flyteidl_flink.Resource.PersistentVolume.Type
 --------------------------------------------------
 
-`[flyteidl_flink.Resource.PersistentVolume.Type proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L12>`_
+`[flyteidl_flink.Resource.PersistentVolume.Type proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L18>`_
 
 
 .. _api_enum_value_flyteidl_flink.Resource.PersistentVolume.Type.PD_STANDARD:
@@ -108,7 +108,7 @@ PD_SSD
 flyteidl_flink.JobManager
 -------------------------
 
-`[flyteidl_flink.JobManager proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L26>`_
+`[flyteidl_flink.JobManager proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L32>`_
 
 
 .. code-block:: json
@@ -129,7 +129,7 @@ resource
 flyteidl_flink.TaskManager
 --------------------------
 
-`[flyteidl_flink.TaskManager proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L28>`_
+`[flyteidl_flink.TaskManager proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L34>`_
 
 
 .. code-block:: json
@@ -156,7 +156,7 @@ replicas
 flyteidl_flink.JFlyte
 ---------------------
 
-`[flyteidl_flink.JFlyte proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L33>`_
+`[flyteidl_flink.JFlyte proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L39>`_
 
 
 .. code-block:: json
@@ -181,7 +181,7 @@ artifacts
 flyteidl_flink.JFlyte.Artifact
 ------------------------------
 
-`[flyteidl_flink.JFlyte.Artifact proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L34>`_
+`[flyteidl_flink.JFlyte.Artifact proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L40>`_
 
 
 .. code-block:: json
@@ -209,7 +209,7 @@ location
 flyteidl_flink.FlinkJob
 -----------------------
 
-`[flyteidl_flink.FlinkJob proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L44>`_
+`[flyteidl_flink.FlinkJob proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L50>`_
 
 Custom Proto for Flink Plugin.
 
@@ -281,7 +281,7 @@ jflyte
 flyteidl_flink.JobExecutionInfo
 -------------------------------
 
-`[flyteidl_flink.JobExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L60>`_
+`[flyteidl_flink.JobExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L69>`_
 
 
 .. code-block:: json
@@ -302,7 +302,7 @@ id
 flyteidl_flink.JobManagerExecutionInfo
 --------------------------------------
 
-`[flyteidl_flink.JobManagerExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L62>`_
+`[flyteidl_flink.JobManagerExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L71>`_
 
 
 .. code-block:: json
@@ -323,7 +323,7 @@ ingressURLs
 flyteidl_flink.FlinkExecutionInfo
 ---------------------------------
 
-`[flyteidl_flink.FlinkExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L64>`_
+`[flyteidl_flink.FlinkExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L73>`_
 
 
 .. code-block:: json

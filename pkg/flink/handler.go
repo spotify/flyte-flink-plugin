@@ -60,6 +60,11 @@ func NewFlinkTaskContext(ctx context.Context, taskCtx pluginsCore.TaskExecutionC
 		return nil, errors.Wrapf(errors.BadTaskSpecification, err, "invalid TaskSpecification [%v], failed to unmarshal", taskTemplate.GetCustom())
 	}
 
+	err = Validate(&job)
+	if err != nil {
+		return nil, errors.Wrapf(errors.BadTaskSpecification, err, "invalid FlinkJob [%v], failed to unmarshal", job)
+	}
+
 	taskInput, err := taskCtx.InputReader().Get(ctx)
 	if err != nil {
 		return nil, errors.Errorf(errors.BadTaskSpecification, "unable to fetch task inputs [%v]", err.Error())
