@@ -36,6 +36,7 @@ const (
 	volumeClaimMountPath   = "/flink-tmp"
 	flinkIoTmpDirsProperty = "io.tmp.dirs"
 	jarsVolumePath         = "/jars"
+	gcsPrefix              = "gs://"
 )
 
 var (
@@ -163,13 +164,13 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 	useGcs := true
 	for i, s := range taskCtx.Job.GetJarFiles() {
 		urls[i] = s
-		if useGcs && !strings.HasPrefix(s, "gs") {
+		if useGcs && !strings.HasPrefix(s, gcsPrefix) {
 			useGcs = false
 		}
 	}
 	for i, a := range taskCtx.Job.GetJflyte().GetArtifacts() {
 		urls[i] = a.Location
-		if useGcs && !strings.HasPrefix(a.Location, "gs") {
+		if useGcs && !strings.HasPrefix(a.Location, gcsPrefix) {
 			useGcs = false
 		}
 	}
