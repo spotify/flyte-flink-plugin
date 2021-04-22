@@ -31,6 +31,16 @@ message TaskManager {
   int32 replicas = 2;
 }
 
+message JFlyte {
+  message Artifact {
+    string name = 1;
+    string location = 2;
+  }
+
+  string index_file_location = 1;
+  repeated Artifact artifacts = 2;
+}
+
 // Custom Proto for Flink Plugin.
 message FlinkJob {
   repeated string jarFiles = 1;
@@ -42,6 +52,10 @@ message FlinkJob {
   TaskManager taskManager = 6;
   string serviceAccount = 7;
   string image = 8;
+
+  // if using experiment flytekit-java this will contain all artifacts required
+  // to run the task
+  JFlyte jflyte = 9;
 }
 
 message JobExecutionInfo { string id = 1; }
@@ -52,15 +66,3 @@ message FlinkExecutionInfo {
   JobExecutionInfo job = 1;
   JobManagerExecutionInfo jobManager = 2;
 }
-
-message Artifact {
-  string name = 1;
-  string location = 2;
-}
-
-message JFlytePayload {
-  string index_file_location = 1;
-  repeated Artifact artifacts = 2;
-}
-
-message JFlyte { JFlytePayload jflyte = 1; }

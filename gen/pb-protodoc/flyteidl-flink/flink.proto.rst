@@ -151,12 +151,65 @@ replicas
   
 
 
+.. _api_msg_flyteidl_flink.JFlyte:
+
+flyteidl_flink.JFlyte
+---------------------
+
+`[flyteidl_flink.JFlyte proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L33>`_
+
+
+.. code-block:: json
+
+  {
+    "index_file_location": "...",
+    "artifacts": []
+  }
+
+.. _api_field_flyteidl_flink.JFlyte.index_file_location:
+
+index_file_location
+  (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
+  
+.. _api_field_flyteidl_flink.JFlyte.artifacts:
+
+artifacts
+  (:ref:`flyteidl_flink.JFlyte.Artifact <api_msg_flyteidl_flink.JFlyte.Artifact>`) 
+  
+.. _api_msg_flyteidl_flink.JFlyte.Artifact:
+
+flyteidl_flink.JFlyte.Artifact
+------------------------------
+
+`[flyteidl_flink.JFlyte.Artifact proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L34>`_
+
+
+.. code-block:: json
+
+  {
+    "name": "...",
+    "location": "..."
+  }
+
+.. _api_field_flyteidl_flink.JFlyte.Artifact.name:
+
+name
+  (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
+  
+.. _api_field_flyteidl_flink.JFlyte.Artifact.location:
+
+location
+  (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
+  
+
+
+
 .. _api_msg_flyteidl_flink.FlinkJob:
 
 flyteidl_flink.FlinkJob
 -----------------------
 
-`[flyteidl_flink.FlinkJob proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L34>`_
+`[flyteidl_flink.FlinkJob proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L44>`_
 
 Custom Proto for Flink Plugin.
 
@@ -170,7 +223,8 @@ Custom Proto for Flink Plugin.
     "jobManager": "{...}",
     "taskManager": "{...}",
     "serviceAccount": "...",
-    "image": "..."
+    "image": "...",
+    "jflyte": "{...}"
   }
 
 .. _api_field_flyteidl_flink.FlinkJob.jarFiles:
@@ -213,6 +267,13 @@ serviceAccount
 image
   (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
   
+.. _api_field_flyteidl_flink.FlinkJob.jflyte:
+
+jflyte
+  (:ref:`flyteidl_flink.JFlyte <api_msg_flyteidl_flink.JFlyte>`) if using experiment flytekit-java this will contain all artifacts required
+  to run the task
+  
+  
 
 
 .. _api_msg_flyteidl_flink.JobExecutionInfo:
@@ -220,7 +281,7 @@ image
 flyteidl_flink.JobExecutionInfo
 -------------------------------
 
-`[flyteidl_flink.JobExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L46>`_
+`[flyteidl_flink.JobExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L60>`_
 
 
 .. code-block:: json
@@ -241,7 +302,7 @@ id
 flyteidl_flink.JobManagerExecutionInfo
 --------------------------------------
 
-`[flyteidl_flink.JobManagerExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L48>`_
+`[flyteidl_flink.JobManagerExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L62>`_
 
 
 .. code-block:: json
@@ -262,7 +323,7 @@ ingressURLs
 flyteidl_flink.FlinkExecutionInfo
 ---------------------------------
 
-`[flyteidl_flink.FlinkExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L50>`_
+`[flyteidl_flink.FlinkExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L64>`_
 
 
 .. code-block:: json
@@ -281,80 +342,5 @@ job
 
 jobManager
   (:ref:`flyteidl_flink.JobManagerExecutionInfo <api_msg_flyteidl_flink.JobManagerExecutionInfo>`) 
-  
-
-
-.. _api_msg_flyteidl_flink.Artifact:
-
-flyteidl_flink.Artifact
------------------------
-
-`[flyteidl_flink.Artifact proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L55>`_
-
-
-.. code-block:: json
-
-  {
-    "name": "...",
-    "location": "..."
-  }
-
-.. _api_field_flyteidl_flink.Artifact.name:
-
-name
-  (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
-  
-.. _api_field_flyteidl_flink.Artifact.location:
-
-location
-  (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
-  
-
-
-.. _api_msg_flyteidl_flink.JFlytePayload:
-
-flyteidl_flink.JFlytePayload
-----------------------------
-
-`[flyteidl_flink.JFlytePayload proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L60>`_
-
-
-.. code-block:: json
-
-  {
-    "index_file_location": "...",
-    "artifacts": []
-  }
-
-.. _api_field_flyteidl_flink.JFlytePayload.index_file_location:
-
-index_file_location
-  (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
-  
-.. _api_field_flyteidl_flink.JFlytePayload.artifacts:
-
-artifacts
-  (:ref:`flyteidl_flink.Artifact <api_msg_flyteidl_flink.Artifact>`) 
-  
-
-
-.. _api_msg_flyteidl_flink.JFlyte:
-
-flyteidl_flink.JFlyte
----------------------
-
-`[flyteidl_flink.JFlyte proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L65>`_
-
-
-.. code-block:: json
-
-  {
-    "jflyte": "{...}"
-  }
-
-.. _api_field_flyteidl_flink.JFlyte.jflyte:
-
-jflyte
-  (:ref:`flyteidl_flink.JFlytePayload <api_msg_flyteidl_flink.JFlytePayload>`) 
   
 
