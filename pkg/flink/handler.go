@@ -115,10 +115,15 @@ func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCo
 	config := GetFlinkConfig()
 	flinkTaskCtx, err := NewFlinkTaskContext(ctx, taskCtx)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrapf(errors.BadTaskSpecification, err, "invalid Flink task context")
 	}
 
-	return NewFlinkCluster(config, *flinkTaskCtx)
+	cluster, err := NewFlinkCluster(config, *flinkTaskCtx)
+	if err != nil {
+		return nil, errors.Wrapf(errors.BadTaskSpecification, err, "invalid Flink cluster")
+	}
+
+	return cluster, nil
 }
 
 func (flinkResourceHandler) BuildIdentityResource(ctx context.Context, taskCtx pluginsCore.TaskExecutionMetadata) (client.Object, error) {
