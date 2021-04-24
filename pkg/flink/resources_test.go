@@ -40,7 +40,7 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 	config := GetFlinkConfig()
 
 	flinkCtx := FlinkTaskContext{
-		Name:        "generated-name",
+		ClusterName: ClusterName("generated-name"),
 		Namespace:   "test-namespace",
 		Annotations: make(map[string]string),
 		Labels:      make(map[string]string),
@@ -99,7 +99,7 @@ func TestWithPersistentVolume(t *testing.T) {
 	config := GetFlinkConfig()
 
 	flinkCtx := FlinkTaskContext{
-		Name:        "generated-name",
+		ClusterName: ClusterName("generated-name"),
 		Namespace:   "test-namespace",
 		Annotations: make(map[string]string),
 		Labels:      make(map[string]string),
@@ -129,7 +129,7 @@ func TestBuildFlinkClusterSpecInvalid(t *testing.T) {
 	config := &Config{}
 
 	flinkCtx := FlinkTaskContext{
-		Name:        "generated-name",
+		ClusterName: ClusterName("generated-name"),
 		Namespace:   "test-namespace",
 		Annotations: make(map[string]string),
 		Labels:      make(map[string]string),
@@ -151,7 +151,7 @@ func TestBuildFlinkClusterSpecServiceAccount(t *testing.T) {
 	config := GetFlinkConfig()
 
 	flinkCtx := FlinkTaskContext{
-		Name:        "generated-name",
+		ClusterName: ClusterName("generated-name"),
 		Namespace:   "test-namespace",
 		Annotations: make(map[string]string),
 		Labels:      make(map[string]string),
@@ -175,7 +175,7 @@ func TestBuildFlinkClusterSpecImage(t *testing.T) {
 	config := GetFlinkConfig()
 
 	flinkCtx := FlinkTaskContext{
-		Name:        "generated-name",
+		ClusterName: ClusterName("generated-name"),
 		Namespace:   "test-namespace",
 		Annotations: make(map[string]string),
 		Labels:      make(map[string]string),
@@ -206,7 +206,7 @@ func TestBuildFlinkClusterWithIngress(t *testing.T) {
 	}
 
 	flinkCtx := FlinkTaskContext{
-		Name:        "generated-name",
+		ClusterName: ClusterName("generated-name"),
 		Namespace:   "test-namespace",
 		Annotations: make(map[string]string),
 		Labels:      make(map[string]string),
@@ -221,27 +221,6 @@ func TestBuildFlinkClusterWithIngress(t *testing.T) {
 		"cluster-autoscaler.kubernetes.io/safe-to-evict": "false",
 		"kubernetes.io/ingress.class":                    "gce-internal",
 	})
-}
-
-func TestBuildFlinkClusterSpecInvalidClusterName(t *testing.T) {
-	job := flinkIdl.FlinkJob{
-		JarFiles: artifacts,
-		FlinkProperties: map[string]string{
-			"taskmanager.numberOfTaskSlots": "1",
-		},
-	}
-	config := GetFlinkConfig()
-
-	flinkCtx := FlinkTaskContext{
-		Name:        ".generated-name",
-		Namespace:   "test-namespace",
-		Annotations: make(map[string]string),
-		Labels:      make(map[string]string),
-		Job:         job,
-	}
-
-	_, err := NewFlinkCluster(config, flinkCtx)
-	assert.ErrorContains(t, err, "validation error: ")
 }
 
 func TestBuildFlinkClusterSpecJobCommand(t *testing.T) {
@@ -271,7 +250,7 @@ func TestBuildFlinkClusterSpecJobCommand(t *testing.T) {
 	config := GetFlinkConfig()
 
 	flinkCtx := FlinkTaskContext{
-		Name:        "generated-name",
+		ClusterName: ClusterName("generated-name"),
 		Namespace:   "test-namespace",
 		Annotations: make(map[string]string),
 		Labels:      make(map[string]string),

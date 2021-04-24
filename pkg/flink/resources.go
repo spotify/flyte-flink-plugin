@@ -190,7 +190,7 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 		out.JarFile = jarPath
 		out.InitContainers = append(out.InitContainers, container)
 
-		volumeName := fmt.Sprintf("%s-jars", taskCtx.Name)
+		volumeName := fmt.Sprintf("%s-jars", taskCtx.ClusterName.String())
 		out.Volumes = append(out.Volumes, corev1.Volume{Name: volumeName})
 		out.VolumeMounts = append(out.VolumeMounts, corev1.VolumeMount{Name: volumeName, MountPath: jarsVolumePath})
 	}
@@ -198,13 +198,8 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 
 func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCluster, error) {
 	cluster := FlinkCluster(*config.DefaultFlinkCluster.DeepCopy())
-
-	if err := ValidateRegEx(taskCtx.Name, regexpFlinkClusterName); err != nil {
-		return nil, err
-	}
-
 	cluster.ObjectMeta = metav1.ObjectMeta{
-		Name:        taskCtx.Name,
+		Name:        taskCtx.ClusterName.String(),
 		Namespace:   taskCtx.Namespace,
 		Annotations: taskCtx.Annotations,
 		Labels:      taskCtx.Labels,

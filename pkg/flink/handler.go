@@ -39,7 +39,7 @@ import (
 )
 
 type FlinkTaskContext struct {
-	Name        string
+	ClusterName ClusterName
 	Namespace   string
 	Annotations map[string]string
 	Labels      map[string]string
@@ -79,8 +79,13 @@ func NewFlinkTaskContext(ctx context.Context, taskCtx pluginsCore.TaskExecutionC
 	job.Args = append(job.Args, args...)
 
 	taskMetadata := taskCtx.TaskExecutionMetadata()
+	cn, err := NewClusterName(taskMetadata.GetTaskExecutionID().GetGeneratedName())
+	if err != nil {
+		return nil, errors.Errorf(errors.BadTaskSpecification, "invalid cluster name [%v]", err.Error())
+	}
+
 	return &FlinkTaskContext{
-		Name:        taskMetadata.GetTaskExecutionID().GetGeneratedName(),
+		ClusterName: cn,
 		Namespace:   taskMetadata.GetNamespace(),
 		Annotations: GetDefaultAnnotations(taskMetadata),
 		Labels:      GetDefaultLabels(taskMetadata),

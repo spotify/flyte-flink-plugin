@@ -62,3 +62,21 @@ func GetDefaultLabels(taskCtx pluginsCore.TaskExecutionMetadata) Labels {
 		utils.CopyMap(taskCtx.GetLabels()),
 	)
 }
+
+type ClusterName string
+
+func (cn ClusterName) Validate() error {
+	return ValidateRegEx(string(cn), regexpFlinkClusterName)
+}
+
+func (cn ClusterName) String() string {
+	return string(cn)
+}
+
+func NewClusterName(name string) (ClusterName, error) {
+	cn := ClusterName(name)
+	if err := cn.Validate(); err != nil {
+		return ClusterName(""), nil
+	}
+	return cn, nil
+}
