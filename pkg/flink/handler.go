@@ -78,6 +78,10 @@ func NewFlinkTaskContext(ctx context.Context, taskCtx pluginsCore.TaskExecutionC
 	}
 	job.Args = append(job.Args, args...)
 
+	if job.JarFile != "" {
+		job.JarFiles = append(job.JarFiles, job.JarFile)
+	}
+
 	taskMetadata := taskCtx.TaskExecutionMetadata()
 	cn, err := NewClusterName(taskMetadata.GetTaskExecutionID().GetGeneratedName())
 	if err != nil {

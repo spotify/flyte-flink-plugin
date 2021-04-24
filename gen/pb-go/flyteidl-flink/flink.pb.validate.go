@@ -374,17 +374,12 @@ func (m *FlinkJob) Validate() error {
 		return nil
 	}
 
-	for idx, item := range m.GetJarFiles() {
-		_, _ = idx, item
-
-		if _, err := url.Parse(item); err != nil {
-			return FlinkJobValidationError{
-				field:  fmt.Sprintf("JarFiles[%v]", idx),
-				reason: "value must be a valid URI",
-				cause:  err,
-			}
+	if _, err := url.Parse(m.GetJarFile()); err != nil {
+		return FlinkJobValidationError{
+			field:  "JarFile",
+			reason: "value must be a valid URI",
+			cause:  err,
 		}
-
 	}
 
 	if utf8.RuneCountInString(m.GetMainClass()) < 1 {
@@ -419,6 +414,19 @@ func (m *FlinkJob) Validate() error {
 	// no validation rules for ServiceAccount
 
 	// no validation rules for Image
+
+	for idx, item := range m.GetJarFiles() {
+		_, _ = idx, item
+
+		if _, err := url.Parse(item); err != nil {
+			return FlinkJobValidationError{
+				field:  fmt.Sprintf("JarFiles[%v]", idx),
+				reason: "value must be a valid URI",
+				cause:  err,
+			}
+		}
+
+	}
 
 	if v, ok := interface{}(m.GetJflyte()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {

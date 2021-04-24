@@ -216,7 +216,7 @@ Custom Proto for Flink Plugin.
 .. code-block:: json
 
   {
-    "jarFiles": [],
+    "jarFile": "...",
     "mainClass": "...",
     "args": [],
     "flinkProperties": "{...}",
@@ -224,12 +224,13 @@ Custom Proto for Flink Plugin.
     "taskManager": "{...}",
     "serviceAccount": "...",
     "image": "...",
+    "jarFiles": [],
     "jflyte": "{...}"
   }
 
-.. _api_field_flyteidl_flink.FlinkJob.jarFiles:
+.. _api_field_flyteidl_flink.FlinkJob.jarFile:
 
-jarFiles
+jarFile
   (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
   
 .. _api_field_flyteidl_flink.FlinkJob.mainClass:
@@ -267,6 +268,11 @@ serviceAccount
 image
   (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
   
+.. _api_field_flyteidl_flink.FlinkJob.jarFiles:
+
+jarFiles
+  (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
+  
 .. _api_field_flyteidl_flink.FlinkJob.jflyte:
 
 jflyte
@@ -281,7 +287,7 @@ jflyte
 flyteidl_flink.JobExecutionInfo
 -------------------------------
 
-`[flyteidl_flink.JobExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L69>`_
+`[flyteidl_flink.JobExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L71>`_
 
 
 .. code-block:: json
@@ -302,7 +308,7 @@ id
 flyteidl_flink.JobManagerExecutionInfo
 --------------------------------------
 
-`[flyteidl_flink.JobManagerExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L71>`_
+`[flyteidl_flink.JobManagerExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L73>`_
 
 
 .. code-block:: json
@@ -323,7 +329,7 @@ ingressURLs
 flyteidl_flink.FlinkExecutionInfo
 ---------------------------------
 
-`[flyteidl_flink.FlinkExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L73>`_
+`[flyteidl_flink.FlinkExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L75>`_
 
 
 .. code-block:: json
