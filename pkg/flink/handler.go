@@ -79,7 +79,6 @@ func NewFlinkTaskContext(ctx context.Context, taskCtx pluginsCore.TaskExecutionC
 	job.Args = append(job.Args, args...)
 
 	taskMetadata := taskCtx.TaskExecutionMetadata()
-
 	return &FlinkTaskContext{
 		Name:        taskMetadata.GetTaskExecutionID().GetGeneratedName(),
 		Namespace:   taskMetadata.GetNamespace(),

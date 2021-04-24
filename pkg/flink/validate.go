@@ -16,6 +16,7 @@ package flink
 
 import (
 	"fmt"
+	"regexp"
 
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 )
@@ -32,4 +33,11 @@ func Validate(job *flinkIdl.FlinkJob) error {
 	}
 
 	return nil
+}
+
+func ValidateRegEx(value string, r *regexp.Regexp) error {
+	if r.MatchString(value) {
+		return nil
+	}
+	return fmt.Errorf("validation error: %v doesn't match with the given regex expr: %v", value, r.String())
 }

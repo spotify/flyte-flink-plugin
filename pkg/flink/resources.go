@@ -17,7 +17,6 @@ package flink
 import (
 	"fmt"
 	"path"
-	"regexp"
 	"strings"
 
 	corev1 "k8s.io/api/core/v1"
@@ -28,19 +27,6 @@ import (
 
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-)
-
-const (
-	jobManagerVolumeClaim  = "pvc-jm"
-	taskManagerVolumeClaim = "pvc-tm"
-	volumeClaimMountPath   = "/flink-tmp"
-	flinkIoTmpDirsProperty = "io.tmp.dirs"
-	jarsVolumePath         = "/jars"
-	gcsPrefix              = "gs://"
-)
-
-var (
-	regexpFlinkClusterName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
 )
 
 type FlinkCluster flinkOp.FlinkCluster
@@ -213,7 +199,7 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCluster, error) {
 	cluster := FlinkCluster(*config.DefaultFlinkCluster.DeepCopy())
 
-	if err := validate(taskCtx.Name, regexpFlinkClusterName); err != nil {
+	if err := ValidateRegEx(taskCtx.Name, regexpFlinkClusterName); err != nil {
 		return nil, err
 	}
 

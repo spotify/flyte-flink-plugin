@@ -241,7 +241,7 @@ func TestBuildFlinkClusterSpecInvalidClusterName(t *testing.T) {
 	}
 
 	_, err := NewFlinkCluster(config, flinkCtx)
-	assert.ErrorContains(t, err, "Validation error: ")
+	assert.ErrorContains(t, err, "validation error: ")
 }
 
 func TestBuildFlinkClusterSpecJobCommand(t *testing.T) {
