@@ -258,9 +258,9 @@ func flinkClusterPhaseInfo(ctx context.Context, app *flinkOp.FlinkCluster, occur
 		return flinkClusterJobPhaseInfo(ctx, jobStatus, occurredAt, info), nil
 	case flinkOp.ClusterStateStopped, flinkOp.ClusterStateStopping, flinkOp.ClusterStatePartiallyStopped:
 		return flinkClusterJobPhaseInfo(ctx, jobStatus, occurredAt, info), nil
+	default:
+		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, "Unknown state", info), nil
 	}
-
-	return pluginsCore.PhaseInfoRunning(pluginsCore.DefaultPhaseVersion, info), nil
 }
 
 func (flinkResourceHandler) GetTaskPhase(ctx context.Context, pluginContext k8s.PluginContext, resource client.Object) (pluginsCore.PhaseInfo, error) {
