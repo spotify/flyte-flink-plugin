@@ -70,7 +70,7 @@ func TestFlinkClusterNameRegex(t *testing.T) {
 		}
 
 		for _, valid := range validNames {
-			err := validate(valid, regexpFlinkClusterName)
+			err := ValidateRegEx(valid, regexpFlinkClusterName)
 			assert.NilError(t, err)
 		}
 	})
@@ -86,8 +86,8 @@ func TestFlinkClusterNameRegex(t *testing.T) {
 		}
 
 		for _, invalid := range invalidNames {
-			err := validate(invalid, regexpFlinkClusterName)
-			assert.ErrorContains(t, err, "Validation error: ")
+			err := ValidateRegEx(invalid, regexpFlinkClusterName)
+			assert.ErrorContains(t, err, "validation error: ")
 		}
 	})
 }

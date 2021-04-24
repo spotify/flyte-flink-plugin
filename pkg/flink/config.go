@@ -15,11 +15,8 @@
 package flink
 
 import (
-	pluginsConfig "github.com/flyteorg/flyteplugins/go/tasks/config"
 	"github.com/flyteorg/flyteplugins/go/tasks/logs"
 	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
-	corev1 "k8s.io/api/core/v1"
-	"k8s.io/apimachinery/pkg/api/resource"
 )
 
 // Config ... Flink-specific configs
@@ -30,39 +27,6 @@ type Config struct {
 	GeneratedNameMaxLength  *int                 `json:"generatedNameMaxLength" pflag:"Specifies the length of TaskExecutionID generated name. default: 50"`
 	RemoteClusterConfig     ClusterConfig        `json:"remoteClusterConfig" pflag:"Configuration of remote K8s cluster for array jobs"`
 }
-
-var (
-	generatedNameMaxLength = 50
-	defaultServiceAccount  = "default"
-	defaultConfig          = &Config{
-		DefaultFlinkCluster: flinkOp.FlinkCluster{
-			Spec: flinkOp.FlinkClusterSpec{
-				ServiceAccountName: &defaultServiceAccount,
-				JobManager: flinkOp.JobManagerSpec{
-					AccessScope: "ClusterIP",
-					Resources: corev1.ResourceRequirements{
-						Limits: map[corev1.ResourceName]resource.Quantity{
-							corev1.ResourceCPU:    resource.MustParse("4"),
-							corev1.ResourceMemory: resource.MustParse("4Gi"),
-						},
-					},
-				},
-				TaskManager: flinkOp.TaskManagerSpec{
-					Replicas: 1,
-					Resources: corev1.ResourceRequirements{
-						Limits: map[corev1.ResourceName]resource.Quantity{
-							corev1.ResourceCPU:    resource.MustParse("4"),
-							corev1.ResourceMemory: resource.MustParse("4Gi"),
-						},
-					},
-				},
-			},
-		},
-		GeneratedNameMaxLength: &generatedNameMaxLength,
-	}
-
-	flinkConfigSection = pluginsConfig.MustRegisterSubSection("flink", defaultConfig)
-)
 
 func GetFlinkConfig() *Config {
 	return flinkConfigSection.GetConfig().(*Config)

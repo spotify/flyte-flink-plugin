@@ -14,12 +14,63 @@
 
 package flink
 
-const (
-	KindFlinkCluster = "FlinkCluster"
-	FlinkTaskType    = "flink"
+import (
+	"regexp"
+
+	pluginsConfig "github.com/flyteorg/flyteplugins/go/tasks/config"
+	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
+	corev1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/api/resource"
 )
 
-// Variables that we might expect as inputs to the job
 const (
-	FlinkJobArgsVariable = "args"
+	KindFlinkCluster = "FlinkCluster"
+	// Flyte flink task type
+	FlinkTaskType = "flink"
+
+	// FlinkCluster resource default values
+	jobManagerVolumeClaim  = "pvc-jm"
+	taskManagerVolumeClaim = "pvc-tm"
+	volumeClaimMountPath   = "/flink-tmp"
+	jarsVolumePath         = "/jars"
+
+	// Flink properties
+	flinkIoTmpDirsProperty = "io.tmp.dirs"
+
+	gcsPrefix = "gs://"
+)
+
+var (
+	regexpFlinkClusterName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
+
+	generatedNameMaxLength = 50
+	defaultServiceAccount  = "default"
+	defaultConfig          = &Config{
+		DefaultFlinkCluster: flinkOp.FlinkCluster{
+			Spec: flinkOp.FlinkClusterSpec{
+				ServiceAccountName: &defaultServiceAccount,
+				JobManager: flinkOp.JobManagerSpec{
+					AccessScope: "ClusterIP",
+					Resources: corev1.ResourceRequirements{
+						Limits: map[corev1.ResourceName]resource.Quantity{
+							corev1.ResourceCPU:    resource.MustParse("4"),
+							corev1.ResourceMemory: resource.MustParse("4Gi"),
+						},
+					},
+				},
+				TaskManager: flinkOp.TaskManagerSpec{
+					Replicas: 1,
+					Resources: corev1.ResourceRequirements{
+						Limits: map[corev1.ResourceName]resource.Quantity{
+							corev1.ResourceCPU:    resource.MustParse("4"),
+							corev1.ResourceMemory: resource.MustParse("4Gi"),
+						},
+					},
+				},
+			},
+		},
+		GeneratedNameMaxLength: &generatedNameMaxLength,
+	}
+
+	flinkConfigSection = pluginsConfig.MustRegisterSubSection("flink", defaultConfig)
 )
