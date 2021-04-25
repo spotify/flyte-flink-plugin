@@ -36,12 +36,17 @@ const (
 
 	// Flink properties
 	flinkIoTmpDirsProperty = "io.tmp.dirs"
-
-	gcsPrefix = "gs://"
 )
 
 var (
 	regexpFlinkClusterName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
+
+	defaultInitResources = corev1.ResourceRequirements{
+		Limits: corev1.ResourceList{
+			corev1.ResourceCPU:    resource.MustParse("1"),
+			corev1.ResourceMemory: resource.MustParse("512M"),
+		},
+	}
 
 	generatedNameMaxLength = 50
 	defaultServiceAccount  = "default"

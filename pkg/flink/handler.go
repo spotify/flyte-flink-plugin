@@ -263,7 +263,8 @@ func flinkClusterPhaseInfo(ctx context.Context, app *flinkOp.FlinkCluster, occur
 	case flinkOp.ClusterStateStopped, flinkOp.ClusterStateStopping, flinkOp.ClusterStatePartiallyStopped:
 		return flinkClusterJobPhaseInfo(ctx, jobStatus, occurredAt, info), nil
 	default:
-		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, "Unknown state", info), nil
+		msg := fmt.Sprintf("Unknown state: %s", app.Status.State)
+		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, msg, info), nil
 	}
 }
 
