@@ -15,6 +15,7 @@
 package flink
 
 import (
+	"path"
 	"regexp"
 
 	pluginsConfig "github.com/flyteorg/flyteplugins/go/tasks/config"
@@ -46,6 +47,17 @@ var (
 			corev1.ResourceCPU:    resource.MustParse("1"),
 			corev1.ResourceMemory: resource.MustParse("512M"),
 		},
+	}
+
+	defaultJarFile = path.Join(jarsVolumePath, "job.jar")
+
+	artifactZip = corev1.Container{
+		Name:       "zip",
+		Image:      "alpine",
+		Command:    []string{"/bin/sh"},
+		Args:       []string{"-c", "apk add zip && zip -r job.jar ."},
+		WorkingDir: jarsVolumePath,
+		Resources:  defaultInitResources,
 	}
 
 	generatedNameMaxLength = 50

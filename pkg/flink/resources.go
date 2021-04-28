@@ -222,19 +222,11 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 	out.VolumeMounts = append(out.VolumeMounts, corev1.VolumeMount{Name: volumeName, MountPath: jarsVolumePath})
 
 	for scheme, urls := range groupBy {
-		out.JarFile = path.Join(jarsVolumePath, "job.jar")
+		out.JarFile = defaultJarFile
 		out.InitContainers = append(out.InitContainers, downloaderRegistry[scheme].Container(urls))
 	}
 
-	zipper := corev1.Container{
-		Name:       "zipper",
-		Image:      "alpine",
-		Command:    []string{"/bin/sh"},
-		Args:       []string{"-c", "apk add zip && zip -r job.jar ."},
-		WorkingDir: jarsVolumePath,
-		Resources:  defaultInitResources,
-	}
-	out.InitContainers = append(out.InitContainers, zipper)
+	out.InitContainers = append(out.InitContainers, artifactZip)
 
 	return nil
 }
