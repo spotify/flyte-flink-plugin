@@ -16,7 +16,7 @@ package flink
 
 import (
 	"fmt"
-	"path"
+	"net/url"
 	"strings"
 
 	corev1 "k8s.io/api/core/v1"
@@ -28,6 +28,60 @@ import (
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
+
+type Downloader interface {
+	Container(artifacts []string) corev1.Container
+}
+
+type localDownloader struct{}
+
+func (localDownloader) Container(artifacts []string) corev1.Container {
+	cmd := strings.Join([]string{
+		fmt.Sprintf("mkdir -p %s", defaultJarLibPath),
+		fmt.Sprintf("cp %s %s", strings.Join(artifacts[:], " "), defaultJarLibPath),
+	}, " && ")
+
+	return corev1.Container{
+		Name:      "local-downloader",
+		Image:     "alpine",
+		Command:   []string{"/bin/sh"},
+		Args:      []string{"-c", cmd},
+		Resources: defaultInitResources,
+	}
+}
+
+type gcsDownloader struct{}
+
+func (gcsDownloader) Container(artifacts []string) corev1.Container {
+	cmd := strings.Join([]string{
+		fmt.Sprintf("mkdir -p %s", defaultJarLibPath),
+		fmt.Sprintf("gsutil cp %s %s", strings.Join(artifacts[:], " "), defaultJarLibPath),
+	}, " && ")
+
+	return corev1.Container{
+		Name:      "gcs-downloader",
+		Image:     "google/cloud-sdk",
+		Command:   []string{"/bin/sh"},
+		Args:      []string{"-c", cmd},
+		Resources: defaultInitResources,
+	}
+}
+
+type DownloaderRegistry map[string]Downloader
+
+var downloaderRegistry = DownloaderRegistry{
+	"":   localDownloader{},
+	"gs": gcsDownloader{},
+}
+
+func GroupByScheme(artifacts []string) map[string][]string {
+	groupBy := make(map[string][]string)
+	for _, artifact := range artifacts {
+		url, _ := url.Parse(artifact)
+		groupBy[url.Scheme] = append(groupBy[url.Scheme], artifact)
+	}
+	return groupBy
+}
 
 type FlinkCluster flinkOp.FlinkCluster
 
@@ -125,7 +179,7 @@ func (fc *FlinkCluster) updateTaskManagerSpec(taskCtx FlinkTaskContext) {
 	}
 }
 
-func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerReplicas, taskManagerTaskSlots int32) {
+func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerReplicas, taskManagerTaskSlots int32) error {
 	if fc.Spec.Job == nil {
 		fc.Spec.Job = &flinkOp.JobSpec{}
 	}
@@ -146,54 +200,32 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext, taskManagerRepli
 		AfterJobCancelled: flinkOp.CleanupActionDeleteCluster,
 	}
 
-	urls := make([]string, len(taskCtx.Job.GetJarFiles())+len(taskCtx.Job.GetJflyte().GetArtifacts()))
-	useGcs := true
-	for i, s := range taskCtx.Job.GetJarFiles() {
-		urls[i] = s
-		if useGcs && !strings.HasPrefix(s, gcsPrefix) {
-			useGcs = false
+	groupBy := GroupByScheme(taskCtx.Job.GetJarFiles())
+	if len(groupBy) == 0 {
+		// use jflye artifacts as fallback only
+		urls := make([]string, len(taskCtx.Job.GetJflyte().GetArtifacts()))
+		for i, a := range taskCtx.Job.GetJflyte().GetArtifacts() {
+			urls[i] = a.Location
 		}
-	}
-	for i, a := range taskCtx.Job.GetJflyte().GetArtifacts() {
-		urls[i] = a.Location
-		if useGcs && !strings.HasPrefix(a.Location, gcsPrefix) {
-			useGcs = false
-		}
+		groupBy = GroupByScheme(urls)
 	}
 
-	// XXX(julient) I don't like that this would just silently fail if the condition is not satisfied
-	if useGcs && len(urls) > 0 {
-		//TODO(regadas): add job resources to the config
-		resourceList := corev1.ResourceList{
-			corev1.ResourceCPU:    resource.MustParse("1"),
-			corev1.ResourceMemory: resource.MustParse("1Gi"),
-		}
-
-		commands := []string{"/bin/sh", "-c"}
-		tmp := "/tmp/artifacts"
-		jarPath := path.Join(jarsVolumePath, "job.jar")
-		args := []string{
-			fmt.Sprintf("mkdir %s/lib", tmp),
-			fmt.Sprintf("gsutil cp %s %s/lib", strings.Join(urls[:], " "), tmp),
-			fmt.Sprintf("$(cd %s && zip -r job.jar .)", tmp),
-			fmt.Sprintf("cp /tmp/job.jar %s", jarPath),
-		}
-
-		//FIXME(regadas): this strategy will likely change
-		container := corev1.Container{
-			Name:      "gcs-downloader",
-			Image:     "google/cloud-sdk",
-			Command:   commands,
-			Args:      args,
-			Resources: corev1.ResourceRequirements{Limits: resourceList},
-		}
-		out.JarFile = jarPath
-		out.InitContainers = append(out.InitContainers, container)
-
-		volumeName := fmt.Sprintf("%s-jars", taskCtx.ClusterName.String())
-		out.Volumes = append(out.Volumes, corev1.Volume{Name: volumeName})
-		out.VolumeMounts = append(out.VolumeMounts, corev1.VolumeMount{Name: volumeName, MountPath: jarsVolumePath})
+	if len(groupBy) == 0 {
+		return fmt.Errorf("no artifacts provided")
 	}
+
+	volumeName := fmt.Sprintf("%s-jars", taskCtx.ClusterName.String())
+	out.Volumes = append(out.Volumes, corev1.Volume{Name: volumeName})
+	out.VolumeMounts = append(out.VolumeMounts, corev1.VolumeMount{Name: volumeName, MountPath: jarsVolumePath})
+
+	for scheme, urls := range groupBy {
+		out.JarFile = defaultJarFile
+		out.InitContainers = append(out.InitContainers, downloaderRegistry[scheme].Container(urls))
+	}
+
+	out.InitContainers = append(out.InitContainers, artifactZip)
+
+	return nil
 }
 
 func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCluster, error) {

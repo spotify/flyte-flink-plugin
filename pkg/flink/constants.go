@@ -15,6 +15,7 @@
 package flink
 
 import (
+	"path"
 	"regexp"
 
 	pluginsConfig "github.com/flyteorg/flyteplugins/go/tasks/config"
@@ -36,12 +37,27 @@ const (
 
 	// Flink properties
 	flinkIoTmpDirsProperty = "io.tmp.dirs"
-
-	gcsPrefix = "gs://"
 )
 
 var (
 	regexpFlinkClusterName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
+
+	defaultInitResources = corev1.ResourceRequirements{
+		Limits: corev1.ResourceList{
+			corev1.ResourceCPU:    resource.MustParse("1"),
+			corev1.ResourceMemory: resource.MustParse("512M"),
+		},
+	}
+	defaultJarFile    = path.Join(jarsVolumePath, "job.jar")
+	defaultJarLibPath = path.Join(jarsVolumePath, "lib")
+	artifactZip       = corev1.Container{
+		Name:       "zip",
+		Image:      "alpine",
+		Command:    []string{"/bin/sh"},
+		Args:       []string{"-c", "apk add zip && zip -r job.jar ."},
+		WorkingDir: jarsVolumePath,
+		Resources:  defaultInitResources,
+	}
 
 	generatedNameMaxLength = 50
 	defaultServiceAccount  = "default"

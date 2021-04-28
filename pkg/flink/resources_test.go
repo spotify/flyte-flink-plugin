@@ -260,22 +260,20 @@ func TestBuildFlinkClusterSpecJobCommand(t *testing.T) {
 	cluster, err := NewFlinkCluster(config, flinkCtx)
 
 	assert.NilError(t, err)
-	assert.Equal(t, len(cluster.Spec.Job.InitContainers), 1)
+	assert.Equal(t, len(cluster.Spec.Job.InitContainers), 2)
 
 	initCont := cluster.Spec.Job.InitContainers[0]
 
-	assert.Assert(t, reflect.DeepEqual(initCont.Command, []string{"/bin/sh", "-c"}))
+	assert.Assert(t, reflect.DeepEqual(initCont.Command, []string{"/bin/sh"}))
 
 	args := []string{
-		"mkdir /tmp/artifacts/lib",
-		"gsutil cp" +
+		"-c",
+		"mkdir -p /jars/lib && " +
+			"gsutil cp" +
 			" gs://bucket/artifact0.jar" +
 			" gs://bucket/artifact1.jar" +
 			" gs://bucket/artifact2.jar" +
-			" /tmp/artifacts/lib",
-		"$(cd /tmp/artifacts && zip -r job.jar .)",
-		"cp /tmp/job.jar /jars/job.jar",
+			" /jars/lib",
 	}
-
 	assert.Assert(t, reflect.DeepEqual(initCont.Args, args))
 }
