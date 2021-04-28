@@ -17,7 +17,6 @@ package flink
 import (
 	"fmt"
 	"net/url"
-	"path"
 	"strings"
 
 	corev1 "k8s.io/api/core/v1"
@@ -37,10 +36,9 @@ type Downloader interface {
 type localDownloader struct{}
 
 func (localDownloader) Container(artifacts []string) corev1.Container {
-	jarLibPath := path.Join(jarsVolumePath, "lib")
 	cmd := strings.Join([]string{
-		fmt.Sprintf("mkdir -p %s", jarLibPath),
-		fmt.Sprintf("cp %s %s", strings.Join(artifacts[:], " "), jarLibPath),
+		fmt.Sprintf("mkdir -p %s", defaultJarLibPath),
+		fmt.Sprintf("cp %s %s", strings.Join(artifacts[:], " "), defaultJarLibPath),
 	}, " && ")
 
 	return corev1.Container{
@@ -55,10 +53,9 @@ func (localDownloader) Container(artifacts []string) corev1.Container {
 type gcsDownloader struct{}
 
 func (gcsDownloader) Container(artifacts []string) corev1.Container {
-	jarLibPath := path.Join(jarsVolumePath, "lib")
 	cmd := strings.Join([]string{
-		fmt.Sprintf("mkdir -p %s", jarLibPath),
-		fmt.Sprintf("gsutil cp %s %s", strings.Join(artifacts[:], " "), jarLibPath),
+		fmt.Sprintf("mkdir -p %s", defaultJarLibPath),
+		fmt.Sprintf("gsutil cp %s %s", strings.Join(artifacts[:], " "), defaultJarLibPath),
 	}, " && ")
 
 	return corev1.Container{

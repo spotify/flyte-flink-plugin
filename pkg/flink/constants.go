@@ -48,10 +48,9 @@ var (
 			corev1.ResourceMemory: resource.MustParse("512M"),
 		},
 	}
-
-	defaultJarFile = path.Join(jarsVolumePath, "job.jar")
-
-	artifactZip = corev1.Container{
+	defaultJarFile    = path.Join(jarsVolumePath, "job.jar")
+	defaultJarLibPath = path.Join(jarsVolumePath, "lib")
+	artifactZip       = corev1.Container{
 		Name:       "zip",
 		Image:      "alpine",
 		Command:    []string{"/bin/sh"},
