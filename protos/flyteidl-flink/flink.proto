@@ -49,10 +49,8 @@ message JFlyte {
 
 // Custom Proto for Flink Plugin.
 message FlinkJob {
-  repeated string jarFiles = 1 [
-    (validate.rules).repeated .unique = true,
-    (validate.rules).repeated .items.string.uri_ref = true
-  ];
+  string jarFile = 1
+      [ deprecated = true, (validate.rules).string.uri_ref = true ];
   string mainClass = 2 [ (validate.rules).string.min_len = 1 ];
   repeated string args = 3;
   map<string, string> flinkProperties = 4;
@@ -61,10 +59,14 @@ message FlinkJob {
   TaskManager taskManager = 6;
   string serviceAccount = 7;
   string image = 8;
+  repeated string jarFiles = 9 [
+    (validate.rules).repeated .unique = true,
+    (validate.rules).repeated .items.string.uri_ref = true
+  ];
 
   // if using experiment flytekit-java this will contain all artifacts required
   // to run the task
-  JFlyte jflyte = 9;
+  JFlyte jflyte = 10;
 }
 
 message JobExecutionInfo { string id = 1; }
