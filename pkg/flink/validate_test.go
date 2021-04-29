@@ -25,11 +25,12 @@ func TestValidFlinkJob(t *testing.T) {
 
 	t.Run("minimal", func(t *testing.T) {
 		job := flinkIdl.FlinkJob{
-			JarFiles:  []string{"/foo/bar.jar"},
-			MainClass: "com.spotify.job",
+			JarFiles:     []string{"/foo/bar.jar"},
+			FlinkVersion: "v1.12",
+			MainClass:    "com.spotify.job",
 		}
 
-		err := job.Validate()
+		err := Validate(&job)
 		assert.NilError(t, err)
 	})
 

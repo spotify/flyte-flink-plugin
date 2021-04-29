@@ -62,10 +62,11 @@ message FlinkJob {
   TaskManager taskManager = 6;
   string serviceAccount = 7;
   string image = 8;
+  string flinkVersion = 9;
 
   // if using experiment flytekit-java this will contain all artifacts required
   // to run the task
-  JFlyte jflyte = 10;
+  JFlyte jflyte = 100;
 }
 
 message JobExecutionInfo { string id = 1; }

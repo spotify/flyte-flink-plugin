@@ -427,6 +427,8 @@ func (m *FlinkJob) Validate() error {
 
 	// no validation rules for Image
 
+	// no validation rules for FlinkVersion
+
 	if v, ok := interface{}(m.GetJflyte()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return FlinkJobValidationError{

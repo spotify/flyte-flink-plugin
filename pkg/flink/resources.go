@@ -247,6 +247,10 @@ func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCl
 		config.FlinkPropertiesOverride,
 	)
 
+	if version := taskCtx.Job.GetFlinkVersion(); len(version) != 0 {
+		cluster.Spec.FlinkVersion = version
+	}
+
 	if image := taskCtx.Job.GetImage(); len(image) != 0 {
 		cluster.Spec.Image.Name = image
 	}

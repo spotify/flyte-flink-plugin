@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"regexp"
 
+	"github.com/hashicorp/go-version"
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 )
 
@@ -27,9 +28,15 @@ func Validate(job *flinkIdl.FlinkJob) error {
 		return err
 	}
 
-	jarFiles := len(job.JarFiles) + len(job.GetJflyte().Artifacts)
+	jarFiles := len(job.GetJarFiles()) + len(job.GetJflyte().GetArtifacts())
 	if jarFiles == 0 {
 		return fmt.Errorf("no artifacts provided")
+	}
+
+	if len(job.GetFlinkVersion()) != 0 {
+		if _, err = version.NewVersion(job.GetFlinkVersion()); err != nil {
+			return err
+		}
 	}
 
 	return nil
