@@ -40,7 +40,8 @@ message TaskManager {
 message JFlyte {
   message Artifact {
     string name = 1;
-    string location = 2 [ (validate.rules).string.uri_ref = true ];
+    string location = 2
+        [ (validate.rules).string = {min_len : 1, uri_ref : true} ];
   }
 
   string index_file_location = 1;
@@ -49,8 +50,10 @@ message JFlyte {
 
 // Custom Proto for Flink Plugin.
 message FlinkJob {
-  string jarFile = 1
-      [ deprecated = true, (validate.rules).string.uri_ref = true ];
+  repeated string jarFiles = 1 [
+    (validate.rules).repeated .unique = true,
+    (validate.rules).repeated .items.string = {min_len : 1, uri_ref : true}
+  ];
   string mainClass = 2 [ (validate.rules).string.min_len = 1 ];
   repeated string args = 3;
   map<string, string> flinkProperties = 4;
@@ -59,10 +62,6 @@ message FlinkJob {
   TaskManager taskManager = 6;
   string serviceAccount = 7;
   string image = 8;
-  repeated string jarFiles = 9 [
-    (validate.rules).repeated .unique = true,
-    (validate.rules).repeated .items.string.uri_ref = true
-  ];
 
   // if using experiment flytekit-java this will contain all artifacts required
   // to run the task
