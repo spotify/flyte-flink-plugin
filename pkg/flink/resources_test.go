@@ -269,7 +269,7 @@ func TestBuildFlinkClusterSpecJobCommand(t *testing.T) {
 	args := []string{
 		"-c",
 		"mkdir -p /jars/lib && " +
-			"gsutil cp" +
+			"gsutil -m cp" +
 			" gs://bucket/artifact0.jar" +
 			" gs://bucket/artifact1.jar" +
 			" gs://bucket/artifact2.jar" +

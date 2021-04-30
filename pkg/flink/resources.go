@@ -55,7 +55,7 @@ type gcsDownloader struct{}
 func (gcsDownloader) Container(artifacts []string) corev1.Container {
 	cmd := strings.Join([]string{
 		fmt.Sprintf("mkdir -p %s", defaultJarLibPath),
-		fmt.Sprintf("gsutil cp %s %s", strings.Join(artifacts[:], " "), defaultJarLibPath),
+		fmt.Sprintf("gsutil -m cp %s %s", strings.Join(artifacts[:], " "), defaultJarLibPath),
 	}, " && ")
 
 	return corev1.Container{
