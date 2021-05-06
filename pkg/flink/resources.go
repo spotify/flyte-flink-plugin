@@ -191,6 +191,10 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext) error {
 	out.ClassName = &taskCtx.Job.MainClass
 	out.Args = taskCtx.Job.Args
 
+	if taskCtx.Job.Parallelism != 0 {
+		out.Parallelism = &taskCtx.Job.Parallelism
+	}
+
 	out.CleanupPolicy = &flinkOp.CleanupPolicy{
 		AfterJobSucceeds:  flinkOp.CleanupActionDeleteCluster,
 		AfterJobFails:     flinkOp.CleanupActionDeleteCluster,
