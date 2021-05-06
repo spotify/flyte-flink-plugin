@@ -429,6 +429,13 @@ func (m *FlinkJob) Validate() error {
 
 	// no validation rules for FlinkVersion
 
+	if m.GetParallelism() < 0 {
+		return FlinkJobValidationError{
+			field:  "Parallelism",
+			reason: "value must be greater than or equal to 0",
+		}
+	}
+
 	if v, ok := interface{}(m.GetJflyte()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return FlinkJobValidationError{

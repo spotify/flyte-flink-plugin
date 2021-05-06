@@ -225,6 +225,7 @@ Custom Proto for Flink Plugin.
     "serviceAccount": "...",
     "image": "...",
     "flinkVersion": "...",
+    "parallelism": "...",
     "jflyte": "{...}"
   }
 
@@ -273,6 +274,11 @@ image
 flinkVersion
   (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
   
+.. _api_field_flyteidl_flink.FlinkJob.parallelism:
+
+parallelism
+  (`int32 <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
+  
 .. _api_field_flyteidl_flink.FlinkJob.jflyte:
 
 jflyte
@@ -287,7 +293,7 @@ jflyte
 flyteidl_flink.JobExecutionInfo
 -------------------------------
 
-`[flyteidl_flink.JobExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L71>`_
+`[flyteidl_flink.JobExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L72>`_
 
 
 .. code-block:: json
@@ -308,7 +314,7 @@ id
 flyteidl_flink.JobManagerExecutionInfo
 --------------------------------------
 
-`[flyteidl_flink.JobManagerExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L73>`_
+`[flyteidl_flink.JobManagerExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L74>`_
 
 
 .. code-block:: json
@@ -329,7 +335,7 @@ ingressURLs
 flyteidl_flink.FlinkExecutionInfo
 ---------------------------------
 
-`[flyteidl_flink.FlinkExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L75>`_
+`[flyteidl_flink.FlinkExecutionInfo proto] <https://github.com/lyft/flyteidl/blob/master/protos/flyteidl-flink/flink.proto#L76>`_
 
 
 .. code-block:: json

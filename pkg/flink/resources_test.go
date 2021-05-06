@@ -31,8 +31,10 @@ var artifacts = []string{
 }
 
 func TestBuildFlinkClusterSpecValid(t *testing.T) {
+	parallelism := int32(10)
 	job := flinkIdl.FlinkJob{
-		JarFiles: artifacts,
+		JarFiles:    artifacts,
+		Parallelism: parallelism,
 		FlinkProperties: map[string]string{
 			"taskmanager.numberOfTaskSlots": "1",
 		},
@@ -64,6 +66,7 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 	assert.Assert(t, cluster.Spec.JobManager.Ingress != nil)
 	assert.Equal(t, *cluster.Spec.JobManager.Ingress.UseTLS, true)
 
+	assert.Equal(t, *cluster.Spec.Job.Parallelism, parallelism)
 	assert.Equal(t, len(cluster.Spec.Job.Volumes), 2)
 	// first one is set through config
 	assert.Equal(t, cluster.Spec.Job.Volumes[0], corev1.Volume{Name: "cache-volume"})
