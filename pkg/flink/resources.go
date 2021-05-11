@@ -70,7 +70,7 @@ func (gcsDownloader) Container(artifacts []string) corev1.Container {
 type DownloaderRegistry map[string]Downloader
 
 func (dr DownloaderRegistry) GetDownloader(scheme string) (Downloader, error) {
-	d, ok := downloaderRegistry[scheme]
+	d, ok := dr[scheme]
 	if !ok {
 		return nil, fmt.Errorf("downloader not implemented for scheme: %s", scheme)
 	}
