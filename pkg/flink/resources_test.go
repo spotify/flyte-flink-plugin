@@ -280,3 +280,21 @@ func TestBuildFlinkClusterSpecJobCommand(t *testing.T) {
 	}
 	assert.Assert(t, reflect.DeepEqual(initCont.Args, args))
 }
+
+func TestBuildFlinkClusterWithUnsupportedSchemeJar(t *testing.T) {
+	job := flinkIdl.FlinkJob{
+		JarFiles: []string{"http://bucket.com/artifact0.jar"},
+	}
+	config := GetFlinkConfig()
+
+	flinkCtx := FlinkTaskContext{
+		ClusterName: ClusterName("generated-name"),
+		Namespace:   "test-namespace",
+		Annotations: make(map[string]string),
+		Labels:      make(map[string]string),
+		Job:         job,
+	}
+
+	_, err := NewFlinkCluster(config, flinkCtx)
+	assert.Error(t, err, "downloader not implemented for scheme: http")
+}
