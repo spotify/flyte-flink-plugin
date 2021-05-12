@@ -55,6 +55,7 @@ type gcsDownloader struct{}
 func (gcsDownloader) Container(artifacts []string) corev1.Container {
 	cmd := strings.Join([]string{
 		fmt.Sprintf("mkdir -p %s", defaultJarLibPath),
+		`if [ -n "${GOOGLE_APPLICATION_CREDENTIALS}" ]; then gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS; fi`,
 		fmt.Sprintf("gsutil -m cp %s %s", strings.Join(artifacts[:], " "), defaultJarLibPath),
 	}, " && ")
 
@@ -203,7 +204,7 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext) error {
 
 	groupBy := GroupByScheme(taskCtx.Job.GetJarFiles())
 	if len(groupBy) == 0 {
-		// use jflye artifacts as fallback only
+		// use jflyte artifacts as fallback only
 		urls := make([]string, len(taskCtx.Job.GetJflyte().GetArtifacts()))
 		for i, a := range taskCtx.Job.GetJflyte().GetArtifacts() {
 			urls[i] = a.Location

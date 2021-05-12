@@ -272,6 +272,7 @@ func TestBuildFlinkClusterSpecJobCommand(t *testing.T) {
 	args := []string{
 		"-c",
 		"mkdir -p /jars/lib && " +
+			`if [ -n "${GOOGLE_APPLICATION_CREDENTIALS}" ]; then gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS; fi && ` +
 			"gsutil -m cp" +
 			" gs://bucket/artifact0.jar" +
 			" gs://bucket/artifact1.jar" +
