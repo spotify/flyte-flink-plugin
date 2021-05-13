@@ -117,6 +117,39 @@ func getPersistentVolumeClaim(name string, pv *flinkIdl.Resource_PersistentVolum
 	}
 }
 
+func addPersistentVolumeClaim(
+	claims []corev1.PersistentVolumeClaim,
+	volumeMounts []corev1.VolumeMount,
+	claim corev1.PersistentVolumeClaim,
+	mountPath string) ([]corev1.PersistentVolumeClaim, []corev1.VolumeMount) {
+
+	claimsByName := make(map[string]corev1.PersistentVolumeClaim)
+	for _, c := range claims {
+		claimsByName[c.Name] = c
+	}
+
+	mounts := []corev1.VolumeMount{}
+	for _, volumeMount := range volumeMounts {
+		if volumeMount.MountPath != mountPath {
+			mounts = append(mounts, volumeMount)
+		} else {
+			delete(claimsByName, volumeMount.Name)
+		}
+	}
+	mounts = append(mounts, corev1.VolumeMount{
+		Name:      claim.Name,
+		ReadOnly:  false,
+		MountPath: volumeClaimMountPath,
+	})
+
+	templates := []corev1.PersistentVolumeClaim{claim}
+	for _, c := range claimsByName {
+		templates = append(templates, c)
+	}
+
+	return templates, mounts
+}
+
 func (fc *FlinkCluster) updateJobManagerSpec(taskCtx FlinkTaskContext) {
 	out := &fc.Spec.JobManager
 
@@ -139,14 +172,12 @@ func (fc *FlinkCluster) updateJobManagerSpec(taskCtx FlinkTaskContext) {
 
 	if pv := jm.GetResource().GetPersistentVolume(); pv != nil {
 		claim := getPersistentVolumeClaim(jobManagerVolumeClaim, pv)
-
-		out.VolumeClaimTemplates = []corev1.PersistentVolumeClaim{claim}
-		out.VolumeMounts = append(out.VolumeMounts, corev1.VolumeMount{
-			Name:      claim.Name,
-			ReadOnly:  false,
-			MountPath: volumeClaimMountPath,
-		})
-
+		out.VolumeClaimTemplates, out.VolumeMounts = addPersistentVolumeClaim(
+			out.VolumeClaimTemplates,
+			out.VolumeMounts,
+			claim,
+			volumeClaimMountPath,
+		)
 		fc.Spec.FlinkProperties[flinkIoTmpDirsProperty] = volumeClaimMountPath
 	}
 }
@@ -177,14 +208,12 @@ func (fc *FlinkCluster) updateTaskManagerSpec(taskCtx FlinkTaskContext) {
 
 	if pv := tm.GetResource().GetPersistentVolume(); pv != nil {
 		claim := getPersistentVolumeClaim(taskManagerVolumeClaim, pv)
-
-		out.VolumeClaimTemplates = []corev1.PersistentVolumeClaim{claim}
-		out.VolumeMounts = append(out.VolumeMounts, corev1.VolumeMount{
-			Name:      claim.Name,
-			ReadOnly:  false,
-			MountPath: volumeClaimMountPath,
-		})
-
+		out.VolumeClaimTemplates, out.VolumeMounts = addPersistentVolumeClaim(
+			out.VolumeClaimTemplates,
+			out.VolumeMounts,
+			claim,
+			volumeClaimMountPath,
+		)
 		fc.Spec.FlinkProperties[flinkIoTmpDirsProperty] = volumeClaimMountPath
 	}
 }

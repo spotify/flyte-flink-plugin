@@ -28,6 +28,17 @@ plugins:
           volumeMounts:
             - mountPath: /cache
               name: cache-volume
+            - name: pvc-jm-default
+              mountPath: /flink-tmp
+          volumeClaimTemplates:
+            - metadata:
+                name: pvc-jm-default
+              spec:
+                accessModes: ["ReadWriteOnce"]
+                storageClassName: "pd-standard"
+                resources:
+                  requests:
+                    storage: 250Gi
           nodeSelector:
             - gke-nodepool: "nodepool-1"
           sidecars:
@@ -43,6 +54,17 @@ plugins:
           volumeMounts:
             - mountPath: /cache
               name: cache-volume
+            - name: pvc-tm-default
+              mountPath: /flink-tmp
+          volumeClaimTemplates:
+            - metadata:
+                name: pvc-tm-default
+              spec:
+                accessModes: ["ReadWriteOnce"]
+                storageClassName: "pd-standard"
+                resources:
+                  requests:
+                    storage: 250Gi
           nodeSelector:
             - gke-nodepool: "nodepool-2"
         flinkProperties:
