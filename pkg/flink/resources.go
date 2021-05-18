@@ -234,12 +234,6 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext) error {
 		out.Parallelism = &taskCtx.Job.Parallelism
 	}
 
-	out.CleanupPolicy = &flinkOp.CleanupPolicy{
-		AfterJobSucceeds:  flinkOp.CleanupActionDeleteCluster,
-		AfterJobFails:     flinkOp.CleanupActionDeleteCluster,
-		AfterJobCancelled: flinkOp.CleanupActionDeleteCluster,
-	}
-
 	groupBy := GroupByScheme(taskCtx.Job.GetJarFiles())
 	if len(groupBy) == 0 {
 		// use jflyte artifacts as fallback only

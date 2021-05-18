@@ -32,7 +32,7 @@ var artifacts = []string{
 
 func TestBuildFlinkClusterSpecValid(t *testing.T) {
 	parallelism := int32(10)
-	job := flinkIdl.FlinkJob{
+	jobIdl := flinkIdl.FlinkJob{
 		JarFiles:    artifacts,
 		Parallelism: parallelism,
 		FlinkProperties: map[string]string{
@@ -46,7 +46,7 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 		Namespace:   "test-namespace",
 		Annotations: make(map[string]string),
 		Labels:      make(map[string]string),
-		Job:         job,
+		Job:         jobIdl,
 	}
 
 	cluster, err := NewFlinkCluster(config, flinkCtx)
@@ -66,21 +66,24 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 	assert.Assert(t, cluster.Spec.JobManager.Ingress != nil)
 	assert.Equal(t, *cluster.Spec.JobManager.Ingress.UseTLS, true)
 
-	assert.Equal(t, *cluster.Spec.Job.Parallelism, parallelism)
-	assert.Equal(t, len(cluster.Spec.Job.Volumes), 2)
+	job := cluster.Spec.Job
+	assert.Equal(t, *job.Parallelism, parallelism)
+	assert.Equal(t, len(job.Volumes), 2)
 	// first one is set through config
-	assert.Equal(t, cluster.Spec.Job.Volumes[0], corev1.Volume{Name: "cache-volume"})
-	assert.Equal(t, cluster.Spec.Job.Volumes[1], corev1.Volume{Name: "generated-name-jars"})
-	assert.Equal(t, len(cluster.Spec.Job.VolumeMounts), 2)
+	assert.Equal(t, job.Volumes[0], corev1.Volume{Name: "cache-volume"})
+	assert.Equal(t, job.Volumes[1], corev1.Volume{Name: "generated-name-jars"})
+	assert.Equal(t, len(job.VolumeMounts), 2)
 	// first one is set through config
-	assert.Equal(t, cluster.Spec.Job.VolumeMounts[0], corev1.VolumeMount{
+	assert.Equal(t, job.VolumeMounts[0], corev1.VolumeMount{
 		Name:      "cache-volume",
 		MountPath: "/cache",
 	})
-	assert.Equal(t, cluster.Spec.Job.VolumeMounts[1], corev1.VolumeMount{
+	assert.Equal(t, job.VolumeMounts[1], corev1.VolumeMount{
 		Name:      "generated-name-jars",
 		MountPath: "/jars",
 	})
+
+	assert.Equal(t, string(job.CleanupPolicy.AfterJobSucceeds), flinkOp.CleanupActionDeleteCluster)
 }
 
 func TestWithPersistentVolume(t *testing.T) {
