@@ -15,6 +15,10 @@ plugins:
           volumeMounts:
             - mountPath: /cache
               name: cache-volume
+          cleanupPolicy:
+            afterJobSucceeds: "DeleteCluster"
+            afterJobFails: "DeleteCluster"
+            afterJobCancelled: "DeleteCluster"
         jobManager:
           accessScope: External
           ingress:
