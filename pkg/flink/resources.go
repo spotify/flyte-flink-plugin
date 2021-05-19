@@ -15,9 +15,10 @@
 package flink
 
 import (
-	"fmt"
+	"bytes"
 	"net/url"
 	"strings"
+	"text/template"
 
 	corev1 "k8s.io/api/core/v1"
 
@@ -29,59 +30,18 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-type Downloader interface {
-	Container(artifacts []string) corev1.Container
+var containerTmpl = template.New("container-template").Funcs(template.FuncMap{"join": strings.Join})
+
+type ContainerTemplateData struct {
+	ArtifactsByScheme map[string][]string
+	Artifacts         []string
 }
 
-type localDownloader struct{}
-
-func (localDownloader) Container(artifacts []string) corev1.Container {
-	cmd := strings.Join([]string{
-		fmt.Sprintf("mkdir -p %s", defaultJarLibPath),
-		fmt.Sprintf("cp %s %s", strings.Join(artifacts[:], " "), defaultJarLibPath),
-	}, " && ")
-
-	return corev1.Container{
-		Name:      "local-downloader",
-		Image:     "alpine",
-		Command:   []string{"/bin/sh"},
-		Args:      []string{"-c", cmd},
-		Resources: defaultInitResources,
+func NewContainerTemplateData(artifacts []string) *ContainerTemplateData {
+	return &ContainerTemplateData{
+		ArtifactsByScheme: GroupByScheme(artifacts),
+		Artifacts:         artifacts,
 	}
-}
-
-type gcsDownloader struct{}
-
-func (gcsDownloader) Container(artifacts []string) corev1.Container {
-	cmd := strings.Join([]string{
-		fmt.Sprintf("mkdir -p %s", defaultJarLibPath),
-		`if [ -n "${GOOGLE_APPLICATION_CREDENTIALS}" ]; then gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS; fi`,
-		fmt.Sprintf("gsutil -m cp %s %s", strings.Join(artifacts[:], " "), defaultJarLibPath),
-	}, " && ")
-
-	return corev1.Container{
-		Name:      "gcs-downloader",
-		Image:     "google/cloud-sdk",
-		Command:   []string{"/bin/sh"},
-		Args:      []string{"-c", cmd},
-		Resources: defaultInitResources,
-	}
-}
-
-type DownloaderRegistry map[string]Downloader
-
-func (dr DownloaderRegistry) GetDownloader(scheme string) (Downloader, error) {
-	d, ok := dr[scheme]
-	if !ok {
-		return nil, fmt.Errorf("downloader not implemented for scheme: %s", scheme)
-	}
-
-	return d, nil
-}
-
-var downloaderRegistry = DownloaderRegistry{
-	"":   localDownloader{},
-	"gs": gcsDownloader{},
 }
 
 func GroupByScheme(artifacts []string) map[string][]string {
@@ -234,33 +194,40 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext) error {
 		out.Parallelism = &taskCtx.Job.Parallelism
 	}
 
-	groupBy := GroupByScheme(taskCtx.Job.GetJarFiles())
-	if len(groupBy) == 0 {
+	artifacts := taskCtx.Job.GetJarFiles()
+	if len(artifacts) == 0 {
 		// use jflyte artifacts as fallback only
 		urls := make([]string, len(taskCtx.Job.GetJflyte().GetArtifacts()))
 		for i, a := range taskCtx.Job.GetJflyte().GetArtifacts() {
 			urls[i] = a.Location
 		}
-		groupBy = GroupByScheme(urls)
+		artifacts = urls
 	}
 
-	if len(groupBy) == 0 {
-		return fmt.Errorf("no artifacts provided")
-	}
+	if out.JarFile == "" && len(artifacts) == 1 {
+		out.JarFile = artifacts[0]
+	} else {
+		initContainers := []corev1.Container{}
+		for _, container := range out.InitContainers {
+			resultArgs := []string{}
+			for _, arg := range container.Args {
+				tmpl, err := containerTmpl.Parse(arg)
+				if err != nil {
+					return err
+				}
 
-	volumeName := fmt.Sprintf("%s-jars", taskCtx.ClusterName.String())
-	out.Volumes = append(out.Volumes, corev1.Volume{Name: volumeName})
-	out.VolumeMounts = append(out.VolumeMounts, corev1.VolumeMount{Name: volumeName, MountPath: jarsVolumePath})
-	out.JarFile = defaultJarFile
+				var tpl bytes.Buffer
+				if err := tmpl.Execute(&tpl, NewContainerTemplateData(artifacts)); err != nil {
+					return err
+				}
 
-	for scheme, urls := range groupBy {
-		downloader, err := downloaderRegistry.GetDownloader(scheme)
-		if err != nil {
-			return err
+				resultArgs = append(resultArgs, tpl.String())
+			}
+			container.Args = resultArgs
+			initContainers = append(initContainers, container)
 		}
-		out.InitContainers = append(out.InitContainers, downloader.Container(urls))
+		out.InitContainers = initContainers
 	}
-	out.InitContainers = append(out.InitContainers, artifactZip)
 
 	return nil
 }
