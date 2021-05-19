@@ -46,6 +46,10 @@ plugins:
           nodeSelector:
             - gke-nodepool: "nodepool-2"
         job:
+          cleanupPolicy:
+            afterJobSucceeds: "DeleteCluster"
+            afterJobFails: "DeleteCluster"
+            afterJobCancelled: "DeleteCluster"
           volumes:
             - name: cache-volume
               emptyDir: {}
