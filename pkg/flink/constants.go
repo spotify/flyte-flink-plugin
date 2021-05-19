@@ -15,7 +15,6 @@
 package flink
 
 import (
-	"path"
 	"regexp"
 
 	pluginsConfig "github.com/flyteorg/flyteplugins/go/tasks/config"
@@ -33,7 +32,6 @@ const (
 	jobManagerVolumeClaim  = "pvc-jm"
 	taskManagerVolumeClaim = "pvc-tm"
 	volumeClaimMountPath   = "/flink-tmp"
-	jarsVolumePath         = "/jars"
 
 	// Flink properties
 	flinkIoTmpDirsProperty = "io.tmp.dirs"
@@ -41,28 +39,6 @@ const (
 
 var (
 	regexpFlinkClusterName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
-
-	defaultInitResources = corev1.ResourceRequirements{
-		Limits: corev1.ResourceList{
-			corev1.ResourceCPU:    resource.MustParse("1"),
-			corev1.ResourceMemory: resource.MustParse("512Mi"),
-		},
-		Requests: corev1.ResourceList{
-			corev1.ResourceCPU:    resource.MustParse("100m"),
-			corev1.ResourceMemory: resource.MustParse("100Mi"),
-		},
-	}
-	defaultJarFile    = path.Join(jarsVolumePath, "job.jar")
-	defaultJarLibPath = path.Join(jarsVolumePath, "lib")
-	artifactZip       = corev1.Container{
-		Name:       "zip",
-		Image:      "alpine",
-		Command:    []string{"/bin/sh"},
-		Args:       []string{"-c", "apk add zip && zip -r job.jar ."},
-		WorkingDir: jarsVolumePath,
-		Resources:  defaultInitResources,
-	}
-
 	generatedNameMaxLength = 50
 	defaultServiceAccount  = "default"
 	defaultConfig          = &Config{

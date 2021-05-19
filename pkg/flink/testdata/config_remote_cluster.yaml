@@ -51,11 +51,27 @@ plugins:
             afterJobFails: "DeleteCluster"
             afterJobCancelled: "DeleteCluster"
           volumes:
-            - name: cache-volume
-              emptyDir: {}
+            - name: jars
           volumeMounts:
-            - mountPath: /cache
-              name: cache-volume
+            - mountPath: /jars
+              name: jars
+          initContainers:
+            - name: gcs-downloader
+              image: google/cloud-sdk
+              command: ["/bin/sh"]
+              workingDir: "/jars"
+              args:
+                - "-c"
+                - >-
+                  apt install -y zip &&
+                  mkdir lib &&
+                  if [ -n "${GOOGLE_APPLICATION_CREDENTIALS}" ]; then gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS; fi &&
+                  gsutil -m cp {{join .Artifacts " "}} lib &&
+                  zip -r job.jar .
+              resources:
+                limits:
+                  cpu: "2"
+                  memory: "1Gi"
         flinkProperties:
           - akka.ask.timeout: "600s"
           - blob.server.port: "6124"

@@ -10,15 +10,32 @@ plugins:
           name: "flink-image"
           pullPolicy: Always
         job:
-          volumes:
-            - name: cache-volume
-          volumeMounts:
-            - mountPath: /cache
-              name: cache-volume
+          jarFile: /jars/job.jar
           cleanupPolicy:
             afterJobSucceeds: "DeleteCluster"
             afterJobFails: "DeleteCluster"
             afterJobCancelled: "DeleteCluster"
+          volumes:
+            - name: jars
+          volumeMounts:
+            - mountPath: /jars
+              name: jars
+          initContainers:
+            - name: gcs-downloader
+              image: google/cloud-sdk
+              command: ["/bin/sh"]
+              args:
+                - "-c"
+                - >-
+                  apt install -y zip &&
+                  mkdir lib &&
+                  if [ -n "${GOOGLE_APPLICATION_CREDENTIALS}" ]; then gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS; fi &&
+                  gsutil -m cp {{join .Artifacts " "}} lib &&
+                  zip -r job.jar .
+              resources:
+                limits:
+                  cpu: "2"
+                  memory: "1Gi"
         jobManager:
           accessScope: External
           ingress:

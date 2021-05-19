@@ -68,18 +68,13 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 
 	job := cluster.Spec.Job
 	assert.Equal(t, *job.Parallelism, parallelism)
-	assert.Equal(t, len(job.Volumes), 2)
+	assert.Equal(t, len(job.Volumes), 1)
 	// first one is set through config
-	assert.Equal(t, job.Volumes[0], corev1.Volume{Name: "cache-volume"})
-	assert.Equal(t, job.Volumes[1], corev1.Volume{Name: "generated-name-jars"})
-	assert.Equal(t, len(job.VolumeMounts), 2)
+	assert.Equal(t, job.Volumes[0], corev1.Volume{Name: "jars"})
+	assert.Equal(t, len(job.VolumeMounts), 1)
 	// first one is set through config
 	assert.Equal(t, job.VolumeMounts[0], corev1.VolumeMount{
-		Name:      "cache-volume",
-		MountPath: "/cache",
-	})
-	assert.Equal(t, job.VolumeMounts[1], corev1.VolumeMount{
-		Name:      "generated-name-jars",
+		Name:      "jars",
 		MountPath: "/jars",
 	})
 
@@ -266,7 +261,7 @@ func TestBuildFlinkClusterSpecJobCommand(t *testing.T) {
 	cluster, err := NewFlinkCluster(config, flinkCtx)
 
 	assert.NilError(t, err)
-	assert.Equal(t, len(cluster.Spec.Job.InitContainers), 2)
+	assert.Equal(t, len(cluster.Spec.Job.InitContainers), 1)
 
 	initCont := cluster.Spec.Job.InitContainers[0]
 
@@ -274,31 +269,15 @@ func TestBuildFlinkClusterSpecJobCommand(t *testing.T) {
 
 	args := []string{
 		"-c",
-		"mkdir -p /jars/lib && " +
+		"apt install -y zip && " +
+			"mkdir lib && " +
 			`if [ -n "${GOOGLE_APPLICATION_CREDENTIALS}" ]; then gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS; fi && ` +
 			"gsutil -m cp" +
 			" gs://bucket/artifact0.jar" +
 			" gs://bucket/artifact1.jar" +
 			" gs://bucket/artifact2.jar" +
-			" /jars/lib",
+			" lib && " +
+			"zip -r job.jar .",
 	}
 	assert.Assert(t, reflect.DeepEqual(initCont.Args, args))
-}
-
-func TestBuildFlinkClusterWithUnsupportedSchemeJar(t *testing.T) {
-	job := flinkIdl.FlinkJob{
-		JarFiles: []string{"http://bucket.com/artifact0.jar"},
-	}
-	config := GetFlinkConfig()
-
-	flinkCtx := FlinkTaskContext{
-		ClusterName: ClusterName("generated-name"),
-		Namespace:   "test-namespace",
-		Annotations: make(map[string]string),
-		Labels:      make(map[string]string),
-		Job:         job,
-	}
-
-	_, err := NewFlinkCluster(config, flinkCtx)
-	assert.Error(t, err, "downloader not implemented for scheme: http")
 }
