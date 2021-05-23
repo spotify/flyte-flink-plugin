@@ -31,6 +31,7 @@ import (
 )
 
 var containerTmpl = template.New("container-template").Funcs(template.FuncMap{"join": strings.Join})
+var flinkPropertiesTmpl = template.New("flink-properties-template").Funcs(template.FuncMap{"join": strings.Join})
 
 type ContainerTemplateData struct {
 	ArtifactsByScheme map[string][]string
@@ -41,6 +42,16 @@ func NewContainerTemplateData(artifacts []string) *ContainerTemplateData {
 	return &ContainerTemplateData{
 		ArtifactsByScheme: GroupByScheme(artifacts),
 		Artifacts:         artifacts,
+	}
+}
+
+type FlinkPropertiesTemplateData struct {
+	Labels map[string]string
+}
+
+func NewFlinkPropertiesTemplateData(labels map[string]string) *FlinkPropertiesTemplateData {
+	return &FlinkPropertiesTemplateData{
+		Labels: labels,
 	}
 }
 
@@ -232,6 +243,31 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext) error {
 	return nil
 }
 
+func (fc *FlinkCluster) updateFlinkProperties(config *Config, taskCtx FlinkTaskContext) error {
+
+	props := MergeProperties(
+		fc.Spec.FlinkProperties,
+		taskCtx.Job.FlinkProperties,
+		config.FlinkPropertiesOverride,
+	)
+
+	result := make(map[string]string)
+	for k, v := range props {
+		tmpl, err := containerTmpl.Parse(v)
+		if err != nil {
+			return err
+		}
+		var tpl bytes.Buffer
+		if err := tmpl.Execute(&tpl, NewFlinkPropertiesTemplateData(taskCtx.Labels)); err != nil {
+			return err
+		}
+		result[k] = tpl.String()
+	}
+
+	fc.Spec.FlinkProperties = result
+	return nil
+}
+
 func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCluster, error) {
 	cluster := FlinkCluster(*config.DefaultFlinkCluster.DeepCopy())
 	cluster.ObjectMeta = metav1.ObjectMeta{
@@ -245,11 +281,7 @@ func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCl
 		APIVersion: flinkOp.GroupVersion.String(),
 	}
 
-	cluster.Spec.FlinkProperties = MergeProperties(
-		cluster.Spec.FlinkProperties,
-		taskCtx.Job.FlinkProperties,
-		config.FlinkPropertiesOverride,
-	)
+	cluster.updateFlinkProperties(config, taskCtx)
 
 	if version := taskCtx.Job.GetFlinkVersion(); len(version) != 0 {
 		cluster.Spec.FlinkVersion = version
