@@ -24,11 +24,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 )
 
-var artifacts = []string{
-	"gs://scio-playground-flyte-workflow-storage/flytekit-staging/spotify-data-schemas-1.0-SNAPSHOT-47cyvcgeM3BdQTFlmMJahw==.jar",
-	"gs://scio-playground-flyte-workflow-storage/flytekit-staging/util-2.1.6-901thgh-BVW1Qi36rJi37Q==.jar",
-	"gs://scio-playground-flyte-workflow-storage/flytekit-staging/scala-collection-compat_2.12-2.4.0-Evmys1Zf4G1bEJNG3qIw9A==.jar",
-}
+var artifacts = []string{"gs://bucket/a.jar", "gs://bucket/b.jar", "gs://bucket/c.jar"}
 
 func TestBuildFlinkClusterSpecValid(t *testing.T) {
 	parallelism := int32(10)
