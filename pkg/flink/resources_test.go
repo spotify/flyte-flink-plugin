@@ -32,7 +32,8 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 		JarFiles:    artifacts,
 		Parallelism: parallelism,
 		FlinkProperties: map[string]string{
-			"taskmanager.numberOfTaskSlots": "1",
+			"taskmanager.numberOfTaskSlots":            "1",
+			"metrics.reporter.promgateway.groupingKey": `execution_id={{index .Labels "execution-id"}}`,
 		},
 	}
 	config := GetFlinkConfig()
@@ -41,7 +42,7 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 		ClusterName: ClusterName("generated-name"),
 		Namespace:   "test-namespace",
 		Annotations: make(map[string]string),
-		Labels:      make(map[string]string),
+		Labels:      map[string]string{"execution-id": "1"},
 		Job:         jobIdl,
 	}
 
@@ -75,6 +76,7 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 	})
 
 	assert.Equal(t, string(job.CleanupPolicy.AfterJobSucceeds), flinkOp.CleanupActionDeleteCluster)
+	assert.Equal(t, cluster.Spec.FlinkProperties["metrics.reporter.promgateway.groupingKey"], "execution_id=1")
 }
 
 func TestWithPersistentVolume(t *testing.T) {
