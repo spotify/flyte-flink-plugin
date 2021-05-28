@@ -3,11 +3,11 @@ module github.com/spotify/flyte-flink-plugin
 go 1.16
 
 require (
-	github.com/envoyproxy/protoc-gen-validate v0.1.0
-	github.com/flyteorg/flyteidl v0.18.25
-	github.com/flyteorg/flyteplugins v0.5.40
-	github.com/flyteorg/flytestdlib v0.3.15
-	github.com/golang/protobuf v1.4.3
+	github.com/envoyproxy/protoc-gen-validate v0.6.1
+	github.com/flyteorg/flyteidl v0.18.50
+	github.com/flyteorg/flyteplugins v0.5.50
+	github.com/flyteorg/flytestdlib v0.3.23
+	github.com/golang/protobuf v1.5.2
 	github.com/hashicorp/go-version v1.3.0
 	github.com/pkg/errors v0.9.1
 	github.com/spotify/flink-on-k8s-operator v0.1.4
