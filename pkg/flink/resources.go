@@ -46,12 +46,14 @@ func NewContainerTemplateData(artifacts []string) *ContainerTemplateData {
 }
 
 type FlinkPropertiesTemplateData struct {
-	Labels map[string]string
+	ClusterName ClusterName
+	Labels      map[string]string
 }
 
-func NewFlinkPropertiesTemplateData(labels map[string]string) *FlinkPropertiesTemplateData {
+func NewFlinkPropertiesTemplateData(clusterName ClusterName, labels map[string]string) *FlinkPropertiesTemplateData {
 	return &FlinkPropertiesTemplateData{
-		Labels: labels,
+		ClusterName: clusterName,
+		Labels:      labels,
 	}
 }
 
@@ -258,7 +260,7 @@ func (fc *FlinkCluster) updateFlinkProperties(config *Config, taskCtx FlinkTaskC
 			return err
 		}
 		var tpl bytes.Buffer
-		if err := tmpl.Execute(&tpl, NewFlinkPropertiesTemplateData(taskCtx.Labels)); err != nil {
+		if err := tmpl.Execute(&tpl, NewFlinkPropertiesTemplateData(taskCtx.ClusterName, taskCtx.Labels)); err != nil {
 			return err
 		}
 		result[k] = tpl.String()
