@@ -255,7 +255,7 @@ func (fc *FlinkCluster) updateFlinkProperties(config *Config, taskCtx FlinkTaskC
 
 	result := make(map[string]string)
 	for k, v := range props {
-		tmpl, err := containerTmpl.Parse(v)
+		tmpl, err := flinkPropertiesTmpl.Parse(v)
 		if err != nil {
 			return err
 		}
