@@ -34,7 +34,7 @@ message JobManager { Resource resource = 1; }
 
 message TaskManager {
   Resource resource = 1;
-  int32 replicas = 2 [ (validate.rules).int32.gt = 0 ];
+  int32 replicas = 2 [ (validate.rules).int32.gte = 0 ];
 }
 
 message JFlyte {
