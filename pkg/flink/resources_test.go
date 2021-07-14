@@ -109,10 +109,10 @@ func TestWithPersistentVolume(t *testing.T) {
 
 	assert.NilError(t, err)
 	assert.Equal(t, cluster.Spec.Image.Name, "flink-image")
-	assert.Assert(t, len(cluster.Spec.TaskManager.VolumeClaimTemplates) == 1)
+	assert.Equal(t, len(cluster.Spec.TaskManager.VolumeClaimTemplates), 1)
 	// it will include cache-colume and the required pv
-	assert.Assert(t, len(cluster.Spec.TaskManager.VolumeMounts) == 2)
-	assert.Assert(t, len(cluster.Spec.TaskManager.Volumes) == 1)
+	assert.Equal(t, len(cluster.Spec.TaskManager.VolumeMounts), 2)
+	assert.Equal(t, len(cluster.Spec.TaskManager.Volumes), 1)
 	assert.Assert(t, cluster.Spec.FlinkProperties[flinkIoTmpDirsProperty] == volumeClaimMountPath)
 }
 
