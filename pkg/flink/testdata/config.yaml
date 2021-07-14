@@ -1,5 +1,10 @@
 plugins:
   flink:
+    remoteClusterConfig:
+      endpoint: 127.0.0.1
+      auth:
+        tokenPath: /path/token
+        caCertPath: /path/cert
     flinkPropertiesOverride:
       - jobmanager.archive.fs.dir: "flink-job-archive-dir"
     defaultFlinkCluster:
@@ -43,6 +48,7 @@ plugins:
           resources:
             limits:
               cpu: "3.5"
+              memory: "4Gi"
           volumes:
             - name: cache-volume
               emptyDir: {}

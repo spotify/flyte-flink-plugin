@@ -36,7 +36,6 @@ func TestLoadConfig(t *testing.T) {
 		assert.Equal(t, tm.Resources.Limits[corev1.ResourceCPU], resource.MustParse("4"))
 		assert.Equal(t, jm.Resources.Limits[corev1.ResourceMemory], resource.MustParse("4Gi"))
 		assert.Equal(t, tm.Resources.Limits[corev1.ResourceMemory], resource.MustParse("4Gi"))
-		assert.Equal(t, flinkConfig.RemoteClusterConfig.Enabled, false)
 	})
 
 	t.Run("overrides defaults", func(t *testing.T) {
@@ -68,23 +67,16 @@ func TestLoadConfig(t *testing.T) {
 	})
 
 	t.Run("remote cluster", func(t *testing.T) {
-		configAccessor := viper.NewAccessor(config.Options{
-			StrictMode:  true,
-			SearchPaths: []string{"testdata/config_remote_cluster.yaml"},
-		})
-
-		configAccessor.UpdateConfig(context.TODO())
-		remoteFlinkConfig := GetFlinkConfig()
-
+		config := GetFlinkConfig()
 		remoteConfig := ClusterConfig{
-			Enabled:  true,
+			Enabled:  false,
 			Endpoint: "127.0.0.1",
 			Auth: Auth{
 				TokenPath:  "/path/token",
 				CaCertPath: "/path/cert",
 			},
 		}
-		assert.DeepEqual(t, remoteFlinkConfig.RemoteClusterConfig, remoteConfig)
+		assert.DeepEqual(t, config.RemoteClusterConfig, remoteConfig)
 	})
 }
 
