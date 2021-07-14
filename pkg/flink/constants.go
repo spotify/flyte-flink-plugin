@@ -41,7 +41,7 @@ var (
 	regexpFlinkClusterName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
 	generatedNameMaxLength = 50
 	defaultServiceAccount  = "default"
-	defaultConfig          = &Config{
+	defaultConfig          = Config{
 		DefaultFlinkCluster: flinkOp.FlinkCluster{
 			Spec: flinkOp.FlinkClusterSpec{
 				ServiceAccountName: &defaultServiceAccount,
@@ -68,5 +68,5 @@ var (
 		GeneratedNameMaxLength: &generatedNameMaxLength,
 	}
 
-	flinkConfigSection = pluginsConfig.MustRegisterSubSection("flink", defaultConfig)
+	flinkConfigSection = pluginsConfig.MustRegisterSubSection("flink", &defaultConfig)
 )
