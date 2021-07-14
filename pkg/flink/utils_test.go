@@ -19,18 +19,18 @@ import (
 	"sort"
 	"testing"
 
+	"github.com/flyteorg/flyteidl/clients/go/coreutils"
 	"github.com/flyteorg/flyteidl/gen/pb-go/flyteidl/core"
-	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/utils"
 	"gotest.tools/assert"
 )
 
 func TestLiteralMapToArgs(t *testing.T) {
-	integer, _ := utils.MakeLiteral(1)
-	float, _ := utils.MakeLiteral(1.01)
-	str, _ := utils.MakeLiteral("foobar")
-	boolTrue, _ := utils.MakeLiteral(true)
-	boolFalse, _ := utils.MakeLiteral(false)
-	coll, _ := utils.MakeLiteral([]interface{}{1, 2})
+	integer, _ := coreutils.MakeLiteral(1)
+	float, _ := coreutils.MakeLiteral(1.01)
+	str, _ := coreutils.MakeLiteral("foobar")
+	boolTrue, _ := coreutils.MakeLiteral(true)
+	boolFalse, _ := coreutils.MakeLiteral(false)
+	coll, _ := coreutils.MakeLiteral([]interface{}{1, 2})
 
 	literals := map[string]*core.Literal{
 		"string":        str,
