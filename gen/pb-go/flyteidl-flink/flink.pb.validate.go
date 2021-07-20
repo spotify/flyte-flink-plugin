@@ -222,10 +222,10 @@ func (m *TaskManager) Validate() error {
 		}
 	}
 
-	if m.GetReplicas() <= 0 {
+	if m.GetReplicas() < 0 {
 		return TaskManagerValidationError{
 			field:  "Replicas",
-			reason: "value must be greater than 0",
+			reason: "value must be greater than or equal to 0",
 		}
 	}
 

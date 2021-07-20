@@ -873,8 +873,8 @@ github.com/spf13/viper v1.3.2/go.mod h1:ZiWeW+zYFKm7srdB9IoDzzZXaJaI5eL9QjNiN/DM
 github.com/spf13/viper v1.7.0/go.mod h1:8WkrPz2fc9jxqZNCJI/76HCieCp4Q8HaLFoCha5qpdg=
 github.com/spf13/viper v1.7.1 h1:pM5oEahlgWv/WnHXpgbKz7iLIxRf65tye2Ci+XFK5sk=
 github.com/spf13/viper v1.7.1/go.mod h1:8WkrPz2fc9jxqZNCJI/76HCieCp4Q8HaLFoCha5qpdg=
-github.com/spotify/flink-on-k8s-operator v0.1.9 h1:lDJn9EU2DLb6l1+aUw8RKOkMahHFpJGbUplEfJRjUrs=
-github.com/spotify/flink-on-k8s-operator v0.1.9/go.mod h1:R3W8/t68sqZGT3HyH+i2r8JzbJF5QmbysxyOh0so9uE=
+github.com/spotify/flink-on-k8s-operator v0.1.10 h1:RBvS9Yort5uYFOF4eQ4h82IBDniC421M8fbPgStAFLU=
+github.com/spotify/flink-on-k8s-operator v0.1.10/go.mod h1:xdfRtCdjvxJcNTiipST9x1nZx+Yrju53dWU/tUZGM4I=
 github.com/stoewer/go-strcase v1.2.0/go.mod h1:IBiWB2sKIp3wVVQ3Y035++gc+knqhUQag1KpM8ahLw8=
 github.com/storageos/go-api v0.0.0-20180912212459-343b3eff91fc/go.mod h1:ZrLn+e0ZuF3Y65PNF6dIwbJPZqfmtCXxFm9ckv0agOY=
 github.com/streadway/amqp v0.0.0-20190404075320-75d898a42a94/go.mod h1:AZpEONHx3DKn8O/DFsRAY58/XVQiIPMTMB1SddzLXVw=
