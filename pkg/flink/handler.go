@@ -253,7 +253,7 @@ func flinkClusterPhaseInfo(ctx context.Context, app *flinkOp.FlinkCluster, occur
 
 	switch app.Status.State {
 	case flinkOp.ClusterStateCreating, flinkOp.ClusterStateReconciling, flinkOp.ClusterStateUpdating:
-		return pluginsCore.PhaseInfoWaitingForResources(occurredAt, pluginsCore.DefaultPhaseVersion, "cluster starting"), nil
+		return pluginsCore.PhaseInfoWaitingForResourcesInfo(occurredAt, pluginsCore.DefaultPhaseVersion, "cluster starting", info), nil
 	case flinkOp.ClusterStateRunning:
 		return flinkClusterJobPhaseInfo(ctx, jobStatus, occurredAt, info), nil
 	case flinkOp.ClusterStateStopped, flinkOp.ClusterStateStopping, flinkOp.ClusterStatePartiallyStopped:
