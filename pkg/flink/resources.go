@@ -30,8 +30,10 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-var containerTmpl = template.New("container-template").Funcs(template.FuncMap{"join": strings.Join})
-var flinkPropertiesTmpl = template.New("flink-properties-template").Funcs(template.FuncMap{"join": strings.Join})
+var (
+	containerTmpl       = template.New("container-template").Funcs(template.FuncMap{"join": strings.Join})
+	flinkPropertiesTmpl = template.New("flink-properties-template").Funcs(template.FuncMap{"join": strings.Join})
+)
 
 type ContainerTemplateData struct {
 	ArtifactsByScheme map[string][]string
@@ -46,12 +48,14 @@ func NewContainerTemplateData(artifacts []string) *ContainerTemplateData {
 }
 
 type FlinkPropertiesTemplateData struct {
+	Namespace   string
 	ClusterName ClusterName
 	Labels      map[string]string
 }
 
-func NewFlinkPropertiesTemplateData(clusterName ClusterName, labels map[string]string) *FlinkPropertiesTemplateData {
+func NewFlinkPropertiesTemplateData(namespace string, clusterName ClusterName, labels map[string]string) *FlinkPropertiesTemplateData {
 	return &FlinkPropertiesTemplateData{
+		Namespace:   namespace,
 		ClusterName: clusterName,
 		Labels:      labels,
 	}
@@ -260,7 +264,8 @@ func (fc *FlinkCluster) updateFlinkProperties(config *Config, taskCtx FlinkTaskC
 			return err
 		}
 		var tpl bytes.Buffer
-		if err := tmpl.Execute(&tpl, NewFlinkPropertiesTemplateData(taskCtx.ClusterName, taskCtx.Labels)); err != nil {
+		ft := NewFlinkPropertiesTemplateData(taskCtx.Namespace, taskCtx.ClusterName, taskCtx.Labels)
+		if err := tmpl.Execute(&tpl, ft); err != nil {
 			return err
 		}
 		result[k] = tpl.String()
