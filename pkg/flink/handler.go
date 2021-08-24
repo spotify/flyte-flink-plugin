@@ -99,6 +99,7 @@ func (flinkResourceHandler) GetProperties() k8s.PluginProperties {
 	config := GetFlinkConfig()
 	props := k8s.PluginProperties{
 		GeneratedNameMaxLength: config.GeneratedNameMaxLength,
+		DisableDeleteResourceOnFinalize: true,
 	}
 
 	if config.RemoteClusterConfig.Enabled {
@@ -133,6 +134,24 @@ func (flinkResourceHandler) BuildIdentityResource(ctx context.Context, taskCtx p
 			APIVersion: flinkOp.GroupVersion.String(),
 		},
 	}, nil
+}
+
+func (flinkResourceHandler) OnAbort(ctx context.Context, kubeClient client.Client, resource client.Object) error {
+	flinkCluster := resource.(*flinkOp.FlinkCluster)
+
+	clusterStatus := flinkCluster.Status.State
+	if clusterStatus == flinkOp.ClusterStateCreating {
+		logger.Infof(ctx, "Termination requested while cluster was still in Creating state. " +
+			"Deleting the underlying flinkCluster %v.", flinkCluster.ClusterName)
+		return kubeClient.Delete(ctx, flinkCluster)
+	}
+
+	annotationPatch, err := NewAnnotationPatch(flinkOp.ControlAnnotation, flinkOp.ControlNameJobCancel)
+	if err != nil {
+		return err
+	}
+
+	return kubeClient.Patch(ctx, flinkCluster, annotationPatch)
 }
 
 func flinkClusterTaskLogs(ctx context.Context, flinkCluster *flinkOp.FlinkCluster) ([]*core.TaskLog, error) {
