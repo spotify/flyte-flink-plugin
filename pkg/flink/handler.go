@@ -136,22 +136,17 @@ func (flinkResourceHandler) BuildIdentityResource(ctx context.Context, taskCtx p
 	}, nil
 }
 
-func (flinkResourceHandler) OnAbort(ctx context.Context, kubeClient client.Client, resource client.Object) error {
-	flinkCluster := resource.(*flinkOp.FlinkCluster)
-
-	clusterStatus := flinkCluster.Status.State
-	if clusterStatus == flinkOp.ClusterStateCreating {
-		logger.Infof(ctx, "Termination requested while cluster was still in Creating state. " +
-			"Deleting the underlying flinkCluster %v.", flinkCluster.ClusterName)
-		return kubeClient.Delete(ctx, flinkCluster)
-	}
-
+func (h flinkResourceHandler) OnAbort(ctx context.Context, tCtx pluginsCore.TaskExecutionContext, resource client.Object) (behavior k8s.AbortBehavior, err error) {
+	var abortBehavior k8s.AbortBehavior
 	annotationPatch, err := NewAnnotationPatch(flinkOp.ControlAnnotation, flinkOp.ControlNameJobCancel)
-	if err != nil {
-		return err
+
+	if err == nil {
+		abortBehavior = k8s.AbortBehaviorPatchDefaultResource(
+			k8s.PatchResourceOperation{Patch: annotationPatch},
+			false)
 	}
 
-	return kubeClient.Patch(ctx, flinkCluster, annotationPatch)
+	return abortBehavior, err
 }
 
 func flinkClusterTaskLogs(ctx context.Context, flinkCluster *flinkOp.FlinkCluster) ([]*core.TaskLog, error) {
