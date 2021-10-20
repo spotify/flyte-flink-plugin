@@ -228,16 +228,17 @@ func flinkClusterJobPhaseInfo(ctx context.Context, jobStatus *flinkOp.JobStatus,
 	switch jobStatus.State {
 	case flinkOp.JobStateCancelled:
 		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, msg, info)
-	case flinkOp.JobStateFailed:
+	case flinkOp.JobStateFailed, flinkOp.JobStateDeployFailed, flinkOp.JobStateLost:
 		reason := fmt.Sprintf("Flink Job Failed with Error: %v", jobStatus.FailureReasons)
 		return pluginsCore.PhaseInfoRetryableFailure(errors.DownstreamSystemError, reason, info)
 	case flinkOp.JobStateRunning:
 		return pluginsCore.PhaseInfoRunning(pluginsCore.DefaultPhaseVersion, info)
-	case flinkOp.JobStateUpdating, flinkOp.JobStatePending:
+	case flinkOp.JobStateUpdating, flinkOp.JobStatePending, flinkOp.JobStateDeploying, flinkOp.JobStateRestarting:
 		return pluginsCore.PhaseInfoInitializing(occurredAt, pluginsCore.DefaultPhaseVersion, msg, info)
 	case flinkOp.JobStateSucceeded:
 		return pluginsCore.PhaseInfoSuccess(info)
 	default:
+		msg := fmt.Sprintf("job id: %s with unknown state: %s", jobStatus.ID, jobStatus.State)
 		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, msg, info)
 	}
 }
