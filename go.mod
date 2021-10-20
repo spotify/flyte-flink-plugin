@@ -10,12 +10,12 @@ require (
 	github.com/golang/protobuf v1.5.2
 	github.com/hashicorp/go-version v1.3.0
 	github.com/pkg/errors v0.9.1
-	github.com/spotify/flink-on-k8s-operator v0.1.11
+	github.com/spotify/flink-on-k8s-operator v0.2.2
 	gotest.tools v2.2.0+incompatible
-	k8s.io/api v0.21.2
-	k8s.io/apimachinery v0.21.2
-	k8s.io/client-go v0.21.2
-	sigs.k8s.io/controller-runtime v0.9.3
+	k8s.io/api v0.22.1
+	k8s.io/apimachinery v0.22.1
+	k8s.io/client-go v0.22.1
+	sigs.k8s.io/controller-runtime v0.9.6
 )
 
 replace (
