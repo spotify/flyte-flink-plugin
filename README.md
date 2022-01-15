@@ -18,7 +18,7 @@ Flyte Flink k8s plugin.
 - [Testing](#Testing)
 - [License](#License)
 
-## About
+# About
 
 Current development status:
 
@@ -32,7 +32,7 @@ To learn more about Flyte refer to:
  - [Flyte homepage](https://flyte.org)
  - [Flyte master repository](https://github.com/lyft/flyte)
 
-## Dependencies
+# Dependencies
 
 To install the project dependencies, run:
 
@@ -40,7 +40,7 @@ To install the project dependencies, run:
 go mod install
 ```
 
-## Building
+# Building
 
 To build ginary, run:
 
@@ -48,7 +48,7 @@ To build ginary, run:
 make build
 ```
 
-## Testing
+# Testing
 
 To run tests, run:
 
@@ -62,6 +62,6 @@ To run tests with coverage, run:
 go test -v -covermode=count  ./...
 ```
 
-## License
+# License
 
 This project is released under the [Apache License 2.0](./LICENSE).
