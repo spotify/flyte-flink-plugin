@@ -221,8 +221,8 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext) error {
 		artifacts = urls
 	}
 
-	if out.JarFile == "" && len(artifacts) == 1 {
-		out.JarFile = artifacts[0]
+	if out.JarFile == nil && len(artifacts) == 1 {
+		out.JarFile = &artifacts[0]
 	} else {
 		initContainers := []corev1.Container{}
 		for _, container := range out.InitContainers {
