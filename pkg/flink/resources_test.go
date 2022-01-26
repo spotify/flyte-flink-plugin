@@ -15,6 +15,8 @@
 package flink
 
 import (
+	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/apimachinery/pkg/util/json"
 	"reflect"
 	"testing"
 
@@ -278,4 +280,22 @@ func TestBuildFlinkClusterSpecJobCommand(t *testing.T) {
 			"zip -r job.jar .",
 	}
 	assert.Assert(t, reflect.DeepEqual(initCont.Args, args))
+}
+
+func TestBuildAnnotationPatch(t *testing.T) {
+	patch, err := NewAnnotationPatch("testKey", "testValue")
+	assert.Equal(t, patch.Type(), types.MergePatchType)
+
+	bytes, err := patch.Data(nil)
+
+	var jsonData map[string]interface{}
+	err = json.Unmarshal(bytes, &jsonData)
+
+	assert.DeepEqual(
+		t,
+		jsonData["metadata"].(map[string]interface{})["annotations"].(map[string]interface{}),
+		map[string]interface{} {"testKey": "testValue"},
+	)
+
+	assert.NilError(t, err)
 }

@@ -16,7 +16,10 @@ package flink
 
 import (
 	"bytes"
+	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/apimachinery/pkg/util/json"
 	"net/url"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 	"strings"
 	"text/template"
 
@@ -51,6 +54,14 @@ type FlinkPropertiesTemplateData struct {
 	Namespace   string
 	ClusterName ClusterName
 	Labels      map[string]string
+}
+
+type ObjectForPatch struct {
+	Metadata ObjectMetaForPatch `json:"metadata"`
+}
+
+type ObjectMetaForPatch struct {
+	Annotations map[string]interface{} `json:"annotations"`
 }
 
 func NewFlinkPropertiesTemplateData(namespace string, clusterName ClusterName, labels map[string]string) *FlinkPropertiesTemplateData {
@@ -318,4 +329,20 @@ func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCl
 	}
 
 	return &resource, nil
+}
+
+func NewAnnotationPatch(key string, value string) (client.Patch, error) {
+	annotationPatch := ObjectForPatch{
+		Metadata: ObjectMetaForPatch{
+			Annotations: map[string]interface{}{
+				key: value,
+			},
+		},
+	}
+	patchBytes, err := json.Marshal(&annotationPatch)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.RawPatch(types.MergePatchType, patchBytes), nil
 }

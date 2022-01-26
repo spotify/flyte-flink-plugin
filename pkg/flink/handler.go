@@ -99,6 +99,7 @@ func (flinkResourceHandler) GetProperties() k8s.PluginProperties {
 	config := GetFlinkConfig()
 	props := k8s.PluginProperties{
 		GeneratedNameMaxLength: config.GeneratedNameMaxLength,
+		DisableDeleteResourceOnFinalize: true,
 	}
 
 	if config.RemoteClusterConfig.Enabled {
@@ -133,6 +134,25 @@ func (flinkResourceHandler) BuildIdentityResource(ctx context.Context, taskCtx p
 			APIVersion: flinkOp.GroupVersion.String(),
 		},
 	}, nil
+}
+
+func (h flinkResourceHandler) OnAbort(ctx context.Context, tCtx pluginsCore.TaskExecutionContext, resource client.Object) (behavior k8s.AbortBehavior, err error) {
+	flinkCluster := resource.(*flinkOp.FlinkCluster)
+
+	if flinkCluster.Status.Components.Job != nil && flinkCluster.Status.Components.Job.State == flinkOp.JobStatePending {
+		return k8s.AbortBehaviorDeleteDefaultResource(), nil
+	}
+
+	annotationPatch, err := NewAnnotationPatch(flinkOp.ControlAnnotation, flinkOp.ControlNameJobCancel)
+	var abortBehavior k8s.AbortBehavior
+
+	if err == nil {
+		abortBehavior = k8s.AbortBehaviorPatchDefaultResource(
+			k8s.PatchResourceOperation{Patch: annotationPatch},
+			false)
+	}
+
+	return abortBehavior, err
 }
 
 func flinkClusterTaskLogs(ctx context.Context, flinkCluster *flinkOp.FlinkCluster) ([]*core.TaskLog, error) {
