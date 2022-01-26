@@ -146,7 +146,7 @@ func (h flinkResourceHandler) OnAbort(ctx context.Context, tCtx pluginsCore.Task
 
 	patchOp := k8s.PatchResourceOperation{Patch: annotationPatch}
 	abortBehavior = k8s.AbortBehaviorPatchDefaultResource(patchOp, false)
-	return abortBehavior, err
+	return abortBehavior, nil
 }
 
 func flinkClusterTaskLogs(ctx context.Context, flinkCluster *flinkOp.FlinkCluster) ([]*core.TaskLog, error) {
