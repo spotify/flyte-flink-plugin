@@ -13,7 +13,7 @@ require (
 	github.com/spotify/flink-on-k8s-operator v0.3.8
 	gotest.tools v2.2.0+incompatible
 	k8s.io/api v0.22.1
-	k8s.io/apimachinery v0.22.1
+	k8s.io/apimachinery v0.23.3
 	k8s.io/client-go v0.22.1
 	sigs.k8s.io/controller-runtime v0.9.6
 )
