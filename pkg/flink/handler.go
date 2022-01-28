@@ -161,39 +161,41 @@ func flinkClusterTaskLogs(ctx context.Context, flinkCluster *flinkOp.FlinkCluste
 		return nil, err
 	}
 
-	if p != nil {
-		jobManagerLog, err := p.GetTaskLogs(tasklog.Input{
-			PodName:   jobManagerStatus.Name,
+	if p == nil {
+		return taskLogs, nil
+	}
+
+	jobManagerLog, err := p.GetTaskLogs(tasklog.Input{
+		PodName:   jobManagerStatus.Name,
+		Namespace: flinkCluster.Namespace,
+		LogName:   "(JobManager)",
+	})
+	if err != nil {
+		return nil, err
+	}
+	taskLogs = append(taskLogs, jobManagerLog.TaskLogs...)
+
+	taskManagerLog, err := p.GetTaskLogs(tasklog.Input{
+		PodName:   taskManagerStatus.Name,
+		Namespace: flinkCluster.Namespace,
+		LogName:   "(TaskManager)",
+	})
+	if err != nil {
+		return nil, err
+	}
+	taskLogs = append(taskLogs, taskManagerLog.TaskLogs...)
+
+	if jobStatus != nil {
+		jobLog, err := p.GetTaskLogs(tasklog.Input{
+			PodName:   jobStatus.SubmitterName,
 			Namespace: flinkCluster.Namespace,
-			LogName:   "(JobManager)",
+			LogName:   "(Job)",
 		})
 		if err != nil {
 			return nil, err
 		}
-		taskLogs = append(taskLogs, jobManagerLog.TaskLogs...)
 
-		taskManagerLog, err := p.GetTaskLogs(tasklog.Input{
-			PodName:   taskManagerStatus.Name,
-			Namespace: flinkCluster.Namespace,
-			LogName:   "(TaskManager)",
-		})
-		if err != nil {
-			return nil, err
-		}
-		taskLogs = append(taskLogs, taskManagerLog.TaskLogs...)
-
-		if jobStatus != nil {
-			jobLog, err := p.GetTaskLogs(tasklog.Input{
-				PodName:   jobStatus.Name,
-				Namespace: flinkCluster.Namespace,
-				LogName:   "(Job)",
-			})
-			if err != nil {
-				return nil, err
-			}
-
-			taskLogs = append(taskLogs, jobLog.TaskLogs...)
-		}
+		taskLogs = append(taskLogs, jobLog.TaskLogs...)
 	}
 
 	return taskLogs, nil
