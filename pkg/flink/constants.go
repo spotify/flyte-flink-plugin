@@ -18,7 +18,7 @@ import (
 	"regexp"
 
 	pluginsConfig "github.com/flyteorg/flyteplugins/go/tasks/config"
-	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
+	flinkOp "github.com/spotify/flink-on-k8s-operator/apis/flinkcluster/v1beta1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 )

@@ -28,7 +28,7 @@ import (
 	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/k8s"
 	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/utils"
 
-	flinkOp "github.com/spotify/flink-on-k8s-operator/api/v1beta1"
+	flinkOp "github.com/spotify/flink-on-k8s-operator/apis/flinkcluster/v1beta1"
 
 	"github.com/flyteorg/flyteidl/gen/pb-go/flyteidl/core"
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
