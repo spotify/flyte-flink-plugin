@@ -300,10 +300,10 @@ func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCl
 		Kind:       KindFlinkCluster,
 		APIVersion: flinkOp.GroupVersion.String(),
 	}
-	cluster.Spec.EnvVars = []corev1.EnvVar{{
+	cluster.Spec.EnvVars = append(cluster.Spec.EnvVars, corev1.EnvVar{
 		Name:  stagedJarsEnvVarName,
 		Value: strings.Join(taskCtx.Job.JarFiles, " "),
-	}}
+	})
 
 	cluster.updateFlinkProperties(config, taskCtx)
 
