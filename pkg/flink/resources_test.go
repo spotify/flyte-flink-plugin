@@ -15,10 +15,12 @@
 package flink
 
 import (
+	"reflect"
+	"strings"
+	"testing"
+
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/json"
-	"reflect"
-	"testing"
 
 	flinkOp "github.com/spotify/flink-on-k8s-operator/apis/flinkcluster/v1beta1"
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
@@ -79,6 +81,13 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 
 	assert.Equal(t, string(job.CleanupPolicy.AfterJobSucceeds), flinkOp.CleanupActionDeleteCluster)
 	assert.Equal(t, cluster.Spec.FlinkProperties["metrics.reporter.promgateway.groupingKey"], "namespace=test-namespace;cluster=generated-name;execution_id=1")
+
+	assert.Assert(t, len(cluster.Spec.EnvVars) == 1, "EnvVars should contain only 1 env")
+	expectedEnvVars := []corev1.EnvVar{{
+		Name:  stagedJarsEnvVarName,
+		Value: strings.Join(jobIdl.JarFiles, " "),
+	}}
+	assert.Equal(t, cluster.Spec.EnvVars[0], expectedEnvVars[0])
 }
 
 func TestWithPersistentVolume(t *testing.T) {
@@ -294,7 +303,7 @@ func TestBuildAnnotationPatch(t *testing.T) {
 	assert.DeepEqual(
 		t,
 		jsonData["metadata"].(map[string]interface{})["annotations"].(map[string]interface{}),
-		map[string]interface{} {"testKey": "testValue"},
+		map[string]interface{}{"testKey": "testValue"},
 	)
 
 	assert.NilError(t, err)
