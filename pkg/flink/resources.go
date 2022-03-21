@@ -16,12 +16,13 @@ package flink
 
 import (
 	"bytes"
-	"k8s.io/apimachinery/pkg/types"
-	"k8s.io/apimachinery/pkg/util/json"
 	"net/url"
-	"sigs.k8s.io/controller-runtime/pkg/client"
 	"strings"
 	"text/template"
+
+	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/apimachinery/pkg/util/json"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 
 	corev1 "k8s.io/api/core/v1"
 
@@ -34,8 +35,9 @@ import (
 )
 
 var (
-	containerTmpl       = template.New("container-template").Funcs(template.FuncMap{"join": strings.Join})
-	flinkPropertiesTmpl = template.New("flink-properties-template").Funcs(template.FuncMap{"join": strings.Join})
+	containerTmpl        = template.New("container-template").Funcs(template.FuncMap{"join": strings.Join})
+	flinkPropertiesTmpl  = template.New("flink-properties-template").Funcs(template.FuncMap{"join": strings.Join})
+	stagedJarsEnvVarName = "STAGED_JARS"
 )
 
 type ContainerTemplateData struct {
@@ -298,6 +300,10 @@ func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCl
 		Kind:       KindFlinkCluster,
 		APIVersion: flinkOp.GroupVersion.String(),
 	}
+	cluster.Spec.EnvVars = []corev1.EnvVar{{
+		Name:  stagedJarsEnvVarName,
+		Value: strings.Join(taskCtx.Job.JarFiles, " "),
+	}}
 
 	cluster.updateFlinkProperties(config, taskCtx)
 
