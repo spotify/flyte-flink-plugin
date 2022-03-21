@@ -208,6 +208,20 @@ func (fc *FlinkCluster) updateTaskManagerSpec(taskCtx FlinkTaskContext) {
 	}
 }
 
+func getJobArtifacts(job *flinkIdl.FlinkJob) []string {
+	artifacts := job.GetJarFiles()
+	if len(artifacts) == 0 {
+		// use jflyte artifacts as fallback only
+		urls := make([]string, len(job.GetJflyte().GetArtifacts()))
+		for i, a := range job.GetJflyte().GetArtifacts() {
+			urls[i] = a.Location
+		}
+		artifacts = urls
+	}
+
+	return artifacts
+}
+
 func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext) error {
 	if fc.Spec.Job == nil {
 		fc.Spec.Job = &flinkOp.JobSpec{}
@@ -224,15 +238,7 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext) error {
 		out.Parallelism = &taskCtx.Job.Parallelism
 	}
 
-	artifacts := taskCtx.Job.GetJarFiles()
-	if len(artifacts) == 0 {
-		// use jflyte artifacts as fallback only
-		urls := make([]string, len(taskCtx.Job.GetJflyte().GetArtifacts()))
-		for i, a := range taskCtx.Job.GetJflyte().GetArtifacts() {
-			urls[i] = a.Location
-		}
-		artifacts = urls
-	}
+	artifacts := getJobArtifacts(&taskCtx.Job)
 
 	if out.JarFile == nil && len(artifacts) == 1 {
 		out.JarFile = &artifacts[0]
@@ -302,7 +308,7 @@ func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCl
 	}
 	cluster.Spec.EnvVars = append(cluster.Spec.EnvVars, corev1.EnvVar{
 		Name:  stagedJarsEnvVarName,
-		Value: strings.Join(taskCtx.Job.JarFiles, " "),
+		Value: strings.Join(getJobArtifacts(&taskCtx.Job), " "),
 	})
 
 	cluster.updateFlinkProperties(config, taskCtx)
