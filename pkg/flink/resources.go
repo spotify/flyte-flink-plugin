@@ -141,7 +141,10 @@ func addPersistentVolumeClaim(
 }
 
 func (fc *FlinkCluster) updateJobManagerSpec(taskCtx FlinkTaskContext) {
-	out := &fc.Spec.JobManager
+	out := fc.Spec.JobManager
+	if out == nil {
+		out = &flinkOp.JobManagerSpec{}
+	}
 
 	out.PodAnnotations = utils.UnionMaps(taskCtx.Annotations, out.PodAnnotations)
 	out.PodLabels = utils.UnionMaps(taskCtx.Labels, out.PodLabels)
@@ -173,7 +176,10 @@ func (fc *FlinkCluster) updateJobManagerSpec(taskCtx FlinkTaskContext) {
 }
 
 func (fc *FlinkCluster) updateTaskManagerSpec(taskCtx FlinkTaskContext) {
-	out := &fc.Spec.TaskManager
+	out := fc.Spec.TaskManager
+	if out == nil {
+		out = &flinkOp.TaskManagerSpec{}
+	}
 
 	out.PodAnnotations = utils.UnionMaps(taskCtx.Annotations, out.PodAnnotations)
 	out.PodLabels = utils.UnionMaps(taskCtx.Labels, out.PodLabels)
@@ -193,7 +199,7 @@ func (fc *FlinkCluster) updateTaskManagerSpec(taskCtx FlinkTaskContext) {
 	}
 
 	if replicas := tm.GetReplicas(); replicas > 0 {
-		out.Replicas = replicas
+		out.Replicas = &replicas
 	}
 
 	if pv := tm.GetResource().GetPersistentVolume(); pv != nil {
