@@ -42,7 +42,7 @@ func TestLoadConfig(t *testing.T) {
 		defaultCluster := flinkConfig.DefaultFlinkCluster.Spec
 		jm := defaultCluster.JobManager
 		tm := defaultCluster.TaskManager
-		assert.Equal(t, tm.Replicas, int32(4))
+		assert.Equal(t, *tm.Replicas, int32(4))
 		assert.Equal(t, jm.Resources.Limits[corev1.ResourceCPU], resource.MustParse("3.5"))
 		assert.Equal(t, *flinkConfig.DefaultFlinkCluster.Spec.ServiceAccountName, "flink-service-account")
 		assert.Equal(t, *flinkConfig.GeneratedNameMaxLength, 50)
