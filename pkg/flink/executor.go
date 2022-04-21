@@ -39,7 +39,6 @@ func init() {
 			ResourceToWatch:     &flinkOp.FlinkCluster{},
 			Plugin:              flinkResourceHandler{},
 			IsDefault:           false,
-			DefaultForTaskTypes: []pluginsCore.TaskType{FlinkTaskType},
 			CustomKubeClient: func(ctx context.Context) (pluginsCore.KubeClient, error) {
 				remoteConfig := GetFlinkConfig().RemoteClusterConfig
 				if !remoteConfig.Enabled {
