@@ -3,7 +3,7 @@ module github.com/spotify/flyte-flink-plugin
 go 1.16
 
 require (
-	github.com/envoyproxy/protoc-gen-validate v0.6.3
+	github.com/envoyproxy/protoc-gen-validate v0.6.7
 	github.com/flyteorg/flyteidl v0.24.19
 	github.com/flyteorg/flyteplugins v0.10.24
 	github.com/flyteorg/flytestdlib v0.4.22
