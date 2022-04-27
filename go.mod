@@ -4,9 +4,9 @@ go 1.16
 
 require (
 	github.com/envoyproxy/protoc-gen-validate v0.6.7
-	github.com/flyteorg/flyteidl v0.24.19
+	github.com/flyteorg/flyteidl v1.0.1
 	github.com/flyteorg/flyteplugins v0.10.24
-	github.com/flyteorg/flytestdlib v0.4.22
+	github.com/flyteorg/flytestdlib v1.0.0
 	github.com/golang/protobuf v1.5.2
 	github.com/hashicorp/go-version v1.4.0
 	github.com/pkg/errors v0.9.1
