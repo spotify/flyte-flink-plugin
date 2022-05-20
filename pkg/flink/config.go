@@ -16,16 +16,13 @@ package flink
 
 import (
 	"github.com/flyteorg/flyteplugins/go/tasks/logs"
-	flinkOp "github.com/spotify/flink-on-k8s-operator/apis/flinkcluster/v1beta1"
 )
 
 // Config ... Flink-specific configs
 type Config struct {
-	DefaultFlinkCluster     flinkOp.FlinkCluster `json:"defaultFlinkCluster"`
-	FlinkPropertiesOverride map[string]string    `json:"flinkPropertiesOverride" pflag:",Key value pairs of flink properties to be overridden in every FlinkJob"`
-	LogConfig               logs.LogConfig       `json:"logs"`
-	GeneratedNameMaxLength  *int                 `json:"generatedNameMaxLength" pflag:"Specifies the length of TaskExecutionID generated name. default: 50"`
-	RemoteClusterConfig     ClusterConfig        `json:"remoteClusterConfig" pflag:"Configuration of remote K8s cluster for array jobs"`
+	LogConfig              logs.LogConfig `json:"logs"`
+	GeneratedNameMaxLength *int           `json:"generatedNameMaxLength" pflag:"Specifies the length of TaskExecutionID generated name. default: 50"`
+	RemoteClusterConfig    ClusterConfig  `json:"remoteClusterConfig" pflag:"Configuration of remote K8s cluster for array jobs"`
 }
 
 func GetFlinkConfig() *Config {

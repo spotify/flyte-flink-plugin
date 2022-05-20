@@ -39,10 +39,11 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 			"taskmanager.numberOfTaskSlots":            "1",
 			"metrics.reporter.promgateway.groupingKey": `namespace={{.Namespace}};cluster={{.ClusterName}};execution_id={{index .Labels "execution-id"}}`,
 		},
+		Image:      "flink-image",
+		JobManager: &flinkIdl.JobManager{},
 	}
-	config := GetFlinkConfig()
 
-	flinkCtx := FlinkTaskContext{
+	flinkCtx := &FlinkTaskContext{
 		ClusterName: ClusterName("generated-name"),
 		Namespace:   "test-namespace",
 		Annotations: make(map[string]string),
@@ -50,7 +51,7 @@ func TestBuildFlinkClusterSpecValid(t *testing.T) {
 		Job:         jobIdl,
 	}
 
-	cluster, err := NewFlinkCluster(config, flinkCtx)
+	cluster, err := NewFlinkCluster(flinkCtx)
 
 	assert.NilError(t, err)
 	assert.Equal(t, cluster.Spec.Image.Name, "flink-image")
@@ -106,9 +107,8 @@ func TestWithPersistentVolume(t *testing.T) {
 			Replicas: 1,
 		},
 	}
-	config := GetFlinkConfig()
 
-	flinkCtx := FlinkTaskContext{
+	flinkCtx := &FlinkTaskContext{
 		ClusterName: ClusterName("generated-name"),
 		Namespace:   "test-namespace",
 		Annotations: make(map[string]string),
@@ -116,7 +116,7 @@ func TestWithPersistentVolume(t *testing.T) {
 		Job:         job,
 	}
 
-	cluster, err := NewFlinkCluster(config, flinkCtx)
+	cluster, err := NewFlinkCluster(flinkCtx)
 
 	assert.NilError(t, err)
 	assert.Equal(t, cluster.Spec.Image.Name, "flink-image")
@@ -135,10 +135,7 @@ func TestBuildFlinkClusterSpecInvalid(t *testing.T) {
 		},
 	}
 
-	// Use empty config
-	config := &Config{}
-
-	flinkCtx := FlinkTaskContext{
+	flinkCtx := &FlinkTaskContext{
 		ClusterName: ClusterName("generated-name"),
 		Namespace:   "test-namespace",
 		Annotations: make(map[string]string),
@@ -146,7 +143,7 @@ func TestBuildFlinkClusterSpecInvalid(t *testing.T) {
 		Job:         job,
 	}
 
-	_, err := NewFlinkCluster(config, flinkCtx)
+	_, err := NewFlinkCluster(flinkCtx)
 	assert.Error(t, err, "image name is unspecified")
 }
 
@@ -158,9 +155,8 @@ func TestBuildFlinkClusterSpecServiceAccount(t *testing.T) {
 		},
 		ServiceAccount: "flink-user-service-account",
 	}
-	config := GetFlinkConfig()
 
-	flinkCtx := FlinkTaskContext{
+	flinkCtx := &FlinkTaskContext{
 		ClusterName: ClusterName("generated-name"),
 		Namespace:   "test-namespace",
 		Annotations: make(map[string]string),
@@ -168,7 +164,7 @@ func TestBuildFlinkClusterSpecServiceAccount(t *testing.T) {
 		Job:         job,
 	}
 
-	cluster, err := NewFlinkCluster(config, flinkCtx)
+	cluster, err := NewFlinkCluster(flinkCtx)
 
 	assert.NilError(t, err)
 	assert.Equal(t, *cluster.Spec.ServiceAccountName, "flink-user-service-account")
@@ -182,9 +178,8 @@ func TestBuildFlinkClusterSpecImage(t *testing.T) {
 		},
 		Image: "flink-custom-image",
 	}
-	config := GetFlinkConfig()
 
-	flinkCtx := FlinkTaskContext{
+	flinkCtx := &FlinkTaskContext{
 		ClusterName: ClusterName("generated-name"),
 		Namespace:   "test-namespace",
 		Annotations: make(map[string]string),
@@ -192,7 +187,7 @@ func TestBuildFlinkClusterSpecImage(t *testing.T) {
 		Job:         job,
 	}
 
-	cluster, err := NewFlinkCluster(config, flinkCtx)
+	cluster, err := NewFlinkCluster(flinkCtx)
 
 	assert.NilError(t, err)
 	assert.Equal(t, cluster.Spec.Image.Name, "flink-custom-image")
@@ -207,23 +202,18 @@ func TestBuildFlinkClusterWithIngress(t *testing.T) {
 		Image: "flink-custom-image",
 	}
 
-	config := GetFlinkConfig()
-	config.DefaultFlinkCluster.Spec.JobManager.Ingress = &flinkOp.JobManagerIngressSpec{
+	flinkCtx := &FlinkTaskContext{
+		ClusterName: ClusterName("generated-name"),
+		Namespace:   "test-namespace",
 		Annotations: map[string]string{
 			"cluster-autoscaler.kubernetes.io/safe-to-evict": "false",
 			"kubernetes.io/ingress.class":                    "gce-internal",
 		},
+		Labels: make(map[string]string),
+		Job:    job,
 	}
 
-	flinkCtx := FlinkTaskContext{
-		ClusterName: ClusterName("generated-name"),
-		Namespace:   "test-namespace",
-		Annotations: make(map[string]string),
-		Labels:      make(map[string]string),
-		Job:         job,
-	}
-
-	cluster, err := NewFlinkCluster(config, flinkCtx)
+	cluster, err := NewFlinkCluster(flinkCtx)
 	assert.NilError(t, err)
 
 	assert.Assert(t, cluster.Spec.JobManager.Ingress != nil)
@@ -257,9 +247,8 @@ func TestBuildFlinkClusterSpecJobCommand(t *testing.T) {
 			},
 		},
 	}
-	config := GetFlinkConfig()
 
-	flinkCtx := FlinkTaskContext{
+	flinkCtx := &FlinkTaskContext{
 		ClusterName: ClusterName("generated-name"),
 		Namespace:   "test-namespace",
 		Annotations: make(map[string]string),
@@ -267,7 +256,7 @@ func TestBuildFlinkClusterSpecJobCommand(t *testing.T) {
 		Job:         job,
 	}
 
-	cluster, err := NewFlinkCluster(config, flinkCtx)
+	cluster, err := NewFlinkCluster(flinkCtx)
 
 	assert.NilError(t, err)
 	assert.Equal(t, len(cluster.Spec.Job.InitContainers), 1)
@@ -293,9 +282,15 @@ func TestBuildFlinkClusterSpecJobCommand(t *testing.T) {
 
 func TestBuildAnnotationPatch(t *testing.T) {
 	patch, err := NewAnnotationPatch("testKey", "testValue")
+	if err != nil {
+		t.Error(err)
+	}
 	assert.Equal(t, patch.Type(), types.MergePatchType)
 
 	bytes, err := patch.Data(nil)
+	if err != nil {
+		t.Error(err)
+	}
 
 	var jsonData map[string]interface{}
 	err = json.Unmarshal(bytes, &jsonData)

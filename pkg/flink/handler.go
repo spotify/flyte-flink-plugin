@@ -112,14 +112,12 @@ func (flinkResourceHandler) GetProperties() k8s.PluginProperties {
 
 // Creates a new Job that will execute the main container as well as any generated types the result from the execution.
 func (flinkResourceHandler) BuildResource(ctx context.Context, taskCtx pluginsCore.TaskExecutionContext) (client.Object, error) {
-	// Start with default config values.
-	config := GetFlinkConfig()
 	flinkTaskCtx, err := NewFlinkTaskContext(ctx, taskCtx)
 	if err != nil {
 		return nil, errors.Wrapf(errors.BadTaskSpecification, err, "invalid Flink task context")
 	}
 
-	cluster, err := NewFlinkCluster(config, *flinkTaskCtx)
+	cluster, err := NewFlinkCluster(flinkTaskCtx)
 	if err != nil {
 		return nil, errors.Wrapf(errors.BadTaskSpecification, err, "invalid Flink cluster")
 	}

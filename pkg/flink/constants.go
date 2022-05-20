@@ -18,10 +18,6 @@ import (
 	"regexp"
 
 	pluginsConfig "github.com/flyteorg/flyteplugins/go/tasks/config"
-	flinkOp "github.com/spotify/flink-on-k8s-operator/apis/flinkcluster/v1beta1"
-	corev1 "k8s.io/api/core/v1"
-	"k8s.io/apimachinery/pkg/api/resource"
-	"k8s.io/utils/pointer"
 )
 
 const (
@@ -43,29 +39,6 @@ var (
 	generatedNameMaxLength = 50
 	defaultServiceAccount  = "default"
 	defaultConfig          = Config{
-		DefaultFlinkCluster: flinkOp.FlinkCluster{
-			Spec: flinkOp.FlinkClusterSpec{
-				ServiceAccountName: &defaultServiceAccount,
-				JobManager: &flinkOp.JobManagerSpec{
-					AccessScope: "ClusterIP",
-					Resources: corev1.ResourceRequirements{
-						Limits: map[corev1.ResourceName]resource.Quantity{
-							corev1.ResourceCPU:    resource.MustParse("4"),
-							corev1.ResourceMemory: resource.MustParse("4Gi"),
-						},
-					},
-				},
-				TaskManager: &flinkOp.TaskManagerSpec{
-					Replicas: pointer.Int32(1),
-					Resources: corev1.ResourceRequirements{
-						Limits: map[corev1.ResourceName]resource.Quantity{
-							corev1.ResourceCPU:    resource.MustParse("4"),
-							corev1.ResourceMemory: resource.MustParse("4Gi"),
-						},
-					},
-				},
-			},
-		},
 		GeneratedNameMaxLength: &generatedNameMaxLength,
 	}
 
