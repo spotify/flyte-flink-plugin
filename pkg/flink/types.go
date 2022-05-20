@@ -15,35 +15,10 @@
 package flink
 
 import (
-	"strconv"
-
 	pluginsCore "github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/core"
 	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/flytek8s/config"
 	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/utils"
 )
-
-type Properties map[string]string
-
-func MergeProperties(maps ...Properties) Properties {
-	// Start with default config values.
-	props := make(Properties)
-	for _, m := range maps {
-		for k, v := range m {
-			props[k] = v
-		}
-	}
-
-	return props
-}
-
-func (p Properties) GetInt(key string) (int, error) {
-	value, err := strconv.Atoi(p[key])
-	if err != nil {
-		return 0, err
-	}
-
-	return value, nil
-}
 
 type Annotations map[string]string
 
