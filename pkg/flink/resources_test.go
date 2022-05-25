@@ -307,9 +307,7 @@ func TestPartialFlinkCluster(t *testing.T) {
 		},
 	}
 
-	config := &Config{
-		SkipFlinkClusterDefaults: true,
-	}
+	config := &Config{}
 
 	flinkCtx := FlinkTaskContext{
 		ClusterName: ClusterName("generated-name"),
