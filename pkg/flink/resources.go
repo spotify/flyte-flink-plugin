@@ -339,12 +339,6 @@ func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCl
 
 	// fill in defaults
 	resource := flinkOp.FlinkCluster(cluster)
-	resource.Default()
-
-	err := resource.ValidateCreate()
-	if err != nil {
-		return nil, err
-	}
 
 	return &resource, nil
 }
