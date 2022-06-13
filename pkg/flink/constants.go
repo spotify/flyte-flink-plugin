@@ -47,7 +47,6 @@ var (
 			Spec: flinkOp.FlinkClusterSpec{
 				ServiceAccountName: &defaultServiceAccount,
 				JobManager: &flinkOp.JobManagerSpec{
-					AccessScope: "ClusterIP",
 					Resources: corev1.ResourceRequirements{
 						Limits: map[corev1.ResourceName]resource.Quantity{
 							corev1.ResourceCPU:    resource.MustParse("4"),
