@@ -26,6 +26,7 @@ type Config struct {
 	LogConfig               logs.LogConfig       `json:"logs"`
 	GeneratedNameMaxLength  *int                 `json:"generatedNameMaxLength" pflag:"Specifies the length of TaskExecutionID generated name. default: 50"`
 	RemoteClusterConfig     ClusterConfig        `json:"remoteClusterConfig" pflag:"Configuration of remote K8s cluster for array jobs"`
+	NonRetriableExitCodes   []int32              `json:"nonRetriableExitCodes" pfFlag:"Defines which job submitter exit codes should not be retried"`
 }
 
 func GetFlinkConfig() *Config {

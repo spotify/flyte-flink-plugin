@@ -236,6 +236,15 @@ func flinkClusterTaskInfo(ctx context.Context, flinkCluster *flinkOp.FlinkCluste
 	}, nil
 }
 
+func isSubmitterExitCodeRetryable(exitCode int32) bool {
+	for _, ec := range GetFlinkConfig().NonRetriableExitCodes {
+		if exitCode == ec {
+			return false
+		}
+	}
+	return true
+}
+
 func flinkClusterJobPhaseInfo(ctx context.Context, jobStatus *flinkOp.JobStatus, occurredAt time.Time, info *pluginsCore.TaskInfo) pluginsCore.PhaseInfo {
 	logger.Infof(ctx, "job_state: %s", jobStatus.State)
 
@@ -244,6 +253,13 @@ func flinkClusterJobPhaseInfo(ctx context.Context, jobStatus *flinkOp.JobStatus,
 	switch jobStatus.State {
 	case flinkOp.JobStateCancelled:
 		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, msg, info)
+	case flinkOp.JobStateSubmitterFailed:
+		if isSubmitterExitCodeRetryable(jobStatus.SubmitterExitCode) {
+			reason := fmt.Sprintf("Flink jobsubmitter exited with retryable non-zero exit code: %v", jobStatus.FailureReasons)
+			return pluginsCore.PhaseInfoRetryableFailure(errors.DownstreamSystemError, reason, info)
+		}
+		reason := fmt.Sprintf("Flink jobsubmitter exited with non-retryable non-zero exit code: %v", jobStatus.FailureReasons)
+		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, reason, info)
 	case flinkOp.JobStateFailed, flinkOp.JobStateDeployFailed, flinkOp.JobStateLost:
 		reason := fmt.Sprintf("Flink Job Failed with Error: %v", jobStatus.FailureReasons)
 		return pluginsCore.PhaseInfoRetryableFailure(errors.DownstreamSystemError, reason, info)

@@ -41,6 +41,7 @@ const (
 var (
 	regexpFlinkClusterName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
 	generatedNameMaxLength = 50
+	nonRetriableExitCodes  = []int32{}
 	defaultServiceAccount  = "default"
 	defaultConfig          = Config{
 		DefaultFlinkCluster: flinkOp.FlinkCluster{
@@ -66,6 +67,7 @@ var (
 			},
 		},
 		GeneratedNameMaxLength: &generatedNameMaxLength,
+		NonRetriableExitCodes:  nonRetriableExitCodes,
 	}
 
 	flinkConfigSection = pluginsConfig.MustRegisterSubSection("flink", &defaultConfig)
