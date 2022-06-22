@@ -17,6 +17,7 @@ package flink
 import (
 	"context"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/flyteorg/flyteplugins/go/tasks/errors"
@@ -140,7 +141,7 @@ func (h flinkResourceHandler) OnAbort(ctx context.Context, tCtx pluginsCore.Task
 	var abortBehavior k8s.AbortBehavior
 
 	annotationPatch, err := NewAnnotationPatch(flinkOp.ControlAnnotation, flinkOp.ControlNameJobCancel)
-	if err != nil {
+	if err != nil && !strings.Contains(fmt.Sprint(err), fmt.Sprintf(flinkOp.InvalidJobStateForJobCancelMsg, flinkOp.ControlAnnotation)) {
 		return abortBehavior, err
 	}
 
