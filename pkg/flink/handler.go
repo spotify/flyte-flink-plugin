@@ -17,7 +17,6 @@ package flink
 import (
 	"context"
 	"fmt"
-	"strings"
 	"time"
 
 	"github.com/flyteorg/flyteplugins/go/tasks/errors"
@@ -141,10 +140,8 @@ func (h flinkResourceHandler) OnAbort(ctx context.Context, tCtx pluginsCore.Task
 	var abortBehavior k8s.AbortBehavior
 
 	annotationPatch, err := NewAnnotationPatch(flinkOp.ControlAnnotation, flinkOp.ControlNameJobCancel)
+
 	if err != nil {
-		logger.Errorf(ctx, "Error in Annotation Patch: %v", err)
-	}
-	if err != nil && !strings.Contains(err.Error(), fmt.Sprintf(flinkOp.InvalidJobStateForJobCancelMsg, flinkOp.ControlAnnotation)) {
 		return abortBehavior, err
 	}
 
@@ -241,12 +238,11 @@ func flinkClusterTaskInfo(ctx context.Context, flinkCluster *flinkOp.FlinkCluste
 }
 
 func isSubmitterExitCodeRetryable(ctx context.Context, exitCode int32) bool {
-	logger.Errorf(ctx, "job submitter failed: %v", exitCode)
+	logger.Infof(ctx, "job submitter failed: %v", exitCode)
 	config := GetFlinkConfig()
-	logger.Errorf(ctx, "Config: %v", config)
 	for _, ec := range config.NonRetryableExitCodes {
 		if exitCode == ec {
-			logger.Errorf(ctx, "Found non-retryable exit CODE: %v", ec)
+			logger.Infof(ctx, "Found non-retryable exit code: %v", ec)
 			return false
 		}
 	}
