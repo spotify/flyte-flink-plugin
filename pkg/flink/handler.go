@@ -141,8 +141,10 @@ func (h flinkResourceHandler) OnAbort(ctx context.Context, tCtx pluginsCore.Task
 	var abortBehavior k8s.AbortBehavior
 
 	annotationPatch, err := NewAnnotationPatch(flinkOp.ControlAnnotation, flinkOp.ControlNameJobCancel)
-	logger.Errorf(ctx, "Error in Annotation Patch: %s", fmt.Sprint(err))
-	if err != nil && !strings.Contains(fmt.Sprint(err), fmt.Sprintf(flinkOp.InvalidJobStateForJobCancelMsg, flinkOp.ControlAnnotation)) {
+	if err != nil {
+		logger.Errorf(ctx, "Error in Annotation Patch: %v", err)
+	}
+	if err != nil && !strings.Contains(err.Error(), fmt.Sprintf(flinkOp.InvalidJobStateForJobCancelMsg, flinkOp.ControlAnnotation)) {
 		return abortBehavior, err
 	}
 
