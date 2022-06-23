@@ -241,9 +241,9 @@ func isSubmitterExitCodeRetryable(ctx context.Context, exitCode int32) bool {
 	logger.Errorf(ctx, "job submitter failed: %v", exitCode)
 	config := GetFlinkConfig()
 	logger.Errorf(ctx, "Config: %v", config)
-	for _, ec := range config.NonRetriableExitCodes {
+	for _, ec := range config.NonRetryableExitCodes {
 		if exitCode == ec {
-			logger.Errorf(ctx, "Found non-retriable exit CODE: %v", ec)
+			logger.Errorf(ctx, "Found non-retryable exit CODE: %v", ec)
 			return false
 		}
 	}
@@ -258,13 +258,6 @@ func flinkClusterJobPhaseInfo(ctx context.Context, jobStatus *flinkOp.JobStatus,
 	switch jobStatus.State {
 	case flinkOp.JobStateCancelled:
 		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, msg, info)
-	case flinkOp.JobStateSubmitterFailed:
-		if isSubmitterExitCodeRetryable(ctx, jobStatus.SubmitterExitCode) {
-			reason := fmt.Sprintf("Flink jobsubmitter exited with retriable non-zero exit code: %v", jobStatus.FailureReasons)
-			return pluginsCore.PhaseInfoRetryableFailure(errors.DownstreamSystemError, reason, info)
-		}
-		reason := fmt.Sprintf("Flink jobsubmitter exited with non-retriable non-zero exit code: %v", jobStatus.FailureReasons)
-		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, reason, info)
 	case flinkOp.JobStateFailed, flinkOp.JobStateDeployFailed, flinkOp.JobStateLost:
 		reason := fmt.Sprintf("Flink Job Failed with Error: %v", jobStatus.FailureReasons)
 		return pluginsCore.PhaseInfoRetryableFailure(errors.DownstreamSystemError, reason, info)
@@ -273,7 +266,15 @@ func flinkClusterJobPhaseInfo(ctx context.Context, jobStatus *flinkOp.JobStatus,
 	case flinkOp.JobStateUpdating, flinkOp.JobStatePending, flinkOp.JobStateDeploying, flinkOp.JobStateRestarting:
 		return pluginsCore.PhaseInfoInitializing(occurredAt, pluginsCore.DefaultPhaseVersion, msg, info)
 	case flinkOp.JobStateSucceeded:
-		return pluginsCore.PhaseInfoSuccess(info)
+		if jobStatus.SubmitterExitCode == 0 {
+			return pluginsCore.PhaseInfoSuccess(info)
+		}
+		if isSubmitterExitCodeRetryable(ctx, jobStatus.SubmitterExitCode) {
+			reason := fmt.Sprintf("Flink jobsubmitter exited with non-zero exit code: %v (retryable)", jobStatus.FailureReasons)
+			return pluginsCore.PhaseInfoRetryableFailure(errors.DownstreamSystemError, reason, info)
+		}
+		reason := fmt.Sprintf("Flink jobsubmitter exited with non-zero exit code: %v (non-retryable)", jobStatus.FailureReasons)
+		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, reason, info)
 	default:
 		msg := fmt.Sprintf("job id: %s with unknown state: %s", jobStatus.ID, jobStatus.State)
 		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, msg, info)
