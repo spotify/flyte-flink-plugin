@@ -142,6 +142,7 @@ func (h flinkResourceHandler) OnAbort(ctx context.Context, tCtx pluginsCore.Task
 	annotationPatch, err := NewAnnotationPatch(flinkOp.ControlAnnotation, flinkOp.ControlNameJobCancel)
 
 	if err != nil {
+		logger.Error(ctx, "error observed in abort", err)
 		return abortBehavior, err
 	}
 
