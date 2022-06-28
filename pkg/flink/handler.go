@@ -140,7 +140,9 @@ func (h flinkResourceHandler) OnAbort(ctx context.Context, tCtx pluginsCore.Task
 	var abortBehavior k8s.AbortBehavior
 
 	annotationPatch, err := NewAnnotationPatch(flinkOp.ControlAnnotation, flinkOp.ControlNameJobCancel)
+
 	if err != nil {
+		logger.Error(ctx, "error observed in abort", err)
 		return abortBehavior, err
 	}
 
@@ -236,6 +238,17 @@ func flinkClusterTaskInfo(ctx context.Context, flinkCluster *flinkOp.FlinkCluste
 	}, nil
 }
 
+func isSubmitterExitCodeRetryable(ctx context.Context, exitCode int32) bool {
+	config := GetFlinkConfig()
+	for _, ec := range config.NonRetryableExitCodes {
+		if exitCode == ec {
+			logger.Infof(ctx, "Found non-retryable exit code: %v", ec)
+			return false
+		}
+	}
+	return true
+}
+
 func flinkClusterJobPhaseInfo(ctx context.Context, jobStatus *flinkOp.JobStatus, occurredAt time.Time, info *pluginsCore.TaskInfo) pluginsCore.PhaseInfo {
 	logger.Infof(ctx, "job_state: %s", jobStatus.State)
 
@@ -252,7 +265,15 @@ func flinkClusterJobPhaseInfo(ctx context.Context, jobStatus *flinkOp.JobStatus,
 	case flinkOp.JobStateUpdating, flinkOp.JobStatePending, flinkOp.JobStateDeploying, flinkOp.JobStateRestarting:
 		return pluginsCore.PhaseInfoInitializing(occurredAt, pluginsCore.DefaultPhaseVersion, msg, info)
 	case flinkOp.JobStateSucceeded:
-		return pluginsCore.PhaseInfoSuccess(info)
+		if jobStatus.SubmitterExitCode == 0 {
+			return pluginsCore.PhaseInfoSuccess(info)
+		}
+		if isSubmitterExitCodeRetryable(ctx, jobStatus.SubmitterExitCode) {
+			reason := fmt.Sprintf("Flink jobsubmitter exited with non-zero exit code: %v (retryable)", jobStatus.FailureReasons)
+			return pluginsCore.PhaseInfoRetryableFailure(errors.DownstreamSystemError, reason, info)
+		}
+		reason := fmt.Sprintf("Flink jobsubmitter exited with non-zero exit code: %v (non-retryable)", jobStatus.FailureReasons)
+		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, reason, info)
 	default:
 		msg := fmt.Sprintf("job id: %s with unknown state: %s", jobStatus.ID, jobStatus.State)
 		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, msg, info)

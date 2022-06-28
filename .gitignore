@@ -17,6 +17,7 @@
 # vendor/
 .DS_Store
 .idea/*
+.vscode/*
 vendor
 
 dist
