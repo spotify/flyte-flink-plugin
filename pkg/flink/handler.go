@@ -239,7 +239,7 @@ func flinkClusterTaskInfo(ctx context.Context, flinkCluster *flinkOp.FlinkCluste
 }
 
 func isSubmitterExitCodeRetryable(ctx context.Context, exitCode int32) bool {
-	logger.Infof(ctx, "job submitter failed: %v", exitCode)
+	logger.Infof(ctx, "job submitter failed: %d", exitCode)
 	config := GetFlinkConfig()
 	for _, ec := range config.NonRetryableExitCodes {
 		if exitCode == ec {
