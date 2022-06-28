@@ -265,6 +265,9 @@ func flinkClusterJobPhaseInfo(ctx context.Context, jobStatus *flinkOp.JobStatus,
 	case flinkOp.JobStateUpdating, flinkOp.JobStatePending, flinkOp.JobStateDeploying, flinkOp.JobStateRestarting:
 		return pluginsCore.PhaseInfoInitializing(occurredAt, pluginsCore.DefaultPhaseVersion, msg, info)
 	case flinkOp.JobStateSucceeded:
+		if jobStatus.SubmitterExitCode < 0 {
+			return pluginsCore.PhaseInfoRunning(pluginsCore.DefaultPhaseVersion, info)
+		}
 		if jobStatus.SubmitterExitCode == 0 {
 			return pluginsCore.PhaseInfoSuccess(info)
 		}
