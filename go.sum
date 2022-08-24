@@ -669,8 +669,8 @@ github.com/spf13/pflag v1.0.5/go.mod h1:McXfInJRrz4CZXVZOBLb0bTZqETkiAhM9Iw0y3An
 github.com/spf13/viper v1.7.0/go.mod h1:8WkrPz2fc9jxqZNCJI/76HCieCp4Q8HaLFoCha5qpdg=
 github.com/spf13/viper v1.7.1 h1:pM5oEahlgWv/WnHXpgbKz7iLIxRf65tye2Ci+XFK5sk=
 github.com/spf13/viper v1.7.1/go.mod h1:8WkrPz2fc9jxqZNCJI/76HCieCp4Q8HaLFoCha5qpdg=
-github.com/spotify/flink-on-k8s-operator v0.4.1-beta.9 h1:GS+UOOIbAkbyBFTYwqoH+Id+KcuKX2Xan02hRh3CsSs=
-github.com/spotify/flink-on-k8s-operator v0.4.1-beta.9/go.mod h1:oxkVvYFg/tZ7zyl97fk5q0GOzd9LdmAsMDVNQz0WnrA=
+github.com/spotify/flink-on-k8s-operator v0.4.2-beta.1 h1:31eSwGQLL/r2lJAVartjedExIrY6cvqeaoZ+6oE9/Qo=
+github.com/spotify/flink-on-k8s-operator v0.4.2-beta.1/go.mod h1:U0ahspVh4j4uWncaNf+m9rF0yL4Yl9qReWiDp6PZoew=
 github.com/stoewer/go-strcase v1.2.0/go.mod h1:IBiWB2sKIp3wVVQ3Y035++gc+knqhUQag1KpM8ahLw8=
 github.com/streadway/amqp v0.0.0-20190404075320-75d898a42a94/go.mod h1:AZpEONHx3DKn8O/DFsRAY58/XVQiIPMTMB1SddzLXVw=
 github.com/streadway/amqp v0.0.0-20190827072141-edfb9018d271/go.mod h1:AZpEONHx3DKn8O/DFsRAY58/XVQiIPMTMB1SddzLXVw=

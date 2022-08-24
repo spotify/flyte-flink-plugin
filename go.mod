@@ -10,7 +10,7 @@ require (
 	github.com/golang/protobuf v1.5.2
 	github.com/hashicorp/go-version v1.4.0
 	github.com/pkg/errors v0.9.1
-	github.com/spotify/flink-on-k8s-operator v0.4.1-beta.9
+	github.com/spotify/flink-on-k8s-operator v0.4.2-beta.1
 	gotest.tools v2.2.0+incompatible
 	k8s.io/api v0.24.1
 	k8s.io/apimachinery v0.24.1
