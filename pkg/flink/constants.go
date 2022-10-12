@@ -49,7 +49,7 @@ var (
 				ServiceAccountName: &defaultServiceAccount,
 				JobManager: &flinkOp.JobManagerSpec{
 					Resources: corev1.ResourceRequirements{
-						Limits: map[corev1.ResourceName]resource.Quantity{
+						Requests: map[corev1.ResourceName]resource.Quantity{
 							corev1.ResourceCPU:    resource.MustParse("4"),
 							corev1.ResourceMemory: resource.MustParse("4Gi"),
 						},
@@ -58,7 +58,7 @@ var (
 				TaskManager: &flinkOp.TaskManagerSpec{
 					Replicas: pointer.Int32(1),
 					Resources: corev1.ResourceRequirements{
-						Limits: map[corev1.ResourceName]resource.Quantity{
+						Requests: map[corev1.ResourceName]resource.Quantity{
 							corev1.ResourceCPU:    resource.MustParse("4"),
 							corev1.ResourceMemory: resource.MustParse("4Gi"),
 						},
