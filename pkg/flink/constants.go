@@ -32,7 +32,7 @@ const (
 	// FlinkCluster resource default values
 	jobManagerVolumeClaim  = "pvc-jm"
 	taskManagerVolumeClaim = "pvc-tm"
-	volumeClaimMountPath   = "/flink-tmp"
+	volumeClaimMountPath   = "/tmp"
 
 	// Flink properties
 	flinkIoTmpDirsProperty = "io.tmp.dirs"

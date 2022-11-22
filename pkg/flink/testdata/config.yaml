@@ -56,7 +56,7 @@ plugins:
             - mountPath: /cache
               name: cache-volume
             - name: pvc-jm-default
-              mountPath: /flink-tmp
+              mountPath: /tmp
           volumeClaimTemplates:
             - metadata:
                 name: pvc-jm-default
@@ -82,7 +82,7 @@ plugins:
             - mountPath: /cache
               name: cache-volume
             - name: pvc-tm-default
-              mountPath: /flink-tmp
+              mountPath: /tmp
           volumeClaimTemplates:
             - metadata:
                 name: pvc-tm-default
