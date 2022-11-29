@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/envoyproxy/protoc-gen-validate v0.9.0
 	github.com/flyteorg/flyteidl v1.2.3
-	github.com/flyteorg/flyteplugins v1.0.20
+	github.com/flyteorg/flyteplugins v1.0.18
 	github.com/flyteorg/flytestdlib v1.0.13
 	github.com/golang/protobuf v1.5.2
 	github.com/hashicorp/go-version v1.6.0
