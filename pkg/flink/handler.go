@@ -153,8 +153,8 @@ func (h flinkResourceHandler) OnAbort(ctx context.Context, tCtx pluginsCore.Task
 
 func flinkClusterTaskLogs(ctx context.Context, flinkCluster *flinkOp.FlinkCluster) ([]*core.TaskLog, error) {
 	var taskLogs []*core.TaskLog
-	jobManagerStatus := flinkCluster.Status.Components.JobManagerStatefulSet
-	taskManagerStatus := flinkCluster.Status.Components.TaskManagerStatefulSet
+	jobManagerStatus := flinkCluster.Status.Components.JobManager
+	taskManagerStatus := flinkCluster.Status.Components.TaskManager
 	jobStatus := flinkCluster.Status.Components.Job
 
 	config := GetFlinkConfig()
