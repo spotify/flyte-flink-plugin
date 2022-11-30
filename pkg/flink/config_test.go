@@ -34,8 +34,8 @@ func TestLoadConfig(t *testing.T) {
 		jm := defaultCluster.JobManager
 		tm := defaultCluster.TaskManager
 		assert.Equal(t, tm.Resources.Requests[corev1.ResourceCPU], resource.MustParse("4"))
-		assert.Equal(t, jm.Resources.Requests[corev1.ResourceMemory], resource.MustParse("4Gi"))
-		assert.Equal(t, tm.Resources.Requests[corev1.ResourceMemory], resource.MustParse("4Gi"))
+		assert.Equal(t, jm.Resources.Limits[corev1.ResourceMemory], resource.MustParse("4Gi"))
+		assert.Equal(t, tm.Resources.Limits[corev1.ResourceMemory], resource.MustParse("4Gi"))
 	})
 
 	t.Run("overrides defaults", func(t *testing.T) {
