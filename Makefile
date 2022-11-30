@@ -1,5 +1,17 @@
+.PHONY: vet
+vet: ## Run go vet
+	go vet ./...
+
+.PHONY: fmt
+fmt: ## Run go fmt
+	go fmt ./...
+
+.PHONY: tidy
+tidy: ## Run go mod tidy
+	go mod tidy
+
 .PHONY: build
-build: generate-idl
+build: fmt vet tidy generate-idl
 	go build ./...
 
 .PHONY: test
