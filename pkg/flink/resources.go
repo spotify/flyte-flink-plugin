@@ -153,7 +153,7 @@ func (fc *FlinkCluster) updateJobManagerSpec(taskCtx FlinkTaskContext) {
 
 	if cpu := jm.GetResource().GetCpu(); cpu != nil {
 		if quantity := resource.MustParse(cpu.GetString_()); !quantity.IsZero() {
-			out.Resources.Requests[corev1.ResourceCPU] = quantity
+			out.Resources.Limits[corev1.ResourceCPU] = quantity
 		}
 	}
 
@@ -188,7 +188,7 @@ func (fc *FlinkCluster) updateTaskManagerSpec(taskCtx FlinkTaskContext) {
 
 	if cpu := tm.GetResource().GetCpu(); cpu != nil {
 		if quantity := resource.MustParse(cpu.GetString_()); !quantity.IsZero() {
-			out.Resources.Requests[corev1.ResourceCPU] = quantity
+			out.Resources.Limits[corev1.ResourceCPU] = quantity
 		}
 	}
 

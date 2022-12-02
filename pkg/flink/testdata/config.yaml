@@ -38,7 +38,7 @@ plugins:
                   gsutil -m cp {{join .Artifacts " "}} lib &&
                   zip -r job.jar .
               resources:
-                requests:
+                limits:
                   cpu: "2"
                   memory: "1Gi"
         jobManager:
@@ -46,7 +46,7 @@ plugins:
           ingress:
             useTls: true
           resources:
-            requests:
+            limits:
               cpu: "3.5"
               memory: "4Gi"
           volumes:
