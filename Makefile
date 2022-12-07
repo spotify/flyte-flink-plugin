@@ -11,7 +11,7 @@ tidy: ## Run go mod tidy
 	go mod tidy
 
 .PHONY: build
-build: fmt vet tidy generate-idl
+build: generate-idl fmt vet tidy
 	go build ./...
 
 .PHONY: test
