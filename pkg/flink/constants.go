@@ -39,30 +39,28 @@ const (
 )
 
 var (
-	regexpFlinkClusterName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
-	generatedNameMaxLength = 50
-	nonRetryableExitCodes  = []int32{}
-	defaultServiceAccount  = "default"
-	defaultConfig          = Config{
+	regexpFlinkClusterName      = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
+	generatedNameMaxLength      = 50
+	nonRetryableExitCodes       = []int32{}
+	defaultServiceAccount       = "default"
+	defaultResourceRequirements = corev1.ResourceRequirements{
+		Limits: map[corev1.ResourceName]resource.Quantity{
+			corev1.ResourceMemory: resource.MustParse("4Gi"),
+		},
+		Requests: map[corev1.ResourceName]resource.Quantity{
+			corev1.ResourceCPU: resource.MustParse("4"),
+		},
+	}
+	defaultConfig = Config{
 		DefaultFlinkCluster: flinkOp.FlinkCluster{
 			Spec: flinkOp.FlinkClusterSpec{
 				ServiceAccountName: &defaultServiceAccount,
 				JobManager: &flinkOp.JobManagerSpec{
-					Resources: corev1.ResourceRequirements{
-						Limits: map[corev1.ResourceName]resource.Quantity{
-							corev1.ResourceCPU:    resource.MustParse("4"),
-							corev1.ResourceMemory: resource.MustParse("4Gi"),
-						},
-					},
+					Resources: defaultResourceRequirements,
 				},
 				TaskManager: &flinkOp.TaskManagerSpec{
-					Replicas: pointer.Int32(1),
-					Resources: corev1.ResourceRequirements{
-						Limits: map[corev1.ResourceName]resource.Quantity{
-							corev1.ResourceCPU:    resource.MustParse("4"),
-							corev1.ResourceMemory: resource.MustParse("4Gi"),
-						},
-					},
+					Replicas:  pointer.Int32(1),
+					Resources: defaultResourceRequirements,
 				},
 			},
 		},
