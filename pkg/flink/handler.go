@@ -254,7 +254,7 @@ func getNonRetryableFlyteCode() string {
 	if config.NonRetryableFlyteCode != "" {
 		return config.NonRetryableFlyteCode
 	}
-	return errors.DownstreamSystemError
+	return nonRetryableFlyteCode
 }
 
 func flinkClusterJobPhaseInfo(ctx context.Context, jobStatus *flinkOp.JobStatus, occurredAt time.Time, info *pluginsCore.TaskInfo) pluginsCore.PhaseInfo {
