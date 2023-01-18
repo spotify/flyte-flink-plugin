@@ -15,6 +15,7 @@
 package flink
 
 import (
+	"github.com/flyteorg/flyteplugins/go/tasks/errors"
 	"regexp"
 
 	pluginsConfig "github.com/flyteorg/flyteplugins/go/tasks/config"
@@ -42,6 +43,7 @@ var (
 	regexpFlinkClusterName      = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`)
 	generatedNameMaxLength      = 50
 	nonRetryableExitCodes       = []int32{}
+	nonRetryableFlyteCode       = errors.DownstreamSystemError
 	defaultServiceAccount       = "default"
 	defaultResourceRequirements = corev1.ResourceRequirements{
 		Limits: map[corev1.ResourceName]resource.Quantity{
@@ -66,6 +68,7 @@ var (
 		},
 		GeneratedNameMaxLength: &generatedNameMaxLength,
 		NonRetryableExitCodes:  nonRetryableExitCodes,
+		NonRetryableFlyteCode:  &nonRetryableFlyteCode,
 	}
 
 	flinkConfigSection = pluginsConfig.MustRegisterSubSection("flink", &defaultConfig)

@@ -250,7 +250,7 @@ func flinkClusterJobPhaseInfo(ctx context.Context, jobStatus *flinkOp.JobStatus,
 			return pluginsCore.PhaseInfoRetryableFailure(errors.DownstreamSystemError, reason, info)
 		}
 		reason := fmt.Sprintf("Flink jobsubmitter exited with non-zero exit code: %v (non-retryable)", jobStatus.FailureReasons)
-		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, reason, info)
+		return pluginsCore.PhaseInfoFailure(nonRetryableFlyteCode, reason, info)
 	default:
 		msg := fmt.Sprintf("job id: %s with unknown state: %s", jobStatus.ID, jobStatus.State)
 		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, msg, info)
