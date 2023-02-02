@@ -34,6 +34,7 @@ import (
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/io"
 	"github.com/flyteorg/flytestdlib/logger"
 	structpb "github.com/golang/protobuf/ptypes/struct"
 )
@@ -46,7 +47,13 @@ type FlinkTaskContext struct {
 	Job         flinkIdl.FlinkJob
 }
 
-func NewFlinkTaskContext(ctx context.Context, taskCtx pluginsCore.TaskExecutionContext) (*FlinkTaskContext, error) {
+type FlinkTaskExecContext interface {
+	TaskReader() pluginsCore.TaskReader
+	TaskExecutionMetadata() pluginsCore.TaskExecutionMetadata
+	InputReader() io.InputReader
+}
+
+func NewFlinkTaskContext(ctx context.Context, taskCtx FlinkTaskExecContext) (*FlinkTaskContext, error) {
 	taskTemplate, err := taskCtx.TaskReader().Read(ctx)
 	if err != nil {
 		return nil, errors.Errorf(errors.BadTaskSpecification, "unable to fetch task specification [%v]", err.Error())
