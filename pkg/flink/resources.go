@@ -214,7 +214,7 @@ func (fc *FlinkCluster) updateTaskManagerSpec(taskCtx FlinkTaskContext) {
 	}
 }
 
-func getJobArtifacts(job *flinkIdl.FlinkJob) []string {
+func GetJobArtifacts(job *flinkIdl.FlinkJob) []string {
 	artifacts := job.GetJarFiles()
 	if len(artifacts) == 0 {
 		// use jflyte artifacts as fallback only
@@ -244,7 +244,7 @@ func (fc *FlinkCluster) updateJobSpec(taskCtx FlinkTaskContext) error {
 		out.Parallelism = &taskCtx.Job.Parallelism
 	}
 
-	artifacts := getJobArtifacts(&taskCtx.Job)
+	artifacts := GetJobArtifacts(&taskCtx.Job)
 
 	if out.JarFile == nil && len(artifacts) == 1 {
 		out.JarFile = &artifacts[0]
@@ -314,7 +314,7 @@ func NewFlinkCluster(config *Config, taskCtx FlinkTaskContext) (*flinkOp.FlinkCl
 	}
 	cluster.Spec.EnvVars = append(cluster.Spec.EnvVars, corev1.EnvVar{
 		Name:  stagedJarsEnvVarName,
-		Value: strings.Join(getJobArtifacts(&taskCtx.Job), " "),
+		Value: strings.Join(GetJobArtifacts(&taskCtx.Job), " "),
 	})
 
 	cluster.updateFlinkProperties(config, taskCtx)
