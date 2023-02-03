@@ -34,6 +34,7 @@ import (
 	flinkIdl "github.com/spotify/flyte-flink-plugin/gen/pb-go/flyteidl-flink"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/flyteorg/flyteplugins/go/tasks/pluginmachinery/io"
 	"github.com/flyteorg/flytestdlib/logger"
 	structpb "github.com/golang/protobuf/ptypes/struct"
 )
@@ -46,7 +47,13 @@ type FlinkTaskContext struct {
 	Job         flinkIdl.FlinkJob
 }
 
-func NewFlinkTaskContext(ctx context.Context, taskCtx pluginsCore.TaskExecutionContext) (*FlinkTaskContext, error) {
+type FlinkTaskExecContext interface {
+	TaskReader() pluginsCore.TaskReader
+	TaskExecutionMetadata() pluginsCore.TaskExecutionMetadata
+	InputReader() io.InputReader
+}
+
+func NewFlinkTaskContext(ctx context.Context, taskCtx FlinkTaskExecContext) (*FlinkTaskContext, error) {
 	taskTemplate, err := taskCtx.TaskReader().Read(ctx)
 	if err != nil {
 		return nil, errors.Errorf(errors.BadTaskSpecification, "unable to fetch task specification [%v]", err.Error())
@@ -151,7 +158,7 @@ func (h flinkResourceHandler) OnAbort(ctx context.Context, tCtx pluginsCore.Task
 	return abortBehavior, nil
 }
 
-func flinkClusterTaskLogs(ctx context.Context, flinkCluster *flinkOp.FlinkCluster) ([]*core.TaskLog, error) {
+func FlinkClusterTaskLogs(ctx context.Context, flinkClusterName string, flinkClusterNamespace string) ([]*core.TaskLog, error) {
 	var taskLogs []*core.TaskLog
 
 	config := GetFlinkConfig()
@@ -165,8 +172,8 @@ func flinkClusterTaskLogs(ctx context.Context, flinkCluster *flinkOp.FlinkCluste
 	}
 
 	jobLog, err := p.GetTaskLogs(tasklog.Input{
-		PodName:   flinkCluster.Name,
-		Namespace: flinkCluster.Namespace,
+		PodName:   flinkClusterName,
+		Namespace: flinkClusterNamespace,
 		LogName:   "(Job)",
 	})
 	if err != nil {
@@ -180,7 +187,7 @@ func flinkClusterTaskLogs(ctx context.Context, flinkCluster *flinkOp.FlinkCluste
 func flinkClusterTaskInfo(ctx context.Context, flinkCluster *flinkOp.FlinkCluster) (*pluginsCore.TaskInfo, error) {
 	var taskLogs []*core.TaskLog
 
-	tl, err := flinkClusterTaskLogs(ctx, flinkCluster)
+	tl, err := FlinkClusterTaskLogs(ctx, flinkCluster.Name, flinkCluster.Namespace)
 	if err != nil {
 		return nil, err
 	}
