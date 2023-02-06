@@ -239,8 +239,12 @@ func flinkClusterJobPhaseInfo(ctx context.Context, jobStatus *flinkOp.JobStatus,
 	case flinkOp.JobStateCancelled:
 		return pluginsCore.PhaseInfoFailure(errors.DownstreamSystemError, msg, info)
 	case flinkOp.JobStateFailed, flinkOp.JobStateDeployFailed, flinkOp.JobStateLost:
-		reason := fmt.Sprintf("Flink Job Failed with Error: %v", jobStatus.FailureReasons)
-		return pluginsCore.PhaseInfoRetryableFailure(errors.DownstreamSystemError, reason, info)
+		if isSubmitterExitCodeRetryable(ctx, jobStatus.SubmitterExitCode) {
+			reason := fmt.Sprintf("Flink Job Failed with Error: %v (retryable)", jobStatus.FailureReasons)
+			return pluginsCore.PhaseInfoRetryableFailure(errors.DownstreamSystemError, reason, info)
+		}
+		reason := fmt.Sprintf("Flink Job Failed with Error: %v (non-retryable)", jobStatus.FailureReasons)
+		return pluginsCore.PhaseInfoFailure(nonRetryableFlyteCode, reason, info)
 	case flinkOp.JobStateRunning:
 		return pluginsCore.PhaseInfoRunning(pluginsCore.DefaultPhaseVersion, info)
 	case flinkOp.JobStateUpdating, flinkOp.JobStatePending, flinkOp.JobStateDeploying, flinkOp.JobStateRestarting:
