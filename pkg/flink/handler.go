@@ -163,7 +163,7 @@ type FlinkTaskLogsInput struct {
 	Namespace   string
 }
 
-func FlinkClusterTaskLogs(ctx context.Context, fi FlinkTaskLogsInput, config *Config) ([]*core.TaskLog, error) {
+func FlinkClusterTaskLogs(ctx context.Context, config *Config, fi FlinkTaskLogsInput) ([]*core.TaskLog, error) {
 	var taskLogs []*core.TaskLog
 
 	p, err := logs.InitializeLogPlugins(&config.LogConfig)
@@ -191,10 +191,10 @@ func FlinkClusterTaskLogs(ctx context.Context, fi FlinkTaskLogsInput, config *Co
 func flinkClusterTaskInfo(ctx context.Context, flinkCluster *flinkOp.FlinkCluster) (*pluginsCore.TaskInfo, error) {
 	var taskLogs []*core.TaskLog
 
-	tl, err := FlinkClusterTaskLogs(ctx, FlinkTaskLogsInput{
+	tl, err := FlinkClusterTaskLogs(ctx, GetFlinkConfig(), FlinkTaskLogsInput{
 		ClusterName: flinkCluster.Name,
 		Namespace:   flinkCluster.Namespace,
-	}, GetFlinkConfig())
+	})
 	if err != nil {
 		return nil, err
 	}
