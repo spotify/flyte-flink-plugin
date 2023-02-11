@@ -158,12 +158,12 @@ func (h flinkResourceHandler) OnAbort(ctx context.Context, tCtx pluginsCore.Task
 	return abortBehavior, nil
 }
 
-type FlinkClusterIdentifier struct {
+type FlinkTaskLogsInput struct {
 	ClusterName string
 	Namespace   string
 }
 
-func FlinkClusterTaskLogs(ctx context.Context, fci FlinkClusterIdentifier, config *Config) ([]*core.TaskLog, error) {
+func FlinkClusterTaskLogs(ctx context.Context, fi FlinkTaskLogsInput, config *Config) ([]*core.TaskLog, error) {
 	var taskLogs []*core.TaskLog
 
 	p, err := logs.InitializeLogPlugins(&config.LogConfig)
@@ -176,8 +176,8 @@ func FlinkClusterTaskLogs(ctx context.Context, fci FlinkClusterIdentifier, confi
 	}
 
 	jobLog, err := p.GetTaskLogs(tasklog.Input{
-		PodName:   fci.ClusterName,
-		Namespace: fci.Namespace,
+		PodName:   fi.ClusterName,
+		Namespace: fi.Namespace,
 		LogName:   "(Job)",
 	})
 	if err != nil {
@@ -191,7 +191,7 @@ func FlinkClusterTaskLogs(ctx context.Context, fci FlinkClusterIdentifier, confi
 func flinkClusterTaskInfo(ctx context.Context, flinkCluster *flinkOp.FlinkCluster) (*pluginsCore.TaskInfo, error) {
 	var taskLogs []*core.TaskLog
 
-	tl, err := FlinkClusterTaskLogs(ctx, FlinkClusterIdentifier{
+	tl, err := FlinkClusterTaskLogs(ctx, FlinkTaskLogsInput{
 		ClusterName: flinkCluster.Name,
 		Namespace:   flinkCluster.Namespace,
 	}, GetFlinkConfig())
