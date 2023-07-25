@@ -438,7 +438,7 @@ func (m *FlinkJob) Validate() error {
 
 	// no validation rules for KubernetesClusterName
 
-	// no validation rules for Region
+	// no validation rules for KubernetesClusterRegion
 
 	if v, ok := interface{}(m.GetJflyte()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {

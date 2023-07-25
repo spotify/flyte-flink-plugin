@@ -227,7 +227,7 @@ Custom Proto for Flink Plugin.
     "flinkVersion": "...",
     "parallelism": "...",
     "kubernetesClusterName": "...",
-    "region": "...",
+    "kubernetesClusterRegion": "...",
     "jflyte": "{...}"
   }
 
@@ -286,9 +286,9 @@ parallelism
 kubernetesClusterName
   (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
   
-.. _api_field_flyteidl_flink.FlinkJob.region:
+.. _api_field_flyteidl_flink.FlinkJob.kubernetesClusterRegion:
 
-region
+kubernetesClusterRegion
   (`string <https://developers.google.com/protocol-buffers/docs/proto#scalar>`_) 
   
 .. _api_field_flyteidl_flink.FlinkJob.jflyte:
