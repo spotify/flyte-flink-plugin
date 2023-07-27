@@ -64,6 +64,8 @@ message FlinkJob {
   string image = 8;
   string flinkVersion = 9;
   int32 parallelism = 10 [ (validate.rules).int32.gte = 0 ];
+  string kubernetesClusterName = 11;
+  string kubernetesClusterRegion = 12;
 
   // if using experiment flytekit-java this will contain all artifacts required
   // to run the task
