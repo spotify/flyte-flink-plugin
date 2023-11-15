@@ -40,11 +40,12 @@ import (
 )
 
 type FlinkTaskContext struct {
-	ClusterName ClusterName
-	Namespace   string
-	Annotations map[string]string
-	Labels      map[string]string
-	Job         flinkIdl.FlinkJob
+	ClusterName          ClusterName
+	Namespace            string
+	Annotations          map[string]string
+	Labels               map[string]string
+	EnvironmentVariables map[string]string
+	Job                  flinkIdl.FlinkJob
 }
 
 type FlinkTaskExecContext interface {
@@ -92,11 +93,12 @@ func NewFlinkTaskContext(ctx context.Context, taskCtx FlinkTaskExecContext) (*Fl
 	}
 
 	return &FlinkTaskContext{
-		ClusterName: cn,
-		Namespace:   taskMetadata.GetNamespace(),
-		Annotations: GetDefaultAnnotations(taskMetadata),
-		Labels:      GetDefaultLabels(taskMetadata),
-		Job:         job,
+		ClusterName:          cn,
+		Namespace:            taskMetadata.GetNamespace(),
+		Annotations:          GetDefaultAnnotations(taskMetadata),
+		Labels:               GetDefaultLabels(taskMetadata),
+		EnvironmentVariables: GetDefaultEnvironmentVariables(taskMetadata),
+		Job:                  job,
 	}, nil
 }
 
