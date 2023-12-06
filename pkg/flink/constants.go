@@ -15,10 +15,11 @@
 package flink
 
 import (
-	"github.com/flyteorg/flyteplugins/go/tasks/errors"
 	"regexp"
 
-	pluginsConfig "github.com/flyteorg/flyteplugins/go/tasks/config"
+	"github.com/flyteorg/flyte/flyteplugins/go/tasks/errors"
+
+	pluginsConfig "github.com/flyteorg/flyte/flyteplugins/go/tasks/config"
 	flinkOp "github.com/spotify/flink-on-k8s-operator/apis/flinkcluster/v1beta1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"

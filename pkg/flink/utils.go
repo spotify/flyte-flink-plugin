@@ -17,7 +17,7 @@ package flink
 import (
 	"fmt"
 
-	"github.com/flyteorg/flyteidl/gen/pb-go/flyteidl/core"
+	"github.com/flyteorg/flyte/flyteidl/gen/pb-go/flyteidl/core"
 )
 
 func literalMapToFlinkJobArgs(literals map[string]*core.Literal) ([]string, error) {
