@@ -97,7 +97,7 @@ func NewFlinkTaskContext(ctx context.Context, taskCtx FlinkTaskExecContext) (*Fl
 		Namespace:            taskMetadata.GetNamespace(),
 		Annotations:          GetDefaultAnnotations(taskMetadata),
 		Labels:               GetDefaultLabels(taskMetadata),
-		EnvironmentVariables: GetDefaultEnvVars(taskMetadata),
+		EnvironmentVariables: GetEnvironmentVariables(taskMetadata),
 		Job:                  job,
 	}, nil
 }
