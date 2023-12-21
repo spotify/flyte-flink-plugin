@@ -63,6 +63,15 @@ func GetDefaultLabels(taskCtx pluginsCore.TaskExecutionMetadata) Labels {
 	)
 }
 
+type EnvVars map[string]string
+
+func GetDefaultEnvironmentVariables(taskCtx pluginsCore.TaskExecutionMetadata) EnvVars {
+	return utils.UnionMaps(
+		config.GetK8sPluginConfig().DefaultEnvVars,
+		utils.CopyMap(taskCtx.GetEnvironmentVariables()),
+	)
+}
+
 type ClusterName string
 
 func (cn ClusterName) Validate() error {
