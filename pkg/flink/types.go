@@ -63,9 +63,9 @@ func GetDefaultLabels(taskCtx pluginsCore.TaskExecutionMetadata) Labels {
 	)
 }
 
-type EnvironmentVariables map[string]string
+type EnvVars map[string]string
 
-func GetDefaultEnvironmentVariables(taskCtx pluginsCore.TaskExecutionMetadata) EnvironmentVariables {
+func GetDefaultEnvVars(taskCtx pluginsCore.TaskExecutionMetadata) EnvVars {
 	return utils.UnionMaps(
 		config.GetK8sPluginConfig().DefaultEnvVars,
 		utils.CopyMap(taskCtx.GetEnvironmentVariables()),
