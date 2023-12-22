@@ -286,6 +286,91 @@ var _ interface {
 	ErrorName() string
 } = TaskManagerValidationError{}
 
+// Validate checks the field values on Worker with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Worker) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if _, ok := Worker_Size_name[int32(m.GetSize())]; !ok {
+		return WorkerValidationError{
+			field:  "Size",
+			reason: "value must be one of the defined enum values",
+		}
+	}
+
+	if _, ok := Worker_Type_name[int32(m.GetType())]; !ok {
+		return WorkerValidationError{
+			field:  "Type",
+			reason: "value must be one of the defined enum values",
+		}
+	}
+
+	if m.GetReplicas() < 0 {
+		return WorkerValidationError{
+			field:  "Replicas",
+			reason: "value must be greater than or equal to 0",
+		}
+	}
+
+	return nil
+}
+
+// WorkerValidationError is the validation error returned by Worker.Validate if
+// the designated constraints aren't met.
+type WorkerValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkerValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkerValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkerValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkerValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkerValidationError) ErrorName() string { return "WorkerValidationError" }
+
+// Error satisfies the builtin error interface
+func (e WorkerValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorker.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkerValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkerValidationError{}
+
 // Validate checks the field values on JFlyte with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
 func (m *JFlyte) Validate() error {
@@ -439,6 +524,16 @@ func (m *FlinkJob) Validate() error {
 	// no validation rules for KubernetesClusterName
 
 	// no validation rules for KubernetesClusterRegion
+
+	if v, ok := interface{}(m.GetWorker()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return FlinkJobValidationError{
+				field:  "Worker",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if v, ok := interface{}(m.GetJflyte()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {

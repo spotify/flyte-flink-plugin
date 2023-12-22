@@ -37,6 +37,25 @@ message TaskManager {
   int32 replicas = 2 [ (validate.rules).int32.gte = 0 ];
 }
 
+message Worker {
+  enum Size {
+    CUSTOM = 0;
+    S = 1;
+    M = 2;
+    L = 3;
+  }
+
+  enum Type {
+    STANDARD = 0;
+    HIGHMEM = 1;
+    HIGHCPU = 2;
+  }
+
+  Size size = 1 [ (validate.rules).enum.defined_only = true ];
+  Type type = 2 [ (validate.rules).enum.defined_only = true ];
+  int32 replicas = 3 [ (validate.rules).int32.gte = 0 ];
+}
+
 message JFlyte {
   message Artifact {
     string name = 1;
@@ -66,6 +85,7 @@ message FlinkJob {
   int32 parallelism = 10 [ (validate.rules).int32.gte = 0 ];
   string kubernetesClusterName = 11;
   string kubernetesClusterRegion = 12;
+  Worker worker = 13;
 
   // if using experiment flytekit-java this will contain all artifacts required
   // to run the task
